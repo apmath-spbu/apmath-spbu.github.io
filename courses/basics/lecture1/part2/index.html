@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ru" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.75.1" />
+    <meta name="description" content="Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ">
+<meta name="author" content="Alexander Ulanov">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>1.2. Введение в языки программирования C и C&#43;&#43; :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+
+    
+    <link href="/css/nucleus.css?1600966826" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1600966826" rel="stylesheet">
+    <link href="/css/hybrid.css?1600966826" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1600966826" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1600966826" rel="stylesheet">
+    <link href="/css/auto-complete.css?1600966826" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1600966826" rel="stylesheet">
+    <link href="/css/theme.css?1600966826" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1600966826" rel="stylesheet">
+    
+    <link href="/css/theme-darkgreen.css?1600966826" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1600966826"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/courses/basics/lecture1/part2/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <img src="http://www.apmath.spbu.ru/redesign/v1004/main/assets/images/logo.png" alt="" style="height: 3.57143rem;">
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Поиск...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1600966826"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1600966826"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/apmath-spbu.github.io\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1600966826"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/courses/" title="Материалы по лекциям на кафедре технологии программирования" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/courses/">
+          Материалы по лекциям на кафедре технологии программирования
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/courses/basics/" title="Основы программирования Осень 2020" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/courses/basics/">
+          Основы программирования Осень 2020
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/courses/basics/lecture1/" title="Лекция #1" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/courses/basics/lecture1/">
+          Лекция #1
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/courses/basics/lecture1/part1/" title="1.1. Машинный язык" class="dd-item ">
+        <a href="/courses/basics/lecture1/part1/">
+        1.1. Машинный язык
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/courses/basics/lecture1/part2/" title="1.2. Введение в языки программирования C и C&#43;&#43;" class="dd-item active">
+        <a href="/courses/basics/lecture1/part2/">
+        1.2. Введение в языки программирования C и C&#43;&#43;
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/post/" title="Posts" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/post/">
+          Posts
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/post/use-snap-to-install-the-hugo-edge-version-on-fedora-and-ubuntu/" title="Use Snap to install the Hugo edge version on Fedora and Ubuntu" class="dd-item ">
+        <a href="/post/use-snap-to-install-the-hugo-edge-version-on-fedora-and-ubuntu/">
+        Use Snap to install the Hugo edge version on Fedora and Ubuntu
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/post/script-to-add-a-page-level-variable-to-content-front-matter-in-hugo/" title="Script to add a page-level variable to content front matter in hugo" class="dd-item ">
+        <a href="/post/script-to-add-a-page-level-variable-to-content-front-matter-in-hugo/">
+        Script to add a page-level variable to content front matter in hugo
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/post/creating-a-new-theme/" title="Creating a New Theme" class="dd-item ">
+        <a href="/post/creating-a-new-theme/">
+        Creating a New Theme
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/post/goisforlovers/" title="(Hu)go Template Primer" class="dd-item ">
+        <a href="/post/goisforlovers/">
+        (Hu)go Template Primer
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/post/hugoisforlovers/" title="Getting Started with Hugo" class="dd-item ">
+        <a href="/post/hugoisforlovers/">
+        Getting Started with Hugo
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/post/migrate-from-jekyll/" title="Migrate to Hugo from Jekyll" class="dd-item ">
+        <a href="/post/migrate-from-jekyll/">
+        Migrate to Hugo from Jekyll
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Очистить историю</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="https://getgrav.org">Grav</a> and <a href="https://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture1/'>Лекция #1</a> > 1.2. Введение в языки программирования C и C++
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#язык-c">Язык C++</a></li>
+    <li><a href="#философия-с-и-с">Философия С и С++</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+<div class="tags">
+
+  <a class="tag-link" href="/tags/%D1%81">с</a>
+
+  <a class="tag-link" href="/tags/cpp">cpp</a>
+
+  <a class="tag-link" href="/tags/history">history</a>
+
+</div>
+
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              1.2. Введение в языки программирования C и C&#43;&#43;
+            </h1>
+          
+
+        
+
+
+<p>Перед <a href="https://en.wikipedia.org/wiki/C++">C++</a> был <a href="https://en.wikipedia.org/wiki/C_(programming_language)">C</a>. C был разработан в 1972 году Деннисом Ритчи в <strong>Bell Telephone Laboratories</strong> как системный язык программирования, т.е. язык для написания операционных систем. Основной задачей Ритчи было создание легко компилируемого минималистического языка, который предоставлял бы эффективный доступ к памяти, относительно быстро выполнялся, и на котором можно было бы писать эффективный код. Таким образом, при разработке высокоуровневого языка, был создан язык Си, который во многом относился к языкам низкого уровня, оставаясь при этом независимым от платформ, для которых мог быть написан код.</p>
+<p>Cи в конечном итоге стал настолько эффективным и гибким, что в 1973 году Ритчи и Кен Томпсон переписали больше половины операционной системы UNIX, используя этот язык. Многие предыдущие операционные системы были написаны на языке ассемблера. В отличие от Ассемблера, на котором пишутся программы под конкретные процессоры, высокая портативность языка Cи позволила перекомпилировать UNIX и на другие типы компьютеров, ускоряя его популяризацию. Язык Cи и операционная система UNIX тесно связаны между собой, и популярность первого отчасти связана с успехом второго.</p>
+<p>В 1978 году Брайан Керниган и Деннис Ритчи опубликовали книгу под названием <strong>«Язык программирования Cи»</strong>. Эта книга, более известна как <strong>«K&amp;R»</strong> (первые буквы фамилий авторов), стала стандартом и своеобразной инструкцией к Си. Когда требовалась максимальная портативность, то программисты придерживались рекомендаций в «K&amp;R», поскольку большинство компиляторов в то время были реализованы в соответствии со стандартами, присутствующими в этой книге.</p>
+<p>В 1983 году Американский национальный институт стандартов (<strong>«ANSI»</strong> - «<strong>A</strong>merican <strong>N</strong>ational <strong>S</strong>tandards <strong>I</strong>nstitute») сформировал комитет для утверждения официального стандарта языка Cи. В 1989 году они закончили и выпустили стандарт C89, более широко известный, как ANSI C. В 1990 году Международная организация по стандартизации (<strong>«ISO»</strong> от англ. «<strong>I</strong>nternational <strong>O</strong>rganization for <strong>S</strong>tandardization») приняла ANSI C (с небольшими изменениями). Эта версия языка Cи стала известна как C90. В конечном счете, компиляторы адаптировались под требования ANSI C/C90 и программы, в которых требовалась максимальная портативность, писались в соответствие с этими стандартами.</p>
+<p>В 1999 году комитет ANSI выпустил новую версию языка Cи, которая получила название C99. Она приняла много особенностей, которые были реализованы в компиляторах (в виде различных расширений) или уже в языке C++.</p>
+<h2 id="язык-c">Язык C++</h2>
+<p>C++ был разработан Бьёрном Страуструпом в <strong>Bell Labs</strong> в качестве дополнения к Cи в 1979 г. Он добавил множество новых возможностей в язык Си. Его популярность была вызвана объектно-ориентированностью языка. Об объектно-ориентированном программировании (ООП) и его отличиях от традиционных методов программирования мы поговорим несколько позже.</p>
+<p>Язык C++ был ратифицирован (одобрен) комитетом ISO в 1998 году и потом снова в 2003 году (под названием C++03). Потом был долгий перерыв, но позже язык C++ стал быстро развиваться: C++11, C++14, C++17, С++20, которые добавили больше функциональных возможностей.</p>
+<h2 id="философия-с-и-с">Философия С и С++</h2>
+<p>Смысл философии языков С и C++ можно определить выражением «доверять программисту». Например, компилятор не будет вам мешать сделать что-то новое, что имеет смысл, но также не будет мешать вам сделать что-то такое, что может привести к сбою. Это одна из главных причин, почему так важно знать то, что вы не должны делать, как и то, что вы должны делать, создавая программы на языках С/С++.</p>
+
+
+<footer class="footline">
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/courses/basics/lecture1/part1/" title="1.1. Машинный язык"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/post/" title="Posts" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1600966826"></script>
+    <script src="/js/perfect-scrollbar.min.js?1600966826"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1600966826"></script>
+    <script src="/js/jquery.sticky.js?1600966826"></script>
+    <script src="/js/featherlight.min.js?1600966826"></script>
+    <script src="/js/highlight.pack.js?1600966826"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1600966826"></script>
+    <script src="/js/learn.js?1600966826"></script>
+    <script src="/js/hugo-learn.js?1600966826"></script>
+    
+        
+            <script src="/mermaid/mermaid.js?1600966826"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    
+
+  </body>
+</html>
+
