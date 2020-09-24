@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Лекция #1 :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>1.8. Макросы. Ввод-вывод :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1600982431" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/basics/lecture1/">
+  <body class="" data-url="/courses/basics/lecture1/part8/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -141,7 +141,7 @@
     
     <li data-nav-id="/courses/basics/lecture1/" title="Лекция #1" class="dd-item 
         parent
-        active
+        
         
         ">
       <a href="/courses/basics/lecture1/">
@@ -315,7 +315,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture1/part8/" title="1.8. Макросы. Ввод-вывод" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture1/part8/" title="1.8. Макросы. Ввод-вывод" class="dd-item active">
         <a href="/courses/basics/lecture1/part8/">
         1.8. Макросы. Ввод-вывод
         <i class="fas fa-check read-icon"></i>
@@ -444,7 +444,13 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > Лекция #1
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture1/'>Лекция #1</a> > 1.8. Макросы. Ввод-вывод
+          
+        
           
         
           
@@ -459,7 +465,12 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#ввод-вывод">Ввод-вывод</a></li>
+    <li><a href="#пространства-имен">Пространства имен</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -469,36 +480,94 @@
             
         <div id="head-tags">
         
+<div class="tags">
+
+  <a class="tag-link" href="/tags/%D1%81">с</a>
+
+  <a class="tag-link" href="/tags/cpp">cpp</a>
+
+</div>
+
         </div>
         
         <div id="body-inner">
           
             <h1>
               
-              Лекция #1
+              1.8. Макросы. Ввод-вывод
             </h1>
           
 
         
 
 
+<p>В качестве продвинутой темы первой лекции рассмотрим применение макросов в C++. Макрос можно условно назвать функцией обработки и замены программного кода: после сборки программы макросы заменяются макроопределениями. Вот как это выглядит на примере подмены функции:</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
 
-	<p><a href="/courses/basics/lecture1/part1/">Введение в программирование</a></p>
-<p><a href="/courses/basics/lecture1/part2/">История С++</a></p>
-<p><a href="/courses/basics/lecture1/part3/">Компиляция</a></p>
-<p><a href="/courses/basics/lecture1/part4/">Типы данных C++</a></p>
-<p><a href="/courses/basics/lecture1/part5/">Переменные</a></p>
-<p><a href="/courses/basics/lecture1/part6/">Инструкции. Условные операторы. Цкилы</a></p>
-<p><a href="/courses/basics/lecture1/part7/">Функции</a></p>
-<p><a href="/courses/basics/lecture1/part8/">Макрсы Ввод-вывод</a></p>
-<p>В рамаках данной лекции предполагается решение <strong>6</strong> задач на <a href="https://www.hackerrank.com/b04-20-1sem">HackerRank</a></p>
-<hr>
+#define SUM(x, y) (x + y)
+
+int main()
+{
+	int a = 5;
+	int b = 10;
+	int sum = SUM(a, b);
+	cout &lt;&lt; sum;
+    return 0;
+}
+</code></pre><p>Этот код преобразуется препроцессором в следующий:</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+	int a = 5;
+	int b = 10;
+	int sum = (a + b);
+	cout &lt;&lt; sum;
+    return 0;
+}
+</code></pre><p>Помимо макросов, которые подменяют функции, есть и другие очень полезные директивы препроцессора. Вот некоторые из наиболее часто используемых:</p>
+<p><strong>#include</strong> — включить содержимое стороннего файла в текущий файл,
+<strong>#ifdef</strong>, <strong>ifndef</strong>, <strong>#endif</strong> — задать условие для компиляции,
+<strong>#define</strong> — определить константу (и, конечно же, макрос).</p>
+<p>С помощью <strong>#ifdef</strong> довольно часто задаётся условная компиляция блоков кода на основе некоторого условия, а так же условие для компиляции на различных версиях ОС.</p>
+<pre><code>#ifndef MACROS
+#define MACROS
+
+/* гарантирует включение заголовочных файлов только один раз */
+
+#endif // MACROS
+</code></pre><h2 id="ввод-вывод">Ввод-вывод</h2>
+<p>В данном курсе мы будем использовать только систему ввода/вывода из С++ (не смотря на то, что функции ввода-вывода из C таже работают, но имеют чуть сложный синтаксис).
+Для ввода/вывода в C++ используется библиотека <strong>iostream</strong> (<strong>I</strong>nput <strong>O</strong>utput <strong>stream</strong>). Вывод на экран мы с вами уже использовали в примерах выше происходит при помощи оператора <strong>cout</strong> со стрелками &ldquo;меньше&rdquo; <code>&lt;&lt;</code> и перевода каретка на новую строку с помощью <strong>endl</strong>. Ввод же использует оператор <strong>cin</strong> со стрелками &ldquo;больше&rdquo; <code>&gt;&gt;</code></p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+ 
+int main()
+{
+   cout &lt;&lt; &quot;Enter a number: &quot;; // просим пользователя ввести любое число
+   int a = 0;
+   cin &gt;&gt; a; // получаем пользовательское число и сохраняем его в переменную a
+   cout &lt;&lt; &quot;You entered &quot; &lt;&lt; a &lt;&lt; endl;
+   return 0;
+}
+</code></pre><h2 id="пространства-имен">Пространства имен</h2>
+<p>В кадлом примере включалась следующая инструкция (после макросов #include) - <code>using namespace std;</code>. Данная инструкция &ldquo;регистрирурет&rdquo; в программе те функции и операторы, которые содержатся в пространстке <strong>std</strong>. Её можно не писать, но тогда пример выше будет выгладить многословнее:</p>
+<pre><code>#include &lt;iostream&gt;
+ 
+int main()
+{
+   std::cout &lt;&lt; &quot;Enter a number: &quot;; // просим пользователя ввести любое число
+   int a = 0;
+   std::cin &gt;&gt; a; // получаем пользовательское число и сохраняем его в переменную a
+   std::cout &lt;&lt; &quot;You entered &quot; &lt;&lt; a &lt;&lt; std::endl;
+   return 0;
+}
+</code></pre><hr>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -694,6 +763,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -713,6 +783,9 @@
             
                 
                     
+                        
+                        
+                    
                 
                 
 
@@ -739,10 +812,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/basics/" title="Основы программирования Осень 2020"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture1/part7/" title="1.7. Функции"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/lecture1/part1/" title="1.1. Введение в программирование" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/ide/" title="Среда разработки для C&#43;&#43;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -774,3 +847,4 @@
 
   </body>
 </html>
+

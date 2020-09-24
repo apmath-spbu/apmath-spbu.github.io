@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Лекция #1 :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>1.4. Типы данных :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1600982431" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/basics/lecture1/">
+  <body class="" data-url="/courses/basics/lecture1/part4/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -141,7 +141,7 @@
     
     <li data-nav-id="/courses/basics/lecture1/" title="Лекция #1" class="dd-item 
         parent
-        active
+        
         
         ">
       <a href="/courses/basics/lecture1/">
@@ -231,7 +231,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture1/part4/" title="1.4. Типы данных" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture1/part4/" title="1.4. Типы данных" class="dd-item active">
         <a href="/courses/basics/lecture1/part4/">
         1.4. Типы данных
         <i class="fas fa-check read-icon"></i>
@@ -444,7 +444,13 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > Лекция #1
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture1/'>Лекция #1</a> > 1.4. Типы данных
+          
+        
           
         
           
@@ -459,7 +465,13 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#модификаторы">Модификаторы</a></li>
+    <li><a href="#типичные-размеры">Типичные размеры</a></li>
+    <li><a href="#литералы">Литералы</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -469,36 +481,154 @@
             
         <div id="head-tags">
         
+<div class="tags">
+
+  <a class="tag-link" href="/tags/%D1%81">с</a>
+
+  <a class="tag-link" href="/tags/cpp">cpp</a>
+
+  <a class="tag-link" href="/tags/types">types</a>
+
+</div>
+
         </div>
         
         <div id="body-inner">
           
             <h1>
               
-              Лекция #1
+              1.4. Типы данных
             </h1>
           
 
         
 
 
-
-	<p><a href="/courses/basics/lecture1/part1/">Введение в программирование</a></p>
-<p><a href="/courses/basics/lecture1/part2/">История С++</a></p>
-<p><a href="/courses/basics/lecture1/part3/">Компиляция</a></p>
-<p><a href="/courses/basics/lecture1/part4/">Типы данных C++</a></p>
-<p><a href="/courses/basics/lecture1/part5/">Переменные</a></p>
-<p><a href="/courses/basics/lecture1/part6/">Инструкции. Условные операторы. Цкилы</a></p>
-<p><a href="/courses/basics/lecture1/part7/">Функции</a></p>
-<p><a href="/courses/basics/lecture1/part8/">Макрсы Ввод-вывод</a></p>
-<p>В рамаках данной лекции предполагается решение <strong>6</strong> задач на <a href="https://www.hackerrank.com/b04-20-1sem">HackerRank</a></p>
+<p>C++ предоставляет работу со следюущими &ldquo;примитивными&rdquo; типами данных:</p>
+<ul>
+<li>Примитивные</li>
+<li>Производные</li>
+<li>Пользовательские</li>
+</ul>
+<p>В рамках первой лекции мы рассмотрим только примитивные типы данных. Остальные будут представлены позже.
+Примитивные делятся на:</p>
+<ul>
+<li>Целочисленные (Integer) - <strong>short</strong> (2 байта), <strong>int</strong> (4 байта), <strong>long</strong> (8 байт)</li>
+<li>Символ (Character) - <strong>char</strong> (1 байт)</li>
+<li>Булевский (Boolean) - <strong>bool</strong> (1 байт) - может хранить или <code>true</code> или <code>false</code></li>
+<li>С плавающей точкой (Floating point) - <strong>float</strong></li>
+<li>С двойной точностью (Double floating point) - <strong>double</strong></li>
+<li><strong>void</strong> - предствляет сущности без значения. Например для представления функций, которые не возвращают значения.</li>
+</ul>
+<h2 id="модификаторы">Модификаторы</h2>
+<p>Помимо основных примитивных типов C++ позволяет их обогатить знаковыми модификаторами (только для целочисленных типов и символа):</p>
+<ul>
+<li>signed - знаковый. По умолчанию все целочисленные являются знаковыми</li>
+<li>unsigned - беззнаковы. Увеличивает диапазон положительных значений в 2 раза за счет отсутствия отрицательных.</li>
+</ul>
+<h2 id="типичные-размеры">Типичные размеры</h2>
+<table>
+<thead>
+<tr>
+<th>Тип</th>
+<th>Размер (в байтах)</th>
+<th>Диапазон</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>signed char</td>
+<td>1</td>
+<td>-128 до 127</td>
+</tr>
+<tr>
+<td>unsigned char</td>
+<td>1</td>
+<td>0 до 255</td>
+</tr>
+<tr>
+<td>short</td>
+<td>2</td>
+<td>-32,768 до 32,767</td>
+</tr>
+<tr>
+<td>int</td>
+<td>4</td>
+<td>-2,147,483,648 до 2,147,483,647</td>
+</tr>
+<tr>
+<td>long</td>
+<td>8</td>
+<td>-2,147,483,648 до 2,147,483,647</td>
+</tr>
+<tr>
+<td>unsigned long</td>
+<td>8</td>
+<td>0 до 4,294,967,295</td>
+</tr>
+<tr>
+<td>float</td>
+<td>4</td>
+<td>1Е–37 до  1Е+37 (с точностью не менее 6 значащих десятичных цифр)</td>
+</tr>
+<tr>
+<td>double</td>
+<td>8</td>
+<td>1Е–37 до  1Е+37 (с точностью не менее 10 значащих десятичных цифр)</td>
+</tr>
+</tbody>
+</table>
+<p>Посчитать размер типа можно с помощью <code>sizeof</code>:</p>
+<pre><code>#include&lt;iostream&gt; 
+using namespace std; 
+  
+int main() 
+{ 
+    cout &lt;&lt; &quot;Size of char : &quot; &lt;&lt; sizeof(char) &lt;&lt; &quot; byte&quot; &lt;&lt; endl; 
+    cout &lt;&lt; &quot;Size of int : &quot; &lt;&lt; sizeof(int) &lt;&lt; &quot; bytes&quot; &lt;&lt; endl; 
+    cout &lt;&lt; &quot;Size of short : &quot; &lt;&lt; sizeof(short) &lt;&lt; &quot; bytes&quot; &lt;&lt; endl; 
+    cout &lt;&lt; &quot;Size of long : &quot; &lt;&lt; sizeof(long) &lt;&lt; &quot; bytes&quot; &lt;&lt; endl; 
+    cout &lt;&lt; &quot;Size of signed long : &quot; &lt;&lt; sizeof(signed long) &lt;&lt; &quot; bytes&quot; &lt;&lt; endl; 
+    cout &lt;&lt; &quot;Size of unsigned long : &quot; &lt;&lt; sizeof(unsigned long) &lt;&lt; &quot; bytes&quot; &lt;&lt; endl; 
+    cout &lt;&lt; &quot;Size of float : &quot; &lt;&lt; sizeof(float)  &lt;&lt; &quot; bytes&quot; &lt;&lt;endl; 
+    cout &lt;&lt; &quot;Size of double : &quot; &lt;&lt; sizeof(double) &lt;&lt; &quot; bytes&quot; &lt;&lt; endl;           
+    return 0; 
+}
+</code></pre><p>Выведет:</p>
+<pre><code>Size of char : 1 byte
+Size of int : 4 bytes
+Size of short : 2 bytes
+Size of long : 8 bytes
+Size of signed long : 8 bytes
+Size of unsigned long : 8 bytes
+Size of float : 4 bytes
+Size of double : 8 bytes
+</code></pre><h2 id="литералы">Литералы</h2>
+<p>Достаточно часто можно подсказать компилятору какой тип используется по описанию самого значения. Для этого используются <em>литералы</em>, с помощью которых можно &ldquo;пометить&rdquo; знаение к определенному типу. Список литералов следующий:</p>
+<ul>
+<li>Целочисленные
+<ol>
+<li><strong>&lsquo;a&rsquo;</strong> - код буквы &lsquo;a&rsquo;, тип <strong>char</strong></li>
+<li>42 - все целые числа по умолчанию тип <strong>int</strong> (если входят в диапозон, в противном случае <strong>long</strong> (опять таки, если войдут в диапазон))</li>
+<li>1234567890<strong>L</strong> - суффикс <strong>L</strong> соответсвует типу <strong>long</strong></li>
+<li>1703<strong>U</strong> - суффикс <strong>U</strong> соответсвует типу <strong>unsigned int</strong></li>
+<li>2128506<strong>UL</strong> - соответствует типу <strong>unsigned long</strong></li>
+</ol>
+</li>
+<li>Числа с плавающей точкой:
+<ol>
+<li>3.14 - все числа с плавающей точкой по умолчанию тип <strong>double</strong></li>
+<li>2.71<strong>F</strong> - суффикс <strong>F</strong> соответсвует типу <strong>float</strong></li>
+<li>3.0<strong>E8</strong> - соотвествует значение 3.0 * 10^8</li>
+</ol>
+</li>
+<li><strong>true</strong> и <strong>false</strong> - значения типа <strong>bool</strong></li>
+<li>Строки задаются в двойных кавычках: <code>&quot;Text string&quot;</code></li>
+</ul>
 <hr>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -630,6 +760,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -645,6 +776,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -739,10 +873,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/basics/" title="Основы программирования Осень 2020"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture1/part3/" title="1.3. Компиляция"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/lecture1/part1/" title="1.1. Введение в программирование" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/lecture1/part5/" title="1.5. Переменные" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -774,3 +908,4 @@
 
   </body>
 </html>
+

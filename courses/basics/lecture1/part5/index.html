@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Лекция #1 :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>1.5. Переменные :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1600982431" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/basics/lecture1/">
+  <body class="" data-url="/courses/basics/lecture1/part5/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -141,7 +141,7 @@
     
     <li data-nav-id="/courses/basics/lecture1/" title="Лекция #1" class="dd-item 
         parent
-        active
+        
         
         ">
       <a href="/courses/basics/lecture1/">
@@ -252,7 +252,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture1/part5/" title="1.5. Переменные" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture1/part5/" title="1.5. Переменные" class="dd-item active">
         <a href="/courses/basics/lecture1/part5/">
         1.5. Переменные
         <i class="fas fa-check read-icon"></i>
@@ -444,7 +444,13 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > Лекция #1
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture1/'>Лекция #1</a> > 1.5. Переменные
+          
+        
           
         
           
@@ -459,7 +465,12 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#неинициализированные-переменные">Неинициализированные переменные</a></li>
+    <li><a href="#операции">Операции</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -469,36 +480,124 @@
             
         <div id="head-tags">
         
+<div class="tags">
+
+  <a class="tag-link" href="/tags/%D1%81">с</a>
+
+  <a class="tag-link" href="/tags/cpp">cpp</a>
+
+  <a class="tag-link" href="/tags/variables">variables</a>
+
+</div>
+
         </div>
         
         <div id="body-inner">
           
             <h1>
               
-              Лекция #1
+              1.5. Переменные
             </h1>
           
 
         
 
 
+<p>При определении переменной указывается её тип. При определении можно сразу задать начальное значение (инициализация), задать несколько переменных в одной строке или просто объявить (без инициализации):</p>
+<pre><code>int i = 10; 
+short j = 20; 
+bool b = false; 
+unsigned long l = 123123; 
+double x = 13.5 , y = 3.1415; 
+float z; 
+</code></pre><p>В языке C++ есть две похожие концепции, которые новички часто путают: присваивание и инициализация. После объявления переменной, ей можно присвоить значение с помощью оператора присваивания (знак равенства =):</p>
+<pre><code>int a; // это объявление переменной
+a = 8; // а это присваивание переменной a значения 8
+</code></pre><p>В языке C++ вы можете объявить переменную и присвоить ей значение одновременно. Это называется инициализацией (или «определением»).</p>
+<pre><code>int a = 8; // инициализируем переменную a значением 8
+</code></pre><p>Переменная может быть инициализирована только после операции объявления.
+Хотя эти два понятия близки по своей сути и часто могут использоваться для достижения одних и тех же целей, все же в некоторых случаях следует использовать инициализацию, вместо присваивания, а в некоторых — присваивание вместо инициализации.</p>
+<p><strong>Правило: Если у вас изначально имеется значение для переменной, то используйте инициализацию, вместо присваивания.</strong></p>
+<h2 id="неинициализированные-переменные">Неинициализированные переменные</h2>
+<p>В отличие от других языков программирования, языки Cи и C++ не инициализируют переменные определенными значениями (например, нулем) по умолчанию. Поэтому, при создании переменной, ей присваивается ячейка в памяти, в которой уже может (но не обязательно, зависит от компилятора) находиться какой-нибудь мусор! Переменная без значения (со стороны программиста или пользователя) называется неинициализированной переменной.</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+ 
+int main()
+{
+    int a;
+    cout &lt;&lt; a; 
+    return 0;
+}
+</code></pre><p>Использование неинициализированных переменных является одной из самых распространенных ошибок. Хорошей практикой считается всегда инициализировать свои переменные. Это будет гарантией того, что ваша переменная всегда имеет определенное значение и вы не получите ошибку от компилятора.</p>
+<p><strong>Правило: Убедитесь, что все ваши переменные в программе имеют значения (либо через инициализацию, либо через операцию присваивания).</strong></p>
+<h2 id="операции">Операции</h2>
+<p>Над переменными можно проводить операции:</p>
+<ul>
+<li>Присваивания (<strong>=</strong>)</li>
+<li>Арифметические:
+<ol>
+<li>бинарные: <strong>+ - * /</strong> <strong>%</strong> (оператор взяти остатка от деления)</li>
+<li>унарные: <strong>++ &ndash;</strong> - инкремерт и декремент.</li>
+<li>сокращенные версии бинарных операторов: *<em>+= <em>= -= /= %=</em></em></li>
+</ol>
+</li>
+<li>Логические:
+<ol>
+<li>бинрные: <strong>&amp;&amp; ||</strong></li>
+<li>унарные: <strong>!</strong></li>
+</ol>
+</li>
+<li>Сравнения:
+<strong>== != &lt; &gt; &lt;= &gt;=</strong></li>
+<li>Приведения типов: <strong>(type)</strong></li>
+</ul>
+<p>Ниже приведена программа для ознакомления, иллюстрирующая данные операции:</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
 
-	<p><a href="/courses/basics/lecture1/part1/">Введение в программирование</a></p>
-<p><a href="/courses/basics/lecture1/part2/">История С++</a></p>
-<p><a href="/courses/basics/lecture1/part3/">Компиляция</a></p>
-<p><a href="/courses/basics/lecture1/part4/">Типы данных C++</a></p>
-<p><a href="/courses/basics/lecture1/part5/">Переменные</a></p>
-<p><a href="/courses/basics/lecture1/part6/">Инструкции. Условные операторы. Цкилы</a></p>
-<p><a href="/courses/basics/lecture1/part7/">Функции</a></p>
-<p><a href="/courses/basics/lecture1/part8/">Макрсы Ввод-вывод</a></p>
-<p>В рамаках данной лекции предполагается решение <strong>6</strong> задач на <a href="https://www.hackerrank.com/b04-20-1sem">HackerRank</a></p>
-<hr>
+int main()
+{
+    int i = 10; 
+    i = (20 * 3) % 7; // остаток от деления 60 на 7 есть 4
+    cout &lt;&lt; &quot;i is &quot; &lt;&lt; i &lt;&lt; endl;
+
+    /* &quot;постфиксная&quot; версия унарного оператора - 
+    в начале будет присвоено значение 4 в k, а затем i увеличится на 1 и станет 5*/
+    int k = i++; 
+    cout &lt;&lt; &quot;k is &quot; &lt;&lt; k &lt;&lt; endl;
+    /* &quot;префиксная&quot; версия унарного оператора - 
+    в начале будет уменьшино значение i на единицу до 4,
+    потом это значение (4) будет присвоено значение в l*/
+    int l = --i; 
+    cout &lt;&lt; &quot;l is &quot; &lt;&lt; l &lt;&lt; endl;
+
+    // k равен l, что вернет true, но инверсия превразает в false (0)
+    bool b = !(k == l); 
+    cout &lt;&lt; &quot;b initialized as &quot; &lt;&lt; b &lt;&lt; endl;
+    
+    double a = 0.1;
+    /* переприсваивание b.
+    В выражении дизъюнкция, потому компилатор не будет выполнять другие выражения с права,
+    если слева встретилось выражение дающее true.
+    В данном случае ни первое выражение, ни ни второе не дают true
+    */
+    b = (a == 0) || (1 / a &lt; 1); 
+    cout &lt;&lt; &quot;b still &quot; &lt;&lt; b &lt;&lt; endl;
+
+    double d = 3.1415; 
+    // идет приведение к целочисленному и записью целового значение в float
+    float f = (int) d; 
+    cout &lt;&lt; &quot;float contains &quot; &lt;&lt; f &lt;&lt; endl;
+    
+    d *= i + k ; // аналогично d = d * (i + k)  = 3.1415 * 8
+    cout &lt;&lt; &quot;d should equal to &quot; &lt;&lt; d &lt;&lt; endl;
+    return 0;
+}
+</code></pre><hr>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -646,6 +745,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -661,6 +761,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -739,10 +842,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/basics/" title="Основы программирования Осень 2020"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture1/part4/" title="1.4. Типы данных"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/lecture1/part1/" title="1.1. Введение в программирование" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/lecture1/part6/" title="1.6. Инструкции. Условные операторы. Циклы" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -774,3 +877,4 @@
 
   </body>
 </html>
+

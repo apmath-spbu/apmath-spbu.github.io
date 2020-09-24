@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Лекция #1 :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>1.6. Инструкции. Условные операторы. Циклы :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1600982431" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/basics/lecture1/">
+  <body class="" data-url="/courses/basics/lecture1/part6/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -141,7 +141,7 @@
     
     <li data-nav-id="/courses/basics/lecture1/" title="Лекция #1" class="dd-item 
         parent
-        active
+        
         
         ">
       <a href="/courses/basics/lecture1/">
@@ -273,7 +273,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture1/part6/" title="1.6. Инструкции. Условные операторы. Циклы" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture1/part6/" title="1.6. Инструкции. Условные операторы. Циклы" class="dd-item active">
         <a href="/courses/basics/lecture1/part6/">
         1.6. Инструкции. Условные операторы. Циклы
         <i class="fas fa-check read-icon"></i>
@@ -444,7 +444,13 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > Лекция #1
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture1/'>Лекция #1</a> > 1.6. Инструкции. Условные операторы. Циклы
+          
+        
           
         
           
@@ -459,7 +465,14 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#вложенная-видимость">Вложенная видимость</a></li>
+    <li><a href="#условные-операторы-ветвления-ifelse">Условные операторы ветвления if/else</a></li>
+    <li><a href="#циклы-for-while">Циклы for, while</a></li>
+    <li><a href="#цикл-do-while">Цикл do-while</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -469,36 +482,112 @@
             
         <div id="head-tags">
         
+<div class="tags">
+
+  <a class="tag-link" href="/tags/%D1%81">с</a>
+
+  <a class="tag-link" href="/tags/cpp">cpp</a>
+
+</div>
+
         </div>
         
         <div id="body-inner">
           
             <h1>
               
-              Лекция #1
+              1.6. Инструкции. Условные операторы. Циклы
             </h1>
           
 
         
 
 
+<p>Как вы уже видели в предыдущих частях выполнение программы на C++ состоит из последовательных инстркций. Инструкции выполняются одна за другой. Тем не менее, несмотря на это, при определенных оптимизациях компилятор может попытаться съоптимизировать выполнение инстуркций и приведенный ниже пример не рекомендуется использовать на практике:</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
 
-	<p><a href="/courses/basics/lecture1/part1/">Введение в программирование</a></p>
-<p><a href="/courses/basics/lecture1/part2/">История С++</a></p>
-<p><a href="/courses/basics/lecture1/part3/">Компиляция</a></p>
-<p><a href="/courses/basics/lecture1/part4/">Типы данных C++</a></p>
-<p><a href="/courses/basics/lecture1/part5/">Переменные</a></p>
-<p><a href="/courses/basics/lecture1/part6/">Инструкции. Условные операторы. Цкилы</a></p>
-<p><a href="/courses/basics/lecture1/part7/">Функции</a></p>
-<p><a href="/courses/basics/lecture1/part8/">Макрсы Ввод-вывод</a></p>
-<p>В рамаках данной лекции предполагается решение <strong>6</strong> задач на <a href="https://www.hackerrank.com/b04-20-1sem">HackerRank</a></p>
-<hr>
+int main()
+{
+    int i = 10; 
+    i = ( i += 5) + ( i * 4);
+    cout &lt;&lt; &quot;i is &quot; &lt;&lt; i &lt;&lt; endl; // 75
+    return 0;
+}
+</code></pre><h2 id="вложенная-видимость">Вложенная видимость</h2>
+<p>Можно объявлять блоки (с помощью фигурных скобок) и в них объявлять переменные с уже сипользованным именем. В этом случае все манимпуляции с &ldquo;новой&rdquo; переменной никак не повлияют на переменную вне блока:</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    int i = 2;
+    int k = 10; 
+    { 
+	    int k = 5 * i ; // не видна за пределами блока 
+	    i = ( k += 5) + 5; 
+    }
+    
+    k = k + 1; 
+    cout &lt;&lt; k &lt;&lt; i &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre><h2 id="условные-операторы-ветвления-ifelse">Условные операторы ветвления if/else</h2>
+<p>Самыми простыми условными ветвлениями в языке С++ являются стейтменты if/else. Они выглядят следующим образом:</p>
+<pre><code>if (выражение) {
+    // ...
+} else {
+    // ...
+}
+</code></pre><p>При определенных сценаряих можно написать и проверку в <em>else</em>, но злоупотребять этим не стоит, так как код превразается не сильно читаемым (спагетти):</p>
+<pre><code>int d = b * b - 4 * a * c ; 
+if (d &gt; 0) { 
+    roots = 2; 
+} else if (d == 0){ 
+    roots = 1; 
+} else { 
+    roots = 0; 
+}
+</code></pre><p>С++ предоставляет специальных <strong>тернарный оператор</strong> (<strong>? :</strong>), который может упростить выражение сверху (оставив функционал прежним):</p>
+<pre><code>int roots = 0; 
+if (d &gt;= 0)
+	roots = ( d &gt; 0 ) ? 2 : 1;
+
+</code></pre><h2 id="циклы-for-while">Циклы for, while</h2>
+<p>Основным циклом в &ldquo;классическом&rdquo; C++ является цикл <strong>for</strong>. Общая его сигнатура следующая:</p>
+<pre><code>for (объявление переменных; условие; инкремент/декремент счетчика) {
+    тело цикла;
+}
+</code></pre><p>Например следующая инструкция считает сумму квадратов от 0 до 10 (не включительно)</p>
+<pre><code>for (int k = 0; k &lt; 10; k++) { 
+	squares += k * k; 
+}
+</code></pre><p>В случае, когда нам необходимо задать только условия остановки данных код можно переписать с помощью цикла <strong>while</strong>:</p>
+<pre><code>int squares = 0; 
+int k = 0; 
+while ( k &lt; 10 ) { 
+	squares += k * k; 
+	k = k + 1; 
+} 
+</code></pre><h2 id="цикл-do-while">Цикл do-while</h2>
+<p>Цикл <strong>do-while</strong> отличается от цикла <strong>while</strong> тем, что он гарантирует выполнение одного прогона, если даже условие в <strong>while</strong> уже не выполняется. В качестве примера рассмотрите следующие выражения:</p>
+<pre><code>int i = 10; 
+int sum = 0; 
+while (i &lt; 10) { 
+    sum += i; 
+} 
+// sum = 0 
+</code></pre><pre><code>int i = 10; 
+int sum = 0; 
+do { 
+    sum += i; 
+} while(i &lt; 10); 
+// sum = 10 
+</code></pre><hr>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -662,6 +751,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -677,6 +767,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -739,10 +832,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/basics/" title="Основы программирования Осень 2020"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture1/part5/" title="1.5. Переменные"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/lecture1/part1/" title="1.1. Введение в программирование" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/lecture1/part7/" title="1.7. Функции" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -774,3 +867,4 @@
 
   </body>
 </html>
+

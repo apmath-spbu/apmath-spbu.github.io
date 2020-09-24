@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Лекция #1 :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>1.7. Функции :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1600982431" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/basics/lecture1/">
+  <body class="" data-url="/courses/basics/lecture1/part7/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -141,7 +141,7 @@
     
     <li data-nav-id="/courses/basics/lecture1/" title="Лекция #1" class="dd-item 
         parent
-        active
+        
         
         ">
       <a href="/courses/basics/lecture1/">
@@ -294,7 +294,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture1/part7/" title="1.7. Функции" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture1/part7/" title="1.7. Функции" class="dd-item active">
         <a href="/courses/basics/lecture1/part7/">
         1.7. Функции
         <i class="fas fa-check read-icon"></i>
@@ -444,7 +444,13 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > Лекция #1
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture1/'>Лекция #1</a> > 1.7. Функции
+          
+        
           
         
           
@@ -469,36 +475,67 @@
             
         <div id="head-tags">
         
+<div class="tags">
+
+  <a class="tag-link" href="/tags/%D1%81">с</a>
+
+  <a class="tag-link" href="/tags/cpp">cpp</a>
+
+</div>
+
         </div>
         
         <div id="body-inner">
           
             <h1>
               
-              Лекция #1
+              1.7. Функции
             </h1>
           
 
         
 
 
+<p>Функция — это последовательность команд для выполнения определенного задания. Собственно ваши программы и будут из них состоять (как минимум из функции main). Сигнатра функции состоит из возвращаемого типа, имени функции и переменных данной функции (если они есть) в круглых скобках. Ключевое слово <strong>return</strong> возвращает значение из функции или выходит из нее (если тип возвращаемого значение <strong>void</strong>  - то есть функция является процедурой).</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
 
-	<p><a href="/courses/basics/lecture1/part1/">Введение в программирование</a></p>
-<p><a href="/courses/basics/lecture1/part2/">История С++</a></p>
-<p><a href="/courses/basics/lecture1/part3/">Компиляция</a></p>
-<p><a href="/courses/basics/lecture1/part4/">Типы данных C++</a></p>
-<p><a href="/courses/basics/lecture1/part5/">Переменные</a></p>
-<p><a href="/courses/basics/lecture1/part6/">Инструкции. Условные операторы. Цкилы</a></p>
-<p><a href="/courses/basics/lecture1/part7/">Функции</a></p>
-<p><a href="/courses/basics/lecture1/part8/">Макрсы Ввод-вывод</a></p>
-<p>В рамаках данной лекции предполагается решение <strong>6</strong> задач на <a href="https://www.hackerrank.com/b04-20-1sem">HackerRank</a></p>
-<hr>
+double square (double x)
+{
+    return x * x;
+}
 
+void printFinish()
+{
+    cout &lt;&lt; &quot;Finish&quot;;
+}
+ 
+int main()
+{
+    cout &lt;&lt; square(9) &lt;&lt; endl; // выведется 81
+    printFinish();
+    return 0;
+}
+</code></pre><p>Переменные объявляенные внутри функции - являются локальными для этих функций. Параметры передаются по значению (копируются). Как сделать так, вызываемые параметры можно было бы изменить рассмотрим позже.</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
 
+double fortyTwo(int i)
+{
+    i = 42; // не поменяет глобальную значение в оригинальной переменной
+    return i; // будет неявное преобразование возвращаемого значения в double
+}
+ 
+int main()
+{
+    int i = 5; 
+    cout &lt;&lt; fortyTwo(i) &lt;&lt; endl; // выведет 42
+    cout &lt;&lt; i; // выведет 5
+    return 0;
+}
+</code></pre>
 
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -678,6 +715,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -693,6 +731,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -739,10 +780,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/basics/" title="Основы программирования Осень 2020"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture1/part6/" title="1.6. Инструкции. Условные операторы. Циклы"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/lecture1/part1/" title="1.1. Введение в программирование" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/lecture1/part8/" title="1.8. Макросы. Ввод-вывод" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -774,3 +815,4 @@
 
   </body>
 </html>
+
