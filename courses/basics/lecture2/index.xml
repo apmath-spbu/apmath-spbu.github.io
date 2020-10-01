@@ -1,18 +1,60 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Лекция #2 on Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
     <link>https://apmath-spbu.github.io/courses/basics/lecture2/</link>
-    <description>Recent content on Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</description>
+    <description>Recent content in Лекция #2 on Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-ru</language><atom:link href="https://apmath-spbu.github.io/courses/basics/lecture2/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title></title>
+      <title>Стек вызовов</title>
       <link>https://apmath-spbu.github.io/courses/basics/lecture2/callstack/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://apmath-spbu.github.io/courses/basics/lecture2/callstack/</guid>
-      <description></description>
+      <description>Стек вызовов — это сегмент данных, используемый для хранения локальных переменных и временных значений. Не стоит путать стек с одноимённой структурой данных, у стека в C++ можно обратиться к произвольной ячейке. Стек выделяется при запуске программы и обычно небольшой по размеру (4Мб). Все функции хранят свои локальные переменные на стеке. При выходе из функции соответствующая область стека объявляется свободной. Промежуточные значения, возникающие при вычислении сложных выражений, также хранятся на стеке.</description>
+    </item>
+    
+    <item>
+      <title>Указатели</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture2/pointers/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture2/pointers/</guid>
+      <description>Указатель — это переменная, значением которой является адрес ячейки памяти (оперативной). Указатели объявляются точно так же, как и обычные переменные, только со звёздочкой (причем, здвездочка по отношению к переменной и типом может быть на любом расстоянии). Указатели являются типизированными.
+int* p; // указатель на переменную типа int bool * pb; // указатель на переменную типа bool double *p2; // указатель на переменную типа double char *p3, *p4; // 2 указателя на переменную типа char Сейчас мы только что объявили указатели, но не присвоили им никакого значения.</description>
+    </item>
+    
+    <item>
+      <title>Массивы</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture2/arrays/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture2/arrays/</guid>
+      <description>Массив — это набор однотипных элементов, расположенных в памяти друг за другом, доступ к которым осуществляется по индексу. Массивы в C++ можно задавать статически и динамически (о последнем позже).
+Статический массив можно объявить следующим образом:
+int m[10] = {1, 2, 3, 4, 5}; // массив 1 2 3 4 5 0 0 0 0 0 Обратитите внимание, что мы выделили место под 19 элементов, но инициализировали только 5; в остальные ячейки записано значение по умолчанию для int.</description>
+    </item>
+    
+    <item>
+      <title>Строки</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture2/strings/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture2/strings/</guid>
+      <description>C-style строки В языке C строки представляли как массивы char-ов, которые заканчиваются специальным символом \0 (на самом деле, это просто символ с номером 0).
+C++ сохраняет (в основном) совместимость с языком C, и поэтому поддерживает работу с C-style строками.
+char s[15] = &amp;#34;C-style string&amp;#34;; char s2[] = &amp;#34;C-style string&amp;#34;; // размер массива 15 char-ов Знать о строках C-style стоит, так как они используются не так уж и редко, но использовать их без веской на то причины не рекомендуется</description>
+    </item>
+    
+    <item>
+      <title>Vector</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture2/vector/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture2/vector/</guid>
+      <description>Рассмотрим первый контейнер - альтернативу массиву - vector. Представленный в C++03, vector — это динамический массив, который может сам управлять выделенной для себе памятью. Это означает, что вы можете создавать массивы, длина которых задается во время выполнения. vector находится в заголовочном файле vector
+#include &amp;lt;vector&amp;gt;using namespace std; // Нет необходимости указывать длину при инициализации vector&amp;lt;int&amp;gt; array; vector&amp;lt;int&amp;gt; array2 = { 10, 8, 6, 4, 2, 1 }; // используется список инициализаторов для инициализации массива vector&amp;lt;int&amp;gt; array3 { 10, 8, 6, 4, 2, 1 }; // используется uniform-инициализация для инициализации массива (начиная с C++11) Подобно массивам доступ к элементам может выполняться как через оператор [] (который не выполняет проверку диапазона), так и через функцию at().</description>
     </item>
     
   </channel>

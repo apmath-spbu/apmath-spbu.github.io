@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Указатели :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1601580168" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/">
+  <body class="" data-url="/courses/basics/lecture2/pointers/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -78,7 +78,7 @@
   
     
     <li data-nav-id="/courses/" title="Материалы по лекциям на кафедре технологии программирования" class="dd-item 
-        
+        parent
         
         
         ">
@@ -109,7 +109,7 @@
   
     
     <li data-nav-id="/courses/basics/" title="Основы программирования Осень 2020" class="dd-item 
-        
+        parent
         
         
         ">
@@ -346,7 +346,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture2/" title="Лекция #2" class="dd-item 
-        
+        parent
         
         
         ">
@@ -395,7 +395,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture2/pointers/" title="Указатели" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture2/pointers/" title="Указатели" class="dd-item active">
         <a href="/courses/basics/lecture2/pointers/">
         Указатели
         <i class="fas fa-check read-icon"></i>
@@ -657,25 +657,154 @@
         <div id="overlay"></div>
         <div class="padding highlightable">
               
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture2/'>Лекция #2</a> > Указатели
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#практическое-применение">Практическое применение</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
         <div id="head-tags">
         
         </div>
         
         <div id="body-inner">
           
+            <h1>
+              
+              Указатели
+            </h1>
+          
 
         
 
-<span id="sidebar-toggle-span">
-<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
-</span>
 
- 
-<h2 id="материалы-лекций">Материалы лекций</h2>
-<p><a href="/courses/basics/">Основы программирования. 1 курс. Осень 2020</a></p>
+<p>Указатель — это переменная, значением которой является адрес ячейки памяти (оперативной). Указатели объявляются точно так же, как и обычные переменные, только со звёздочкой (причем, здвездочка по отношению к переменной и типом может быть на любом расстоянии). Указатели являются типизированными.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p; <span style="color:#75715e">// указатель на переменную типа int
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">bool</span> <span style="color:#f92672">*</span> pb; <span style="color:#75715e">// указатель на переменную типа bool
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">double</span> <span style="color:#f92672">*</span>p2; <span style="color:#75715e">// указатель на переменную типа double
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">char</span> <span style="color:#f92672">*</span>p3, <span style="color:#f92672">*</span>p4; <span style="color:#75715e">// 2 указателя на переменную типа char
+</span></code></pre></div><p>Сейчас мы только что объявили указатели, но не присвоили им никакого значения. Как только что было сказано - указатель содержит в себе адрес ячейки (пямяти) на другую переменную:</p>
+<p><img src="/static/images/basics/lecture2/pointer5.png?featherlight=false" alt="Pointer"></p>
+<p>Код иллюстрирующий данный пример:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value; <span style="color:#75715e">// инициализируем p адресом значения переменной
+</span></code></pre></div><p>И здесь нужно обраить внимание на оператор <code>&amp;</code> - оператор взятия адреса (позволяет узнать, какой адрес памяти который присвоен определенной переменной). При этом важно подчеркнуть, что указатель - это такая же переменная у которой тоже можно взять адрес (то есть адрес, по которому записан адрес переменной в другой ячейке). Получается &ldquo;двойной указатель&rdquo; (так же есть и тройные и сколько вашей фантазии угодно, но об это позже). В объявлении таких многомерных указателей необходимо задать нужное кол-во звезд.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value; <span style="color:#75715e">// инициализируем p адресом значения переменной
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>p2 <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>p; <span style="color:#75715e">// нициализируем p2 адресом значения (то есть адреса) указателя p
+</span></code></pre></div><p>Теперь у нас есть указатель, инциированный адресом переменной - что мы с ним можем сделать. Очевидно, по этому адресу получить значение:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value;
+<span style="color:#66d9ef">int</span> value2 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>p; <span style="color:#75715e">// поулчаем значение по адрусу p
+</span></code></pre></div>
+<div class="notices note" ><p>Обратите вниамание, что оператор взятия адреса по указателю это <code>*</code></p>
+</div>
+
+<blockquote>
+<p>Таким образом <code>*</code> в C++ встречается в 3 случаях:</p>
+<ul>
+<li>как оператор умножения</li>
+<li>приобъявлении указателя</li>
+<li>при разъименования (взятия значения) указателя</li>
+</ul>
+</blockquote>
+<p>Оператор взятия значения, очевидно, может быть применен только к переменной типа указатель.</p>
+<h2 id="практическое-применение">Практическое применение</h2>
+<p>Окей, мы узнали что такое указатель и как с ним работать, но зачем на практике это может пригодится? Рассмотри пример ниже:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)
+{
+	<span style="color:#66d9ef">int</span> t <span style="color:#f92672">=</span> a;
+	a <span style="color:#f92672">=</span> b;
+	b <span style="color:#f92672">=</span> t;
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, m <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+	swap(k, m);
+	cout <span style="color:#f92672">&lt;&lt;</span> k <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> m <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 10 20
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>В данном примере идет попытка поменять местати значения двух переменных. Для этого создана функция <code>swap</code> в ней идет обмен значений переменных с помощью третьей&hellip; но в результате все равно перемнные k и m не поменяли значения. Как такое могло произойти? Согласно <a href="/courses/basics/lecture2/callstack/">стеку вызовов</a> при вызове функции идет копирование переменных, что в данном случае и произошло. В функции <code>swap</code> мы меня местами значения не оригинальные переменные k и m, а их копии.</p>
+<p>Теперь давайте рассмотрим ниже пример:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> a, <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> b)
+{
+	<span style="color:#66d9ef">int</span> t <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>a;
+	<span style="color:#f92672">*</span>a <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>b;
+	<span style="color:#f92672">*</span>b <span style="color:#f92672">=</span> t;
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, m <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+	swap(<span style="color:#f92672">&amp;</span>k, <span style="color:#f92672">&amp;</span>m);
+	cout <span style="color:#f92672">&lt;&lt;</span> k <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span> <span style="color:#f92672">&lt;&lt;</span> m <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 20 10
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>Здесь, вмест значений мы передаем в функцию адреса переменных k и m. Адреса коприруются при вызове функции (как и раньше), но это все еще адреса, на оригинальные переменные k и m. Таким образом, преобразования переменных в функции <code>swap</code> затронут именно k и m, и в резльутате мы получим, что хотим.</p>
 <hr>
+
+
+<footer class="footline">
 	
-  
+</footer>
+
         
         </div>
         
@@ -707,8 +836,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -725,6 +852,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -740,18 +868,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
-            
-            
-                
+                        
                     
                 
                 
@@ -760,9 +878,6 @@
                     
                     
 
-                    
-            
-        
                     
                         
             
@@ -876,22 +991,6 @@
             
         
                     
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
             
             
@@ -908,10 +1007,30 @@
             
         
                     
+            
+        
+                    
                         
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -928,6 +1047,26 @@
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1070,8 +1209,10 @@
 	 
 	 
 		
+			<a class="nav nav-prev" href="/courses/basics/lecture2/callstack/" title="Стек вызовов"> <i class="fa fa-chevron-left"></i></a>
 		
-			<a class="nav nav-next" href="/courses/" title="Материалы по лекциям на кафедре технологии программирования" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+			<a class="nav nav-next" href="/courses/basics/lecture2/arrays/" title="Массивы" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
