@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Vector :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Диначеская память :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1602271952" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/basics/lecture2/vector/">
+  <body class="" data-url="/courses/basics/lecture3/dynamic/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -346,7 +346,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture2/" title="Лекция #2" class="dd-item 
-        parent
+        
         
         
         ">
@@ -458,7 +458,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture2/vector/" title="Vector" class="dd-item active">
+      <li data-nav-id="/courses/basics/lecture2/vector/" title="Vector" class="dd-item ">
         <a href="/courses/basics/lecture2/vector/">
         Vector
         <i class="fas fa-check read-icon"></i>
@@ -489,7 +489,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture3/" title="Лекция #3" class="dd-item 
-        
+        parent
         
         
         ">
@@ -538,7 +538,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture3/dynamic/" title="Диначеская память" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture3/dynamic/" title="Диначеская память" class="dd-item active">
         <a href="/courses/basics/lecture3/dynamic/">
         Диначеская память
         <i class="fas fa-check read-icon"></i>
@@ -814,7 +814,7 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture2/'>Лекция #2</a> > Vector
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture3/'>Лекция #3</a> > Диначеская память
           
         
           
@@ -833,10 +833,10 @@
     <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#изменение-размера-вектора">Изменение размера вектора</a></li>
-    <li><a href="#вставка-и-удаление-элементов-в-середину-вектора">Вставка и удаление элементов в середину вектора</a></li>
-    <li><a href="#присваивание-и-сравнение-векторов">Присваивание и сравнение векторов</a></li>
-    <li><a href="#создание-многомерных-векторов">Создание многомерных векторов</a></li>
+    <li><a href="#выделение-памяти-в-стиле-c">Выделение памяти в стиле C</a></li>
+    <li><a href="#выделение-памяти-в-стиле-c-1">Выделение памяти в стиле C++</a></li>
+    <li><a href="#типичные-проблемы-при-работе-с-памятью">Типичные проблемы при работе с памятью</a></li>
+    <li><a href="#примеры-неправильного-осводождения-памяти">Примеры неправильного осводождения памяти</a></li>
   </ul>
 </nav>
     </div>
@@ -854,138 +854,103 @@
           
             <h1>
               
-              Vector
+              Диначеская память
             </h1>
           
 
         
 
 
-<p>Рассмотрим первый контейнер - альтернативу массиву - <strong>vector</strong>. Представленный в C++03, <strong>vector</strong> — это  динамический массив, который может сам управлять выделенной для себе памятью. Это означает, что вы можете создавать массивы, длина которых задается во время выполнения. <strong>vector</strong> находится в заголовочном файле <strong>vector</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
- 
-<span style="color:#75715e">// Нет необходимости указывать длину при инициализации
-</span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> array; 
-vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> array2 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span> }; <span style="color:#75715e">// используется список инициализаторов для инициализации массива
-</span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> array3 { <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span> }; <span style="color:#75715e">// используется uniform-инициализация для инициализации массива (начиная с C++11)
-</span></code></pre></div><p>Подобно массивам доступ к элементам может выполняться как через оператор [] (который не выполняет проверку диапазона), так и через функцию at(). Отличие метода at от обращения при помощи квадратных скобок в том, что при использовании метода at происходит проверка правильности индекса, и в случае выхода за границы вектора происходит ошибка исполнения. Это полезно при отладке программ.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">array[<span style="color:#ae81ff">7</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; <span style="color:#75715e">// без проверки диапазона 
-</span><span style="color:#75715e"></span>array.at(<span style="color:#ae81ff">8</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>; <span style="color:#75715e">// с проверкой диапазона
-</span></code></pre></div><p>Также <strong>vector</strong> позволяет верунть &ldquo;первый&rdquo; и &ldquo;последний&rdquo; эдемент с помощью функций <code>front</code> и <code>back</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+<p>Язык С++ поддерживает два основных типа выделения памяти:</p>
+<ul>
+<li>Статическое выделение памяти выполняется для статических и глобальных переменных. Память выделяется один раз (при запуске программы) и сохраняется на протяжении работы всей программы.</li>
+<li>Динамическое выделение памяти.</li>
+</ul>
+<p>Как статическое выделение памяти имеют два общих свойства:</p>
+<ul>
+<li>Размер переменной/массива должен быть известен во время компиляции.</li>
+<li>Выделение и освобождение памяти происходит автоматически (когда переменная создается/уничтожается).</li>
+</ul>
+<p>В некоторых случааях этого достаточно. Но в большинстве мы заранее не можем сказать какой длины будет считанная строка, или какой длины мыссив нам нужно для наших задач. А еще большая проблема - это что хоть память нынче &ldquo;дешевая&rdquo;, но она все равно не бесконечна. Приведенный ниже пример просто не запустится (вероятно) у вас:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-	vector <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g1; 
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>)
-		g1.push_back(i <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>);
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Reference operator [g] : g1[2] = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1[<span style="color:#ae81ff">2</span>];
-	cout <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;at : g1.at(4) = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1.at(<span style="color:#ae81ff">4</span>);
-	cout <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;front() : g1.front() = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1.front();
-	cout <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;back() : g1.back() = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1.back();
-	cout <span style="color:#f92672">&lt;&lt;</span> endl; 
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><h2 id="изменение-размера-вектора">Изменение размера вектора</h2>
-<p>Размер вектора можно узнать при помощи метода <code>size()</code>. Также есть метод <code>empty()</code>, возвращающий логическое значение (<strong>true</strong>, если вектор пустой).</p>
-<p>Размер вектора можно изменить в любой момент, при помощи метода <code>resize</code>. У этого метода может быть один или два параметра. Вызов метода <code>resize(n)</code> изменяет размер вектора до n элементов (длина вектора может как уменьшится, так и увеличиться). Вызов метода <code>resize(n, val)</code> изменяет размер вектора до n элементов, и если при этом размер вектора увеличивается, то новые элементы получают значение, равное val.</p>
-<p>Очень часто бывает полезно добавлять элементы в конец вектора по одному и удалять элементы из конца вектора по одному. Для добавления нового элемента, равного val, в конец вектора, используется метод <code>push_back(val)</code>. Для удаления последнего элемента вектора используется метод <code>pop_back()</code> - он не возвращает значения.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g;
-	g.assign(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>); <span style="color:#75715e">// 5 elements with value 10 each
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-	g.push_back(<span style="color:#ae81ff">10</span>);
-	g.push_back(<span style="color:#ae81ff">20</span>);
-	g.push_back(<span style="color:#ae81ff">30</span>);
-	<span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>g.empty()) {
-		sum <span style="color:#f92672">+=</span> g.back();
-	    g.pop_back();
-	}
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;The sum of the elements of g is : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> sum <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><p>Добавление элемента в конец вектора осуществляется в среднем за O(1) (подробнее об O-нотации будет позже. Для нас счейчас можно отметить, что данная операция самая быстрая). Это реализовано за счет того, что память для хранения элементов вектора выделяется &ldquo;с запасом&rdquo;, то есть можно будет добавлять элементы по одному, пока не кончится запас памяти. Если запас памяти исчерпан, выделяется новая память, при этом &ldquo;запас&rdquo; размера вектора удваивается.</p>
-<p>Очистить вектор можно при помощи метода <code>clear()</code>. Есить глобальная функиця <code>swap</code>, которая позволяем поменять местами содержимое двух векторов.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g1;
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g2;
-	g1.push_back(<span style="color:#ae81ff">10</span>);
-	g1.push_back(<span style="color:#ae81ff">20</span>);
-	g2.push_back(<span style="color:#ae81ff">30</span>);
-	g2.push_back(<span style="color:#ae81ff">40</span>);
+    <span style="color:#66d9ef">double</span> m[<span style="color:#ae81ff">10000000</span>] <span style="color:#f92672">=</span> {};  <span style="color:#75715e">//80 Mb
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>Почему? Потому что память для большинства обычных переменных (включая фиксированные массивы) выделяется из специального резервуара памяти — <em>стеке</em> (heap, не нужно путать с одноименной стрктурой памяти). Объем памяти стека в программе, как правило, не большой. Если вы превысите это значение, то произойдет переполнение стека, и операционная система автоматически завершит выполнение вашей программы.</p>
+<p>Все эти проблемы призвано решить динамическое выделение памяти. Перед тем как рассмотртеть выделение памяти в стиле C++ рассмотрим стиль C (чтобы понимать как стало проще жить).</p>
+<h2 id="выделение-памяти-в-стиле-c">Выделение памяти в стиле C</h2>
+<p>Стандартная библиотека <em>cstdlib</em> предоставляет четыре функции для управления памятью:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">malloc</span>(size_t size);
+<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">calloc</span>(size_t nmemb, size_t size);
+<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">realloc</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>ptr, size_t size);
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">free</span>(<span style="color:#66d9ef">void</span> <span style="color:#f92672">*</span>ptr);
+</code></pre></div><p>где <code>size_t</code> - специальный целочисленный беззнаковый тип, может вместить в себя размер любого типа в байтах. Тип <code>size_t</code> используется для указания размеров типов данных, для индексации массивов и прочее. <code>void*</code> — это указатель на нетипизированную память.</p>
+<ul>
+<li><code>malloc</code> - функция выделяет область памяти размера <code>size</code>. <em>Данные не инициализируются</em></li>
+<li><code>callco</code> - выделяет массив из <code>nmemb</code> размера <code>size</code>. <em>Данные инициализируются нулём</em></li>
+<li><code>realloc</code> — изменяет размер области памяти по указателю <code>ptr</code> на <code>size</code> (если возможно, то это делается на месте).</li>
+<li><code>free</code> — освобождает область памяти, ранее выделенную одной из функций <code>malloc</code>/<code>calloc</code>/<code>realloc</code>. <strong>Мы всегда после выдление памяти должны ее освобождать</strong></li>
+</ul>
+<p>Пример использования:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// создание массива из 1000 int
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>m <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)malloc(<span style="color:#ae81ff">1000</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));
+m[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+<span style="color:#75715e">// изменение размера массива до 2000
+</span><span style="color:#75715e"></span>m <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)realloc(m, <span style="color:#ae81ff">2000</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));
+<span style="color:#75715e">// освобождение массива
+</span><span style="color:#75715e"></span>free(m);
+<span style="color:#75715e">// создание массива нулей
+</span><span style="color:#75715e"></span>m <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)calloc(<span style="color:#ae81ff">3000</span>, <span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));
+free(m);
+m <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</code></pre></div><h2 id="выделение-памяти-в-стиле-c-1">Выделение памяти в стиле C++</h2>
+<p>Язык C++ предоставляет два набора операторов для выделения памяти:</p>
+<ul>
+<li><code>new</code> и <code>delete</code> - для <strong>одиночных</strong> значений</li>
+<li><code>new[]</code> и <code>delete[]</code> - для <strong>массивов</strong></li>
+</ul>
 
-	swap(g1, g2);
-    
-	g1.clear();
-	g1.push_back(<span style="color:#ae81ff">1000</span>);
-	cout <span style="color:#f92672">&lt;&lt;</span> g1.front();
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
+<div class="notices note" ><p>Версия оператора <code>delete</code> должна соответствовать версии оператора <code>new</code></p>
+</div>
 
-</code></pre></div><h2 id="вставка-и-удаление-элементов-в-середину-вектора">Вставка и удаление элементов в середину вектора</h2>
-<p>Метод <code>erase</code> позволяет удалять из середины вектора один или несколько элементов. Этот метод работает с итераторами. <a href="https://ru.cppreference.com/w/cpp/container/vector/erase">Подробнее</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g;
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>)
-		g.push_back(i <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>);	<span style="color:#75715e">// erase the 5th element
-</span><span style="color:#75715e"></span>	g.erase(g.begin() <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>);	<span style="color:#75715e">// erase the first 5 elements:
-</span><span style="color:#75715e"></span>	g.erase(g.begin(), g.begin() <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>);
-    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;g contains :&#34;</span>;
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g.size(); <span style="color:#f92672">++</span>i)
-		cout <span style="color:#f92672">&lt;&lt;</span> g[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>;
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// выделение памяти под один int со значением 5
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>m <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>(<span style="color:#ae81ff">5</span>);
+<span style="color:#66d9ef">delete</span> m; <span style="color:#75715e">// освобождение памяти
+</span><span style="color:#75715e">// создание массива значений типа int
+</span><span style="color:#75715e"></span>m <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">1000</span>];
+<span style="color:#66d9ef">delete</span>[] m; <span style="color:#75715e">// освобождение памяти
+</span></code></pre></div><h2 id="типичные-проблемы-при-работе-с-памятью">Типичные проблемы при работе с памятью</h2>
+<p>Во-первых, надо признать, что и у выделения памяти динамически есть свои недостатки:</p>
+<ul>
+<li>медленее. Выделеить памяти на стеке намного &ldquo;дешевле&rdquo; вделения для нее динамической памяти</li>
+<li>фрагментация. При большом количестве выделения памяти, она (память) становится фрагментарной. \</li>
+<li>&ldquo;утечка&rdquo; памати. Самая большая проблема. 
 
-</code></pre></div><p>Метод <code>insert</code> позволяет вставлять в середину вектора новый элемент, или несколько равных элементов, или другой вектор, или фрагмент другого вектора. <a href="https://ru.cppreference.com/w/cpp/container/vector/insert">Подробнее</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt; </span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
-{
-	vector <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">10</span>); <span style="color:#75715e">// 10 10 10
-</span><span style="color:#75715e"></span>	vector <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">::</span> iterator it;
-	it <span style="color:#f92672">=</span> g.begin();
-	it <span style="color:#f92672">=</span> g.insert(it, <span style="color:#ae81ff">20</span>); <span style="color:#75715e">// 20 10 10 10
-</span><span style="color:#75715e"></span>	g.insert(it, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">30</span>);  <span style="color:#75715e">// 30 30 20 10 10 10
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span> gq [] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">70</span>}; 
-	g.insert(g.begin(), gq, gq <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// 50 60 70 30...
-</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;g contains : &#34;</span>;
-	<span style="color:#66d9ef">for</span> (it <span style="color:#f92672">=</span> g.begin(); it <span style="color:#f92672">&lt;</span> g.end(); it<span style="color:#f92672">++</span>)
-		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>;
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><p>Поскольку вставка и удаление элементов требуют сдвига других элементов вектора, эти операции имеют линейную сложность, то есть выполняются за время, пропорциональное длине вектора.</p>
-<h2 id="присваивание-и-сравнение-векторов">Присваивание и сравнение векторов</h2>
-<p>Содержимое одного вектора можно целиком скопировать в другой вектор при помощи операции присваивания: <code>A = B</code>.</p>
-<p>Также вектора можно сравнивать на равенство и неравенство (<code>A == B</code>, <code>A != B</code>), и сравнивать их содержимое в лексикографическом порядке (<code>A &lt; B</code>, <code>A &lt;= B</code>, <code>A &gt; B</code>, <code>A &gt;= B</code>).</p>
-<h2 id="создание-многомерных-векторов">Создание многомерных векторов</h2>
-<p>Элементами вектора могут быть и другие вектора. Например, можно сделать вектор, каждый элемент которого представляет собой вектор целых чисел:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> a;
-</code></pre></div><p>Тем самым, a[i] будет вектором целых чисел, а обращаться к j-му элементу вектора a[i] можно через a[i][j].</p>
-<p>Чтобы создать двумерный вектор размером n×m можно внешний вектор объявить размером n, а затем в цикле изменить размер каждого вложенного вектора:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> a(n);
-
-<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i)
-    a[i].resize(m);
-</code></pre></div><p>Но можно сделать это и в одну строку, если передать вторым параметром для конструктора вектора конструктор, который создает вектор целых чисел длины m:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> a(n, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(m));
-</code></pre></div><p>Размеры вложенных векторов могут изменяться и быть различными.</p>
-<hr>
+<div class="notices note" ><p>В С/C++ разоботчик ответственен за корретное управление (выделение/удаление) памятью.</p>
+</div>
+</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// создание массива из 1000 int
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>m <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">1000</span>];
+<span style="color:#75715e">// создание массива из 2000 int
+</span><span style="color:#75715e"></span>m <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">2000</span>]; <span style="color:#75715e">// утечка памяти
+</span><span style="color:#75715e">// Не вызван delete [] m, утечка памяти
+</span></code></pre></div><h2 id="примеры-неправильного-осводождения-памяти">Примеры неправильного осводождения памяти</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>m1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">1000</span>];
+<span style="color:#66d9ef">delete</span> m1; <span style="color:#75715e">// должно быть delete [] m1
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>(<span style="color:#ae81ff">0</span>);
+free(p); <span style="color:#75715e">// совмещение функций C++ и C
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>q1 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));
+free(q1);
+free(q1); <span style="color:#75715e">// двойное удаление
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>q2 <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>)malloc(<span style="color:#66d9ef">sizeof</span>(<span style="color:#66d9ef">int</span>));
+free(q2);
+q2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// обнуляем указатель (или nullptr)
+</span><span style="color:#75715e"></span>free(q2); <span style="color:#75715e">// правильно работает для q2 = 0
+</span></code></pre></div><hr>
 
 
 <footer class="footline">
@@ -1202,110 +1167,6 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
                 
                 
 
@@ -1350,6 +1211,110 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1476,10 +1441,10 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/basics/lecture2/strings/" title="Строки"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture3/references/" title="Ссылки"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/lecture3/" title="Лекция #3" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/lecture3/multiplearrays/" title="Многомерные массивы" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

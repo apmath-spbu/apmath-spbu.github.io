@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Vector :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Ссылки :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1602271952" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/basics/lecture2/vector/">
+  <body class="" data-url="/courses/basics/lecture3/references/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -346,7 +346,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture2/" title="Лекция #2" class="dd-item 
-        parent
+        
         
         
         ">
@@ -458,7 +458,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture2/vector/" title="Vector" class="dd-item active">
+      <li data-nav-id="/courses/basics/lecture2/vector/" title="Vector" class="dd-item ">
         <a href="/courses/basics/lecture2/vector/">
         Vector
         <i class="fas fa-check read-icon"></i>
@@ -489,7 +489,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture3/" title="Лекция #3" class="dd-item 
-        
+        parent
         
         
         ">
@@ -517,7 +517,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture3/references/" title="Ссылки" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture3/references/" title="Ссылки" class="dd-item active">
         <a href="/courses/basics/lecture3/references/">
         Ссылки
         <i class="fas fa-check read-icon"></i>
@@ -814,7 +814,7 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture2/'>Лекция #2</a> > Vector
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture3/'>Лекция #3</a> > Ссылки
           
         
           
@@ -833,10 +833,10 @@
     <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#изменение-размера-вектора">Изменение размера вектора</a></li>
-    <li><a href="#вставка-и-удаление-элементов-в-середину-вектора">Вставка и удаление элементов в середину вектора</a></li>
-    <li><a href="#присваивание-и-сравнение-векторов">Присваивание и сравнение векторов</a></li>
-    <li><a href="#создание-многомерных-векторов">Создание многомерных векторов</a></li>
+    <li><a href="#недостатки-указателей">Недостатки указателей</a></li>
+    <li><a href="#различия-ссылок-и-указателей">Различия ссылок и указателей</a></li>
+    <li><a href="#l-value-и-r-value">l-value и r-value</a></li>
+    <li><a href="#время-жизни-переменной">Время жизни переменной</a></li>
   </ul>
 </nav>
     </div>
@@ -854,138 +854,125 @@
           
             <h1>
               
-              Vector
+              Ссылки
             </h1>
           
 
         
 
 
-<p>Рассмотрим первый контейнер - альтернативу массиву - <strong>vector</strong>. Представленный в C++03, <strong>vector</strong> — это  динамический массив, который может сам управлять выделенной для себе памятью. Это означает, что вы можете создавать массивы, длина которых задается во время выполнения. <strong>vector</strong> находится в заголовочном файле <strong>vector</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+<p>Прежде чем описывать ссылки, давайте вспомним прошлую лекцию и распишем недостатки <a href="/courses/basics/lecture2/pointers/">указателей</a> (возможно список не полон)</p>
+<h2 id="недостатки-указателей">Недостатки указателей</h2>
+<ul>
+<li>Использование указателей синтаксически загрязняет код и усложняет его понимание. (Приходится использовать операторы <code>*</code> и <code>&amp;</code>)</li>
+<li>Указатели могут быть неинициализированными (что придит к некорректному исполнению кода).</li>
+<li>Указатель может быть нулевым, и его нужно прверять на равенству нулю при использовании.</li>
+<li>Арифметика указателей может сделать из корректного указателя некорректный, так как достаточно легко &ldquo;промахнуться&rdquo;.</li>
+</ul>
+<p>Все это привело к тому, что в языке С++ появилось более дружелюбный тип данных, лишенных данных недостатков. Имя ему - ссылка. <em>Ссылка</em> — это тип переменной в языке C++, который работает как псевдоним другого объекта или значения. Ссылка (на неконстантное значение) объявляется с использованием амперсанда (<code>&amp;</code>) между типом данных и именем ссылки:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>; <span style="color:#75715e">// обычная переменная
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> ref <span style="color:#f92672">=</span> value; <span style="color:#75715e">// ссылка на переменную value
+</span></code></pre></div><p>Для сравнения удобства приведем пример из прошлой лекии по обмену значений переменных, но уже с использованием ссылок:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">swap</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> a, <span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> b)
+{
+	<span style="color:#66d9ef">int</span> t <span style="color:#f92672">=</span> b;
+	b <span style="color:#f92672">=</span> a;
+	a <span style="color:#f92672">=</span> t;
+}
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+	<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, m <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+	swap(k, m);
+	cout <span style="color:#f92672">&lt;&lt;</span> k <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> m <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 20 10
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>Как видно из примера - нет больше необходмости просизводить операции взятия адреса и значения, если мы хотим работать с оригинальной переменной (то есть с переменными из функции <code>main</code> при передачи в функцию <code>swap</code>). Вместо этого достаточно указать в объявлении функции <code>swap</code> что объекты будут переданы не по значению, а по <em>ссылке</em>, указав тип как ссылочный (то есть добавив <code>&amp;</code>).</p>
+<p>При этом ссылки, фактически работают и как &ldquo;псевдонимы&rdquo; переменных - измения их значения мы изменяем значения оригинальных переменных.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
  
-<span style="color:#75715e">// Нет необходимости указывать длину при инициализации
-</span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> array; 
-vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> array2 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span> }; <span style="color:#75715e">// используется список инициализаторов для инициализации массива
-</span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> array3 { <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span> }; <span style="color:#75715e">// используется uniform-инициализация для инициализации массива (начиная с C++11)
-</span></code></pre></div><p>Подобно массивам доступ к элементам может выполняться как через оператор [] (который не выполняет проверку диапазона), так и через функцию at(). Отличие метода at от обращения при помощи квадратных скобок в том, что при использовании метода at происходит проверка правильности индекса, и в случае выхода за границы вектора происходит ошибка исполнения. Это полезно при отладке программ.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">array[<span style="color:#ae81ff">7</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; <span style="color:#75715e">// без проверки диапазона 
-</span><span style="color:#75715e"></span>array.at(<span style="color:#ae81ff">8</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>; <span style="color:#75715e">// с проверкой диапазона
-</span></code></pre></div><p>Также <strong>vector</strong> позволяет верунть &ldquo;первый&rdquo; и &ldquo;последний&rdquo; эдемент с помощью функций <code>front</code> и <code>back</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
 {
-	vector <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g1; 
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>)
-		g1.push_back(i <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>);
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Reference operator [g] : g1[2] = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1[<span style="color:#ae81ff">2</span>];
-	cout <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;at : g1.at(4) = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1.at(<span style="color:#ae81ff">4</span>);
-	cout <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;front() : g1.front() = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1.front();
-	cout <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;back() : g1.back() = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1.back();
-	cout <span style="color:#f92672">&lt;&lt;</span> endl; 
+	<span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>;
+	<span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> ref <span style="color:#f92672">=</span> value; <span style="color:#75715e">// ссылка на переменную value
+</span><span style="color:#75715e"></span> 
+	value <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>; <span style="color:#75715e">// value теперь 8
+</span><span style="color:#75715e"></span>	ref <span style="color:#f92672">=</span> <span style="color:#ae81ff">9</span>; <span style="color:#75715e">// value теперь 9
+</span><span style="color:#75715e"></span> 
+	cout <span style="color:#f92672">&lt;&lt;</span> value <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 9
+</span><span style="color:#75715e"></span>	<span style="color:#f92672">++</span>ref;
+	cout <span style="color:#f92672">&lt;&lt;</span> value <span style="color:#f92672">&lt;&lt;</span> endl; <span style="color:#75715e">// 10
+</span><span style="color:#75715e"></span> 
 	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 }
-</code></pre></div><h2 id="изменение-размера-вектора">Изменение размера вектора</h2>
-<p>Размер вектора можно узнать при помощи метода <code>size()</code>. Также есть метод <code>empty()</code>, возвращающий логическое значение (<strong>true</strong>, если вектор пустой).</p>
-<p>Размер вектора можно изменить в любой момент, при помощи метода <code>resize</code>. У этого метода может быть один или два параметра. Вызов метода <code>resize(n)</code> изменяет размер вектора до n элементов (длина вектора может как уменьшится, так и увеличиться). Вызов метода <code>resize(n, val)</code> изменяет размер вектора до n элементов, и если при этом размер вектора увеличивается, то новые элементы получают значение, равное val.</p>
-<p>Очень часто бывает полезно добавлять элементы в конец вектора по одному и удалять элементы из конца вектора по одному. Для добавления нового элемента, равного val, в конец вектора, используется метод <code>push_back(val)</code>. Для удаления последнего элемента вектора используется метод <code>pop_back()</code> - он не возвращает значения.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g;
-	g.assign(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>); <span style="color:#75715e">// 5 elements with value 10 each
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-	g.push_back(<span style="color:#ae81ff">10</span>);
-	g.push_back(<span style="color:#ae81ff">20</span>);
-	g.push_back(<span style="color:#ae81ff">30</span>);
-	<span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>g.empty()) {
-		sum <span style="color:#f92672">+=</span> g.back();
-	    g.pop_back();
-	}
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;The sum of the elements of g is : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> sum <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><p>Добавление элемента в конец вектора осуществляется в среднем за O(1) (подробнее об O-нотации будет позже. Для нас счейчас можно отметить, что данная операция самая быстрая). Это реализовано за счет того, что память для хранения элементов вектора выделяется &ldquo;с запасом&rdquo;, то есть можно будет добавлять элементы по одному, пока не кончится запас памяти. Если запас памяти исчерпан, выделяется новая память, при этом &ldquo;запас&rdquo; размера вектора удваивается.</p>
-<p>Очистить вектор можно при помощи метода <code>clear()</code>. Есить глобальная функиця <code>swap</code>, которая позволяем поменять местами содержимое двух векторов.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g1;
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g2;
-	g1.push_back(<span style="color:#ae81ff">10</span>);
-	g1.push_back(<span style="color:#ae81ff">20</span>);
-	g2.push_back(<span style="color:#ae81ff">30</span>);
-	g2.push_back(<span style="color:#ae81ff">40</span>);
-
-	swap(g1, g2);
-    
-	g1.clear();
-	g1.push_back(<span style="color:#ae81ff">1000</span>);
-	cout <span style="color:#f92672">&lt;&lt;</span> g1.front();
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-
-</code></pre></div><h2 id="вставка-и-удаление-элементов-в-середину-вектора">Вставка и удаление элементов в середину вектора</h2>
-<p>Метод <code>erase</code> позволяет удалять из середины вектора один или несколько элементов. Этот метод работает с итераторами. <a href="https://ru.cppreference.com/w/cpp/container/vector/erase">Подробнее</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g;
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>)
-		g.push_back(i <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>);	<span style="color:#75715e">// erase the 5th element
-</span><span style="color:#75715e"></span>	g.erase(g.begin() <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>);	<span style="color:#75715e">// erase the first 5 elements:
-</span><span style="color:#75715e"></span>	g.erase(g.begin(), g.begin() <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>);
-    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;g contains :&#34;</span>;
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g.size(); <span style="color:#f92672">++</span>i)
-		cout <span style="color:#f92672">&lt;&lt;</span> g[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>;
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-
-</code></pre></div><p>Метод <code>insert</code> позволяет вставлять в середину вектора новый элемент, или несколько равных элементов, или другой вектор, или фрагмент другого вектора. <a href="https://ru.cppreference.com/w/cpp/container/vector/insert">Подробнее</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt; </span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+</code></pre></div><p>При этом при использоавнии оператора взятия адреса (<code>&amp;</code>) у ссылке и у ссылоемой переменной вернется одинаковый адрес.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>value; <span style="color:#75715e">// 0x11FF22DD
+</span><span style="color:#75715e"></span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">&amp;</span>ref; <span style="color:#75715e">// 0x11FF22DD
+</span></code></pre></div><h2 id="различия-ссылок-и-указателей">Различия ссылок и указателей</h2>
+<ul>
+<li>Ссылка не может быть неинициализированной</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p; <span style="color:#75715e">// OK
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>l; <span style="color:#75715e">// ошибка
+</span></code></pre></div><ul>
+<li>У ссылки нет нулевого значения</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>; <span style="color:#75715e">// OK
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#75715e">// ошибка
+</span></code></pre></div><ul>
+<li>Ссылку нельзя переинициализировать</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a; <span style="color:#75715e">// p указывает на a
+</span><span style="color:#75715e"></span>p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>b; <span style="color:#75715e">// p указывает на b
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>l <span style="color:#f92672">=</span> a; <span style="color:#75715e">// l ссылается на a
+</span><span style="color:#75715e"></span>l <span style="color:#f92672">=</span> b; <span style="color:#75715e">// a присваивается значение b
+</span></code></pre></div><ul>
+<li>Нельзя получить адрес ссылки или ссылку на ссылку</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>a; <span style="color:#75715e">// p указывает на a
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">**</span>pp <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>p; <span style="color:#75715e">// pp указывает на переменную p
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>l <span style="color:#f92672">=</span> a; <span style="color:#75715e">// l ссылается на a
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>pl <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>l; <span style="color:#75715e">// pl указывает на переменную a
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;&amp;</span>ll <span style="color:#f92672">=</span> l; <span style="color:#75715e">// ошибка
+</span></code></pre></div><ul>
+<li>Нельзя создать массивы ссылок</li>
+</ul>
+<pre><code class="language-cppp" data-lang="cppp">int *mp[10] = {}; // массив указателей на int
+int &amp;ml[10] = {}; // ошибка
+</code></pre><ul>
+<li>Для ссылок нет арифметики</li>
+</ul>
+<h2 id="l-value-и-r-value">l-value и r-value</h2>
+<p>В языке C++ все переменные являются l-values. l-value - выражения, значения которых являются ссылкой на переменную/элемент массива, а значит могут быть указаны слева от оператора <code>=</code></p>
+<p>Противоположностью l-value является r-value. r-value — это значение, которое не имеет постоянного адреса в памяти. Примерами могут быть единичные числа (например, 7, которое имеет значение 7) или выражения (например, 3 + х, которое имеет значение х плюс 3).</p>
+<p>Указатели и ссылки могут указывать только на l-value</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+<span style="color:#66d9ef">int</span> m[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>};
+<span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>l1 <span style="color:#f92672">=</span> a; <span style="color:#75715e">// OK
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>l2 <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b; <span style="color:#75715e">// ошибка
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>l3 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(m <span style="color:#f92672">+</span> a <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>); <span style="color:#75715e">// OK
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>l4 <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>(m <span style="color:#f92672">+</span> a <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// ошибка
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">&amp;</span>l5 <span style="color:#f92672">=</span> (a <span style="color:#f92672">+</span> b <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">10</span>) <span style="color:#f92672">?</span> a : b; <span style="color:#75715e">// OK
+</span></code></pre></div><h2 id="время-жизни-переменной">Время жизни переменной</h2>
+<p>Как мы уже разбирали ранее все переменные передаются и возвращаются по значению. Соответственно, если мы хотим передавать значение по указателю эти переменные не должны уходить за рамки видимости. В противоположность к этому мы теперь можем передвать и возвращать результаты по ссылке. Проилюстрируем в качестве пример следющий код:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">foo</span>()
 {
-	vector <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">10</span>); <span style="color:#75715e">// 10 10 10
-</span><span style="color:#75715e"></span>	vector <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">::</span> iterator it;
-	it <span style="color:#f92672">=</span> g.begin();
-	it <span style="color:#f92672">=</span> g.insert(it, <span style="color:#ae81ff">20</span>); <span style="color:#75715e">// 20 10 10 10
-</span><span style="color:#75715e"></span>	g.insert(it, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">30</span>);  <span style="color:#75715e">// 30 30 20 10 10 10
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span> gq [] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">70</span>}; 
-	g.insert(g.begin(), gq, gq <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// 50 60 70 30...
-</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;g contains : &#34;</span>;
-	<span style="color:#66d9ef">for</span> (it <span style="color:#f92672">=</span> g.begin(); it <span style="color:#f92672">&lt;</span> g.end(); it<span style="color:#f92672">++</span>)
-		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>;
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+	<span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span>a;
 }
-</code></pre></div><p>Поскольку вставка и удаление элементов требуют сдвига других элементов вектора, эти операции имеют линейную сложность, то есть выполняются за время, пропорциональное длине вектора.</p>
-<h2 id="присваивание-и-сравнение-векторов">Присваивание и сравнение векторов</h2>
-<p>Содержимое одного вектора можно целиком скопировать в другой вектор при помощи операции присваивания: <code>A = B</code>.</p>
-<p>Также вектора можно сравнивать на равенство и неравенство (<code>A == B</code>, <code>A != B</code>), и сравнивать их содержимое в лексикографическом порядке (<code>A &lt; B</code>, <code>A &lt;= B</code>, <code>A &gt; B</code>, <code>A &gt;= B</code>).</p>
-<h2 id="создание-многомерных-векторов">Создание многомерных векторов</h2>
-<p>Элементами вектора могут быть и другие вектора. Например, можно сделать вектор, каждый элемент которого представляет собой вектор целых чисел:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> a;
-</code></pre></div><p>Тем самым, a[i] будет вектором целых чисел, а обращаться к j-му элементу вектора a[i] можно через a[i][j].</p>
-<p>Чтобы создать двумерный вектор размером n×m можно внешний вектор объявить размером n, а затем в цикле изменить размер каждого вложенного вектора:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> a(n);
+<span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> bar()
+{
+	<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+	<span style="color:#66d9ef">return</span> b;
+}
 
-<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i)
-    a[i].resize(m);
-</code></pre></div><p>Но можно сделать это и в одну строку, если передать вторым параметром для конструктора вектора конструктор, который создает вектор целых чисел длины m:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> a(n, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(m));
-</code></pre></div><p>Размеры вложенных векторов могут изменяться и быть различными.</p>
-<hr>
+<span style="color:#75715e">// ..
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> foo(); <span style="color:#75715e">// объект a был разрушен при выходе из foo(), соотв. *p ссылается на недействительный адрес
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> l <span style="color:#f92672">=</span> bar(); <span style="color:#75715e">// объект b был возвращен по ссылке
+</span></code></pre></div><hr>
 
 
 <footer class="footline">
@@ -1202,7 +1189,6 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
             
                 
                     
-                    
                 
                 
 
@@ -1216,8 +1202,21 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
-                        
+            
+            
+                
                     
                 
                 
@@ -1278,6 +1277,23 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
             
         
                     
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
                         
             
             
@@ -1295,9 +1311,6 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
             
         
                     
-            
-        
-                    
                         
             
             
@@ -1305,35 +1318,6 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
                     
                         
                         
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1476,10 +1460,10 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/basics/lecture2/strings/" title="Строки"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture3/" title="Лекция #3"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/lecture3/" title="Лекция #3" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/lecture3/dynamic/" title="Диначеская память" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

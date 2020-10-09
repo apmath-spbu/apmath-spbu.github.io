@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Vector :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Const :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1602271952" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/basics/lecture2/vector/">
+  <body class="" data-url="/courses/basics/lecture3/const/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -346,7 +346,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture2/" title="Лекция #2" class="dd-item 
-        parent
+        
         
         
         ">
@@ -458,7 +458,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture2/vector/" title="Vector" class="dd-item active">
+      <li data-nav-id="/courses/basics/lecture2/vector/" title="Vector" class="dd-item ">
         <a href="/courses/basics/lecture2/vector/">
         Vector
         <i class="fas fa-check read-icon"></i>
@@ -489,7 +489,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture3/" title="Лекция #3" class="dd-item 
-        
+        parent
         
         
         ">
@@ -580,7 +580,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture3/const/" title="Const" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture3/const/" title="Const" class="dd-item active">
         <a href="/courses/basics/lecture3/const/">
         Const
         <i class="fas fa-check read-icon"></i>
@@ -814,7 +814,7 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture2/'>Лекция #2</a> > Vector
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture3/'>Лекция #3</a> > Const
           
         
           
@@ -833,10 +833,12 @@
     <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#изменение-размера-вектора">Изменение размера вектора</a></li>
-    <li><a href="#вставка-и-удаление-элементов-в-середину-вектора">Вставка и удаление элементов в середину вектора</a></li>
-    <li><a href="#присваивание-и-сравнение-векторов">Присваивание и сравнение векторов</a></li>
-    <li><a href="#создание-многомерных-векторов">Создание многомерных векторов</a></li>
+    <li><a href="#указатели-на-константные-переменные">Указатели на константные переменные</a></li>
+    <li><a href="#указатели-на-константные-значения">Указатели на константные значения</a></li>
+    <li><a href="#константные-указатели">Константные указатели</a></li>
+    <li><a href="#константные-указатели-на-константные-значения">Константные указатели на константные значения</a></li>
+    <li><a href="#ссылка-на-константу">Ссылка на константу</a></li>
+    <li><a href="#константные-ссылки-в-качестве-параметров-функции">Константные ссылки в качестве параметров функции</a></li>
   </ul>
 </nav>
     </div>
@@ -854,138 +856,84 @@
           
             <h1>
               
-              Vector
+              Const
             </h1>
           
 
         
 
 
-<p>Рассмотрим первый контейнер - альтернативу массиву - <strong>vector</strong>. Представленный в C++03, <strong>vector</strong> — это  динамический массив, который может сам управлять выделенной для себе памятью. Это означает, что вы можете создавать массивы, длина которых задается во время выполнения. <strong>vector</strong> находится в заголовочном файле <strong>vector</strong></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+<p>В С/С++ есть простой модификатор, который делает переменную постоянной (константной).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;
+value <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>; <span style="color:#75715e">// не получится. ощибка
+</span></code></pre></div><p>Порой бывают случаи, что нам нужно гарантировать, что указатель или ссылку, что мы передаем в функцию не смогу подменить на другую переменную (по ошибке или намеренно), или для гарантии того, что функция случайно не изменит значение переданного аргумента или все вместе. Для этого используются константыне модификации указателей и ссылок. Рассмотрим их объявления.</p>
+<h2 id="указатели-на-константные-переменные">Указатели на константные переменные</h2>
+<p>До этого момента все указатели, которые мы рассматривали, были неконстантными указателями на неконстантные значения:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>;
+<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value;
+<span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>; <span style="color:#75715e">// изменяем значение value на 8
+</span></code></pre></div><p>Однако, что произойдет, если указатель будет указывать на константную переменную?</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>; <span style="color:#75715e">// value - это константа
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value; <span style="color:#75715e">// ошибка компиляции: невозможно конвертировать const int* в int*
+</span><span style="color:#75715e"></span><span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>; <span style="color:#75715e">// изменяем значение value на 8
+</span></code></pre></div><p>Фрагмент кода, приведенный выше, не скомпилируется: мы не можем присвоить неконстантному указателю константную переменную. Здесь есть смысл, ведь на то она и константа, что её значение нельзя изменить. Гипотетически, если бы мы могли присвоить константное значение неконстантному указателю, то тогда мы могли бы разыменовать неконстантный указатель и изменить значение этой же константы. А это уже является нарушением самого понятия «константа».</p>
+<h2 id="указатели-на-константные-значения">Указатели на константные значения</h2>
+<p>Указатель на константное значение — это неконстантный указатель, который указывает на неизменное значение. Для объявления указателя на константное значение, используется ключевое слово <code>const</code> перед типом данных:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value; <span style="color:#75715e">// здесь всё ок: ptr - это неконстантный указатель, который указывает на &#34;const int&#34;
+</span><span style="color:#75715e"></span><span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>; <span style="color:#75715e">// нельзя, мы не можем изменить константное значение
+</span></code></pre></div><p>В примере, приведенном выше, <code>ptr</code> указывает на константный целочисленный тип данных.</p>
+<p>Рассмотрим следующий пример:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>; <span style="color:#75715e">// value - это не константа
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value; <span style="color:#75715e">// всё хорошо
+</span></code></pre></div><p>Указатель на константную переменную может указывать и на неконстантную переменную. Подумайте об этом так: указатель на константную переменную обрабатывает переменную как константу при получении доступа к ней независимо от того, была ли эта переменная изначально определена как const или нет. Таким образом, следующее в порядке вещей:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value; <span style="color:#75715e">// ptr указывает на &#34;const int&#34;
+</span><span style="color:#75715e"></span>value <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>; <span style="color:#75715e">// переменная value уже не константа, если к ней получают доступ через неконстантный идентификатор
+</span></code></pre></div><p>Но не следующее:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value; <span style="color:#75715e">// ptr указывает на &#34;const int&#34;
+</span><span style="color:#75715e"></span><span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>; <span style="color:#75715e">// ptr обрабатывает value как константу, поэтому изменение значения переменной value через ptr не допускается
+</span></code></pre></div><p>Указателю на константное значение, который сам при этом не является константным (он просто указывает на константное значение), можно присвоить и другое значение:</p>
+<pre><code>int value1 = 7;
+const int *ptr = &amp;value1; // ptr указывает на const int
  
-<span style="color:#75715e">// Нет необходимости указывать длину при инициализации
-</span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> array; 
-vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> array2 <span style="color:#f92672">=</span> { <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span> }; <span style="color:#75715e">// используется список инициализаторов для инициализации массива
-</span><span style="color:#75715e"></span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> array3 { <span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span> }; <span style="color:#75715e">// используется uniform-инициализация для инициализации массива (начиная с C++11)
-</span></code></pre></div><p>Подобно массивам доступ к элементам может выполняться как через оператор [] (который не выполняет проверку диапазона), так и через функцию at(). Отличие метода at от обращения при помощи квадратных скобок в том, что при использовании метода at происходит проверка правильности индекса, и в случае выхода за границы вектора происходит ошибка исполнения. Это полезно при отладке программ.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">array[<span style="color:#ae81ff">7</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">3</span>; <span style="color:#75715e">// без проверки диапазона 
-</span><span style="color:#75715e"></span>array.at(<span style="color:#ae81ff">8</span>) <span style="color:#f92672">=</span> <span style="color:#ae81ff">4</span>; <span style="color:#75715e">// с проверкой диапазона
-</span></code></pre></div><p>Также <strong>vector</strong> позволяет верунть &ldquo;первый&rdquo; и &ldquo;последний&rdquo; эдемент с помощью функций <code>front</code> и <code>back</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;string&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+int value2 = 8;
+ptr = &amp;value2; // хорошо, ptr теперь указывает на другой const int
+</code></pre><h2 id="константные-указатели">Константные указатели</h2>
+<p>Мы также можем сделать указатель константным. Константный указатель — это указатель, значение которого не может быть изменено после инициализации. Для объявления константного указателя используется ключевое слово const между звёздочкой и именем указателя:</p>
+<pre><code>int value = 7;
+int *const ptr = &amp;value;
+</code></pre><p>Подобно обычным константным переменным, константный указатель должен быть инициализирован значением при объявлении. Это означает, что он всегда будет указывать на один и тот же адрес. В вышеприведенном примере ptr всегда будет указывать на адрес value (до тех пор, пока указатель не выйдет из области видимости и не уничтожится):</p>
+<pre><code>int value1 = 7;
+int value2 = 8;
+ 
+int * const ptr = &amp;value1; // ок: константный указатель инициализирован адресом value1
+ptr = &amp;value2; // не ок: после инициализации константный указатель не может быть изменен
+</code></pre><p>Однако, поскольку переменная <strong>value</strong>, на которую указывает указатель, не является константой, то её значение можно изменить путем разыменования константного указателя:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span>;
+<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> <span style="color:#66d9ef">const</span> ptr <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>value; <span style="color:#75715e">// ptr всегда будет указывать на value
+</span><span style="color:#75715e"></span><span style="color:#f92672">*</span>ptr <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>; <span style="color:#75715e">// ок, так как ptr указывает на тип данных (неконстантный int)
+</span></code></pre></div><h2 id="константные-указатели-на-константные-значения">Константные указатели на константные значения</h2>
+<p>Наконец, можно объявить константный указатель на константное значение, используя ключевое слово const как перед типом данных, так и перед именем указателя:</p>
+<pre><code>int value = 7;
+const int *const ptr = &amp;value;
+</code></pre><p>Константный указатель на константное значение нельзя перенаправить указывать на другое значение также, как и значение, на которое он указывает, — нельзя изменить.</p>
+<h2 id="ссылка-на-константу">Ссылка на константу</h2>
+<p>Объявить ссылку на константное значение можно путем добавления ключевого слова const перед типом данных:</p>
+<pre><code>const int value = 7;
+const int &amp;ref = value; // ref - это ссылка на константную переменную value
+</code></pre>
+<div class="notices note" ><p>Константной ссылки не бывает, так как ссылка сама по определению константна. Чаще всегда, если говорят &ldquo;константая ссылка&rdquo; имеют ввиду ссылку на константу. Для указателей же это разыне вещи.</p>
+</div>
+
+<h2 id="константные-ссылки-в-качестве-параметров-функции">Константные ссылки в качестве параметров функции</h2>
+<p>Рассмотрим пример константной ссылки в качестве параметра функции. Это позволяет получить доступ к аргументу без его копирования, гарантируя, что функция не изменит значение, на которое ссылается ссылка:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">changeN</span>(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> ref)
 {
-	vector <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g1; 
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>)
-		g1.push_back(i <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>);
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Reference operator [g] : g1[2] = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1[<span style="color:#ae81ff">2</span>];
-	cout <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;at : g1.at(4) = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1.at(<span style="color:#ae81ff">4</span>);
-	cout <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;front() : g1.front() = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1.front();
-	cout <span style="color:#f92672">&lt;&lt;</span> endl;
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;back() : g1.back() = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> g1.back();
-	cout <span style="color:#f92672">&lt;&lt;</span> endl; 
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><h2 id="изменение-размера-вектора">Изменение размера вектора</h2>
-<p>Размер вектора можно узнать при помощи метода <code>size()</code>. Также есть метод <code>empty()</code>, возвращающий логическое значение (<strong>true</strong>, если вектор пустой).</p>
-<p>Размер вектора можно изменить в любой момент, при помощи метода <code>resize</code>. У этого метода может быть один или два параметра. Вызов метода <code>resize(n)</code> изменяет размер вектора до n элементов (длина вектора может как уменьшится, так и увеличиться). Вызов метода <code>resize(n, val)</code> изменяет размер вектора до n элементов, и если при этом размер вектора увеличивается, то новые элементы получают значение, равное val.</p>
-<p>Очень часто бывает полезно добавлять элементы в конец вектора по одному и удалять элементы из конца вектора по одному. Для добавления нового элемента, равного val, в конец вектора, используется метод <code>push_back(val)</code>. Для удаления последнего элемента вектора используется метод <code>pop_back()</code> - он не возвращает значения.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g;
-	g.assign(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">10</span>); <span style="color:#75715e">// 5 elements with value 10 each
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-	g.push_back(<span style="color:#ae81ff">10</span>);
-	g.push_back(<span style="color:#ae81ff">20</span>);
-	g.push_back(<span style="color:#ae81ff">30</span>);
-	<span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>g.empty()) {
-		sum <span style="color:#f92672">+=</span> g.back();
-	    g.pop_back();
-	}
-	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;The sum of the elements of g is : &#34;</span> <span style="color:#f92672">&lt;&lt;</span> sum <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><p>Добавление элемента в конец вектора осуществляется в среднем за O(1) (подробнее об O-нотации будет позже. Для нас счейчас можно отметить, что данная операция самая быстрая). Это реализовано за счет того, что память для хранения элементов вектора выделяется &ldquo;с запасом&rdquo;, то есть можно будет добавлять элементы по одному, пока не кончится запас памяти. Если запас памяти исчерпан, выделяется новая память, при этом &ldquo;запас&rdquo; размера вектора удваивается.</p>
-<p>Очистить вектор можно при помощи метода <code>clear()</code>. Есить глобальная функиця <code>swap</code>, которая позволяем поменять местами содержимое двух векторов.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g1;
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g2;
-	g1.push_back(<span style="color:#ae81ff">10</span>);
-	g1.push_back(<span style="color:#ae81ff">20</span>);
-	g2.push_back(<span style="color:#ae81ff">30</span>);
-	g2.push_back(<span style="color:#ae81ff">40</span>);
-
-	swap(g1, g2);
-    
-	g1.clear();
-	g1.push_back(<span style="color:#ae81ff">1000</span>);
-	cout <span style="color:#f92672">&lt;&lt;</span> g1.front();
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-
-</code></pre></div><h2 id="вставка-и-удаление-элементов-в-середину-вектора">Вставка и удаление элементов в середину вектора</h2>
-<p>Метод <code>erase</code> позволяет удалять из середины вектора один или несколько элементов. Этот метод работает с итераторами. <a href="https://ru.cppreference.com/w/cpp/container/vector/erase">Подробнее</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-	vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g;
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>)
-		g.push_back(i <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>);	<span style="color:#75715e">// erase the 5th element
-</span><span style="color:#75715e"></span>	g.erase(g.begin() <span style="color:#f92672">+</span> <span style="color:#ae81ff">4</span>);	<span style="color:#75715e">// erase the first 5 elements:
-</span><span style="color:#75715e"></span>	g.erase(g.begin(), g.begin() <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>);
-    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;g contains :&#34;</span>;
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> g.size(); <span style="color:#f92672">++</span>i)
-		cout <span style="color:#f92672">&lt;&lt;</span> g[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>;
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-
-</code></pre></div><p>Метод <code>insert</code> позволяет вставлять в середину вектора новый элемент, или несколько равных элементов, или другой вектор, или фрагмент другого вектора. <a href="https://ru.cppreference.com/w/cpp/container/vector/insert">Подробнее</a></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt; </span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
-{
-	vector <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> g(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">10</span>); <span style="color:#75715e">// 10 10 10
-</span><span style="color:#75715e"></span>	vector <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">::</span> iterator it;
-	it <span style="color:#f92672">=</span> g.begin();
-	it <span style="color:#f92672">=</span> g.insert(it, <span style="color:#ae81ff">20</span>); <span style="color:#75715e">// 20 10 10 10
-</span><span style="color:#75715e"></span>	g.insert(it, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">30</span>);  <span style="color:#75715e">// 30 30 20 10 10 10
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">int</span> gq [] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">60</span>, <span style="color:#ae81ff">70</span>}; 
-	g.insert(g.begin(), gq, gq <span style="color:#f92672">+</span> <span style="color:#ae81ff">3</span>); <span style="color:#75715e">// 50 60 70 30...
-</span><span style="color:#75715e"></span>	cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;g contains : &#34;</span>;
-	<span style="color:#66d9ef">for</span> (it <span style="color:#f92672">=</span> g.begin(); it <span style="color:#f92672">&lt;</span> g.end(); it<span style="color:#f92672">++</span>)
-		cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\t&#39;</span>;
-	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><p>Поскольку вставка и удаление элементов требуют сдвига других элементов вектора, эти операции имеют линейную сложность, то есть выполняются за время, пропорциональное длине вектора.</p>
-<h2 id="присваивание-и-сравнение-векторов">Присваивание и сравнение векторов</h2>
-<p>Содержимое одного вектора можно целиком скопировать в другой вектор при помощи операции присваивания: <code>A = B</code>.</p>
-<p>Также вектора можно сравнивать на равенство и неравенство (<code>A == B</code>, <code>A != B</code>), и сравнивать их содержимое в лексикографическом порядке (<code>A &lt; B</code>, <code>A &lt;= B</code>, <code>A &gt; B</code>, <code>A &gt;= B</code>).</p>
-<h2 id="создание-многомерных-векторов">Создание многомерных векторов</h2>
-<p>Элементами вектора могут быть и другие вектора. Например, можно сделать вектор, каждый элемент которого представляет собой вектор целых чисел:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> a;
-</code></pre></div><p>Тем самым, a[i] будет вектором целых чисел, а обращаться к j-му элементу вектора a[i] можно через a[i][j].</p>
-<p>Чтобы создать двумерный вектор размером n×m можно внешний вектор объявить размером n, а затем в цикле изменить размер каждого вложенного вектора:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> a(n);
-
-<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i)
-    a[i].resize(m);
-</code></pre></div><p>Но можно сделать это и в одну строку, если передать вторым параметром для конструктора вектора конструктор, который создает вектор целых чисел длины m:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> a(n, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(m));
-</code></pre></div><p>Размеры вложенных векторов могут изменяться и быть различными.</p>
-<hr>
+	ref <span style="color:#f92672">=</span> <span style="color:#ae81ff">8</span>; <span style="color:#75715e">// нельзя: ref - это константа
+</span><span style="color:#75715e"></span>}
+</code></pre></div><hr>
 
 
 <footer class="footline">
@@ -1202,110 +1150,6 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
             
                 
                     
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
                 
                 
 
@@ -1378,6 +1222,22 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
             
         
                     
@@ -1385,6 +1245,94 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
             
             
                 
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1476,10 +1424,10 @@ vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</sp
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/basics/lecture2/strings/" title="Строки"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture3/multiplearrays/" title="Многомерные массивы"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/lecture3/" title="Лекция #3" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/ide/" title="Среда разработки для C&#43;&#43;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
