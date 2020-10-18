@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Жизненный цикл ПО :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Констурктор :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1603052825" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/methodology/sdlc/">
+  <body class="" data-url="/courses/basics/lecture4/constructor/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -109,7 +109,7 @@
   
     
     <li data-nav-id="/courses/basics/" title="Основы программирования Осень 2020" class="dd-item 
-        
+        parent
         
         
         ">
@@ -611,7 +611,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture4/" title="Лекция #4" class="dd-item 
-        
+        parent
         
         
         ">
@@ -723,7 +723,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture4/constructor/" title="Констурктор" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture4/constructor/" title="Констурктор" class="dd-item active">
         <a href="/courses/basics/lecture4/constructor/">
         Констурктор
         <i class="fas fa-check read-icon"></i>
@@ -791,7 +791,7 @@
   
     
     <li data-nav-id="/courses/methodology/" title="Совеременные методологии разработки программного обеспечения." class="dd-item 
-        parent
+        
         
         
         ">
@@ -840,7 +840,7 @@
  
   
     
-      <li data-nav-id="/courses/methodology/sdlc/" title="Жизненный цикл ПО" class="dd-item active">
+      <li data-nav-id="/courses/methodology/sdlc/" title="Жизненный цикл ПО" class="dd-item ">
         <a href="/courses/methodology/sdlc/">
         Жизненный цикл ПО
         <i class="fas fa-check read-icon"></i>
@@ -953,7 +953,13 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/methodology/'>Совеременные методологии разработки программного обеспечения.</a> > Жизненный цикл ПО
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture4/'>Лекция #4</a> > Констурктор
+          
+        
           
         
           
@@ -970,12 +976,10 @@
     <div class="wrapper">
 <nav id="TableOfContents">
   <ul>
-    <li><a href="#анализ-требований">Анализ требований</a></li>
-    <li><a href="#проектирование">Проектирование</a></li>
-    <li><a href="#разработка-и-программирование">Разработка и программирование</a></li>
-    <li><a href="#документация">Документация</a></li>
-    <li><a href="#тестирование">Тестирование</a></li>
-    <li><a href="#внедрение-и-сопровождение">Внедрение и сопровождение</a></li>
+    <li><a href="#синтаксический-сахар">Синтаксический сахар</a></li>
+    <li><a href="#еще-конструкторы">Еще конструкторы</a></li>
+    <li><a href="#деструкторы">Деструкторы</a></li>
+    <li><a href="#переиспользование-памяти">Переиспользование памяти</a></li>
   </ul>
 </nav>
     </div>
@@ -993,68 +997,245 @@
           
             <h1>
               
-              Жизненный цикл ПО
+              Констурктор
             </h1>
           
 
         
 
 
-<p>Жизненный цикл программного обеспечения (SDLC) – это условная схема, включающая отдельные этапы, которые представляют стадии процесса создания ПО. При этом, на каждом этапе выполняются разные действия.</p>
-<p><img src="/static/images/methodology/sdlc-schema.png" alt="SDLC">
-Цикл разработки предлагает шаблон, использование которого облегчает проектирование, создание и выпуск качественного программного обеспечения. Это методология, определяющая процессы и средства, необходимые для успешного завершения проекта.</p>
-<p>Хотя реализация принципов построения модели жизненного цикла для разных компаний может существенно отличаться, существуют стандарты, такие как ISO/IEC 12207, определяющие принятые практики разработки и сопровождения программного обеспечения.</p>
-<p>Цель использования модели жизненного цикла – создать эффективный, экономически выгодный и качественный программный продукт.</p>
-<h2 id="анализ-требований">Анализ требований</h2>
-<p>Цель этой стадии – определение детальных требований к системе. Кроме этого, необходимо убедиться в том, что все участники правильно поняли поставленные задачи и то, как именно каждое требование будет реализовано на практике.</p>
-<p>Этот этап предполагает сбор требований к разрабатываемому программному обеспечению, их систематизацию, документирование, анализ, а также выявление и разрешение противоречий.</p>
-<h2 id="проектирование">Проектирование</h2>
-<p>На стадии проектирования (называемой также стадией дизайна и архитектуры) программисты и системные архитекторы, руководствуясь требованиями, разрабатывают высокоуровневый дизайн системы.</p>
-<p>Дизайн, как правило, закрепляется отдельным документом – дизайн-спецификацией (Design Specification Document, DSD).</p>
-<p>На этом этапе, для упрощения визуализации процесса проектирования, используются так называемые нотации– схематическое выражение характеристик системы.</p>
-<p>Основные используемые нотации:</p>
-<ul>
-<li>Блок-схемы.</li>
-<li>ER-диаграммы.</li>
-<li>UML-диаграммы.</li>
-<li>Макеты – например, нарисованный в фотошопе прототип сайта.</li>
-</ul>
-<h2 id="разработка-и-программирование">Разработка и программирование</h2>
-<p>На этом этапе начинается написание программистами кода программы в соответствии с ранее определенными требованиями.</p>
-<p>Программирование предполагает четыре основных стадии:</p>
-<ul>
-<li>Разработка алгоритмов – создание логики работы программы.</li>
-<li>Написание исходного кода.</li>
-<li>Компиляция – преобразование в машинный код.</li>
-<li>Тестирование и отладка – юнит-тестирование.</li>
-</ul>
-<h2 id="документация">Документация</h2>
-<p>Существует четыре уровня документации:</p>
-<ul>
-<li>Архитектурная (проектная) – например, дизайн-спецификация. Это документы, описывающие модели, методологии, инструменты и средства разработки, выбранные для данного проекта.</li>
-<li>Техническая – вся сопровождающая разработку документация (различные документы, поясняющие работу системы на уровне отдельных модулей).</li>
-<li>Пользовательская – включает справочные и поясняющие материалы, необходимые конечному пользователю для работы с системой. Это, к примеру, Readme и User guide, раздел справки по программе.</li>
-<li>Маркетинговая – включает рекламные материалы, сопровождающие выпуск продукта.</li>
-</ul>
-<h2 id="тестирование">Тестирование</h2>
-<p>Процесс тестирования состоит из таких этапов:</p>
-<ul>
-<li>Планирование и управление - планирование тестирования включает действия, направленные на определение основных целей тестирования и задач, выполнение которых необходимо для достижения этих целей; составление тест-стратегии, тест-плана.</li>
-<li>Анализ и проектирование - это процесс написания тестовых сценариев и условий на основе общих целей тестирования.</li>
-<li>Внедрение и реализация - написание тест-кейсов, на основе написанных ранее тестовых сценариев, собирается необходимая для проведения тестов информация, подготавливается тестовое окружение и запускаются тесты.</li>
-<li>Оценка критериев выхода и написание отчетов - необходимо проверить было ли проведено достаточное количество тестов, достигнута ли нужная степень обеспечения качества системы.</li>
-</ul>
-<p>Действия по завершению тестирования - собираем, систематизируем и анализируем информацию о его результатах.</p>
-<p><strong>Основные цели этого этапа</strong></p>
-<ul>
-<li>убедиться, что вся запланированная функциональность действительно была реализована;</li>
-<li>проверить, что все отчеты об ошибках, поданные ранее, были, так или иначе, закрыты;</li>
-<li>завершение работы тестового обеспечения, тестового окружения и инфраструктуры;</li>
-<li>оценить общие результаты тестирования и проанализировать опыт, полученный в его процессе.</li>
-</ul>
-<h2 id="внедрение-и-сопровождение">Внедрение и сопровождение</h2>
-<p>Когда программа протестирована и в ней больше не осталось серьезных дефектов, приходит время релиза и передачи ее конечным пользователям.</p>
-<p>В случае обнаружения пользователями тех или иных пост-релизных багов, информация о них передается в виде отчетов об ошибках команде разработки, которая, в зависимости от серьезности проблемы, либо немедленно выпускает исправление (hot-fix), либо откладывает его до следующей версии программы.</p>
+<p><strong>Конструктор</strong> – метод класса, автоматически применяемый к каждому экземпляру (объекту) класса перед первым использованием (в случае динамического выделения памяти – после успешного выполнения операции <strong>new</strong>).
+
+<div class="notices note" ><p>Освобождение ресурсов, захваченных в конструкторе класса либо на протяжении времени жизни соответствующего экземпляра, осуществляет <strong>деструктор</strong>.</p>
+</div>
+</p>
+<p>Выполнение любого конструктора состоит из двух фаз:</p>
+<ol>
+<li>Фаза явной (неявной) инициализации (обработка списка инициализации)</li>
+<li>Фаза вычислений (исполнение тела конструктора)</li>
+</ol>
+
+<div class="notices note" ><p>Конструктор не может определяться со спецификатором <strong>const</strong>. Константность и объекта устанавливается по завершении работы конструктора и снимается перед вызовом деструктора.</p>
+</div>
+
+
+<div class="notices note" ><p>При объявлении структуры, если не писать явно, то всегда есть конструктор по умолчанию. Его можно переопределить задав в нем некоторые значения объектов данного класса.</p>
+</div>
+
+<p>В приведенном ниже примере объявляется структура дроби с двумя закрытыми переменными. По умолчанию структура в конструкторе инициализируется. Значения числителя и знаменателя можно получить/изменить с помощью функций <strong>геттера/сеттера</strong>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Fraction</span> {
+    Fraction() { <span style="color:#75715e">//конструктор по умолчанию
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// инициализация
+</span><span style="color:#75715e"></span>        _numerator <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        _denominator <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getNumerator</span>() { <span style="color:#66d9ef">return</span> _numerator; }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setNumerator</span>(<span style="color:#66d9ef">int</span> value) { _numerator <span style="color:#f92672">=</span> value; }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getDenominator</span>() { <span style="color:#66d9ef">return</span> _denominator; }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setDenominator</span>(<span style="color:#66d9ef">int</span> value) { _denominator <span style="color:#f92672">=</span> value; }
+
+    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getValue</span>() {
+        <span style="color:#66d9ef">if</span> (_denominator <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+            <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">double</span>)_numerator <span style="color:#f92672">/</span> _denominator;
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">.0</span>;
+        }
+    }
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> _numerator;
+    <span style="color:#66d9ef">int</span> _denominator;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    Sample s; <span style="color:#75715e">// статическое создание
+</span><span style="color:#75715e"></span>    Sample <span style="color:#f92672">*</span>sp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Sample(); <span style="color:#75715e">// динамичесое создание
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>В конструктор как и в любую другую функцию можно передавать начальные значения:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Fraction</span> {
+    Fraction() { <span style="color:#75715e">//конструктор по умолчанию
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// инициализация
+</span><span style="color:#75715e"></span>        _numerator <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+        _denominator <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+    }
+
+    Fraction(<span style="color:#66d9ef">int</span> numerator, <span style="color:#66d9ef">int</span> denominator) { <span style="color:#75715e">//конструктор с параметрами
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// инициализация
+</span><span style="color:#75715e"></span>        _numerator <span style="color:#f92672">=</span> numerator;
+        _denominator <span style="color:#f92672">=</span> denominator;
+    }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getNumerator</span>() { <span style="color:#66d9ef">return</span> _numerator; }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setNumerator</span>(<span style="color:#66d9ef">int</span> value) { _numerator <span style="color:#f92672">=</span> value; }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getDenominator</span>() { <span style="color:#66d9ef">return</span> _denominator; }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setDenominator</span>(<span style="color:#66d9ef">int</span> value) { _denominator <span style="color:#f92672">=</span> value; }
+
+    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getValue</span>() {
+        <span style="color:#66d9ef">if</span> (_denominator <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+            <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">double</span>)numerator <span style="color:#f92672">/</span> _denominator;
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">.0</span>;
+        }
+    }
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> numerator;
+    <span style="color:#66d9ef">int</span> _denominator;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    Sample s(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">20</span>); <span style="color:#75715e">// статическое создание
+</span><span style="color:#75715e"></span>    Sample <span style="color:#f92672">*</span>sp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Sample(<span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">40</span>); <span style="color:#75715e">// динамичесое создание
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>Но также, некоторые значения могут задваться по умолчанию, тогда пример выше можно свести к одному конструктору:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Fraction</span> {
+    Fraction(<span style="color:#66d9ef">int</span> numerator <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#66d9ef">int</span> denominator <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>) { <span style="color:#75715e">//конструктор с параметрами
+</span><span style="color:#75715e"></span>        <span style="color:#75715e">// инициализация
+</span><span style="color:#75715e"></span>        _numerator <span style="color:#f92672">=</span> _numerator;
+        _denominator <span style="color:#f92672">=</span> denominator;
+    }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getNumerator</span>() { <span style="color:#66d9ef">return</span> _numerator; }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setNumerator</span>(<span style="color:#66d9ef">int</span> value) { _numerator <span style="color:#f92672">=</span> value; }
+
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getDenominator</span>() { <span style="color:#66d9ef">return</span> _denominator; }
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setDenominator</span>(<span style="color:#66d9ef">int</span> value) { _denominator <span style="color:#f92672">=</span> value; }
+
+    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getValue</span>() {
+        <span style="color:#66d9ef">if</span> (_denominator <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+            <span style="color:#66d9ef">return</span> (<span style="color:#66d9ef">double</span>)numerator <span style="color:#f92672">/</span> _denominator;
+        } <span style="color:#66d9ef">else</span> {
+            <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">.0</span>;
+        }
+    }
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> _numerator;
+    <span style="color:#66d9ef">int</span> _denominator;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    Sample s(denominator <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>); <span style="color:#75715e">// статическое создание c (0, 20)
+</span><span style="color:#75715e"></span>    Sample <span style="color:#f92672">*</span>sp <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Sample(); <span style="color:#75715e">// динамичесое создание с (0, 1)
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><h2 id="синтаксический-сахар">Синтаксический сахар</h2>
+<p>Для конструктора возможны следующие синтаксические конструкции:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Sample</span> {
+    <span style="color:#75715e">// прямая инциализация переменной.
+</span><span style="color:#75715e"></span>    Sample(<span style="color:#66d9ef">int</span> value) <span style="color:#f92672">:</span> _value(value) { } 
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> _value;
+};
+
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Sample2</span> {
+    <span style="color:#75715e">// прямая инциализация переменной.
+</span><span style="color:#75715e"></span>    Sample(<span style="color:#66d9ef">int</span> value1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>, <span style="color:#66d9ef">int</span> value2 <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>) <span style="color:#f92672">:</span> _value1(value1), _value2(value)  { } 
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> _value1;
+    <span style="color:#66d9ef">int</span> _value2;
+};
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    <span style="color:#75715e">// следующие объявления эквивалентны:
+</span><span style="color:#75715e"></span>    Sample s1(<span style="color:#ae81ff">10</span>);
+    Sample s2 <span style="color:#f92672">=</span> Sample(<span style="color:#ae81ff">10</span>);
+    Sample s3 <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+
+    <span style="color:#75715e">// массивы объектов класса определяются аналогично массивам
+</span><span style="color:#75715e"></span>    <span style="color:#75715e">// объектов базовых типов
+</span><span style="color:#75715e"></span>
+    <span style="color:#75715e">// для конструктора с одним аргументом
+</span><span style="color:#75715e"></span>    Sample array1[] <span style="color:#f92672">=</span> { <span style="color:#ae81ff">10</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">127</span> };
+
+    <span style="color:#75715e">// для конструктора сокращенной формы нет
+</span><span style="color:#75715e"></span>    Sample2 array2[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> {
+        Sample2(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">0.1</span>),
+        Sample2(<span style="color:#f92672">-</span><span style="color:#ae81ff">5</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">3.6</span>),
+        Sample2(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.0</span>),
+        Sample2()
+    };
+}
+
+</code></pre></div><h2 id="еще-конструкторы">Еще конструкторы</h2>
+<p>Надо отметить, что при простом объявлении структуры/класса:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">A</span> { } ;
+</code></pre></div><p>неявным образом создаются следующие функции:</p>
+<ol>
+<li><code>A()</code> - конструктор по умолчанию</li>
+<li><code>A(const A&amp; a)</code> - конструктор копирования</li>
+<li><code>operator=(const A&amp; a)</code> - копирующий оператор</li>
+<li><code>A(const&amp;&amp; a)</code> - конструктор перемещения</li>
+<li><code>operator=(const A&amp;&amp; a)</code> - оператор перемещения</li>
+<li><code>~A()</code> - деструктор</li>
+</ol>
+<p>О функциях 2-5 речь пойдет позже, а вот о деструктор можно рассмотреть сейчас.</p>
+<h2 id="деструкторы">Деструкторы</h2>
+<p>Деструктор – не принимающий параметров и не возвращающий результат функция класса, автоматически вызываемая при выходе объекта из области видимости и применении к указателю на объект класса операции <strong>delete</strong>. Деструктор всегда имеет имя класса/структуры с <code>~</code> перед ним.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Sample</span> {
+    <span style="color:#75715e">// ...    
+</span><span style="color:#75715e"></span>    <span style="color:#f92672">~</span>Sample();
+};
+</code></pre></div>
+<div class="notices note" ><p>Деструктор <strong>не вызывается</strong> при выходе из области видимости <strong>ссылки</strong> или <strong>указателя</strong> на объект.</p>
+</div>
+
+<p>Задачи деструктора:</p>
+<ol>
+<li>Освобождение (возврат) системных ресурсов, главным образом – оперативной памяти</li>
+<li>Закрытие файлов или устройств</li>
+<li>Снятие блокировок, таймеров и т.д</li>
+</ol>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Another</span>
+{ 
+    Another(<span style="color:#66d9ef">int</span> nID)
+    {
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Constructing Another &#34;</span> <span style="color:#f92672">&lt;&lt;</span> nID <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
+        _nID <span style="color:#f92672">=</span> nID;
+    }
+ 
+    <span style="color:#f92672">~</span>Another()
+    {
+        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Destructing Another &#34;</span> <span style="color:#f92672">&lt;&lt;</span> _nID <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
+    }
+ 
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getID</span>() { <span style="color:#66d9ef">return</span> _nID; }
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> _nID;
+};
+ 
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    <span style="color:#75715e">// Выделяем объект класса Another из стека
+</span><span style="color:#75715e"></span>    Another object(<span style="color:#ae81ff">1</span>);
+    cout <span style="color:#f92672">&lt;&lt;</span> object.getID() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
+ 
+    <span style="color:#75715e">// Выделяем объект класса Another динамически из кучи
+</span><span style="color:#75715e"></span>    Another <span style="color:#f92672">*</span>pObject <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Another(<span style="color:#ae81ff">2</span>);
+    cout <span style="color:#f92672">&lt;&lt;</span> pObject<span style="color:#f92672">-&gt;</span>getID() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;
+    <span style="color:#66d9ef">delete</span> pObject; <span style="color:#75715e">// произойдет неявный вызов дестркутора pObject
+</span><span style="color:#75715e"></span> 
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+} <span style="color:#75715e">// объект object выходит из области видимости и вызовется деструктор
+</span><span style="color:#75715e"></span>
+</code></pre></div>
+<div class="notices note" ><p>Общее правило - не вызываем деструктор явно.</p>
+</div>
+
+<h2 id="переиспользование-памяти">Переиспользование памяти</h2>
+<p>Однако, есть случаи, когда вызывать деструтор явно бывает полезно. Потребность в явном вызове деструктора обычно связана с необходимостью <strong>уничтожить</strong> динамически размещенный объект <strong>без освобождения памяти</strong>. То есть мы даем возможно данный сегмент памяти переиспользовать. Достигается это также с помощью расширения оператора <strong>new</strong> указывая где нужно разметить данный объект:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> buf <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">char</span>[<span style="color:#66d9ef">sizeof</span>(Sample)];
+<span style="color:#75715e">// &#34;размещающий&#34; вариант new
+</span><span style="color:#75715e"></span>Sample<span style="color:#f92672">*</span> sample1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> (buf) Sample(<span style="color:#ae81ff">100</span>);
+<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>sample1<span style="color:#f92672">-&gt;~</span>Sample(); <span style="color:#75715e">// вызов 1
+</span><span style="color:#75715e"></span>Sample<span style="color:#f92672">*</span> sample2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> (buf) Sample(<span style="color:#ae81ff">200</span>);
+<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>sample2<span style="color:#f92672">-&gt;~</span>Sample(); <span style="color:#75715e">// вызов 2
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">delete</span>[] buf;
+</code></pre></div><hr>
 
 
 <footer class="footline">
@@ -1108,8 +1289,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -1126,149 +1305,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1341,38 +1379,6 @@
                     
             
         
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -1550,6 +1556,67 @@
                     
 
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
             
         
                     
@@ -1594,6 +1661,21 @@
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -1611,8 +1693,108 @@
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
                         
                         
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
                     
                 
                 
@@ -1640,10 +1822,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/methodology/history/" title="История"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture4/this/" title="this"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/methodology/sdm/" title="Модели разработки ПО" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/ide/" title="Среда разработки для C&#43;&#43;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
