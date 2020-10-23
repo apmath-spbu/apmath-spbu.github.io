@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Материалы по лекциям на кафедре технологии программирования :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Наследование :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1603472820" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/">
+  <body class="" data-url="/courses/basics/lecture5/inheritance/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -79,7 +79,7 @@
     
     <li data-nav-id="/courses/" title="Материалы по лекциям на кафедре технологии программирования" class="dd-item 
         parent
-        active
+        
         
         ">
       <a href="/courses/">
@@ -109,7 +109,7 @@
   
     
     <li data-nav-id="/courses/basics/" title="Основы программирования Осень 2020" class="dd-item 
-        
+        parent
         
         
         ">
@@ -754,7 +754,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture5/" title="Лекция #5" class="dd-item 
-        
+        parent
         
         
         ">
@@ -824,7 +824,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture5/inheritance/" title="Наследование" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture5/inheritance/" title="Наследование" class="dd-item active">
         <a href="/courses/basics/lecture5/inheritance/">
         Наследование
         <i class="fas fa-check read-icon"></i>
@@ -1130,7 +1130,25 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > Материалы по лекциям на кафедре технологии программирования
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture5/'>Лекция #5</a> > Наследование
+          
+        
+          
+        
+          
+        
           
         
           
@@ -1141,7 +1159,18 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#защищенныe-и-закрытые-члены-класса">Защищенныe и закрытые члены класса</a></li>
+    <li><a href="#еще-о-наследовании-классовструктур">Еще о наследовании классов/структур</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#порядок-вызова-конструкторов-производных-классов">Порядок вызова конструкторов производных классов</a></li>
+    <li><a href="#полиморфизм-классов">Полиморфизм классов</a></li>
+    <li><a href="#скрытие-функции">Скрытие функции</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -1157,23 +1186,178 @@
           
             <h1>
               
-              Материалы по лекциям на кафедре технологии программирования
+              Наследование
             </h1>
           
 
         
 
 
+<p><strong>Наследование</strong> - это механизм создания нового класса на основе уже существующего. При этом к существующему классу могут быть добавлены новые элементы (данные и функции), либо существующие функции могут быть изменены. Наследование содействует повторному использованию атрибутов и методов класса, а значит, делает процесс разработки ПО более эффективным. Возникающие между классами A и B отношения наследования позволяют, например говорить, что:</p>
+<ul>
+<li>Класс А является базовым (base) или родительским классом, классом-предком, суперклассом (superclass)</li>
+<li>Класс B является производным (derived) или дочерним классом, классом-потомком, подклассом (subclass)</li>
+</ul>
+<p>Отношения наследования связывают классы в <strong>иерархию наследования</strong>, вид которой зависит от числа базовых классов у каждого производного:</p>
+<ul>
+<li>При <strong>одиночном наследовании</strong> иерархия имеет вид дерева
 
-	<p><a href="/courses/basics/">Основы программирования. 1 курс. Осень 2020</a></p>
-<p><a href="/courses/methodology/">Современные методологии разработки программного обеспечения</a></p>
-<hr>
+<div class="mermaid" align="center">
+classDiagram
+  Class1 <|-- Class2
+  Class1 <|-- Class3
+  Class2 <|-- Class4
+  Class4 <|-- Class5
+  Class4 <|-- Class6
+</div>
+</li>
+<li>При <strong>множественном наследовании</strong> – вид направленного ациклического графа произвольного вида.
+
+<div class="mermaid" align="center">
+classDiagram
+  Class2 <|-- Class11
+  Class9 <|-- Class11
+  Class11 <|-- Class7
+  Class11 <|-- Class5
+  Class8 <|-- Class7
+  Class8 <|-- Class3
+  Class10 <|-- Class11
+  Class10 <|-- Class3
+</div>
+</li>
+</ul>
+<p>Приведем пример производного класса:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Account</span> { <span style="color:#75715e">/* ... */</span> }
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Deposit</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Account {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>То есть мы создаем класс счет (account). Это достаточно общий финансовый инструмент. Счета бывают привязанные к карте, накопительные, депозит. В данном примере наследуем новую сущность &ldquo;депозит&rdquo; путем наследование от &ldquo;счета&rdquo;. Наследование объявлется через <code>:</code>, далее идет <em>модификатор доступа</em> наследование и класс(ы), функциональность которых должна быть унаследована. Здесь как тоже может быть 3 типа модификаторов:</p>
+<ul>
+<li><strong>public</strong> - <strong>открытое</strong> наследование - все публичные (открытые) объекты базового класса доступны как публичные функции у наследника. Все <strong>защищенные</strong> объекты доступны для вызова внутри наследника. Все закрытые объекты <strong>не доступны</strong> для вызова внутри наследника.</li>
+<li><strong>protected</strong> - <strong>зашщищенное</strong> наследование - все публичные (открытые) и защищенные объекты базового класса доступны только для вызова внутри наследника. Все закрытые объекты <strong>не доступны</strong> для вызова внутри наследника.</li>
+<li><strong>protected</strong> - <strong>закрытое</strong> наследование. Все объекты базового класса не доступны для вызова в наследнике.</li>
+</ul>
+<h2 id="защищенныe-и-закрытые-члены-класса">Защищенныe и закрытые члены класса</h2>
+<p>Некоторые атрибуты и методы базового класса, как правило, должны быть доступны для производных классов и недоступны для прочих компонентов программы. В этом случае они помещаются в секцию <strong>protected</strong>, в результате чего защищенные члены данных и методы базового класса:</p>
+<ul>
+<li>Доступны производному классу (прямому потомку)</li>
+<li>Недоступны классам вне рассматриваемой иерархии
+Если наличие прямого доступа к объектам базового класса со стороны производных классов нежелательно, он вводится как закрытый (private).</li>
+</ul>
+<p>В общем случае наследование с определенным типом модификатора и сами объекта можно соотнести к следующей диаграмме:
+<img src="/static/images/basics/lecture5/class_inheritance_diagram.png" alt="Процесс итерпритации"></p>
+<h2 id="еще-о-наследовании-классовструктур">Еще о наследовании классов/структур</h2>
+<p>По умолчанию наследование классов закрытое, наследование структур отрытое. Следующий пример демонстриует равносильные объявления:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">A</span> { };
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">:</span> A { };		 <span style="color:#75715e">// равносильно
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> A { }; 	<span style="color:#75715e">// равносильно
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span> { };
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">:</span> A { };		 <span style="color:#75715e">// равносильно
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">private</span> A { }; 	<span style="color:#75715e">// равносильно
+</span></code></pre></div><h1 id="перегрузка-и-перекрытие-функций-класса">Перегрузка и перекрытие функций класса</h1>
+<p>Рассмотрим следующий пример</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">A</span> {
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">int</span> n) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;A&#34;</span>; }
+};
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">:</span> A {
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">long</span> n) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;B&#34;</span>; }
+};
+
+<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>
+B b;
+b.f(<span style="color:#ae81ff">1</span>); <span style="color:#75715e">// что будет выведено?
+</span></code></pre></div><p>В рассматриваемом примере в структуре <code>A</code> имеется функция, принимающая <code>int</code> и отнаследованная структура <code>B</code> c одноименной феунцией, принмающая <code>long</code>. Далее создается экземпляр класса <code>B</code> И вызываются функция с параметром <code>1</code> (то есть <code>int</code>). Может возникнуть предположение, что вызовется функция <code>f</code> из структуры <code>A</code>, но, в реальности C++ это не так и будет выведено &ldquo;B&rdquo;. Элементы (функции и поля) базового класса <strong>могут перекрываться</strong> одноименными членами данных производного класс, при этом их типы не должны обязательно совпадать. (Для доступа к объектам базового класса его имя должно быть квалифицировано - подробнее в примере ниже).</p>
+<p><strong>Методы</strong> базового и производного классов <strong>не образуют множество перегруженных функций</strong>. В этом случае методы производного класса не перегружают (overload), а <strong>перекрывают</strong> (override) методы базового.</p>
+<p>Для явного <strong>создания объединенного множества перегруженных</strong> методов базового и производного классов используется объявление <strong>using</strong>, которое вводит именованный член базового класса в область видимости производного:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">A</span> {
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">int</span> n) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;A&#34;</span>; }
+};
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">:</span> A {
+    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>(<span style="color:#66d9ef">long</span> n) { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;B&#34;</span>; }
+    <span style="color:#66d9ef">using</span> A<span style="color:#f92672">::</span>f;
+};
+
+<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>
+B b;
+b.f(<span style="color:#ae81ff">1</span>); <span style="color:#75715e">// &#34;A&#34;
+</span></code></pre></div><h2 id="порядок-вызова-конструкторов-производных-классов">Порядок вызова конструкторов производных классов</h2>
+<p><strong>Порядок вызова конструкторов объектов</strong>, а также базовых классов <strong>при построении объекта производного класса</strong> не зависит от порядка из перечисления в списке инициализации конструктора производного класса и является следующим:</p>
+<ol>
+<li>Конструктор базового класса (<em>если таковых несколько, конструкторы вызываются в порядке перечисления имен классов в списке базовых классов</em>)</li>
+<li>Конструктор производного класса.</li>
+</ol>
+<p><strong>Порядок вызова деструкторов</strong> при уничтожении объекта производного класса прямо противоположен порядку вызова конструкторов и является следующим:</p>
+<ol>
+<li>Деструктор производного класса;</li>
+<li>Деструктор базового класса (или несколько)</li>
+</ol>
+<h2 id="полиморфизм-классов">Полиморфизм классов</h2>
+<p>В том случае, если базовый и производный классы имеют общий открытый интерфейс, говорят, что производный класс представляет собой <strong>подкласс</strong> базового. Отношение между классом и подклассом, позволяющее указателю или ссылке на базовый класс без вмешательства программиста адресовать объект производного класса, возникает в С++ благодаря поддержке полиморфизма.
+Рассмотри следующую иерархию:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">A</span> {};
+<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">B</span> <span style="color:#f92672">:</span> A {}
+
+<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>
+B b;
+A a <span style="color:#f92672">=</span> b; <span style="color:#75715e">// возможно так как B отнаследовано от A
+</span></code></pre></div><p>Но, нельзя присвоить базовый класс экземпляру наследника:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">A a;
+B b <span style="color:#f92672">=</span> a; <span style="color:#75715e">// ошибка
+</span></code></pre></div><p>Рассмотрим следующую простую иерархию классов:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Base</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> hi() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hi, I&#39;m base class&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Derived</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Base {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> hi() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hi, I&#39;m derived class&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
+};
+</code></pre></div><p>И следющий порядок использования:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Derived d;
+Base b <span style="color:#f92672">=</span> d; <span style="color:#75715e">// создается новый экземпляр Base присвоенный из Derived
+</span><span style="color:#75715e"></span>d.hi(); <span style="color:#75715e">// &#34;Hi, I&#39;m derived class&#34;
+</span><span style="color:#75715e"></span>b.hi(); <span style="color:#75715e">// &#34;Hi, I&#39;m base class&#34;
+</span></code></pre></div><p>Здесь акцентрирую внимание на то, что несмотря на то, что переменный <code>b</code> было присвоен объект типа <code>Derived</code> функция <code>hi</code> будет вызывана из типа <code>Base</code>, а не из типа <code>Derived</code>, хотя сам объект является этим типом. Не помогут и ссылки и присовение по указателю:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Derived d;
+Base<span style="color:#f92672">&amp;</span> b <span style="color:#f92672">=</span> d; <span style="color:#75715e">// ссылка типа Base на экземпляр Derived
+</span><span style="color:#75715e"></span>d.hi(); <span style="color:#75715e">// &#34;Hi, I&#39;m derived class&#34;
+</span><span style="color:#75715e"></span>b.hi(); <span style="color:#75715e">// &#34;Hi, I&#39;m base class&#34;
+</span></code></pre></div><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">Derived d;
+Base<span style="color:#f92672">*</span> b <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>d; <span style="color:#75715e">// указатель типа Base на экземпляр Derived
+</span><span style="color:#75715e"></span>d.hi(); <span style="color:#75715e">// &#34;Hi, I&#39;m derived class&#34;
+</span><span style="color:#75715e"></span>b<span style="color:#f92672">-&gt;</span>hi(); <span style="color:#75715e">// &#34;Hi, I&#39;m base class&#34;
+</span></code></pre></div><p>Во всех случаях информация о функциях будет исходить из типа объявленной переменной. Есть маханизмы это поправить и они будут рассмотрены в следующей части.</p>
+<h2 id="скрытие-функции">Скрытие функции</h2>
+<p>В случаях когда нам необходимо скрыть открытую функцию из наследников (что бывает крайне редко) существует ключевое слово <strong>delete</strong>. Пример:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Base</span>
+{
+	<span style="color:#66d9ef">int</span> _value;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	Base(<span style="color:#66d9ef">int</span> value)<span style="color:#f92672">:</span> _value(value){ }
+	<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getValue</span>() { <span style="color:#66d9ef">return</span> _value; }
+};
+ 
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Derived</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Base
+{
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+	Derived(<span style="color:#66d9ef">int</span> value)<span style="color:#f92672">:</span> Base(value)	{ }
+	<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getValue</span>() <span style="color:#f92672">=</span> <span style="color:#66d9ef">delete</span>; <span style="color:#75715e">// делаем этот метод недоступным
+</span><span style="color:#75715e"></span>};
+ 
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    Derived d(<span style="color:#ae81ff">9</span>);	
+	cout <span style="color:#f92672">&lt;&lt;</span> d.getValue(); <span style="color:#75715e">// не сработает, поскольку getValue() удален
+</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><hr>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1224,8 +1408,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -1242,149 +1424,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1457,38 +1498,6 @@
                     
             
         
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -1718,6 +1727,190 @@
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1876,10 +2069,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/" title="Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture5/polymorphism/" title="Полиморфизм"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/" title="Основы программирования Осень 2020" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/lecture5/virtualfunctions/" title="Виртуальные функции" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1918,3 +2111,4 @@
 </script>
   </body>
 </html>
+

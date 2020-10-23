@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Материалы по лекциям на кафедре технологии программирования :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Полиморфизм :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1603472820" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/">
+  <body class="" data-url="/courses/basics/lecture5/polymorphism/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -79,7 +79,7 @@
     
     <li data-nav-id="/courses/" title="Материалы по лекциям на кафедре технологии программирования" class="dd-item 
         parent
-        active
+        
         
         ">
       <a href="/courses/">
@@ -109,7 +109,7 @@
   
     
     <li data-nav-id="/courses/basics/" title="Основы программирования Осень 2020" class="dd-item 
-        
+        parent
         
         
         ">
@@ -754,7 +754,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture5/" title="Лекция #5" class="dd-item 
-        
+        parent
         
         
         ">
@@ -803,7 +803,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture5/polymorphism/" title="Полиморфизм" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture5/polymorphism/" title="Полиморфизм" class="dd-item active">
         <a href="/courses/basics/lecture5/polymorphism/">
         Полиморфизм
         <i class="fas fa-check read-icon"></i>
@@ -1130,7 +1130,25 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > Материалы по лекциям на кафедре технологии программирования
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture5/'>Лекция #5</a> > Полиморфизм
+          
+        
+          
+        
+          
+        
           
         
           
@@ -1157,23 +1175,29 @@
           
             <h1>
               
-              Материалы по лекциям на кафедре технологии программирования
+              Полиморфизм
             </h1>
           
 
         
 
 
+<p><a href="https://en.wikipedia.org/wiki/Polymorphism_(computer_science)"><strong>Полиморфизм</strong></a> - это свойство, которое позволяет одно и то же имя использовать для решения двух или более схожих, но технически разных задач. Целью полиморфизма, применительно к объектно-ориентированному программированию, является использование одного имени для задания общих для класса действий. В С++ можно использовать одно имя функции для множества различных действий. Это называется <strong>перегрузкой функций</strong> (function overloading).</p>
+<p>Фактически, мы уже познакомились с эти понятием разбирая <a href="/courses/basics/lecture4/struct/">структруру</a>. Есть 3 метода и каждый из них принмает различные входные данные (как <strong>по количеству</strong>, так и <strong>по типу</strong>):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">length</span>(<span style="color:#66d9ef">int</span> x1, <span style="color:#66d9ef">int</span> y1, <span style="color:#66d9ef">int</span> x2, <span style="color:#66d9ef">int</span> y2);
+<span style="color:#66d9ef">double</span> <span style="color:#a6e22e">length</span>(Point p1, Point p2);
+<span style="color:#66d9ef">double</span> <span style="color:#a6e22e">length</span>(Segment s);
+</code></pre></div>
+<div class="notices note" ><p>В языке C, в отличие от C++ полиморфизма нет и приходится писать отдельные функции для различных аргументов. Например для функции модуля есть 3 различных функций <code>abs(int)</code>, <code>fabs(float)</code>, <code>labs(long)</code> для целочисленных, с плавающей точкой и длинных целоых значений.</p>
+</div>
 
-	<p><a href="/courses/basics/">Основы программирования. 1 курс. Осень 2020</a></p>
-<p><a href="/courses/methodology/">Современные методологии разработки программного обеспечения</a></p>
-<hr>
+
+<div class="notices note" ><p>В более общем смысле, концепцией полиморфизма является идея <strong>&ldquo;один интерфейс, множество методов&rdquo;</strong></p>
+</div>
 
 
 
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1224,8 +1248,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -1242,149 +1264,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1457,38 +1338,6 @@
                     
             
         
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -1702,6 +1551,190 @@
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1876,10 +1909,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/" title="Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture5/accessmodifier/" title="Модификаторы доступа"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/" title="Основы программирования Осень 2020" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/lecture5/inheritance/" title="Наследование" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1918,3 +1951,4 @@
 </script>
   </body>
 </html>
+

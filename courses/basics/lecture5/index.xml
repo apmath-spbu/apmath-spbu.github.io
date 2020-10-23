@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Лекция #5 on Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <link>https://apmath-spbu.github.io/courses/basics/lecture5/</link>
+    <description>Recent content in Лекция #5 on Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru-ru</language><atom:link href="https://apmath-spbu.github.io/courses/basics/lecture5/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Модификаторы доступа</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture5/accessmodifier/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture5/accessmodifier/</guid>
+      <description>Рассматривая тему конструктора я уже привел пример с модифкатором досутупа private, но мы не разбирали детально.Модификаторы доступа позволяют ограничивать доступ к методам и полям класса. В C++ существует 3 основных модификатора доступа, но сейчас я перечислю только 2 (с третьим познакомимся чуть позже):
+ private - все объекты следующие за этой меткой являются закрытми, то есть доступные только внутри класса. Доступ извне запрещен. public - все объекты следующие за этой меткой являются открытыми, фактически представляют интерфейс класса.</description>
+    </item>
+    
+    <item>
+      <title>Полиморфизм</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture5/polymorphism/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture5/polymorphism/</guid>
+      <description>Полиморфизм - это свойство, которое позволяет одно и то же имя использовать для решения двух или более схожих, но технически разных задач. Целью полиморфизма, применительно к объектно-ориентированному программированию, является использование одного имени для задания общих для класса действий. В С++ можно использовать одно имя функции для множества различных действий. Это называется перегрузкой функций (function overloading).
+Фактически, мы уже познакомились с эти понятием разбирая структруру. Есть 3 метода и каждый из них принмает различные входные данные (как по количеству, так и по типу):</description>
+    </item>
+    
+    <item>
+      <title>Наследование</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture5/inheritance/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture5/inheritance/</guid>
+      <description>Наследование - это механизм создания нового класса на основе уже существующего. При этом к существующему классу могут быть добавлены новые элементы (данные и функции), либо существующие функции могут быть изменены. Наследование содействует повторному использованию атрибутов и методов класса, а значит, делает процесс разработки ПО более эффективным. Возникающие между классами A и B отношения наследования позволяют, например говорить, что:
+ Класс А является базовым (base) или родительским классом, классом-предком, суперклассом (superclass) Класс B является производным (derived) или дочерним классом, классом-потомком, подклассом (subclass)  Отношения наследования связывают классы в иерархию наследования, вид которой зависит от числа базовых классов у каждого производного:</description>
+    </item>
+    
+    <item>
+      <title>Виртуальные функции</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture5/virtualfunctions/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture5/virtualfunctions/</guid>
+      <description>При построении иерархии классов нередки случаи, когда базовая функцианальность должна быть изменена/дополнена. Например код предыдущей секции:
+class Base { public: void hi() { cout &amp;lt;&amp;lt; &amp;#34;Hi, I&amp;#39;m base class&amp;#34; &amp;lt;&amp;lt; endl; } }; class Derived : public Base { public: void hi() { cout &amp;lt;&amp;lt; &amp;#34;Hi, I&amp;#39;m derived class&amp;#34; &amp;lt;&amp;lt; endl; } }; // ...  Derived d; Base b = d; d.hi(); // &amp;#34;Hi, I&amp;#39;m derived class&amp;#34; b.hi(); // &amp;#34;Hi, I&amp;#39;m base class&amp;#34; Наша из экземпляра наследника вызвать переопределенную функцию.</description>
+    </item>
+    
+    <item>
+      <title>Финальные методы и классы</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture5/final/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture5/final/</guid>
+      <description>Помимо того, что можно дополнить/изменить/скрыть функциональность существует возможность и останить иерархию как наследования, так и переопределения. Для этого существуют финальные методы/классы.
+struct A { virtual void foo() { cout &amp;lt;&amp;lt; &amp;#34;A&amp;#34;; } // void bar() final; // недопустимо }; struct B : A { // И делаем финальным классом, без возможности  void foo() final { cout &amp;lt;&amp;lt; &amp;#34;B&amp;#34;; } }; struct С final : A { // C делаем финальным классом, без возможности отнаследоваться от него }; struct D : B { //void foo() { cout &amp;lt;&amp;lt; &amp;#34;D&amp;#34;; } // недопустимо, так как в B метод foo финальный }; /* struct E : C { };	// недопустимо, так как C - финальный класс */ </description>
+    </item>
+    
+    <item>
+      <title>Множественное наследование</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture5/multipleinheritance/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture5/multipleinheritance/</guid>
+      <description>Множественное наследование в ООП – это наследование от двух и более базовых классов, возможно, с различным уровнем доступа (нет никаких ограничений на количество). При множественном наследовании конструкторы базовых классов вызываются в порядке перечисления имен классов в списке базовых классов. Порядок вызова деструкторов ему прямо противоположен.
+class Derived : public BaseA, protected BaseB, private BaseC { // ...  }; Виратуальное наследование При множественном наследовании возможна ситуация неоднократного включения подобъекта одного и того же базового класса в состав производного.</description>
+    </item>
+    
+    <item>
+      <title>Динамическая идентификация типов времени выполнения</title>
+      <link>https://apmath-spbu.github.io/courses/basics/lecture5/dynamiccast/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://apmath-spbu.github.io/courses/basics/lecture5/dynamiccast/</guid>
+      <description>Динамическая идентификация типов времени выполнения позволяет программе узнать реальный производный тип объекта, адресуемого по ссылке или по указателю на базовый класс. Реализована 2 операциями:
+ dynamic_cast – поддерживает преобразование типов времени выполнения операция typeid идентифицирует реальный тип выражения  Операция dynamic_cast Встроенная унарная операция dynamic_cast языка C++ позволяет безопасно трансформировать указатель на базовый класс в указатель на производный класс:
+class Alpha { }; class Beta : public Alpha { }; // .</description>
+    </item>
+    
+  </channel>
+</rss>

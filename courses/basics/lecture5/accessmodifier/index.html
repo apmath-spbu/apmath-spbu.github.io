@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Материалы по лекциям на кафедре технологии программирования :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Модификаторы доступа :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1603472820" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/">
+  <body class="" data-url="/courses/basics/lecture5/accessmodifier/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -79,7 +79,7 @@
     
     <li data-nav-id="/courses/" title="Материалы по лекциям на кафедре технологии программирования" class="dd-item 
         parent
-        active
+        
         
         ">
       <a href="/courses/">
@@ -109,7 +109,7 @@
   
     
     <li data-nav-id="/courses/basics/" title="Основы программирования Осень 2020" class="dd-item 
-        
+        parent
         
         
         ">
@@ -754,7 +754,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture5/" title="Лекция #5" class="dd-item 
-        
+        parent
         
         
         ">
@@ -782,7 +782,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture5/accessmodifier/" title="Модификаторы доступа" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture5/accessmodifier/" title="Модификаторы доступа" class="dd-item active">
         <a href="/courses/basics/lecture5/accessmodifier/">
         Модификаторы доступа
         <i class="fas fa-check read-icon"></i>
@@ -1130,7 +1130,25 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > Материалы по лекциям на кафедре технологии программирования
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture5/'>Лекция #5</a> > Модификаторы доступа
+          
+        
+          
+        
+          
+        
           
         
           
@@ -1141,7 +1159,11 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#класс">Класс</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -1157,23 +1179,57 @@
           
             <h1>
               
-              Материалы по лекциям на кафедре технологии программирования
+              Модификаторы доступа
             </h1>
           
 
         
 
 
+<p>Рассматривая тему <a href="/courses/basics/lecture4/constructor/">конструктора</a> я уже привел пример с модифкатором досутупа <strong>private</strong>, но мы не разбирали детально.Модификаторы доступа позволяют ограничивать доступ к методам и полям класса.  В C++ существует 3 основных модификатора доступа, но сейчас я перечислю только 2 (с третьим познакомимся чуть позже):</p>
+<ul>
+<li><strong>private</strong> - все объекты следующие за этой меткой являются закрытми, то есть доступные только внутри класса. Доступ извне запрещен.</li>
+<li><strong>public</strong> - все объекты следующие за этой меткой являются открытыми, фактически представляют интерфейс класса.</li>
+</ul>
+<p>При этом маркеры можно чередовать. Важно лишь, что все объекты за ним наследуют уровень доступа. Следующий пример демонстриует эту возможность:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Alpha</span> {
+<span style="color:#75715e">// по умолчанию для struct модификатор открытый, то есть неявно действует модификатор public, если не указан явно private
+</span><span style="color:#75715e"></span>    Alpha(<span style="color:#66d9ef">int</span> n)<span style="color:#f92672">:</span> _n(n) { }
 
-	<p><a href="/courses/basics/">Основы программирования. 1 курс. Осень 2020</a></p>
-<p><a href="/courses/methodology/">Современные методологии разработки программного обеспечения</a></p>
-<hr>
+<span style="color:#75715e">// следующие элементы закрытые
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> _n;
 
+<span style="color:#75715e">// следующие элементы откртые
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> getN() { <span style="color:#66d9ef">return</span> _n; }
+};
 
+<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+Alpha <span style="color:#a6e22e">a</span>(<span style="color:#ae81ff">5</span>);
+cout <span style="color:#f92672">&lt;&lt;</span> a.getN();
+cout <span style="color:#f92672">&lt;&lt;</span> a._n; <span style="color:#75715e">// ошибка
+</span></code></pre></div><h2 id="класс">Класс</h2>
+<p>В C++ ключевое слово <strong>struct</strong> можно заменить на <strong>class</strong>, тогда все поля и методы по умолчанию будут <strong>private</strong>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Alpha</span> {
+<span style="color:#75715e">// по умолчанию для class модификатор закрытый, то есть неявно действует модификатор private, если не указан явно public
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> _n;
 
+<span style="color:#75715e">// следующие элементы откртые
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Alpha(<span style="color:#66d9ef">int</span> n)<span style="color:#f92672">:</span> _n(n) { }
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getN</span>() { <span style="color:#66d9ef">return</span> _n; }
+};
 
+<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+Alpha <span style="color:#a6e22e">a</span>(<span style="color:#ae81ff">5</span>);
+cout <span style="color:#f92672">&lt;&lt;</span> a.getN();
+cout <span style="color:#f92672">&lt;&lt;</span> a._n; <span style="color:#75715e">// ошибка
+</span></code></pre></div>
 
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1224,8 +1280,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -1242,149 +1296,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1457,38 +1370,6 @@
                     
             
         
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -1686,6 +1567,187 @@
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1876,10 +1938,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/" title="Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture5/" title="Лекция #5"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/" title="Основы программирования Осень 2020" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/lecture5/polymorphism/" title="Полиморфизм" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1918,3 +1980,4 @@
 </script>
   </body>
 </html>
+

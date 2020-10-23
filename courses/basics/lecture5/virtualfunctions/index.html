@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Материалы по лекциям на кафедре технологии программирования :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Виртуальные функции :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1603472820" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/">
+  <body class="" data-url="/courses/basics/lecture5/virtualfunctions/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -79,7 +79,7 @@
     
     <li data-nav-id="/courses/" title="Материалы по лекциям на кафедре технологии программирования" class="dd-item 
         parent
-        active
+        
         
         ">
       <a href="/courses/">
@@ -109,7 +109,7 @@
   
     
     <li data-nav-id="/courses/basics/" title="Основы программирования Осень 2020" class="dd-item 
-        
+        parent
         
         
         ">
@@ -754,7 +754,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture5/" title="Лекция #5" class="dd-item 
-        
+        parent
         
         
         ">
@@ -845,7 +845,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture5/virtualfunctions/" title="Виртуальные функции" class="dd-item ">
+      <li data-nav-id="/courses/basics/lecture5/virtualfunctions/" title="Виртуальные функции" class="dd-item active">
         <a href="/courses/basics/lecture5/virtualfunctions/">
         Виртуальные функции
         <i class="fas fa-check read-icon"></i>
@@ -1130,7 +1130,25 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > Материалы по лекциям на кафедре технологии программирования
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture5/'>Лекция #5</a> > Виртуальные функции
+          
+        
+          
+        
+          
+        
           
         
           
@@ -1141,7 +1159,11 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#чистые-виртуальные-функции">Чистые виртуальные функции</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -1157,23 +1179,97 @@
           
             <h1>
               
-              Материалы по лекциям на кафедре технологии программирования
+              Виртуальные функции
             </h1>
           
 
         
 
 
+<p>При построении иерархии классов нередки случаи, когда базовая функцианальность должна быть изменена/дополнена. Например код предыдущей секции:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Base</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> hi() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hi, I&#39;m base class&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
+};
 
-	<p><a href="/courses/basics/">Основы программирования. 1 курс. Осень 2020</a></p>
-<p><a href="/courses/methodology/">Современные методологии разработки программного обеспечения</a></p>
-<hr>
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Derived</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Base {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> hi() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hi, I&#39;m derived class&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
+};
+
+<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+Derived d;
+Base b <span style="color:#f92672">=</span> d;
+d.hi(); <span style="color:#75715e">// &#34;Hi, I&#39;m derived class&#34;
+</span><span style="color:#75715e"></span>b.hi(); <span style="color:#75715e">// &#34;Hi, I&#39;m base class&#34;
+</span></code></pre></div><p>Наша из экземпляра наследника вызвать переопределенную функцию. Достигается это посредством определения виртуальных функций (virtual functions).</p>
+
+<div class="notices note" ><p>По умолчанию объектная модель C++ работает с <strong>невиртуальными</strong> функциями.</p>
+</div>
 
 
+<div class="notices note" ><p>Чтобы сделать функцию виртуальной необходимо добавить ключевое слово <strong>virtual</strong> и она станет виратульной для <strong>всех</strong> наследниках на <strong>всех</strong> уровнях.</p>
+</div>
 
 
+<div class="notices note" ><p>Для перегружаемой функции можно явно указать, что она является виртуально функцией и сама переопределяет виртаульную функцию. Тем не менее это ключевое слово является необязательным. Приведенный пример ниже будет работать из без указания <code>override</code></p>
+</div>
 
-<footer class=" footline" >
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Base</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> hi() { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hi, I&#39;m base class&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Derived</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Base {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> hi() <span style="color:#66d9ef">override</span> { cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hi, I&#39;m derived class&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl; }
+};
+
+<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+Derived d;
+Base<span style="color:#f92672">&amp;</span> b <span style="color:#f92672">=</span> d; <span style="color:#75715e">// нужна именно ссылка
+</span><span style="color:#75715e"></span>d.hi(); <span style="color:#75715e">// &#34;Hi, I&#39;m derived class&#34;
+</span><span style="color:#75715e"></span>b.hi(); <span style="color:#75715e">// &#34;Hi, I&#39;m derived class&#34;
+</span></code></pre></div><h2 id="чистые-виртуальные-функции">Чистые виртуальные функции</h2>
+<p>Помимо случаев, когда нужно переопределить функциональность, есть масса примеров, когда необходимо работать с конрактом объекта (то есть с декларацией, что объект может делать, но не описывающий как). Для таких случаях в C++ есть <strong>чистые виртуальные функции</strong>. Класс в котором виртуальный метод описывается впервые, должен определять его тело либо декларировать метод как не имеющую собственной реализации чистую виртуальную функцию, путем добавления <code>=0</code> к описанию функции:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</code></pre></div><p>Класс, который определяет или наследует хотя бы одну чистую виртуальную функцию, является <strong>абстрактным</strong>. <strong>Экземпляры</strong> абстрактных классов <strong>создать нельзя</strong>. Абстрактный класс может реализовываться только как подобъект производного, неабстрактного класса.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">A</span> {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+   <span style="color:#66d9ef">virtual</span> string name() <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">B</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> A {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+   string name() {<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;B&#34;</span>;}
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">C</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> A {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+   string name() {<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;C&#34;</span>;}
+};
+
+<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">hi</span>(A<span style="color:#f92672">&amp;</span> a) {
+   cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Hi &#34;</span> <span style="color:#f92672">&lt;&lt;</span> a.name() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;!&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+   B b;
+   C c;
+   hi(b);
+   hi(c);
+   <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><hr>
+
+
+<footer class="footline">
 	
 </footer>
 
@@ -1224,8 +1320,6 @@
             
                 
                     
-                        
-                        
                     
                 
                 
@@ -1242,149 +1336,8 @@
             
                 
                     
-                
-                
-
-                    
-                    
-                    
-
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
                         
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
                     
                 
                 
@@ -1457,38 +1410,6 @@
                     
             
         
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
                     
                         
             
@@ -1730,10 +1651,194 @@
             
         
                     
+            
+        
+                    
                         
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -1876,10 +1981,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/" title="Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/basics/lecture5/inheritance/" title="Наследование"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/" title="Основы программирования Осень 2020" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/basics/lecture5/final/" title="Финальные методы и классы" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -1918,3 +2023,4 @@
 </script>
   </body>
 </html>
+
