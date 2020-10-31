@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>1.7. Функции :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Конструирование ПО :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1604146273" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/basics/lecture1/part7/">
+  <body class="" data-url="/courses/methodology/constructing/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -109,7 +109,7 @@
   
     
     <li data-nav-id="/courses/basics/" title="Основы программирования Осень 2020" class="dd-item 
-        parent
+        
         
         
         ">
@@ -140,7 +140,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture1/" title="Лекция #1" class="dd-item 
-        parent
+        
         
         
         ">
@@ -294,7 +294,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture1/part7/" title="1.7. Функции" class="dd-item active">
+      <li data-nav-id="/courses/basics/lecture1/part7/" title="1.7. Функции" class="dd-item ">
         <a href="/courses/basics/lecture1/part7/">
         1.7. Функции
         <i class="fas fa-check read-icon"></i>
@@ -976,7 +976,7 @@
   
     
     <li data-nav-id="/courses/methodology/" title="Совеременные методологии разработки программного обеспечения." class="dd-item 
-        
+        parent
         
         
         ">
@@ -1067,7 +1067,7 @@
  
   
     
-      <li data-nav-id="/courses/methodology/constructing/" title="Конструирование ПО" class="dd-item ">
+      <li data-nav-id="/courses/methodology/constructing/" title="Конструирование ПО" class="dd-item active">
         <a href="/courses/methodology/constructing/">
         Конструирование ПО
         <i class="fas fa-check read-icon"></i>
@@ -1201,13 +1201,7 @@
             
           
           
-            
-            
-          
-          
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture1/'>Лекция #1</a> > 1.7. Функции
-          
-        
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/methodology/'>Совеременные методологии разработки программного обеспечения.</a> > Конструирование ПО
           
         
           
@@ -1232,65 +1226,47 @@
             
         <div id="head-tags">
         
-<div class="tags">
-
-  <a class="tag-link" href="/tags/%D1%81">с</a>
-
-  <a class="tag-link" href="/tags/cpp">cpp</a>
-
-</div>
-
         </div>
         
         <div id="body-inner">
           
             <h1>
               
-              1.7. Функции
+              Конструирование ПО
             </h1>
           
 
         
 
 
-<p>Функция — это последовательность команд для выполнения определенного задания. Собственно ваши программы и будут из них состоять (как минимум из функции main). Сигнатра функции состоит из возвращаемого типа, имени функции и переменных данной функции (если они есть) в круглых скобках. Ключевое слово <strong>return</strong> возвращает значение из функции или выходит из нее (если тип возвращаемого значение <strong>void</strong>  - то есть функция является процедурой).</p>
-<pre><code>#include &lt;iostream&gt;
-using namespace std;
+<p>Основные тезисы:</p>
+<p>Конструирование ПО - крупная чать процесса разработки ПО. Вот такие состовляющие разработки ПО, которые были определены за последние 35 лет:</p>
+<ul>
+<li>определение проблемы</li>
+<li>выработка требований</li>
+<li>создание плана конструирования</li>
+<li>разработка архитектуры ПО, или высокоуровневое проектирование</li>
+<li>детальное проектирование</li>
+<li>кодирование и отладка</li>
+<li>блочное тестирование</li>
+<li>интеграционное тестирование</li>
+<li>интеграция</li>
+<li>тестрование системы</li>
+<li>сопровождение</li>
+</ul>
+<p><img src="https://docplayer.ru/docs-images/55/36086546/images/6-0.png" alt="Разработка ПО"></p>
+<p>Конкретные задачи, связанные с конструированием:</p>
+<ul>
+<li>проверка выполнения условий</li>
+<li>определение способов последующего тестирования</li>
+<li>проектирование и написание классов и интерфейсов</li>
+<li>создание и присвоение имен переменным и именованным константам</li>
+<li>выбор управляющих структур и организация блоков команд</li>
+<li>блочное тестирование, интеграционное тестирование, отладка</li>
+<li>ревью, форматирование, комментирование кода</li>
+</ul>
+<p>Результат конструирования - исходный код.</p>
 
-double square (double x)
-{
-    return x * x;
-}
-
-void printFinish()
-{
-    cout &lt;&lt; &quot;Finish&quot;;
-}
- 
-int main()
-{
-    cout &lt;&lt; square(9) &lt;&lt; endl; // выведется 81
-    printFinish();
-    return 0;
-}
-</code></pre><p>Переменные объявляенные внутри функции - являются локальными для этих функций. Параметры передаются по значению (копируются). Как сделать так, вызываемые параметры можно было бы изменить рассмотрим позже.</p>
-<pre><code>#include &lt;iostream&gt;
-using namespace std;
-
-double fortyTwo(int i)
-{
-    i = 42; // не поменяет глобальную значение в оригинальной переменной
-    return i; // будет неявное преобразование возвращаемого значения в double
-}
- 
-int main()
-{
-    int i = 5; 
-    cout &lt;&lt; fortyTwo(i) &lt;&lt; endl; // выведет 42
-    cout &lt;&lt; i; // выведет 5
-    return 0;
-}
-</code></pre>
 
 <footer class="footline">
 	
@@ -1343,6 +1319,8 @@ int main()
             
                 
                     
+                        
+                        
                     
                 
                 
@@ -1359,7 +1337,6 @@ int main()
             
                 
                     
-                    
                 
                 
 
@@ -1367,25 +1344,6 @@ int main()
                     
                     
 
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
                     
                         
             
@@ -1472,7 +1430,6 @@ int main()
             
                 
                     
-                    
                 
                 
 
@@ -1489,8 +1446,21 @@ int main()
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
-                        
+            
+            
+                
                     
                 
                 
@@ -1930,6 +1900,7 @@ int main()
             
                 
                     
+                    
                 
                 
 
@@ -1942,6 +1913,9 @@ int main()
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -1991,6 +1965,7 @@ int main()
             
                 
                     
+                    
                 
                 
 
@@ -2006,6 +1981,9 @@ int main()
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2049,10 +2027,10 @@ int main()
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/basics/lecture1/part6/" title="1.6. Инструкции. Условные операторы. Циклы"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/methodology/sdm/" title="Модели разработки ПО"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/lecture1/part8/" title="1.8. Макросы. Ввод-вывод" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/methodology/quality/" title="Качество ПО" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>

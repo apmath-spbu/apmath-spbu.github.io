@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>1.7. Функции :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Git :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1604146273" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/courses/basics/lecture1/part7/">
+  <body class="" data-url="/courses/methodology/git/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -109,7 +109,7 @@
   
     
     <li data-nav-id="/courses/basics/" title="Основы программирования Осень 2020" class="dd-item 
-        parent
+        
         
         
         ">
@@ -140,7 +140,7 @@
   
     
     <li data-nav-id="/courses/basics/lecture1/" title="Лекция #1" class="dd-item 
-        parent
+        
         
         
         ">
@@ -294,7 +294,7 @@
  
   
     
-      <li data-nav-id="/courses/basics/lecture1/part7/" title="1.7. Функции" class="dd-item active">
+      <li data-nav-id="/courses/basics/lecture1/part7/" title="1.7. Функции" class="dd-item ">
         <a href="/courses/basics/lecture1/part7/">
         1.7. Функции
         <i class="fas fa-check read-icon"></i>
@@ -976,7 +976,7 @@
   
     
     <li data-nav-id="/courses/methodology/" title="Совеременные методологии разработки программного обеспечения." class="dd-item 
-        
+        parent
         
         
         ">
@@ -1109,7 +1109,7 @@
  
   
     
-      <li data-nav-id="/courses/methodology/git/" title="Git" class="dd-item ">
+      <li data-nav-id="/courses/methodology/git/" title="Git" class="dd-item active">
         <a href="/courses/methodology/git/">
         Git
         <i class="fas fa-check read-icon"></i>
@@ -1201,13 +1201,7 @@
             
           
           
-            
-            
-          
-          
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/basics/'>Основы программирования Осень 2020</a> > <a href='/courses/basics/lecture1/'>Лекция #1</a> > 1.7. Функции
-          
-        
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/courses/'>Материалы по лекциям на кафедре технологии программирования</a> > <a href='/courses/methodology/'>Совеременные методологии разработки программного обеспечения.</a> > Git
           
         
           
@@ -1222,7 +1216,14 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#централизованные-системы-контроля-версий">Централизованные системы контроля версий</a></li>
+    <li><a href="#распределенные-системы-контроля-версий">Распределенные системы контроля версий</a></li>
+    <li><a href="#git-общие-команды">Git общие команды</a></li>
+    <li><a href="#материалы">Материалы</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -1232,65 +1233,49 @@
             
         <div id="head-tags">
         
-<div class="tags">
-
-  <a class="tag-link" href="/tags/%D1%81">с</a>
-
-  <a class="tag-link" href="/tags/cpp">cpp</a>
-
-</div>
-
         </div>
         
         <div id="body-inner">
           
             <h1>
               
-              1.7. Функции
+              Git
             </h1>
           
 
         
 
 
-<p>Функция — это последовательность команд для выполнения определенного задания. Собственно ваши программы и будут из них состоять (как минимум из функции main). Сигнатра функции состоит из возвращаемого типа, имени функции и переменных данной функции (если они есть) в круглых скобках. Ключевое слово <strong>return</strong> возвращает значение из функции или выходит из нее (если тип возвращаемого значение <strong>void</strong>  - то есть функция является процедурой).</p>
-<pre><code>#include &lt;iostream&gt;
-using namespace std;
+<p>Основные тезисы:</p>
+<p>Типы систем контроля версий:</p>
+<ul>
+<li>локальные</li>
+<li>централизованные</li>
+<li>распределенные</li>
+</ul>
+<h2 id="централизованные-системы-контроля-версий">Централизованные системы контроля версий</h2>
+<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190624140224/cvcss.png" alt=""></p>
+<h2 id="распределенные-системы-контроля-версий">Распределенные системы контроля версий</h2>
+<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190624140226/distvcs.png" alt=""></p>
+<p><img src="https://www.nobledesktop.com/image/blog/git-branches-merge.png" alt="Gerneral flow"></p>
+<h2 id="git-общие-команды">Git общие команды</h2>
+<ul>
+<li>clone</li>
+<li>pull</li>
+<li>add</li>
+<li>commit</li>
+<li>push</li>
+<li>branch</li>
+<li>merge</li>
+<li>cherry-pick</li>
+<li>tag</li>
+<li>blame</li>
+</ul>
+<h2 id="материалы">Материалы</h2>
+<ul>
+<li>Задачи по бранчеванию в Git - <a href="https://learngitbranching.js.org/">https://learngitbranching.js.org/</a></li>
+</ul>
 
-double square (double x)
-{
-    return x * x;
-}
-
-void printFinish()
-{
-    cout &lt;&lt; &quot;Finish&quot;;
-}
- 
-int main()
-{
-    cout &lt;&lt; square(9) &lt;&lt; endl; // выведется 81
-    printFinish();
-    return 0;
-}
-</code></pre><p>Переменные объявляенные внутри функции - являются локальными для этих функций. Параметры передаются по значению (копируются). Как сделать так, вызываемые параметры можно было бы изменить рассмотрим позже.</p>
-<pre><code>#include &lt;iostream&gt;
-using namespace std;
-
-double fortyTwo(int i)
-{
-    i = 42; // не поменяет глобальную значение в оригинальной переменной
-    return i; // будет неявное преобразование возвращаемого значения в double
-}
- 
-int main()
-{
-    int i = 5; 
-    cout &lt;&lt; fortyTwo(i) &lt;&lt; endl; // выведет 42
-    cout &lt;&lt; i; // выведет 5
-    return 0;
-}
-</code></pre>
 
 <footer class="footline">
 	
@@ -1343,6 +1328,8 @@ int main()
             
                 
                     
+                        
+                        
                     
                 
                 
@@ -1359,7 +1346,6 @@ int main()
             
                 
                     
-                    
                 
                 
 
@@ -1367,25 +1353,6 @@ int main()
                     
                     
 
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
                     
                         
             
@@ -1472,7 +1439,6 @@ int main()
             
                 
                     
-                    
                 
                 
 
@@ -1489,8 +1455,21 @@ int main()
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
-                        
+            
+            
+                
                     
                 
                 
@@ -1930,6 +1909,7 @@ int main()
             
                 
                     
+                    
                 
                 
 
@@ -1942,6 +1922,9 @@ int main()
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2022,6 +2005,7 @@ int main()
             
             
                 
+                    
                     
                 
                 
@@ -2049,10 +2033,10 @@ int main()
 	 
 	 
 		
-			<a class="nav nav-prev" href="/courses/basics/lecture1/part6/" title="1.6. Инструкции. Условные операторы. Циклы"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/courses/methodology/quality/" title="Качество ПО"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/courses/basics/lecture1/part8/" title="1.8. Макросы. Ввод-вывод" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/courses/methodology/history/" title="История" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
