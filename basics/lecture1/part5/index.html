@@ -1,0 +1,2263 @@
+<!DOCTYPE html>
+<html lang="ru" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.75.1" />
+    <meta name="description" content="Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ">
+<meta name="author" content="Alexander Ulanov">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>1.5. Переменные :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+
+    
+    <link href="/css/nucleus.css?1604782189" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1604782189" rel="stylesheet">
+    <link href="/css/hybrid.css?1604782189" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1604782189" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1604782189" rel="stylesheet">
+    <link href="/css/auto-complete.css?1604782189" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1604782189" rel="stylesheet">
+    <link href="/css/theme.css?1604782189" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1604782189" rel="stylesheet">
+    
+    <link href="/css/theme-green.css?1604782189" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1604782189"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/basics/lecture1/part5/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <img src="http://www.apmath.spbu.ru/redesign/v1004/main/assets/images/logo.png" alt="" style="height: 3.57143rem;">
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Поиск...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1604782189"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1604782189"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/apmath-spbu.github.io\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1604782189"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/" title="Основы программирования Осень 2020" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/basics/">
+          Основы программирования Осень 2020
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/lecture1/" title="Лекция #1" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="/basics/lecture1/">
+          Лекция #1
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture1/part1/" title="1.1. Введение в программирование" class="dd-item ">
+        <a href="/basics/lecture1/part1/">
+        1.1. Введение в программирование
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture1/part2/" title="1.2. Введение в языки программирования C и C&#43;&#43;" class="dd-item ">
+        <a href="/basics/lecture1/part2/">
+        1.2. Введение в языки программирования C и C&#43;&#43;
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture1/part3/" title="1.3. Компиляция" class="dd-item ">
+        <a href="/basics/lecture1/part3/">
+        1.3. Компиляция
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture1/part4/" title="1.4. Типы данных" class="dd-item ">
+        <a href="/basics/lecture1/part4/">
+        1.4. Типы данных
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture1/part5/" title="1.5. Переменные" class="dd-item active">
+        <a href="/basics/lecture1/part5/">
+        1.5. Переменные
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture1/part6/" title="1.6. Инструкции. Условные операторы. Циклы" class="dd-item ">
+        <a href="/basics/lecture1/part6/">
+        1.6. Инструкции. Условные операторы. Циклы
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture1/part7/" title="1.7. Функции" class="dd-item ">
+        <a href="/basics/lecture1/part7/">
+        1.7. Функции
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture1/part8/" title="1.8. Макросы. Ввод-вывод" class="dd-item ">
+        <a href="/basics/lecture1/part8/">
+        1.8. Макросы. Ввод-вывод
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/lecture2/" title="Лекция #2" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/basics/lecture2/">
+          Лекция #2
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture2/callstack/" title="Стек вызовов" class="dd-item ">
+        <a href="/basics/lecture2/callstack/">
+        Стек вызовов
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture2/pointers/" title="Указатели" class="dd-item ">
+        <a href="/basics/lecture2/pointers/">
+        Указатели
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture2/arrays/" title="Массивы" class="dd-item ">
+        <a href="/basics/lecture2/arrays/">
+        Массивы
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture2/strings/" title="Строки" class="dd-item ">
+        <a href="/basics/lecture2/strings/">
+        Строки
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture2/vector/" title="Vector" class="dd-item ">
+        <a href="/basics/lecture2/vector/">
+        Vector
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/lecture3/" title="Лекция #3" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/basics/lecture3/">
+          Лекция #3
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture3/references/" title="Ссылки" class="dd-item ">
+        <a href="/basics/lecture3/references/">
+        Ссылки
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture3/dynamic/" title="Диначеская память" class="dd-item ">
+        <a href="/basics/lecture3/dynamic/">
+        Диначеская память
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture3/multiplearrays/" title="Многомерные массивы" class="dd-item ">
+        <a href="/basics/lecture3/multiplearrays/">
+        Многомерные массивы
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture3/const/" title="Const" class="dd-item ">
+        <a href="/basics/lecture3/const/">
+        Const
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/lecture4/" title="Лекция #4" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/basics/lecture4/">
+          Лекция #4
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture4/struct/" title="Структура" class="dd-item ">
+        <a href="/basics/lecture4/struct/">
+        Структура
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture4/incapsulation/" title="Инкапсуляция" class="dd-item ">
+        <a href="/basics/lecture4/incapsulation/">
+        Инкапсуляция
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture4/mutable/" title="Mutable" class="dd-item ">
+        <a href="/basics/lecture4/mutable/">
+        Mutable
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture4/this/" title="this" class="dd-item ">
+        <a href="/basics/lecture4/this/">
+        this
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture4/constructor/" title="Конструктор" class="dd-item ">
+        <a href="/basics/lecture4/constructor/">
+        Конструктор
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/lecture5/" title="Лекция #5" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/basics/lecture5/">
+          Лекция #5
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture5/accessmodifier/" title="Модификаторы доступа" class="dd-item ">
+        <a href="/basics/lecture5/accessmodifier/">
+        Модификаторы доступа
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture5/polymorphism/" title="Полиморфизм" class="dd-item ">
+        <a href="/basics/lecture5/polymorphism/">
+        Полиморфизм
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture5/inheritance/" title="Наследование" class="dd-item ">
+        <a href="/basics/lecture5/inheritance/">
+        Наследование
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture5/virtualfunctions/" title="Виртуальные функции" class="dd-item ">
+        <a href="/basics/lecture5/virtualfunctions/">
+        Виртуальные функции
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture5/final/" title="Финальные методы и классы" class="dd-item ">
+        <a href="/basics/lecture5/final/">
+        Финальные методы и классы
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture5/multipleinheritance/" title="Множественное наследование" class="dd-item ">
+        <a href="/basics/lecture5/multipleinheritance/">
+        Множественное наследование
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/basics/lecture5/dynamiccast/" title="Динамическая идентификация типов времени выполнения" class="dd-item ">
+        <a href="/basics/lecture5/dynamiccast/">
+        Динамическая идентификация типов времени выполнения
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/basics/ide/" title="Среда разработки для C&#43;&#43;" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/basics/ide/">
+          Среда разработки для C&#43;&#43;
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/methodology/" title="Современные методологии разработки программного обеспечения." class="dd-item 
+        
+        
+        
+        ">
+      <a href="/methodology/">
+          Современные методологии разработки программного обеспечения.
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/methodology/history/" title="История" class="dd-item ">
+        <a href="/methodology/history/">
+        История
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/methodology/sdlc/" title="Жизненный цикл ПО" class="dd-item ">
+        <a href="/methodology/sdlc/">
+        Жизненный цикл ПО
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/methodology/sdm/" title="Модели разработки ПО" class="dd-item ">
+        <a href="/methodology/sdm/">
+        Модели разработки ПО
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/methodology/scrum/" title="SCRUM" class="dd-item ">
+        <a href="/methodology/scrum/">
+        SCRUM
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/methodology/constructing/" title="Конструирование ПО" class="dd-item ">
+        <a href="/methodology/constructing/">
+        Конструирование ПО
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/methodology/quality/" title="Качество ПО" class="dd-item ">
+        <a href="/methodology/quality/">
+        Качество ПО
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/methodology/git/" title="Git" class="dd-item ">
+        <a href="/methodology/git/">
+        Git
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/methodology/labs/" title="Домашние задания." class="dd-item 
+        
+        
+        
+        ">
+      <a href="/methodology/labs/">
+          Домашние задания.
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+      <li data-nav-id="/methodology/labs/lab1/" title="Лабораторная работа №1." class="dd-item ">
+        <a href="/methodology/labs/lab1/">
+        Лабораторная работа №1.
+        <i class="fas fa-check read-icon"></i>
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/courses/" title="Материалы по лекциям на кафедре технологии программирования" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/courses/">
+          Материалы по лекциям на кафедре технологии программирования
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Очистить историю</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="https://getgrav.org">Grav</a> and <a href="https://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > <a href='/basics/lecture1/'>Лекция #1</a> > 1.5. Переменные
+          
+        
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#неинициализированные-переменные">Неинициализированные переменные</a></li>
+    <li><a href="#операции">Операции</a></li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+<div class="tags">
+
+  <a class="tag-link" href="/tags/%D1%81">с</a>
+
+  <a class="tag-link" href="/tags/cpp">cpp</a>
+
+  <a class="tag-link" href="/tags/variables">variables</a>
+
+</div>
+
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              1.5. Переменные
+            </h1>
+          
+
+        
+
+
+<p>При определении переменной указывается её тип. При определении можно сразу задать начальное значение (инициализация), задать несколько переменных в одной строке или просто объявить (без инициализации):</p>
+<pre><code>int i = 10; 
+short j = 20; 
+bool b = false; 
+unsigned long l = 123123; 
+double x = 13.5 , y = 3.1415; 
+float z; 
+</code></pre><p>В языке C++ есть две похожие концепции, которые новички часто путают: присваивание и инициализация. После объявления переменной, ей можно присвоить значение с помощью оператора присваивания (знак равенства =):</p>
+<pre><code>int a; // это объявление переменной
+a = 8; // а это присваивание переменной a значения 8
+</code></pre><p>В языке C++ вы можете объявить переменную и присвоить ей значение одновременно. Это называется инициализацией (или «определением»).</p>
+<pre><code>int a = 8; // инициализируем переменную a значением 8
+</code></pre><p>Переменная может быть инициализирована только после операции объявления.
+Хотя эти два понятия близки по своей сути и часто могут использоваться для достижения одних и тех же целей, все же в некоторых случаях следует использовать инициализацию, вместо присваивания, а в некоторых — присваивание вместо инициализации.</p>
+<p><strong>Правило: Если у вас изначально имеется значение для переменной, то используйте инициализацию, вместо присваивания.</strong></p>
+<h2 id="неинициализированные-переменные">Неинициализированные переменные</h2>
+<p>В отличие от других языков программирования, языки Cи и C++ не инициализируют переменные определенными значениями (например, нулем) по умолчанию. Поэтому, при создании переменной, ей присваивается ячейка в памяти, в которой уже может (но не обязательно, зависит от компилятора) находиться какой-нибудь мусор! Переменная без значения (со стороны программиста или пользователя) называется неинициализированной переменной.</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+ 
+int main()
+{
+    int a;
+    cout &lt;&lt; a; 
+    return 0;
+}
+</code></pre><p>Использование неинициализированных переменных является одной из самых распространенных ошибок. Хорошей практикой считается всегда инициализировать свои переменные. Это будет гарантией того, что ваша переменная всегда имеет определенное значение и вы не получите ошибку от компилятора.</p>
+<p><strong>Правило: Убедитесь, что все ваши переменные в программе имеют значения (либо через инициализацию, либо через операцию присваивания).</strong></p>
+<h2 id="операции">Операции</h2>
+<p>Над переменными можно проводить операции:</p>
+<ul>
+<li>Присваивания (<strong>=</strong>)</li>
+<li>Арифметические:
+<ol>
+<li>бинарные: <strong>+ - * /</strong> <strong>%</strong> (оператор взяти остатка от деления)</li>
+<li>унарные: <strong>++ &ndash;</strong> - инкремерт и декремент.</li>
+<li>сокращенные версии бинарных операторов: *<em>+= <em>= -= /= %=</em></em></li>
+</ol>
+</li>
+<li>Логические:
+<ol>
+<li>бинрные: <strong>&amp;&amp; ||</strong></li>
+<li>унарные: <strong>!</strong></li>
+</ol>
+</li>
+<li>Сравнения:
+<strong>== != &lt; &gt; &lt;= &gt;=</strong></li>
+<li>Приведения типов: <strong>(type)</strong></li>
+</ul>
+<p>Ниже приведена программа для ознакомления, иллюстрирующая данные операции:</p>
+<pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+int main()
+{
+    int i = 10; 
+    i = (20 * 3) % 7; // остаток от деления 60 на 7 есть 4
+    cout &lt;&lt; &quot;i is &quot; &lt;&lt; i &lt;&lt; endl;
+
+    /* &quot;постфиксная&quot; версия унарного оператора - 
+    в начале будет присвоено значение 4 в k, а затем i увеличится на 1 и станет 5*/
+    int k = i++; 
+    cout &lt;&lt; &quot;k is &quot; &lt;&lt; k &lt;&lt; endl;
+    /* &quot;префиксная&quot; версия унарного оператора - 
+    в начале будет уменьшино значение i на единицу до 4,
+    потом это значение (4) будет присвоено значение в l*/
+    int l = --i; 
+    cout &lt;&lt; &quot;l is &quot; &lt;&lt; l &lt;&lt; endl;
+
+    // k равен l, что вернет true, но инверсия превразает в false (0)
+    bool b = !(k == l); 
+    cout &lt;&lt; &quot;b initialized as &quot; &lt;&lt; b &lt;&lt; endl;
+    
+    double a = 0.1;
+    /* переприсваивание b.
+    В выражении дизъюнкция, потому компилатор не будет выполнять другие выражения с права,
+    если слева встретилось выражение дающее true.
+    В данном случае ни первое выражение, ни ни второе не дают true
+    */
+    b = (a == 0) || (1 / a &lt; 1); 
+    cout &lt;&lt; &quot;b still &quot; &lt;&lt; b &lt;&lt; endl;
+
+    double d = 3.1415; 
+    // идет приведение к целочисленному и записью целового значение в float
+    float f = (int) d; 
+    cout &lt;&lt; &quot;float contains &quot; &lt;&lt; f &lt;&lt; endl;
+    
+    d *= i + k ; // аналогично d = d * (i + k)  = 3.1415 * 8
+    cout &lt;&lt; &quot;d should equal to &quot; &lt;&lt; d &lt;&lt; endl;
+    return 0;
+}
+</code></pre><hr>
+
+
+<footer class="footline">
+	
+</footer>
+
+        
+        </div>
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/basics/lecture1/part4/" title="1.4. Типы данных"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/basics/lecture1/part6/" title="1.6. Инструкции. Условные операторы. Циклы" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1604782189"></script>
+    <script src="/js/perfect-scrollbar.min.js?1604782189"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1604782189"></script>
+    <script src="/js/jquery.sticky.js?1604782189"></script>
+    <script src="/js/featherlight.min.js?1604782189"></script>
+    <script src="/js/highlight.pack.js?1604782189"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1604782189"></script>
+    <script src="/js/learn.js?1604782189"></script>
+    <script src="/js/hugo-learn.js?1604782189"></script>
+    
+        
+            <script src="/mermaid/mermaid.js?1604782189"></script>
+        
+        <script>
+            mermaid.initialize({ startOnLoad: true });
+        </script>
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+  </body>
+</html>
+

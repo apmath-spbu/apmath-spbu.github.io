@@ -2,57 +2,58 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Лекция #4 on Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
-    <link>https://apmath-spbu.github.io/courses/basics/lecture4/</link>
+    <link>https://apmath-spbu.github.io/basics/lecture4/</link>
     <description>Recent content in Лекция #4 on Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>ru-ru</language><atom:link href="https://apmath-spbu.github.io/courses/basics/lecture4/index.xml" rel="self" type="application/rss+xml" />
+    <language>ru-ru</language><atom:link href="https://apmath-spbu.github.io/basics/lecture4/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Структура</title>
-      <link>https://apmath-spbu.github.io/courses/basics/lecture4/struct/</link>
+      <link>https://apmath-spbu.github.io/basics/lecture4/struct/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://apmath-spbu.github.io/courses/basics/lecture4/struct/</guid>
+      <guid>https://apmath-spbu.github.io/basics/lecture4/struct/</guid>
       <description>Давайте предстваим, что перед нами стоит задача вычисления расстояния между двумя точками. Наверняка для этого в первом приближении можно написать такое объявление функции
 double length(double x1, double y1, double x2, double y2); где x1, y1 - координаыты первой точки, x2, y2 - второй. Налицо излишняя многословность в объявлении координат точек. Что если представить точку как объект из координат по x и y? Для этого в языке С++ есть специальная струкрутура данных - струртура (struct).</description>
     </item>
     
     <item>
       <title>Инкапсуляция</title>
-      <link>https://apmath-spbu.github.io/courses/basics/lecture4/incapsulation/</link>
+      <link>https://apmath-spbu.github.io/basics/lecture4/incapsulation/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://apmath-spbu.github.io/courses/basics/lecture4/incapsulation/</guid>
+      <guid>https://apmath-spbu.github.io/basics/lecture4/incapsulation/</guid>
       <description>При первом знакомстве со стуртурами мы получили возможность объединять данные, оставляя их доступными к изменению извне. Также функция length было объявленная как функция в объекту Segment. Что если поместить реализацию этой функции в структуру, тем самым сделав ее неотъемлемой частью структуры и &amp;ldquo;скрыв&amp;rdquo; из глобального списка функций (другими словами зачем нам эта отдельная глобальная функция, если она применима только Segment)? Реализовать это можно следующим образом (поместив реализация функции в тело struct)</description>
     </item>
     
     <item>
       <title>Mutable</title>
-      <link>https://apmath-spbu.github.io/courses/basics/lecture4/mutable/</link>
+      <link>https://apmath-spbu.github.io/basics/lecture4/mutable/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://apmath-spbu.github.io/courses/basics/lecture4/mutable/</guid>
+      <guid>https://apmath-spbu.github.io/basics/lecture4/mutable/</guid>
       <description>Константные функции В рассматриваемой структуре Segment функция length очевидно не должна изменять внутренние поля стрктуры, а только возврщать значение основываясь на текущих внутренних значениях. Это часто бывает полезно указать, что данный метод является своего рода &amp;ldquo;расширением&amp;rdquo; или предоставлением какой-либо информации основываясь только на текущем состоянии структуры. Такие метод можно пометить ключевым словом const сделав функцию константой:
 struct Segment { Point p1; Point p2; double length() const { double dx = p1.</description>
     </item>
     
     <item>
       <title>this</title>
-      <link>https://apmath-spbu.github.io/courses/basics/lecture4/this/</link>
+      <link>https://apmath-spbu.github.io/basics/lecture4/this/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://apmath-spbu.github.io/courses/basics/lecture4/this/</guid>
+      <guid>https://apmath-spbu.github.io/basics/lecture4/this/</guid>
       <description>В некоторых случаях имена полей класса могут совпадать с переданными через функцию. Для возможности различать имена полей классов можно ипользовать ключевое слово this которое является ссылкой на текущий экземпляр этого класса:
 struct Point { double x; double y; void shift(double x, double y) { this-&amp;gt;x += x; this-&amp;gt;y +=y; } }; </description>
     </item>
     
     <item>
       <title>Конструктор</title>
-      <link>https://apmath-spbu.github.io/courses/basics/lecture4/constructor/</link>
+      <link>https://apmath-spbu.github.io/basics/lecture4/constructor/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://apmath-spbu.github.io/courses/basics/lecture4/constructor/</guid>
+      <guid>https://apmath-spbu.github.io/basics/lecture4/constructor/</guid>
       <description>Конструктор – метод класса, автоматически применяемый к каждому экземпляру (объекту) класса перед первым использованием (в случае динамического выделения памяти – после успешного выполнения операции new). Освобождение ресурсов, захваченных в конструкторе класса либо на протяжении времени жизни соответствующего экземпляра, осуществляет деструктор.
-Выполнение любого конструктора состоит из двух фаз:
+
+Выполнение любого конструктора состоит из двух фаз:
  Фаза явной (неявной) инициализации (обработка списка инициализации) Фаза вычислений (исполнение тела конструктора)  Конструктор не может определяться со спецификатором const. Константность и объекта устанавливается по завершении работы конструктора и снимается перед вызовом деструктора.</description>
     </item>
     
