@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Лекция #4 :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Статические переменные :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1605280600" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/basics/lecture4/">
+  <body class="" data-url="/basics/lecture6/static/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -580,8 +580,8 @@
   
     
     <li data-nav-id="/basics/lecture4/" title="Лекция #4" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/basics/lecture4/">
@@ -908,7 +908,7 @@
   
     
     <li data-nav-id="/basics/lecture6/" title="Лекция #6" class="dd-item 
-        
+        parent
         
         
         ">
@@ -978,7 +978,7 @@
  
   
     
-      <li data-nav-id="/basics/lecture6/static/" title="Статические переменные" class="dd-item ">
+      <li data-nav-id="/basics/lecture6/static/" title="Статические переменные" class="dd-item active">
         <a href="/basics/lecture6/static/">
         Статические переменные
         <i class="fas fa-check read-icon"></i>
@@ -1359,7 +1359,13 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > Лекция #4
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > <a href='/basics/lecture6/'>Лекция #6</a> > Статические переменные
+          
+        
           
         
           
@@ -1372,7 +1378,11 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#статические-поля-класса">Статические поля класса</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -1388,27 +1398,43 @@
           
             <h1>
               
-              Лекция #4
+              Статические переменные
             </h1>
           
 
         
 
 
+<p>В С++ различают локальные и глобальные переменные. Глобальные переменные статичны по определению. Но в C++ можно ввести и статическую локальную переменную. Статическа локальная переменная – это глобальная переменная, доступная только в пределах функции. Время жизни – от первого вызова функции до конца программы.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-	<p><a href="/basics/lecture4/struct/">Структура</a></p>
-<p><a href="/basics/lecture4/incapsulation/">Инкапсуляция</a></p>
-<p><a href="/basics/lecture4/mutable/">Mutable</a></p>
-<p><a href="/basics/lecture4/this/">this</a></p>
-<p><a href="/basics/lecture4/constructor/">constructor</a></p>
-<p>В рамаках данной лекции предполагается решение <strong>5</strong> задач на HackerRank. (55 points)</p>
-<hr>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">next</span>(<span style="color:#66d9ef">int</span> start <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>) {
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> start;
+	<span style="color:#66d9ef">return</span> k<span style="color:#f92672">++</span>;
+}
+
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+    cout <span style="color:#f92672">&lt;&lt;</span> next(<span style="color:#ae81ff">5</span>);
+    cout <span style="color:#f92672">&lt;&lt;</span> next(<span style="color:#ae81ff">4</span>);
+    cout <span style="color:#f92672">&lt;&lt;</span> next(<span style="color:#ae81ff">3</span>);
+    cout <span style="color:#f92672">&lt;&lt;</span> next(<span style="color:#ae81ff">2</span>);
+    cout <span style="color:#f92672">&lt;&lt;</span> next(<span style="color:#ae81ff">1</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+} <span style="color:#75715e">// 56789
+</span></code></pre></div><h2 id="статические-поля-класса">Статические поля класса</h2>
+<p>Статические поля класса – это глобальные переменные, определенные внутри класса. Для доступа к ним не нужно создавать экземпляр класса</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Sample</span> {
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">cout</span>() { <span style="color:#66d9ef">return</span> _instances; }
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> _instances;
+};
+<span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>cout <span style="color:#f92672">&lt;&lt;</span> Sample<span style="color:#f92672">::</span>cout();
+</code></pre></div><hr>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1782,7 +1808,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -1790,137 +1815,6 @@
                     
                     
 
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
                     
                         
             
@@ -2070,6 +1964,142 @@
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -2275,10 +2305,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/basics/lecture3/const/" title="Const"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/basics/lecture6/operator-overriding/" title="Переопределение операторов"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/basics/lecture4/struct/" title="Структура" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/basics/lecture6/inline-friends/" title="Inline и друзья" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -2317,3 +2347,4 @@
 </script>
   </body>
 </html>
+

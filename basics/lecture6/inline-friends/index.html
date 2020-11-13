@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Лекция #4 :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Inline и друзья :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1605280600" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/basics/lecture4/">
+  <body class="" data-url="/basics/lecture6/inline-friends/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -580,8 +580,8 @@
   
     
     <li data-nav-id="/basics/lecture4/" title="Лекция #4" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/basics/lecture4/">
@@ -908,7 +908,7 @@
   
     
     <li data-nav-id="/basics/lecture6/" title="Лекция #6" class="dd-item 
-        
+        parent
         
         
         ">
@@ -999,7 +999,7 @@
  
   
     
-      <li data-nav-id="/basics/lecture6/inline-friends/" title="Inline и друзья" class="dd-item ">
+      <li data-nav-id="/basics/lecture6/inline-friends/" title="Inline и друзья" class="dd-item active">
         <a href="/basics/lecture6/inline-friends/">
         Inline и друзья
         <i class="fas fa-check read-icon"></i>
@@ -1359,7 +1359,13 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > Лекция #4
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > <a href='/basics/lecture6/'>Лекция #6</a> > Inline и друзья
+          
+        
           
         
           
@@ -1372,7 +1378,13 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#inline">Inline</a></li>
+    <li><a href="#дружественные-классы">Дружественные классы</a></li>
+    <li><a href="#дружественные-функции">Дружественные функции</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -1388,27 +1400,97 @@
           
             <h1>
               
-              Лекция #4
+              Inline и друзья
             </h1>
           
 
         
 
 
+<h2 id="inline">Inline</h2>
+<p>В некоторых случая можно дать <strong>совет</strong> компилятору встроить реализацию функции в местах вызова данной функции. Таким образом функция не будет вызвана, а ее тело будет скопировано и встравлено в место вызова, ресурсы, которые могли бы быть потрачены на вызов этой функции, — сохраняются! Минусом является лишь увеличение компилируемого кода за счет того, что встроенная функция раскрывается в коде при каждом вызове (особенно если она длинная и/или её вызывают много раз). В некоторых случаях это позволяет ускорить программу.
+Рассмотрим пример:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
 
-	<p><a href="/basics/lecture4/struct/">Структура</a></p>
-<p><a href="/basics/lecture4/incapsulation/">Инкапсуляция</a></p>
-<p><a href="/basics/lecture4/mutable/">Mutable</a></p>
-<p><a href="/basics/lecture4/this/">this</a></p>
-<p><a href="/basics/lecture4/constructor/">constructor</a></p>
-<p>В рамаках данной лекции предполагается решение <strong>5</strong> задач на HackerRank. (55 points)</p>
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">max</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)
+{
+    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&lt;</span> b <span style="color:#f92672">?</span> b : a;
+}
+ 
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    cout <span style="color:#f92672">&lt;&lt;</span> max(<span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">8</span>) <span style="color:#f92672">&lt;&lt;</span> endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> max(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">4</span>) <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div><p>Эта программа дважды вызывает функцию max(), т.е. дважды расходуются ресурсы на вызов функции. Поскольку max() является довольно таки короткой функцией, то это идеальный вариант для её конвертации во встроенную функцию:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">max</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)
+{
+    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&lt;</span> b <span style="color:#f92672">?</span> b : a;
+}
+</code></pre></div><p>Теперь, <em>вероятно</em> при компиляции функции main(), код будет выполнен следующим образом:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    cout <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#ae81ff">7</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">8</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">8</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">7</span>) <span style="color:#f92672">&lt;&lt;</span> endl;
+    cout <span style="color:#f92672">&lt;&lt;</span> (<span style="color:#ae81ff">5</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">4</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">5</span>) <span style="color:#f92672">&lt;&lt;</span> endl;
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div>
+<div class="notices note" ><p>Все методы, определенные внутри класса, являются <strong>inline</strong></p>
+</div>
+
+
+<div class="notices note" ><p>Если вы используете современный компилятор, то нет необходимости использовать ключевое слово <strong>inline</strong>.</p>
+</div>
+
+<h2 id="дружественные-классы">Дружественные классы</h2>
+<p><strong>Дружественные классы</strong> - это классы, которые имеют доступ к закрытым членам класса (его друга), как если бы они были его частью. Для объявления дружественного класса необходимо объявить с ключевым словом <strong>friend</strong> перед классом-другом. Пример:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">A</span> {
+	<span style="color:#66d9ef">friend</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">B</span>;
+ <span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+	<span style="color:#66d9ef">int</span> _x;
+	<span style="color:#66d9ef">int</span> _y;
+};
+ <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">B</span> {
+	<span style="color:#66d9ef">void</span> <span style="color:#a6e22e">increase</span>(A <span style="color:#66d9ef">const</span><span style="color:#f92672">&amp;</span> a, <span style="color:#66d9ef">int</span> d) { a._x <span style="color:#f92672">+=</span> d; a._y <span style="color:#f92672">+=</span> d; }
+};
+</code></pre></div><h2 id="дружественные-функции">Дружественные функции</h2>
+<p><strong>Дружественная функция</strong> — это функция, которая имеет доступ к закрытым членам класса, как если бы она сама была членом этого класса. Во всех других отношениях дружественная функция является обычной функцией. Ею может быть, как обычная функция, так и метод другого класса. Для объявления дружественной функции используется ключевое слово <strong>friend</strong> перед прототипом функции, которую вы хотите сделать дружественной классу. Неважно, объявляете ли вы её в public- или в private-зоне класса. Например:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Anything</span>
+{
+<span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">int</span> _value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">void</span> add(<span style="color:#66d9ef">int</span> value) { _value <span style="color:#f92672">+=</span> value; }
+ 
+    <span style="color:#75715e">// Делаем функцию reset() дружественной классу Anything
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">friend</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">reset</span>(Anything <span style="color:#f92672">&amp;</span>anything);
+};
+ 
+<span style="color:#75715e">// Функция reset() теперь является другом класса Anything
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">reset</span>(Anything <span style="color:#f92672">&amp;</span>anything)
+{
+    <span style="color:#75715e">// И мы имеем доступ к закрытым членам объектов класса Anything
+</span><span style="color:#75715e"></span>    anything._value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+}
+ 
+<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>()
+{
+    Anything one;
+    one.add(<span style="color:#ae81ff">4</span>); <span style="color:#75715e">// добавляем 4 к _value
+</span><span style="color:#75715e"></span>    reset(one); <span style="color:#75715e">// сбрасываем _value в 0
+</span><span style="color:#75715e"></span> 
+    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+}
+</code></pre></div>
+<div class="notices warning" ><p>Стоит избегать <strong>friend</strong>, так как данный подход нарушает инкапсуляцию</p>
+</div>
+
 <hr>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1782,7 +1864,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -1790,137 +1871,6 @@
                     
                     
 
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
                     
                         
             
@@ -2082,6 +2032,19 @@
             
         
                     
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
             
         
                     
@@ -2089,6 +2052,129 @@
             
             
                 
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
                     
                 
                 
@@ -2275,10 +2361,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/basics/lecture3/const/" title="Const"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/basics/lecture6/static/" title="Статические переменные"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/basics/lecture4/struct/" title="Структура" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/basics/ide/" title="Среда разработки для C&#43;&#43;" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -2317,3 +2403,4 @@
 </script>
   </body>
 </html>
+

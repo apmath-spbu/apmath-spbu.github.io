@@ -9,7 +9,7 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Лекция #4 :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Наследование/Композиция/Аггрегация :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
     <link href="/css/nucleus.css?1605280600" rel="stylesheet">
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/basics/lecture4/">
+  <body class="" data-url="/basics/lecture6/composition-aggregation/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -580,8 +580,8 @@
   
     
     <li data-nav-id="/basics/lecture4/" title="Лекция #4" class="dd-item 
-        parent
-        active
+        
+        
         
         ">
       <a href="/basics/lecture4/">
@@ -908,7 +908,7 @@
   
     
     <li data-nav-id="/basics/lecture6/" title="Лекция #6" class="dd-item 
-        
+        parent
         
         
         ">
@@ -936,7 +936,7 @@
  
   
     
-      <li data-nav-id="/basics/lecture6/composition-aggregation/" title="Наследование/Композиция/Аггрегация" class="dd-item ">
+      <li data-nav-id="/basics/lecture6/composition-aggregation/" title="Наследование/Композиция/Аггрегация" class="dd-item active">
         <a href="/basics/lecture6/composition-aggregation/">
         Наследование/Композиция/Аггрегация
         <i class="fas fa-check read-icon"></i>
@@ -1359,7 +1359,13 @@
             
           
           
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > Лекция #4
+            
+            
+          
+          
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > <a href='/basics/lecture6/'>Лекция #6</a> > Наследование/Композиция/Аггрегация
+          
+        
           
         
           
@@ -1372,7 +1378,11 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents"></nav>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#наследование--аггерация--композиция">Наследование / аггерация / композиция</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
@@ -1388,27 +1398,132 @@
           
             <h1>
               
-              Лекция #4
+              Наследование/Композиция/Аггрегация
             </h1>
           
 
         
 
 
+<p>Поговорим еще немного о наследовании и их связи на конкретном примере геометрических фигур квадрата и прямоугольника. Когда мы готовы применить наследование мы должны применять принцип &ldquo;is a&rdquo; отношение. Геометрически квадрат — это специализация прямоугольника: все квадраты — прямоугольники, но не все прямоугольники — квадраты. Все объекты в классе «Квадрат» являются прямоугольниками, у которых длина равна ширине. Другими словами &ldquo;Square <strong>is a</strong> Rectangle&rdquo;, но прямоугольник не всегда является квадратом. Получаем следующую иерархию:
 
-	<p><a href="/basics/lecture4/struct/">Структура</a></p>
-<p><a href="/basics/lecture4/incapsulation/">Инкапсуляция</a></p>
-<p><a href="/basics/lecture4/mutable/">Mutable</a></p>
-<p><a href="/basics/lecture4/this/">this</a></p>
-<p><a href="/basics/lecture4/constructor/">constructor</a></p>
-<p>В рамаках данной лекции предполагается решение <strong>5</strong> задач на HackerRank. (55 points)</p>
+<div class="mermaid" align="center">
+classDiagram
+
+Shape <|-- Triangle
+Shape <|-- Circle
+Shape <|-- Rectangle
+Rectangle <|-- Square
+    
+</div>
+</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span> {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rectangle</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Shape {
+    <span style="color:#66d9ef">double</span> _width;
+    <span style="color:#66d9ef">double</span> _length;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Rectangle(<span style="color:#66d9ef">double</span> w, <span style="color:#66d9ef">double</span> h)<span style="color:#f92672">:</span> _width(w), _height(h) {        
+    }
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setWidth</span>(<span style="color:#66d9ef">double</span> w) { _width <span style="color:#f92672">=</span> w; }
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setHeight</span>(<span style="color:#66d9ef">double</span> h) { _height <span style="color:#f92672">=</span> h; }
+    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getWidth</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> _width; }
+    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">getHeight</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> _height; }
+};
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Rectangle {
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Square(<span style="color:#66d9ef">double</span> w)<span style="color:#f92672">:</span> Rectangle(w, w) {        
+    }
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setWidth</span>(<span style="color:#66d9ef">double</span> w);
+    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setHeight</span>(<span style="color:#66d9ef">double</span> h);
+};
+
+<span style="color:#66d9ef">void</span> Square<span style="color:#f92672">::</span>setWidth(<span style="color:#66d9ef">double</span> w){
+  Rectangle<span style="color:#f92672">::</span>setWidth(w);
+  Rectangle<span style="color:#f92672">::</span>setHeight(w);
+}
+
+<span style="color:#66d9ef">void</span> Square<span style="color:#f92672">::</span>setHeight(<span style="color:#66d9ef">double</span> h){
+  Rectangle<span style="color:#f92672">::</span>setHeight(h);
+  Rectangle<span style="color:#f92672">::</span>setWidth(h);
+}
+</code></pre></div><p>И рассмотрим следующий пример использования:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">LSPV</span>(Rectangle<span style="color:#f92672">&amp;</span> r){
+  r.SetWidth(<span style="color:#ae81ff">5</span>);
+  r.SetHeight(<span style="color:#ae81ff">4</span>);
+  assert(r.GetWidth() <span style="color:#f92672">*</span> r.GetHeight()) <span style="color:#f92672">==</span> <span style="color:#ae81ff">20</span>); <span style="color:#75715e">// всегда ли ?
+</span><span style="color:#75715e"></span>}
+</code></pre></div><p>Небезосновательно можно утверждать, что обощение квадрата как частный случай прямоугольника в наследовании не работает.</p>
+<p>Но в иерархии типов это отношение обратное: вы можете использовать прямоугольник везде, где используется квадрат (указав прямоугольник с одинаковой шириной и высотой), но нельзя использовать квадрат везде, где используется прямоугольник (например, вы не можете изменить длину и ширину).</p>
+<p>Таким образом приходим к выводу, что классы и прямоугольника и квадрата должны находится на одном уровне иерархии наследования:</p>
+
+<div class="mermaid" align="center">
+classDiagram
+
+Shape <|-- Triangle
+Shape <|-- Circle
+Shape <|-- Rectangle
+Shape <|-- Square
+    
+</div>
+
+<h2 id="наследование--аггерация--композиция">Наследование / аггерация / композиция</h2>
+<p>Существуют 3 основных типа всаимосвязей между классами:</p>
+<ul>
+<li>Наследование (Inheritance)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vehicle</span> {};
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Car</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Vehicle {};
+</code></pre></div><ul>
+<li>Композиция (Composition)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Engine</span> {
+    <span style="color:#66d9ef">int</span> _power;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Engine(<span style="color:#66d9ef">int</span> power)<span style="color:#f92672">:</span> _power(power) {}
+    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getPower</span>() { <span style="color:#66d9ef">return</span> _power; }
+};
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Porshe</span> {
+    Engine<span style="color:#f92672">*</span> _engine;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Porshe() {
+        _engine <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Engine(<span style="color:#ae81ff">360</span>);
+    }
+};
+</code></pre></div><ul>
+<li>Аггергация (Aggregation)</li>
+</ul>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Car</span> {
+    Engine<span style="color:#f92672">*</span> _engine;
+<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+    Car(Engine<span style="color:#f92672">*</span> engine) {
+        _engine <span style="color:#f92672">=</span> engine
+    }
+};
+<span style="color:#75715e">//...
+</span><span style="color:#75715e"></span>Engine<span style="color:#f92672">*</span> engine <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Engine(<span style="color:#ae81ff">360</span>);
+Car porshe <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Car(engine);
+</code></pre></div>
+<div class="mermaid" align="center">
+classDiagram
+Base <|-- Child: Inheritance   
+Engine *-- Porshe: Composition   
+Engine o-- Car: Aggregation   
+</div>
+
+<p>Наследование устанавливает более сильные связи между классами, нежели агрегирование:</p>
+<ul>
+<li>Приведение между объектами</li>
+<li>Доступ к <strong>protected</strong> членам</li>
+</ul>
+<p>Если наследование можно заменить легко на агрегирование, то это нужно сделать</p>
 <hr>
 
 
-
-
-
-<footer class=" footline" >
+<footer class="footline">
 	
 </footer>
 
@@ -1782,7 +1897,6 @@
             
                 
                     
-                    
                 
                 
 
@@ -1795,9 +1909,6 @@
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -2010,6 +2121,7 @@
             
                 
                     
+                    
                 
                 
 
@@ -2022,6 +2134,7 @@
             
             
                 
+                    
                     
                 
                 
@@ -2038,6 +2151,9 @@
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2275,10 +2391,10 @@
 	 
 	 
 		
-			<a class="nav nav-prev" href="/basics/lecture3/const/" title="Const"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/basics/lecture6/" title="Лекция #6"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/basics/lecture4/struct/" title="Структура" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/basics/lecture6/operator-overriding/" title="Переопределение операторов" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -2317,3 +2433,4 @@
 </script>
   </body>
 </html>
+
