@@ -9,24 +9,24 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Массивы :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Лекция #7 :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
-    <link href="/css/nucleus.css?1605813558" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1605813558" rel="stylesheet">
-    <link href="/css/hybrid.css?1605813558" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1605813558" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1605813558" rel="stylesheet">
-    <link href="/css/auto-complete.css?1605813558" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1605813558" rel="stylesheet">
-    <link href="/css/theme.css?1605813558" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1605813558" rel="stylesheet">
+    <link href="/css/nucleus.css?1605813559" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1605813559" rel="stylesheet">
+    <link href="/css/hybrid.css?1605813559" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1605813559" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1605813559" rel="stylesheet">
+    <link href="/css/auto-complete.css?1605813559" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1605813559" rel="stylesheet">
+    <link href="/css/theme.css?1605813559" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1605813559" rel="stylesheet">
     
-    <link href="/css/theme-green.css?1605813558" rel="stylesheet">
+    <link href="/css/theme-green.css?1605813559" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1605813558"></script>
+    <script src="/js/jquery-3.3.1.min.js?1605813559"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/basics/lecture2/arrays/">
+  <body class="" data-url="/basics/lecture7/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -52,14 +52,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1605813558"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1605813558"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1605813559"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1605813559"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/apmath-spbu.github.io\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1605813558"></script>
+<script type="text/javascript" src="/js/search.js?1605813559"></script>
 
     
   </div>
@@ -315,7 +315,7 @@
   
     
     <li data-nav-id="/basics/lecture2/" title="Лекция #2" class="dd-item 
-        parent
+        
         
         
         ">
@@ -385,7 +385,7 @@
  
   
     
-      <li data-nav-id="/basics/lecture2/arrays/" title="Массивы" class="dd-item active">
+      <li data-nav-id="/basics/lecture2/arrays/" title="Массивы" class="dd-item ">
         <a href="/basics/lecture2/arrays/">
         Массивы
         <i class="fas fa-check read-icon"></i>
@@ -1030,8 +1030,8 @@
   
     
     <li data-nav-id="/basics/lecture7/" title="Лекция #7" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/basics/lecture7/">
@@ -1439,13 +1439,7 @@
             
           
           
-            
-            
-          
-          
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > <a href='/basics/lecture2/'>Лекция #2</a> > Массивы
-          
-        
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > Лекция #7
           
         
           
@@ -1458,12 +1452,7 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#связь-массивов-и-указателей">Связь массивов и указателей</a></li>
-    <li><a href="#сортировка">Сортировка</a></li>
-  </ul>
-</nav>
+<nav id="TableOfContents"></nav>
     </div>
 </div>
 
@@ -1479,70 +1468,24 @@
           
             <h1>
               
-              Массивы
+              Лекция #7
             </h1>
           
 
         
 
 
-<p>Массив — это набор однотипных элементов, расположенных в памяти друг за другом, доступ к которым осуществляется по индексу. Массивы в C++ можно задавать статически и динамически (о последнем позже).</p>
-<p><strong><em>Статический</em></strong> массив можно объявить следующим образом:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> m[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}; <span style="color:#75715e">// массив 1 2 3 4 5 0 0 0 0 0
-</span></code></pre></div><p>Обратитите внимание, что мы выделили место под 19 элементов, но инициализировали только 5; в остальные ячейки записано значение по умолчанию для int.</p>
 
-<div class="notices note" ><p>Индексация массива начинается с <strong>0</strong>, последний элемент массива длины n имеет индекс <strong>n - 1</strong></p>
-</div>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>; i<span style="color:#f92672">++</span>)
-	cout <span style="color:#f92672">&lt;&lt;</span> m[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span>;
-cout <span style="color:#f92672">&lt;&lt;</span> endl;
-</code></pre></div><p>Как вы могли заметить к элементу массива доступ идет через <code>[]</code></p>
-<h2 id="связь-массивов-и-указателей">Связь массивов и указателей</h2>
-<p>Еще одной полезной функцией <a href="/basics/lecture2/pointers/">указателей</a> является их возможность работать с массивами. Так как массив - это непрервыная область памяти, то изменяя адрес указателя, можно ходить по ячейкам самого массива:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> m[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>};
-<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>m[<span style="color:#ae81ff">0</span>]; <span style="color:#75715e">// адрес начала массива
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>q <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>m[<span style="color:#ae81ff">9</span>]; <span style="color:#75715e">// адрес последнего элемента
-</span></code></pre></div><p><img src="/static/images/basics/lecture2/pointerArray.png?featherlight=false" alt="Pointer array">
-При этом:</p>
-<ul>
-<li><code>(p + k)</code> — сдвиг на <strong>k</strong> ячеек типа <strong>int</strong> вправо</li>
-<li><code>(p - k)</code> — сдвиг на <strong>k</strong> ячеек типа <strong>int</strong> влево</li>
-<li><code>(q - p)</code> — количество ячеек между указателями</li>
-<li><code>p[k]</code> эквивалентно <code>*(p + k)</code></li>
-</ul>
-<p>Пример ниже иллюстрирует это (функция нахождения максимума):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">// Заполнение массива
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> m[<span style="color:#ae81ff">10</span>] <span style="color:#f92672">=</span> {}; <span style="color:#75715e">// изначально заполнен нулями
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> m; p <span style="color:#f92672">&lt;=</span> m <span style="color:#f92672">+</span> <span style="color:#ae81ff">9</span>; p<span style="color:#f92672">++</span>)
-<span style="color:#f92672">*</span>p <span style="color:#f92672">=</span> (p <span style="color:#f92672">-</span> m) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-<span style="color:#75715e">// Массив заполнен числами от 1 до 10
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// ....
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// Передача массива в функцию
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">max_element</span>(<span style="color:#66d9ef">int</span> <span style="color:#f92672">*</span>m, <span style="color:#66d9ef">int</span> size)
-{
-	<span style="color:#66d9ef">int</span> max <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>m;
-	<span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> size; <span style="color:#f92672">++</span>i)
-		<span style="color:#66d9ef">if</span> (m[i] <span style="color:#f92672">&gt;</span> max)
-			max <span style="color:#f92672">=</span> m[i];
-	<span style="color:#66d9ef">return</span> max;
-}
-</code></pre></div>
-<div class="notices note" ><p>При передаче в функцию массивы не копируются (т.е. на самом деле передаётся указатель на массив)</p>
-</div>
-
-<h2 id="сортировка">Сортировка</h2>
-<p>Адгоритмы сортировки мы рассмотрим позже, а пока можно отметить, что в C++ уже включена встроенная функция сортировки элементов массива:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt; //здесь объявлена функция sort</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-<span style="color:#66d9ef">int</span> a[<span style="color:#ae81ff">100</span>] <span style="color:#f92672">=</span> {...};
-sort(a, a <span style="color:#f92672">+</span> <span style="color:#ae81ff">100</span>);
-</code></pre></div><hr>
+	<p><a href="/basics/lecture7/templates/">Шаблоны</a></p>
+<p><a href="/basics/lecture7/try-catch/">Исключения</a></p>
+<p>В рамаках данной лекции предполагается решение <strong>5</strong> задач на HackerRank. (145 points) (21.11.2020)</p>
+<hr>
 
 
-<footer class="footline">
+
+
+
+<footer class=" footline" >
 	
 </footer>
 
@@ -1740,7 +1683,6 @@ sort(a, a <span style="color:#f92672">+</span> <span style="color:#ae81ff">100</
             
                 
                     
-                    
                 
                 
 
@@ -1754,8 +1696,21 @@ sort(a, a <span style="color:#f92672">+</span> <span style="color:#ae81ff">100</
             
                 
                     
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
                         
-                        
+            
+            
+                
                     
                 
                 
@@ -1788,26 +1743,6 @@ sort(a, a <span style="color:#f92672">+</span> <span style="color:#ae81ff">100</
             
             
                 
-                    
-                    
-                
-                
-
-                    
-                    
-                    
-
-                    
-            
-        
-                    
-                        
-            
-            
-                
-                    
-                        
-                        
                     
                 
                 
@@ -2228,6 +2163,7 @@ sort(a, a <span style="color:#f92672">+</span> <span style="color:#ae81ff">100</
             
                 
                     
+                    
                 
                 
 
@@ -2240,6 +2176,9 @@ sort(a, a <span style="color:#f92672">+</span> <span style="color:#ae81ff">100</
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2461,10 +2400,10 @@ sort(a, a <span style="color:#f92672">+</span> <span style="color:#ae81ff">100</
 	 
 	 
 		
-			<a class="nav nav-prev" href="/basics/lecture2/pointers/" title="Указатели"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/basics/lecture6/inline-friends/" title="Inline и друзья"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/basics/lecture2/strings/" title="Строки" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/basics/lecture7/templates/" title="Шаблоны" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -2474,19 +2413,19 @@ sort(a, a <span style="color:#f92672">+</span> <span style="color:#ae81ff">100</
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1605813558"></script>
-    <script src="/js/perfect-scrollbar.min.js?1605813558"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1605813558"></script>
-    <script src="/js/jquery.sticky.js?1605813558"></script>
-    <script src="/js/featherlight.min.js?1605813558"></script>
-    <script src="/js/highlight.pack.js?1605813558"></script>
+    <script src="/js/clipboard.min.js?1605813559"></script>
+    <script src="/js/perfect-scrollbar.min.js?1605813559"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1605813559"></script>
+    <script src="/js/jquery.sticky.js?1605813559"></script>
+    <script src="/js/featherlight.min.js?1605813559"></script>
+    <script src="/js/highlight.pack.js?1605813559"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1605813558"></script>
-    <script src="/js/learn.js?1605813558"></script>
-    <script src="/js/hugo-learn.js?1605813558"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1605813559"></script>
+    <script src="/js/learn.js?1605813559"></script>
+    <script src="/js/hugo-learn.js?1605813559"></script>
     
         
-            <script src="/mermaid/mermaid.js?1605813558"></script>
+            <script src="/mermaid/mermaid.js?1605813559"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
@@ -2503,4 +2442,3 @@ sort(a, a <span style="color:#f92672">+</span> <span style="color:#ae81ff">100</
 </script>
   </body>
 </html>
-
