@@ -9,24 +9,24 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png">
 
-    <title>Шаблоны :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
+    <title>Лекция #8 :: Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</title>
 
     
-    <link href="/css/nucleus.css?1607114654" rel="stylesheet">
-    <link href="/css/fontawesome-all.min.css?1607114654" rel="stylesheet">
-    <link href="/css/hybrid.css?1607114654" rel="stylesheet">
-    <link href="/css/featherlight.min.css?1607114654" rel="stylesheet">
-    <link href="/css/perfect-scrollbar.min.css?1607114654" rel="stylesheet">
-    <link href="/css/auto-complete.css?1607114654" rel="stylesheet">
-    <link href="/css/atom-one-dark-reasonable.css?1607114654" rel="stylesheet">
-    <link href="/css/theme.css?1607114654" rel="stylesheet">
-    <link href="/css/hugo-theme.css?1607114654" rel="stylesheet">
+    <link href="/css/nucleus.css?1607114655" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1607114655" rel="stylesheet">
+    <link href="/css/hybrid.css?1607114655" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1607114655" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1607114655" rel="stylesheet">
+    <link href="/css/auto-complete.css?1607114655" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1607114655" rel="stylesheet">
+    <link href="/css/theme.css?1607114655" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1607114655" rel="stylesheet">
     
-    <link href="/css/theme-green.css?1607114654" rel="stylesheet">
+    <link href="/css/theme-green.css?1607114655" rel="stylesheet">
     
     
 
-    <script src="/js/jquery-3.3.1.min.js?1607114654"></script>
+    <script src="/js/jquery-3.3.1.min.js?1607114655"></script>
 
     <style>
       :root #header + #content > #left > #rlblock_left{
@@ -36,7 +36,7 @@
     </style>
     
   </head>
-  <body class="" data-url="/basics/lecture7/templates/">
+  <body class="" data-url="/basics/lecture8/">
     <nav id="sidebar" class="showVisitedLinks">
 
 
@@ -52,14 +52,14 @@
     <span data-search-clear=""><i class="fas fa-times"></i></span>
 </div>
 
-<script type="text/javascript" src="/js/lunr.min.js?1607114654"></script>
-<script type="text/javascript" src="/js/auto-complete.js?1607114654"></script>
+<script type="text/javascript" src="/js/lunr.min.js?1607114655"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1607114655"></script>
 <script type="text/javascript">
     
         var baseurl = "https:\/\/apmath-spbu.github.io\/";
     
 </script>
-<script type="text/javascript" src="/js/search.js?1607114654"></script>
+<script type="text/javascript" src="/js/search.js?1607114655"></script>
 
     
   </div>
@@ -1030,7 +1030,7 @@
   
     
     <li data-nav-id="/basics/lecture7/" title="Лекция #7" class="dd-item 
-        parent
+        
         
         
         ">
@@ -1058,7 +1058,7 @@
  
   
     
-      <li data-nav-id="/basics/lecture7/templates/" title="Шаблоны" class="dd-item active">
+      <li data-nav-id="/basics/lecture7/templates/" title="Шаблоны" class="dd-item ">
         <a href="/basics/lecture7/templates/">
         Шаблоны
         <i class="fas fa-check read-icon"></i>
@@ -1110,8 +1110,8 @@
   
     
     <li data-nav-id="/basics/lecture8/" title="Лекция #8" class="dd-item 
-        
-        
+        parent
+        active
         
         ">
       <a href="/basics/lecture8/">
@@ -1498,13 +1498,7 @@
             
           
           
-            
-            
-          
-          
-            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > <a href='/basics/lecture7/'>Лекция #7</a> > Шаблоны
-          
-        
+            <a href='/'>Материалы курсов на кафедре Технологии Программирования. ПМ-ПУ</a> > <a href='/basics/'>Основы программирования Осень 2020</a> > Лекция #8
           
         
           
@@ -1517,14 +1511,7 @@
                 
                     <div class="progress">
     <div class="wrapper">
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#шаблонные-методы">Шаблонные методы</a></li>
-    <li><a href="#шаблонные-классы">Шаблонные классы</a></li>
-    <li><a href="#специализация-шаблонов-классов--функции">Специализация шаблонов классов / функции</a></li>
-    <li><a href="#рекурсивное-определение-шаблонов-как-пример-метапрограммирования">Рекурсивное определение шаблонов как пример метапрограммирования</a></li>
-  </ul>
-</nav>
+<nav id="TableOfContents"></nav>
     </div>
 </div>
 
@@ -1540,175 +1527,23 @@
           
             <h1>
               
-              Шаблоны
+              Лекция #8
             </h1>
           
 
         
 
 
-<h2 id="шаблонные-методы">Шаблонные методы</h2>
-<p>Допустим нам необходимо написать функцию вычисления максимума для целочисленных значений:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">max2</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b)
-{
-    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b <span style="color:#f92672">?</span> a : b;
-}
-</code></pre></div><p>Перегрузив, функцию можно также описать и для значений с плавающей точкой:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">max2</span>(<span style="color:#66d9ef">double</span> a, <span style="color:#66d9ef">double</span> b)
-{
-    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b <span style="color:#f92672">?</span> a : b;
-}
-</code></pre></div><p>Явно видно, что код очень похож, отличие лишь в типе, с которым мы работаем. В C++ это можно обобщить добавив вместо описания конкретного типа - шаблон. Описывается это следюущим образом - каждая шаблонная функция должна начинаться с объявления, что она будет шаблонной - <strong>template</strong>. Внутри угловых скобок через запятую указывается, все типы-шаблоны, которые будут принимать участие с объявлением <strong>typename</strong>. Например, в нашем примере это будет выглядеть так:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
-T max2(T a, T b)
-{
-    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b <span style="color:#f92672">?</span> a : b;
-}
-</code></pre></div>
-<div class="notices info" ><p>Пример хорошо работает, но в объявление это функции мы, как и в обычном сценрии, передаем объекты типа <strong>T</strong> по значение. Иногда бывает нужным передать объект по ссылке, особенно, если мы будем работать с классами. Тогда код незначительно изменится:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> max2(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> a, <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> b)
-{
-    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b <span style="color:#f92672">?</span> a : b;
-}
-</code></pre></div></div>
 
-<h2 id="шаблонные-классы">Шаблонные классы</h2>
-<p><strong>Шаблон класса</strong> – элемент языка, позволяющий использовать типы и значения как параметры, используемые для автоматического создания классов по общему описанию.</p>
-<p>Использование шаблонов классов – шаг на пути к парадигме <strong>обобщенного программирования</strong>. На практике, мы уже использовали контейнер <code>vector&lt;T&gt;</code>, где <strong>T</strong> - как раз и есть шаблон.</p>
-<p>Определение шаблона содержат списки параметров шаблона, среди которых выделяются:</p>
-<ul>
-<li>параметры-типы</li>
-<li>параметры-значения</li>
-<li>параметры-шаблоны</li>
-</ul>
-<p>Параметры-значения могут иметь необязательный <strong>идентификатор</strong>, необязательное <strong>значение по умолчанию</strong>, но должны иметь <strong>тип</strong>, являющийся логическим, символьным или целым, перечислением, указателем, ссылкой на объект или <code>nullptr</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"> <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T</span>, <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">U</span>, <span style="color:#66d9ef">int</span> size<span style="color:#f92672">&gt;</span>
- <span style="color:#75715e">// эквивалентно
-</span><span style="color:#75715e"></span> <span style="color:#75715e">// template&lt;typename T, typename U, int size&gt;
-</span><span style="color:#75715e"></span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Sample</span> {
-	T _prm1;
-	U<span style="color:#f92672">*</span> _prm2;
-	<span style="color:#66d9ef">int</span> _size;
- <span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-	Sample()<span style="color:#f92672">:</span> _size(size) { }
-    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getSize</span>() {
-	    <span style="color:#66d9ef">return</span> _size;
-	}
- };
-
- <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>
-Sample<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span>, <span style="color:#ae81ff">500</span><span style="color:#f92672">&gt;</span> s;
-cout <span style="color:#f92672">&lt;&lt;</span> s.getSize();
-</code></pre></div><p>Пример объявления шаблонного класса с параметром-шаблоном:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T</span><span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Array</span> { <span style="color:#75715e">/*… */</span> };
-
-<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TKey</span>, <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TValue</span>, <span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span>...<span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Container</span> <span style="color:#f92672">=</span> Array<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Map</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-	Container<span style="color:#f92672">&lt;</span>TKey<span style="color:#f92672">&gt;</span> key;
-	Container<span style="color:#f92672">&lt;</span>TValue<span style="color:#f92672">&gt;</span> value;
-	<span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>};
-
-<span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>
-Map<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> s;
-Map<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span>, vector<span style="color:#f92672">&gt;</span> v;
-v.key.push_back(<span style="color:#ae81ff">5</span>);
-</code></pre></div><h2 id="специализация-шаблонов-классов--функции">Специализация шаблонов классов / функции</h2>
-<p>Шаблоны классов допускают частичную (полную) специализацию, при которой отдельные (все) параметры шаблона заменяются конкретными именами типов или значениями константных выражений.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-
-<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
-T max2(T a, T b)
-{
-    <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b <span style="color:#f92672">?</span> a : b;
-}
-
-<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span>
-<span style="color:#66d9ef">bool</span> max2(<span style="color:#66d9ef">bool</span> a, <span style="color:#66d9ef">bool</span> b)
-{
-    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Will always return true!&#34;</span>;
-    <span style="color:#66d9ef">return</span> true;
-}
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-    cout <span style="color:#f92672">&lt;&lt;</span> max2(<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>) <span style="color:#f92672">&lt;&lt;</span> endl;
-    cout <span style="color:#f92672">&lt;&lt;</span> max2(false, false) <span style="color:#f92672">&lt;&lt;</span> endl;
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><p>Аналогично можно сделать специализация классов. Пример частичной и полной специализации:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-
-<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Key, <span style="color:#66d9ef">typename</span> Value<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">KeyValuePair</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    KeyValuePair() {
-        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;General Key-Value&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
-    }
-};
-
-<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;&gt;</span>
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">KeyValuePair</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    KeyValuePair() {
-        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Key-Value with integer key, string value&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
-    }
-};
-
-<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> Key<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">KeyValuePair</span><span style="color:#f92672">&lt;</span>Key, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;</span> {
-<span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
-    KeyValuePair() {
-        cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Key-Value with string value&#34;</span> <span style="color:#f92672">&lt;&lt;</span> endl;
-    }
-};
+	<p><a href="/basics/lecture8/lambda/">Лямбда-функции</a></p>
+<p>В рамаках данной лекции предполагается решение <strong>5</strong> задач на HackerRank. (115 points) (04.12.2020)</p>
+<hr>
 
 
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-    KeyValuePair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, <span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> s1;
-    KeyValuePair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, string<span style="color:#f92672">&gt;</span> s2;
-    KeyValuePair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> s3;
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-
-<span style="color:#75715e">/*
-</span><span style="color:#75715e">General Key-Value
-</span><span style="color:#75715e">Key-Value with integer key, string value
-</span><span style="color:#75715e">General Key-Value
-</span><span style="color:#75715e">*/</span>
-</code></pre></div><h2 id="рекурсивное-определение-шаблонов-как-пример-метапрограммирования">Рекурсивное определение шаблонов как пример метапрограммирования</h2>
-<p>Шаблоны могут быть мощным, но не совсем тривиальным способом программирониваня. Некоторые вещи они сильно упрощают, а дргуие наоборот делают запутанным. Ниже представлен пример использования шаблонов для перевода представляения двоичного числа в десятичное.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
-
-<span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">long</span> N<span style="color:#f92672">&gt;</span>
-<span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">binary</span> {
-<span style="color:#66d9ef">static</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">const</span> value <span style="color:#f92672">=</span> binary<span style="color:#f92672">&lt;</span>N <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span><span style="color:#f92672">&gt;::</span>value <span style="color:#f92672">&lt;&lt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">|</span> N <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>;
-};
-
-<span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;&gt;</span> <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">binary</span><span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span><span style="color:#f92672">&gt;</span> {
-    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">const</span> value <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
-};
- 
-<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">const</span> one <span style="color:#f92672">=</span> binary<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">1</span><span style="color:#f92672">&gt;::</span>value;
-<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">const</span> three <span style="color:#f92672">=</span> binary<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">11</span><span style="color:#f92672">&gt;::</span>value;
-<span style="color:#66d9ef">unsigned</span> <span style="color:#66d9ef">const</span> five <span style="color:#f92672">=</span> binary<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">101</span><span style="color:#f92672">&gt;::</span>value;
-
-<span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
-    cout <span style="color:#f92672">&lt;&lt;</span> one <span style="color:#f92672">&lt;&lt;</span> endl;
-    cout <span style="color:#f92672">&lt;&lt;</span> three <span style="color:#f92672">&lt;&lt;</span> endl;
-    cout <span style="color:#f92672">&lt;&lt;</span> five <span style="color:#f92672">&lt;&lt;</span> endl;
-    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
-}
-</code></pre></div><hr>
 
 
-<footer class="footline">
+
+<footer class=" footline" >
 	
 </footer>
 
@@ -2386,7 +2221,6 @@ T max2(T a, T b)
             
                 
                     
-                    
                 
                 
 
@@ -2399,7 +2233,6 @@ T max2(T a, T b)
             
             
                 
-                    
                     
                 
                 
@@ -2416,9 +2249,6 @@ T max2(T a, T b)
             
             
                 
-                    
-                        
-                        
                     
                 
                 
@@ -2439,6 +2269,7 @@ T max2(T a, T b)
             
                 
                     
+                    
                 
                 
 
@@ -2451,6 +2282,9 @@ T max2(T a, T b)
             
             
                 
+                    
+                        
+                        
                     
                 
                 
@@ -2656,10 +2490,10 @@ T max2(T a, T b)
 	 
 	 
 		
-			<a class="nav nav-prev" href="/basics/lecture7/" title="Лекция #7"> <i class="fa fa-chevron-left"></i></a>
+			<a class="nav nav-prev" href="/basics/lecture7/try-catch/" title="Исключения"> <i class="fa fa-chevron-left"></i></a>
 		
 		
-			<a class="nav nav-next" href="/basics/lecture7/try-catch/" title="Исключения" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+			<a class="nav nav-next" href="/basics/lecture8/lambda/" title="Лямбда-функции и замыкания" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
 		
 	
     </div>
@@ -2669,19 +2503,19 @@ T max2(T a, T b)
     <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
       <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
     </div>
-    <script src="/js/clipboard.min.js?1607114654"></script>
-    <script src="/js/perfect-scrollbar.min.js?1607114654"></script>
-    <script src="/js/perfect-scrollbar.jquery.min.js?1607114654"></script>
-    <script src="/js/jquery.sticky.js?1607114654"></script>
-    <script src="/js/featherlight.min.js?1607114654"></script>
-    <script src="/js/highlight.pack.js?1607114654"></script>
+    <script src="/js/clipboard.min.js?1607114655"></script>
+    <script src="/js/perfect-scrollbar.min.js?1607114655"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1607114655"></script>
+    <script src="/js/jquery.sticky.js?1607114655"></script>
+    <script src="/js/featherlight.min.js?1607114655"></script>
+    <script src="/js/highlight.pack.js?1607114655"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/js/modernizr.custom-3.6.0.js?1607114654"></script>
-    <script src="/js/learn.js?1607114654"></script>
-    <script src="/js/hugo-learn.js?1607114654"></script>
+    <script src="/js/modernizr.custom-3.6.0.js?1607114655"></script>
+    <script src="/js/learn.js?1607114655"></script>
+    <script src="/js/hugo-learn.js?1607114655"></script>
     
         
-            <script src="/mermaid/mermaid.js?1607114654"></script>
+            <script src="/mermaid/mermaid.js?1607114655"></script>
         
         <script>
             mermaid.initialize({ startOnLoad: true });
@@ -2698,4 +2532,3 @@ T max2(T a, T b)
 </script>
   </body>
 </html>
-
