@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.143.1">
+    <meta name="generator" content="Relearn 7.3.2+3ac0206314069cacb7c5585d7271248b8304f4db">
+    <meta name="description" content="3.1 Основная теорема о рекуррентных соотношениях Алгоритм Карацубы - пример применения метода “разделяй и властвуй” (“divide-and-conquer”), с которым мы ещё не раз встретимся.
+Идея этого метода состоит в том, чтобы свести решение задачи к решению нескольких подзадач в несколько раз меньшего размера, после чего восстановить решение исходной задачи с помощью решений подзадач. Сейчас мы докажем достаточно общую теорему, применимую к оценке многих алгоритмов, использующих метод “разделяй и властвуй”.
+Теорема 3.1.1 - Основная теорема о рекуррентных соотношениях.&#34; Пусть $T(n)=a \cdot T\left(\left\lceil\frac{n}{b}\right\rceil\right)&#43;\Theta\left(n^{c}\right)$, где $a&gt;0, b&gt;1, c \geqslant 0$. Тогда">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="3. Рекурентные соотношения :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="3.1 Основная теорема о рекуррентных соотношениях Алгоритм Карацубы - пример применения метода “разделяй и властвуй” (“divide-and-conquer”), с которым мы ещё не раз встретимся.
+Идея этого метода состоит в том, чтобы свести решение задачи к решению нескольких подзадач в несколько раз меньшего размера, после чего восстановить решение исходной задачи с помощью решений подзадач. Сейчас мы докажем достаточно общую теорему, применимую к оценке многих алгоритмов, использующих метод “разделяй и властвуй”.
+Теорема 3.1.1 - Основная теорема о рекуррентных соотношениях.&#34; Пусть $T(n)=a \cdot T\left(\left\lceil\frac{n}{b}\right\rceil\right)&#43;\Theta\left(n^{c}\right)$, где $a&gt;0, b&gt;1, c \geqslant 0$. Тогда">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/recurrence_relation/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="3. Рекурентные соотношения :: Краткий курс по основам программирования">
+    <meta property="og:description" content="3.1 Основная теорема о рекуррентных соотношениях Алгоритм Карацубы - пример применения метода “разделяй и властвуй” (“divide-and-conquer”), с которым мы ещё не раз встретимся.
+Идея этого метода состоит в том, чтобы свести решение задачи к решению нескольких подзадач в несколько раз меньшего размера, после чего восстановить решение исходной задачи с помощью решений подзадач. Сейчас мы докажем достаточно общую теорему, применимую к оценке многих алгоритмов, использующих метод “разделяй и властвуй”.
+Теорема 3.1.1 - Основная теорема о рекуррентных соотношениях.&#34; Пусть $T(n)=a \cdot T\left(\left\lceil\frac{n}{b}\right\rceil\right)&#43;\Theta\left(n^{c}\right)$, где $a&gt;0, b&gt;1, c \geqslant 0$. Тогда">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Basics">
+    <meta property="article:published_time" content="2025-02-16T11:32:04+03:00">
+    <meta property="article:modified_time" content="2025-02-16T11:32:04+03:00">
+    <meta itemprop="name" content="3. Рекурентные соотношения :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="3.1 Основная теорема о рекуррентных соотношениях Алгоритм Карацубы - пример применения метода “разделяй и властвуй” (“divide-and-conquer”), с которым мы ещё не раз встретимся.
+Идея этого метода состоит в том, чтобы свести решение задачи к решению нескольких подзадач в несколько раз меньшего размера, после чего восстановить решение исходной задачи с помощью решений подзадач. Сейчас мы докажем достаточно общую теорему, применимую к оценке многих алгоритмов, использующих метод “разделяй и властвуй”.
+Теорема 3.1.1 - Основная теорема о рекуррентных соотношениях.&#34; Пусть $T(n)=a \cdot T\left(\left\lceil\frac{n}{b}\right\rceil\right)&#43;\Theta\left(n^{c}\right)$, где $a&gt;0, b&gt;1, c \geqslant 0$. Тогда">
+    <meta itemprop="datePublished" content="2025-02-16T11:32:04+03:00">
+    <meta itemprop="dateModified" content="2025-02-16T11:32:04+03:00">
+    <meta itemprop="wordCount" content="362">
+    <title>3. Рекурентные соотношения :: Краткий курс по основам программирования</title>
+    <link href="/css/fontawesome-all.min.css?1739701300" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1739701300" rel="stylesheet"></noscript>
+    <link href="/css/auto-complete.css?1739701300" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1739701300" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1739701300" rel="stylesheet">
+    <link href="/css/theme.min.css?1739701300" rel="stylesheet">
+    <link href="/css/format-html.min.css?1739701300" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.min = `.min`;
+      window.relearn.disableAnchorCopy=false;
+      window.relearn.disableAnchorScrolling=false;
+      window.relearn.enableBlockCodeWrap=true;
+      window.relearn.disableInlineCopyToClipboard=false;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantname = "my-custom-variant";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        var select = document.querySelector("#R-select-variant");
+        if (select) {
+          select.value = variant;
+        }
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( variant == window.relearn.customvariantname ){
+        }else if( !variant || !window.relearn.themevariants.includes(variant) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+      // translations
+      window.T_Copy_to_clipboard = `Копировать в буфер`;
+      window.T_Copied_to_clipboard = `Скопировано в буфер обмена!`;
+      window.T_Copy_link_to_clipboard = `Скопировать ссылку в буфер обмена`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+    </script>
+    
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+    
+  </head>
+  <body class="mobile-support html" data-url="/basics/recurrence_relation/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar">
+        <div class="topbar-wrapper">
+          <div class="topbar-sidebar-divider"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide"><button class="topbar-control" onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button>
+            </div>
+            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#31-основная-теорема-о-рекуррентных-соотношениях">3.1 Основная теорема о рекуррентных соотношениях</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/basics/index.html"><span itemprop="name">Basics</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><span itemprop="name">3. Рекурентные соотношения</span><meta itemprop="position" content="2"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/elementary_arithmetic/index.html" title="2. Элементарная арифметика (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/basic_data_structures/index.html" title="4. Базовые структуры данных (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable basics" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+
+  </header>
+
+<h1 id="3-рекурентные-соотношения">3. Рекурентные соотношения</h1>
+
+<h2 id="31-основная-теорема-о-рекуррентных-соотношениях">3.1 Основная теорема о рекуррентных соотношениях</h2>
+<p>Алгоритм Карацубы - пример применения метода &ldquo;разделяй и властвуй&rdquo; (&ldquo;divide-and-conquer&rdquo;), с которым мы ещё не раз встретимся.</p>
+<p>Идея этого метода состоит в том, чтобы свести решение задачи к решению нескольких подзадач в несколько раз меньшего размера, после чего восстановить решение исходной задачи с помощью решений подзадач. Сейчас мы докажем достаточно общую теорему, применимую к оценке многих алгоритмов, использующих метод &ldquo;разделяй и властвуй&rdquo;.</p>
+
+<details open class=" box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема 3.1.1 - Основная теорема о рекуррентных соотношениях.&quot;
+  </summary>
+  <div class="box-content">
+<p>Пусть $T(n)=a \cdot T\left(\left\lceil\frac{n}{b}\right\rceil\right)+\Theta\left(n^{c}\right)$, где $a>0, b>1, c \geqslant 0$. Тогда</p>
+$$T(n)= \begin{cases}\Theta\left(n^{c}\right), & \text { если } c > \log_{b} a \\ \Theta\left(n^{c} \log n\right), & \text { если } c=\log _{b} a \\ \Theta\left(n^{\log _{b} a}\right), & \text { если } c < \log_{b} a\end{cases}$$<p>
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Пусть мы уже доказали утверждение теоремы для чисел вида $n=b^{k}$. Рассмотрим такую функцию $k(n)$, что для любого $n$ верно $b^{k(n)-1} < n \leqslant b^{k(n)}$. При уменьшении $n$ количество веток в дереве рекурсии и их размер могли только уменьшиться, поэтому</p>
+$$
+T(n) = O \left(T\left(b^{k(n)}\right)\right)= \begin{cases}O\left(b^{k(n) c}\right)=O\left(n^{c}\right), & \text { если } c>\log _{b} a \\ O\left(b^{k(n) c} \log \left(b^{k(n)}\right)\right)=O\left(n^{c} \log n\right), & \text { если } c=\log _{b} a \\ O\left(b^{k(n) \log _{b} a}\right)=O\left(n^{\log _{b} a}\right), & \text { если } c < \log _{b} a\end{cases}
+$$<p>(мы пользуемся тем, что $b^{k(n)} = b \cdot b^{k(n)-1} < b n = O(n)$ ).
+Доказательство же точной асимптотической оценки $(\Theta)$ для произвольного $n$ требует ещё некоторого количества технических выкладок, которые мы опустим. Желающие могут прочитать их в главе 4.6 в Кормене<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<p>Теперь считаем, что $n=b^{k}$ для некоторого $k$.
+Раскроем рекуррентность:</p>
+$$
+\begin{gathered}
+T(n)=a \cdot T\left(\frac{n}{b}\right)+\Theta\left(n^{c}\right)=\Theta\left(n^{c}+a \cdot\left(\frac{n}{b}\right)^{c}\right)+a^{2} T\left(\frac{n}{b^{2}}\right)= \\
+=\cdots=\Theta\left(n^{c} \cdot\left(1+\frac{a}{b^{c}}+\left(\frac{a}{b^{c}}\right)^{2}+\cdots+\left(\frac{a}{b^{c}}\right)^{k-1}\right)\right)+a^{k} T(1)= \\
+=\Theta\left(n^{c} \cdot\left(1+\frac{a}{b^{c}}+\left(\frac{a}{b^{c}}\right)^{2}+\cdots+\left(\frac{a}{b^{c}}\right)^{k}\right)\right)
+\end{gathered}
+$$<p>(последнее слагаемое $a^{k} T(1)=\Theta\left(a^{k}\right)=\Theta\left(n^{c} \cdot\left(\frac{a}{b^{c}}\right)^{k}\right)$, так как $\left.T(1)=\Theta(1), n=b^{k}\right)$.
+Получаем геометрическую прогрессию со знаменателем $q=\frac{a}{b^{c}}$.</p>
+<p>Если $c>\log _{b} a$, то $q < 1$, тогда</p>
+$$
+T(n)=\Theta\left(n^{c} \cdot \frac{1-q^{k+1}}{1-q}\right)=\Theta\left(n^{c} \cdot \frac{1}{1-q}\right)=\Theta\left(n^{c}\right)
+$$<p>Если $c=\log _{b} a$, то $q=1$, тогда</p>
+$$
+T(n)=\Theta\left(n^{c} \cdot(k+1)\right)=\Theta\left(n^{c} \log _{b} n\right)=\Theta\left(n^{c} \log n\right)
+$$<p>Наконец, если $c < \log _{b} a$, то $q>1$, тогда</p>
+$$
+T(n)=\Theta\left(n^{c} \cdot\left(q^{k}+\frac{q^{k}-1}{q-1}\right)\right)=\Theta\left(n^{c} q^{k}\right)=\Theta\left(a^{k}\right)=\Theta\left(a^{\log _{b} n}\right)=\Theta\left(n^{\log _{b} a}\right)
+$$<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://dl.ebooksworld.ir/books/Introduction.to.Algorithms.4th.Leiserson.Stein.Rivest.Cormen.MIT.Press.9780262046305.EBooksWorld.ir.pdf" rel="external" target="_blank">Introduction to Algorithms (Fourth Edition)</a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+  </div>
+</details></p>
+  </div>
+</details>
+<p>В алгоритме Карацубы $a=3, b=2, c=1$, это соответствует третьему случаю теоремы, который и даёт $T(n)=\Theta\left(n^{\log _{2} 3}\right)$.</p>
+
+  <footer class="footline">
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <div id="R-header" class="default-animation">
+<img src="http://www.apmath.spbu.ru/redesign/v1004/main/assets/images/logo.png" alt="" style="height: 3.57143rem;">
+        </div>
+        <script>
+          window.index_js_url="/searchindex.ru.js?1739701300";
+        </script>
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+        <script>
+          var contentLangs=['ru'];
+        </script>
+        <script src="/js/auto-complete.js?1739701300" defer></script>
+        <script src="/js/lunr/lunr.min.js?1739701300" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1739701300" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1739701300" defer></script>
+        <script src="/js/lunr/lunr.ru.min.js?1739701300" defer></script>
+        <script src="/js/search.js?1739701300" defer></script>
+      </div>
+      <div id="R-homelinks" class="default-animation homelinks">
+        <ul>
+          <li><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+        </ul>
+        <hr class="padding">
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div id="R-shortcutmenu-home" class="R-sidebarmenu">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/basics/index.html"><a class="padding" href="/basics/index.html">Basics</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
+            <li class="active " data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
+            <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li></ul></li>
+          </ul>
+        </div>
+    
+        <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
+        <div id="R-menu-footer">
+          <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
+          <div id="R-prefooter" class="footerLangSwitch footerVariantSwitch footerVisitedLinks">
+            <ul>
+              <li id="R-select-language-container" class="footerLangSwitch">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-language"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="R-select-language">Язык</label>
+                    <select id="R-select-language" onchange="location = this.querySelector( this.value ).dataset.url;">
+                      <option id="R-select-language-ru" value="#R-select-language-ru" data-url="/basics/recurrence_relation/index.html" lang="ru-ru" selected></option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+              <li id="R-select-variant-container" class="footerVariantSwitch">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-paint-brush"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="R-select-variant">Тема</label>
+                    <select id="R-select-variant" onchange="window.relearn.changeVariant( this.value );">
+                      <option id="R-select-variant-green" value="green" selected>Green</option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <script>window.relearn.markVariant();</script>
+              </li>
+              <li class="footerVisitedLinks">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-history"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <button onclick="clearHistory();">Очистить историю</button>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="R-footer" class="footerFooter showFooter">
+            <p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <script src="/js/clipboard.min.js?1739701300" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1739701300" defer></script>
+    <script>
+      function useMathJax( config ){
+        window.MathJax = Object.assign( window.MathJax || {}, {
+          tex: {
+            inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+            displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+          },
+          options: {
+            enableMenu: false 
+          }
+        }, config );
+      }
+      useMathJax( JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1739701300"></script>
+    <script src="/js/theme.js?1739701300" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+  </body>
+</html>
