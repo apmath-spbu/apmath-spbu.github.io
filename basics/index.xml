@@ -2,45 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Basics :: Краткий курс по основам программирования</title>
-    <link>http://localhost:1313/basics/index.html</link>
+    <link>https://apmath-spbu.github.io/basics/index.html</link>
     <description>This is a new chapter.</description>
     <generator>Hugo</generator>
     <language>ru-ru</language>
     <lastBuildDate>Sun, 16 Feb 2025 12:46:35 +0300</lastBuildDate>
-    <atom:link href="http://localhost:1313/basics/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://apmath-spbu.github.io/basics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>1. Анализ сложности алгоритмов</title>
-      <link>http://localhost:1313/basics/complexity/index.html</link>
+      <link>https://apmath-spbu.github.io/basics/complexity/index.html</link>
       <pubDate>Sat, 15 Feb 2025 22:06:42 +0300</pubDate>
-      <guid>http://localhost:1313/basics/complexity/index.html</guid>
+      <guid>https://apmath-spbu.github.io/basics/complexity/index.html</guid>
       <description>1. Вычисление чисел Фибоначчи Последовательность чисел Фибоначчи&#xA;$$ 1,1,2,3,5,8,13,21,34,55,89, \ldots $$определяется следующим образом:&#xA;Определение 1.1.1 $F_{n}$ - $n$-ое число Фибоначчи, где $F_{0}=F_{1}=1, F_{n}=F_{n-1}+F_{n-2}, n&gt;1 .$&#xA;Числа Фибоначчи растут экспоненциально быстро:&#xA;Лемма 1.1.1 $2^{\lfloor n / 2\rfloor} \leqslant F_{n} \leqslant 2^{n}$. Доказательство Докажем утверждение по индукции.</description>
     </item>
     <item>
       <title>2. Элементарная арифметика</title>
-      <link>http://localhost:1313/basics/elementary_arithmetic/index.html</link>
+      <link>https://apmath-spbu.github.io/basics/elementary_arithmetic/index.html</link>
       <pubDate>Sat, 15 Feb 2025 22:36:51 +0300</pubDate>
-      <guid>http://localhost:1313/basics/elementary_arithmetic/index.html</guid>
+      <guid>https://apmath-spbu.github.io/basics/elementary_arithmetic/index.html</guid>
       <description>Современные компьютеры умеют за одну элементарную операцию складывать два 32(или 64)-битных числа. Часто (например, в криптографии) приходится работать с куда более длинными числами. Поговорим о том, как проводить с ними элементарные арифметические операции.&#xA;Для удобства будем считать, что на вход алгоритмам даются натуральные числа в двоичной записи. Мы будем работать с числами, имеющими двоичную запись длины $n$ (возможно, с ведущими нулями).&#xA;В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.</description>
     </item>
     <item>
       <title>3. Рекурентные соотношения</title>
-      <link>http://localhost:1313/basics/recurrence_relation/index.html</link>
+      <link>https://apmath-spbu.github.io/basics/recurrence_relation/index.html</link>
       <pubDate>Sun, 16 Feb 2025 11:32:04 +0300</pubDate>
-      <guid>http://localhost:1313/basics/recurrence_relation/index.html</guid>
+      <guid>https://apmath-spbu.github.io/basics/recurrence_relation/index.html</guid>
       <description>3.1 Основная теорема о рекуррентных соотношениях Алгоритм Карацубы - пример применения метода “разделяй и властвуй” (“divide-and-conquer”), с которым мы ещё не раз встретимся.&#xA;Идея этого метода состоит в том, чтобы свести решение задачи к решению нескольких подзадач в несколько раз меньшего размера, после чего восстановить решение исходной задачи с помощью решений подзадач. Сейчас мы докажем достаточно общую теорему, применимую к оценке многих алгоритмов, использующих метод “разделяй и властвуй”.&#xA;Теорема 3.1.1 - Основная теорема о рекуррентных соотношениях.&#34; Пусть $T(n)=a \cdot T\left(\left\lceil\frac{n}{b}\right\rceil\right)+\Theta\left(n^{c}\right)$, где $a&gt;0, b&gt;1, c \geqslant 0$. Тогда</description>
     </item>
     <item>
       <title>4. Базовые структуры данных</title>
-      <link>http://localhost:1313/basics/basic_data_structures/index.html</link>
+      <link>https://apmath-spbu.github.io/basics/basic_data_structures/index.html</link>
       <pubDate>Sun, 16 Feb 2025 12:32:57 +0300</pubDate>
-      <guid>http://localhost:1313/basics/basic_data_structures/index.html</guid>
+      <guid>https://apmath-spbu.github.io/basics/basic_data_structures/index.html</guid>
       <description>4.1 Массив Массив (array) - структура данных, позволяющая хранить набор значений в ячейках, пронумерованных индексами (или набором индексов в случае многомерного массива) из некоторого отрезка целых чисел. Встроен в большинство современных языков программирования.&#xA;Массив позволяет за константное $(O(1))$ время получать доступ к элементу по индексу, а также изменять этот элемент. При этом массив имеет фиксированный размер, поэтому не поддерживает операций вставки и удаления элементов. Если хочется вставить или удалить элемент, можно создать новый массив нужного размера и скопировать информацию в него, но это потребует $\Theta(n)$ операций, где $n$ - длина массива.</description>
     </item>
     <item>
       <title>5. Двоичный поиск</title>
-      <link>http://localhost:1313/basics/binary_search/index.html</link>
+      <link>https://apmath-spbu.github.io/basics/binary_search/index.html</link>
       <pubDate>Sun, 16 Feb 2025 12:46:35 +0300</pubDate>
-      <guid>http://localhost:1313/basics/binary_search/index.html</guid>
+      <guid>https://apmath-spbu.github.io/basics/binary_search/index.html</guid>
       <description>5.1 Двоичный поиск Если элементы массива расположены в возрастающем порядке (то есть массив отсортирован), то искать элемент в массиве можно быстрее, чем за линейное время.&#xA;Пусть мы хотим найти $x$ в отсортированном массиве $a$ длины $n$. Снова применим идею метода “разделяй и властвуй”: посмотрим на элемент в середине массива - $a\left[\frac{n}{2}\right]$. Если $a\left[\frac{n}{2}\right]=x$, то мы нашли $x$ в массиве $a$. Если $a\left[\frac{n}{2}\right]&gt;x$, то $x$ может найтись только в $a\left[0,1, \ldots, \frac{n}{2}-1\right]$. Если же $a\left[\frac{n}{2}\right] &lt; x$, то $x$ может найтись только в $a\left[\frac{n}{2}+1, \ldots, n-1\right]$. В любом из последних двух случаев, мы вдвое уменьшили длину отрезка, на котором нужно искать $x$.</description>
     </item>
   </channel>
