@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.143.1">
@@ -18,7 +18,7 @@ $$ 1,1,2,3,5,8,13,21,34,55,89, \ldots $$определяется следующ�
 Определение 1.1.1 $F_{n}$ - $n$-ое число Фибоначчи, где $F_{0}=F_{1}=1, F_{n}=F_{n-1}&#43;F_{n-2}, n&gt;1 .$
 Числа Фибоначчи растут экспоненциально быстро:
 Лемма 1.1.1 $2^{\lfloor n / 2\rfloor} \leqslant F_{n} \leqslant 2^{n}$. Доказательство Докажем утверждение по индукции.">
-    <meta property="og:url" content="https://apmath-spbu.github.io/basics/complexity/index.html">
+    <meta property="og:url" content="http://localhost:1313/basics/complexity/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="1. Анализ сложности алгоритмов :: Краткий курс по основам программирования">
     <meta property="og:description" content="1. Вычисление чисел Фибоначчи Последовательность чисел Фибоначчи
@@ -41,17 +41,17 @@ $$ 1,1,2,3,5,8,13,21,34,55,89, \ldots $$определяется следующ�
     <meta itemprop="dateModified" content="2025-02-15T22:06:42+03:00">
     <meta itemprop="wordCount" content="1050">
     <title>1. Анализ сложности алгоритмов :: Краткий курс по основам программирования</title>
-    <link href="/css/fontawesome-all.min.css?1739723889" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1739723889" rel="stylesheet"></noscript>
-    <link href="/css/auto-complete.css?1739723889" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1739723889" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1739723889" rel="stylesheet">
-    <link href="/css/theme.min.css?1739723889" rel="stylesheet">
-    <link href="/css/format-html.min.css?1739723889" rel="stylesheet" id="R-format-style">
+    <link href="/css/fontawesome-all.min.css?1739730487" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1739730487" rel="stylesheet"></noscript>
+    <link href="/css/auto-complete.css?1739730487" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1739730487" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1739730487" rel="stylesheet">
+    <link href="/css/theme.css?1739730487" rel="stylesheet">
+    <link href="/css/format-html.css?1739730487" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
-      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
-      window.relearn.min = `.min`;
+      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.min = ``;
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
       window.relearn.enableBlockCodeWrap=true;
@@ -207,10 +207,10 @@ $$<p>определяется следующим образом:</p>
 </details>
 <h4 id="экспоненциальный-алгоритм">Экспоненциальный алгоритм</h4>
 <p>Следующий рекурсивный алгоритм вычисляет $n$-ое число Фибоначчи, точно следуя определению:</p>
-<div class="highlight wrap-code"><pre tabindex="0"><code>fib(n):
-    if n &lt;= 1:
-        return 1
-    return fib(n - 1) + fib(n - 2)</code></pre></div>
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fib(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)</span></span></code></pre></div>
 <p>Каково время работы этого алгоритма? Оценим $T(n)$ - суммарное количество вызовов fib , происходящих при выполнении $\mathrm{fib}(\mathrm{n})$ : если $n \leqslant 1$, то $T(n)=1$; иначе</p>
 $$
 T(n)=1+T(n-1)+T(n-2) .
@@ -218,17 +218,17 @@ $$<p>Несложно доказать по индукции, что $F_{n} \leq
 <p>Из леммы 1.1.1 следует, например, что, $F_{300} \geqslant 2^{150}>10^{45}$. На компьютере, выполняющем $10^{9}$ операций в секунду, fib(300) будет выполняться больше $10^{36}$ секунд.</p>
 <h4 id="полиномиальный-алгоритм">Полиномиальный алгоритм</h4>
 <p>Посмотрим на дерево рекурсивных вызовов алгоритма fib (рис. 1.1). Видно, что алгоритм много раз вычисляет одно и то же. Давайте сохранять результаты промежуточных вычислений в массив:
-<a href="#R-image-7976d7c48e211e5afeac9e18ed23bd38" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/complexity/recursion_call_tree.jpg" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-7976d7c48e211e5afeac9e18ed23bd38"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/complexity/recursion_call_tree.jpg"></a></p>
+<a href="#R-image-fe21796cebf97e31ec6729684f062350" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/complexity/recursion_call_tree.jpg" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-fe21796cebf97e31ec6729684f062350"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/complexity/recursion_call_tree.jpg"></a></p>
 <p>Рис. 1.1: Дерево рекурсивных вызовов fib</p>
-<div class="highlight wrap-code"><pre tabindex="0"><code>fibFast(n):
-    if n &lt;= 1:
-        return 1
-    int f[n + 1] # создаём массив с индексами 0..n
-    f[0] = f[1] = 1
-    for i = 2..n:
-        f[i] = f[i - 1] + f[i - 2]
-    return f[n]</code></pre></div>
+<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fibFast(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    int f[n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#75715e"># создаём массив с индексами 0..n</span>
+</span></span><span style="display:flex;"><span>    f[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> f[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.</span><span style="color:#f92672">.</span>n:
+</span></span><span style="display:flex;"><span>        f[i] <span style="color:#f92672">=</span> f[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> f[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> f[n]</span></span></code></pre></div>
 <p>На каждой итерации цикла совершается одно сложение, всего итераций примерно $n$, поэтому количество сложений, выполняемых в ходе нового алгоритма, примерно пропорционально $n$. Есть ещё одна тонкость - из леммы 1.1.1 следует, что двоичная запись $F_{n}$ имеет длину порядка $n$. Чуть позже мы увидим, что сложение двух $n$-битовых чисел требует порядка $n$ элементарных операций, значит общее время работы нового алгоритма примерно пропорционально $n^{2}$. С помощью fibFast можно уже за разумное время вычислить не только $F_{300}$, но и $F_{100000}$.</p>
 <h3 id="12-о-символика">1.2 О-символика</h3>
 <p>Хорошо себя зарекомендовал и стал общепринятым следующий подход - оценивать время работы алгоритма некоторой функцией от входных параметров, при этом пренебрегая ограниченными множителями. Это позволяет эффективно сравнивать алгоритмы между собой, при этом не нужно заниматься точным подсчётом количества элементарных операций. Примерно так мы и рассуждали об алгоритмах вычисления чисел Фибоначчи. Введём несколько обозначений, которые помогут проводить подобные рассуждения более кратко и точно.</p>
@@ -494,10 +494,13 @@ $$
       <div id="R-header-topbar" class="default-animation"></div>
       <div id="R-header-wrapper" class="default-animation">
         <div id="R-header" class="default-animation">
-<img src="http://www.apmath.spbu.ru/redesign/v1004/main/assets/images/logo.png" alt="" style="height: 3.57143rem;">
+
+
+
+
         </div>
         <script>
-          window.index_js_url="/searchindex.ru.js?1739723889";
+          window.index_js_url="/searchindex.ru.js?1739730487";
         </script>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
@@ -510,12 +513,12 @@ $$
         <script>
           var contentLangs=['ru'];
         </script>
-        <script src="/js/auto-complete.js?1739723889" defer></script>
-        <script src="/js/lunr/lunr.min.js?1739723889" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1739723889" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1739723889" defer></script>
-        <script src="/js/lunr/lunr.ru.min.js?1739723889" defer></script>
-        <script src="/js/search.js?1739723889" defer></script>
+        <script src="/js/auto-complete.js?1739730487" defer></script>
+        <script src="/js/lunr/lunr.min.js?1739730487" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1739730487" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1739730487" defer></script>
+        <script src="/js/lunr/lunr.ru.min.js?1739730487" defer></script>
+        <script src="/js/search.js?1739730487" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
         <ul>
@@ -585,8 +588,8 @@ $$
         </div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1739723889" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1739723889" defer></script>
+    <script src="/js/clipboard.min.js?1739730487" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1739730487" defer></script>
     <script>
       function useMathJax( config ){
         window.MathJax = Object.assign( window.MathJax || {}, {
@@ -601,8 +604,8 @@ $$
       }
       useMathJax( JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1739723889"></script>
-    <script src="/js/theme.js?1739723889" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1739730487"></script>
+    <script src="/js/theme.js?1739730487" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
