@@ -5,17 +5,17 @@
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.143.1">
     <meta name="generator" content="Relearn 7.3.2+3ac0206314069cacb7c5585d7271248b8304f4db">
-    <meta name="description" content="5.1 Двоичный поиск Если элементы массива расположены в возрастающем порядке (то есть массив отсортирован), то искать элемент в массиве можно быстрее, чем за линейное время.
+    <meta name="description" content="Двоичный поиск Если элементы массива расположены в возрастающем порядке (то есть массив отсортирован), то искать элемент в массиве можно быстрее, чем за линейное время.
 Пусть мы хотим найти $x$ в отсортированном массиве $a$ длины $n$. Снова применим идею метода “разделяй и властвуй”: посмотрим на элемент в середине массива - $a\left[\frac{n}{2}\right]$. Если $a\left[\frac{n}{2}\right]=x$, то мы нашли $x$ в массиве $a$. Если $a\left[\frac{n}{2}\right]&gt;x$, то $x$ может найтись только в $a\left[0,1, \ldots, \frac{n}{2}-1\right]$. Если же $a\left[\frac{n}{2}\right] &lt; x$, то $x$ может найтись только в $a\left[\frac{n}{2}&#43;1, \ldots, n-1\right]$. В любом из последних двух случаев, мы вдвое уменьшили длину отрезка, на котором нужно искать $x$.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="5. Двоичный поиск :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="5.1 Двоичный поиск Если элементы массива расположены в возрастающем порядке (то есть массив отсортирован), то искать элемент в массиве можно быстрее, чем за линейное время.
+    <meta name="twitter:description" content="Двоичный поиск Если элементы массива расположены в возрастающем порядке (то есть массив отсортирован), то искать элемент в массиве можно быстрее, чем за линейное время.
 Пусть мы хотим найти $x$ в отсортированном массиве $a$ длины $n$. Снова применим идею метода “разделяй и властвуй”: посмотрим на элемент в середине массива - $a\left[\frac{n}{2}\right]$. Если $a\left[\frac{n}{2}\right]=x$, то мы нашли $x$ в массиве $a$. Если $a\left[\frac{n}{2}\right]&gt;x$, то $x$ может найтись только в $a\left[0,1, \ldots, \frac{n}{2}-1\right]$. Если же $a\left[\frac{n}{2}\right] &lt; x$, то $x$ может найтись только в $a\left[\frac{n}{2}&#43;1, \ldots, n-1\right]$. В любом из последних двух случаев, мы вдвое уменьшили длину отрезка, на котором нужно искать $x$.">
     <meta property="og:url" content="https://apmath-spbu.github.io/basics/binary_search/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="5. Двоичный поиск :: Краткий курс по основам программирования">
-    <meta property="og:description" content="5.1 Двоичный поиск Если элементы массива расположены в возрастающем порядке (то есть массив отсортирован), то искать элемент в массиве можно быстрее, чем за линейное время.
+    <meta property="og:description" content="Двоичный поиск Если элементы массива расположены в возрастающем порядке (то есть массив отсортирован), то искать элемент в массиве можно быстрее, чем за линейное время.
 Пусть мы хотим найти $x$ в отсортированном массиве $a$ длины $n$. Снова применим идею метода “разделяй и властвуй”: посмотрим на элемент в середине массива - $a\left[\frac{n}{2}\right]$. Если $a\left[\frac{n}{2}\right]=x$, то мы нашли $x$ в массиве $a$. Если $a\left[\frac{n}{2}\right]&gt;x$, то $x$ может найтись только в $a\left[0,1, \ldots, \frac{n}{2}-1\right]$. Если же $a\left[\frac{n}{2}\right] &lt; x$, то $x$ может найтись только в $a\left[\frac{n}{2}&#43;1, \ldots, n-1\right]$. В любом из последних двух случаев, мы вдвое уменьшили длину отрезка, на котором нужно искать $x$.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
@@ -23,17 +23,17 @@
     <meta property="article:published_time" content="2025-02-16T12:46:35+03:00">
     <meta property="article:modified_time" content="2025-02-16T12:46:35+03:00">
     <meta itemprop="name" content="5. Двоичный поиск :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="5.1 Двоичный поиск Если элементы массива расположены в возрастающем порядке (то есть массив отсортирован), то искать элемент в массиве можно быстрее, чем за линейное время.
+    <meta itemprop="description" content="Двоичный поиск Если элементы массива расположены в возрастающем порядке (то есть массив отсортирован), то искать элемент в массиве можно быстрее, чем за линейное время.
 Пусть мы хотим найти $x$ в отсортированном массиве $a$ длины $n$. Снова применим идею метода “разделяй и властвуй”: посмотрим на элемент в середине массива - $a\left[\frac{n}{2}\right]$. Если $a\left[\frac{n}{2}\right]=x$, то мы нашли $x$ в массиве $a$. Если $a\left[\frac{n}{2}\right]&gt;x$, то $x$ может найтись только в $a\left[0,1, \ldots, \frac{n}{2}-1\right]$. Если же $a\left[\frac{n}{2}\right] &lt; x$, то $x$ может найтись только в $a\left[\frac{n}{2}&#43;1, \ldots, n-1\right]$. В любом из последних двух случаев, мы вдвое уменьшили длину отрезка, на котором нужно искать $x$.">
     <meta itemprop="datePublished" content="2025-02-16T12:46:35+03:00">
     <meta itemprop="dateModified" content="2025-02-16T12:46:35+03:00">
-    <meta itemprop="wordCount" content="1794">
+    <meta itemprop="wordCount" content="1792">
     <title>5. Двоичный поиск :: Краткий курс по основам программирования</title>
-    <link href="/css/fontawesome-all.min.css?1739772959" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1739772959" rel="stylesheet"></noscript>
-    <link href="/css/auto-complete.css?1739772959" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1739772959" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1739772959" rel="stylesheet">
-    <link href="/css/theme.min.css?1739772959" rel="stylesheet">
-    <link href="/css/format-html.min.css?1739772959" rel="stylesheet" id="R-format-style">
+    <link href="/css/fontawesome-all.min.css?1739773459" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1739773459" rel="stylesheet"></noscript>
+    <link href="/css/auto-complete.css?1739773459" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1739773459" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1739773459" rel="stylesheet">
+    <link href="/css/theme.min.css?1739773459" rel="stylesheet">
+    <link href="/css/format-html.min.css?1739773459" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       window.relearn.relBasePath='..\/..';
@@ -100,11 +100,11 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#51-двоичный-поиск">5.1 Двоичный поиск</a></li>
-        <li><a href="#52-левое-вхождение">5.2 Левое вхождение</a></li>
-        <li><a href="#53-двоичный-поиск-по-функции">5.3 Двоичный поиск по функции</a></li>
-        <li><a href="#54-двоичный-поиск-по-функции-с-вещественным-аргументом">5.4 Двоичный поиск по функции с вещественным аргументом</a></li>
-        <li><a href="#55-метод-двух-указателей">5.5 Метод двух указателей</a></li>
+        <li><a href="#двоичный-поиск">Двоичный поиск</a></li>
+        <li><a href="#левое-вхождение">Левое вхождение</a></li>
+        <li><a href="#двоичный-поиск-по-функции">Двоичный поиск по функции</a></li>
+        <li><a href="#двоичный-поиск-по-функции-с-вещественным-аргументом">Двоичный поиск по функции с вещественным аргументом</a></li>
+        <li><a href="#метод-двух-указателей">Метод двух указателей</a></li>
       </ul>
     </li>
   </ul>
@@ -155,11 +155,11 @@
 
 <h1 id="5-двоичный-поиск">5. Двоичный поиск</h1>
 
-<h3 id="51-двоичный-поиск">5.1 Двоичный поиск</h3>
+<h3 id="двоичный-поиск">Двоичный поиск</h3>
 <p>Если элементы массива расположены в возрастающем порядке (то есть массив отсортирован), то искать элемент в массиве можно быстрее, чем за линейное время.</p>
 <p>Пусть мы хотим найти $x$ в отсортированном массиве $a$ длины $n$. Снова применим идею метода &ldquo;разделяй и властвуй&rdquo;: посмотрим на элемент в середине массива - $a\left[\frac{n}{2}\right]$. Если $a\left[\frac{n}{2}\right]=x$, то мы нашли $x$ в массиве $a$. Если $a\left[\frac{n}{2}\right]>x$, то $x$ может найтись только в $a\left[0,1, \ldots, \frac{n}{2}-1\right]$. Если же $a\left[\frac{n}{2}\right] < x$, то $x$ может найтись только в $a\left[\frac{n}{2}+1, \ldots, n-1\right]$. В любом из последних двух случаев, мы вдвое уменьшили длину отрезка, на котором нужно искать $x$.</p>
 <p>Теперь можно рекурсивно повторить те же рассуждения - посмотреть на середину нового подоотрезка массива, и либо в середине найдётся $x$, либо мы поймём, в какой половине нового подотрезка нужно его искать. Будем повторять эти действия, пока не найдём $x$, либо не дойдём до подотрезка нулевой длины. Поскольку на каждом шаге длина отрезка уменьшается вдвое, это произойдёт через $O(\log n)$ шагов.</p>
-<p>Также можно оценить время работы нашего алгоритма с помощью теоремы 3.1.1: время работы алгоритма в худшем случае (когда $x$ так и не нашёлся, либо нашёлся в самом конце) удовлетворяет рекуррентному соотношению $T(n)=T\left(\frac{n}{2}\right)+\Theta(1)$. Это соответствует $a=1, b=2, c=0$ в формулировке теоремы. $c=0=\log _{2} 1=\log _{b} a$, тогда по теореме время работы алгоритма в худшем случае есть $\Theta(\log n)$.</p>
+<p>Также можно оценить время работы нашего алгоритма с помощью <a href="/basics/recurrence_relation/">основной теоремы о рекуррентных соотношениях</a>: время работы алгоритма в худшем случае (когда $x$ так и не нашёлся, либо нашёлся в самом конце) удовлетворяет рекуррентному соотношению $T(n)=T\left(\frac{n}{2}\right)+\Theta(1)$. Это соответствует $a=1, b=2, c=0$ в формулировке теоремы. $c=0=\log _{2} 1=\log _{b} a$, тогда по теореме время работы алгоритма в худшем случае есть $\Theta(\log n)$.</p>
 <p>Примерная реализация алгоритма двоичного поиска:</p>
 <div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>binarySearch(a, n, x): <span style="color:#75715e"># ищет x в массиве а длины n, возвращает индекс,</span>
 </span></span><span style="display:flex;"><span>                                    <span style="color:#75715e"># по которому лежит x, или -1, если х в массиве нет</span>
@@ -173,7 +173,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
 </span></span><span style="display:flex;"><span>            r <span style="color:#f92672">=</span> m <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#75715e"># x так и не нашёлся</span></span></span></code></pre></div>
-<h3 id="52-левое-вхождение">5.2 Левое вхождение</h3>
+<h3 id="левое-вхождение">Левое вхождение</h3>
 <p>Возможно, $x$ встречается в массиве несколько раз (так как массив отсортирован, эти вхождения образуют подотрезок массива). Научимся находить количество вхождений $x$ в массив (то есть длину этого подотрезка).</p>
 <p>Достаточно найти индексы самого левого и самого правого вхождений $x$ в массив, тогда количество вхождений - это разность этих индексов плюс один. Начнём с левого вхождения.</p>
 <p>Будем снова поддерживать границы $l$ и $r$, но уже со следующим условием: пусть в любой момент времени выполняется $a[l]< x$ и $a[r] \geqslant x$. Удобно мысленно добавить к массиву фиктивные элементы $a[-1]=-\infty$ и $a[n]=\infty$, тогда не нужно отдельно обрабатывать случаи, когда все элементы меньше $x$, или все элементы больше или равны $x$.</p>
@@ -204,12 +204,12 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>cnt <span style="color:#f92672">=</span> upper_bound(a, a <span style="color:#f92672">+</span> n, x) <span style="color:#f92672">-</span> lower_bound(a, a <span style="color:#f92672">+</span> n, x);
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// количество вхождений х в а
 </span></span></span></code></pre></div>
-<h3 id="53-двоичный-поиск-по-функции">5.3 Двоичный поиск по функции</h3>
+<h3 id="двоичный-поиск-по-функции">Двоичный поиск по функции</h3>
 <p>Можно рассмотреть и ещё более общую версию алгоритма. Пусть есть некоторая функция $f(i)$ такая, что $f(i)=0$ для всех $i$, меньших некоторого порога $t$, и $f(i)=1$ для всех $i \geqslant t$. Тогда этот порог можно найти с помощью алгоритма двоичного поиска.</p>
 <p>Идея та же, что и при поиске левого вхождения: сначала возьмём такие границы поиска $l=L, r=R$, что $f(L)=0, f(R)=1$. После этого на каждом шаге будем сдвигать одну из границ $l, r$, в зависимости от значения $f\left(\frac{l+r}{2}\right)$. В тот момент, когда $l$ и $r$ отличаются на единицу, $r$ - искомый порог. Если считать, что значение функции в точке вычисляется за $O(1)$, то время работы алгоритма $-O(\log (R-L))$, где $L, R-$ начальные границы поиска.</p>
 <p>Заметим, что алгоритмы поиска левого и правого вхождения являются частными случаями этого алгоритма: в случае левого вхождения можно взять функцию $f$ такую,</p>
 <p>что $f(i)=1$ тогда и только тогда, когда $a[i] \geqslant x$; в случае правого вхождения $-f(i)=1$ тогда и только тогда, когда $a[i]>x$ (и нас интересует максимальное $i$ такое, что $f(i)=0$, то есть в конце алгоритма нужно вернуть $l$, а не $r$ ).</p>
-<h3 id="54-двоичный-поиск-по-функции-с-вещественным-аргументом">5.4 Двоичный поиск по функции с вещественным аргументом</h3>
+<h3 id="двоичный-поиск-по-функции-с-вещественным-аргументом">Двоичный поиск по функции с вещественным аргументом</h3>
 <p>Двоичный поиск можно делать и по функции, принимающей значения во всех вещественных точках, а не только в целых. Решим для примера такую задачу: дана монотонно возрастающая непрерывная функция $f: \mathbb{R} \rightarrow \mathbb{R}$, и точки $L, R$ такие, что $f(L)<0$, $f(R) \geqslant 0$. Найдём точку $x$ такую, что $f(x)=0$.
 (R)</p>
 <p><i class="fa-fw fas fa-hand-point-right"></i> Если такие $L, R$ не даны, но известно, что они существуют, то их можно найти алгоритмом экспоненциального поиска: начнём с $R=1$ и будем удваивать $R$, пока $f(R)<0$. Аналогично, начнём с $L=-1$ и будем удваивать $L$, пока $f(L) \geqslant 0$. При этом мы затратим $O\left(\log \left|R^{\prime}\right|+\log \left|L^{\prime}\right|\right)$ действий, где $R^{\prime} \geqslant 0, L^{\prime} \leqslant 0-$ любые такие, что $f\left(L^{\prime}\right)<0, f\left(R^{\prime}\right) \geqslant 0$.</p>
@@ -226,7 +226,7 @@
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
 </span></span><span style="display:flex;"><span>            r <span style="color:#f92672">=</span> m <span style="color:#75715e"># условие на r не нарушилось</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> r</span></span></code></pre></div>
-<h3 id="55-метод-двух-указателей">5.5 Метод двух указателей</h3>
+<h3 id="метод-двух-указателей">Метод двух указателей</h3>
 <p>Иногда много двоичных поисков на одних и тех же данных можно соптимизировать с помощью так называемого метода двух указателей. Сделаем это на примере следующей задачи: дан массив $a$ длины $n$, состоящий из неотрицательных целых чисел. Нужно найти максимальный по длине подотрезок массива, сумма на котором не превосходит $M$.</p>
 <p>Удобнее работать не с отрезками, а с полуинтервалами: паре $l, r$ будем сопоставлять полуинтервал $a[l, r)$, то есть элементы массива с индексами $l, l+1, \ldots, r-1$ (это практически всегда позволяет писать меньше плюс-минус единиц в индексах массивов, что делает код короче). Самое простое решение - перебрать все возможные полуинтервалы:</p>
 <div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>maxLen <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, ansL <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, ansR <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e"># здесь будем хранить ответ</span>
@@ -280,7 +280,7 @@
 
         </div>
         <script>
-          window.index_js_url="/searchindex.ru.js?1739772959";
+          window.index_js_url="/searchindex.ru.js?1739773459";
         </script>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
@@ -293,12 +293,12 @@
         <script>
           var contentLangs=['ru'];
         </script>
-        <script src="/js/auto-complete.js?1739772959" defer></script>
-        <script src="/js/lunr/lunr.min.js?1739772959" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1739772959" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1739772959" defer></script>
-        <script src="/js/lunr/lunr.ru.min.js?1739772959" defer></script>
-        <script src="/js/search.js?1739772959" defer></script>
+        <script src="/js/auto-complete.js?1739773459" defer></script>
+        <script src="/js/lunr/lunr.min.js?1739773459" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1739773459" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1739773459" defer></script>
+        <script src="/js/lunr/lunr.ru.min.js?1739773459" defer></script>
+        <script src="/js/search.js?1739773459" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
         <ul>
@@ -368,8 +368,8 @@
         </div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1739772959" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1739772959" defer></script>
+    <script src="/js/clipboard.min.js?1739773459" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1739773459" defer></script>
     <script>
       function useMathJax( config ){
         window.MathJax = Object.assign( window.MathJax || {}, {
@@ -384,8 +384,8 @@
       }
       useMathJax( JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1739772959"></script>
-    <script src="/js/theme.js?1739772959" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1739773459"></script>
+    <script src="/js/theme.js?1739773459" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
