@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.143.1">
+    <meta name="generator" content="Hugo 0.144.2">
     <meta name="generator" content="Relearn 7.3.2+3ac0206314069cacb7c5585d7271248b8304f4db">
     <meta name="description" content="Основная теорема о рекуррентных соотношениях Алгоритм Карацубы - пример применения метода “разделяй и властвуй” (“divide-and-conquer”), с которым мы ещё не раз встретимся.
 Идея этого метода состоит в том, чтобы свести решение задачи к решению нескольких подзадач в несколько раз меньшего размера, после чего восстановить решение исходной задачи с помощью решений подзадач. Сейчас мы докажем достаточно общую теорему, применимую к оценке многих алгоритмов, использующих метод “разделяй и властвуй”.
@@ -31,13 +31,13 @@
 Основная теорема о рекуррентных соотношениях Пусть $T(n)=a \cdot T\left(\left\lceil\frac{n}{b}\right\rceil\right)&#43;\Theta\left(n^{c}\right)$, где $a&gt;0, b&gt;1, c \geqslant 0$. Тогда">
     <meta itemprop="datePublished" content="2025-02-16T11:32:04+03:00">
     <meta itemprop="dateModified" content="2025-02-16T11:32:04+03:00">
-    <meta itemprop="wordCount" content="738">
+    <meta itemprop="wordCount" content="813">
     <title>3. Рекурентные соотношения :: Краткий курс по основам программирования</title>
-    <link href="/css/fontawesome-all.min.css?1739773459" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1739773459" rel="stylesheet"></noscript>
-    <link href="/css/auto-complete.css?1739773459" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1739773459" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1739773459" rel="stylesheet">
-    <link href="/css/theme.min.css?1739773459" rel="stylesheet">
-    <link href="/css/format-html.min.css?1739773459" rel="stylesheet" id="R-format-style">
+    <link href="/css/fontawesome-all.min.css?1740377908" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1740377908" rel="stylesheet"></noscript>
+    <link href="/css/auto-complete.css?1740377908" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1740377908" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1740377908" rel="stylesheet">
+    <link href="/css/theme.min.css?1740377908" rel="stylesheet">
+    <link href="/css/format-html.min.css?1740377908" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       window.relearn.relBasePath='..\/..';
@@ -221,7 +221,23 @@ $$<div class="footnotes" role="doc-endnotes">
     Пример 1
   </summary>
   <div class="box-content">
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> array, <span style="color:#66d9ef">int</span> n) {
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> array, <span style="color:#66d9ef">int</span> n) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> product <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
@@ -232,7 +248,9 @@ $$<div class="footnotes" role="doc-endnotes">
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> sum <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">&lt;&lt;</span> product;
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
   </div>
 </details>
 
@@ -243,13 +261,26 @@ $$<div class="footnotes" role="doc-endnotes">
     Пример 2
   </summary>
   <div class="box-content">
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printPairs</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arr, <span style="color:#66d9ef">int</span> n) {
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printPairs</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arr, <span style="color:#66d9ef">int</span> n) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> n; j<span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>            std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> arr[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">&lt;&lt;</span> arr[j] <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
   </div>
 </details>
 
@@ -260,13 +291,26 @@ $$<div class="footnotes" role="doc-endnotes">
     Пример 3
   </summary>
   <div class="box-content">
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printPairs</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arr, <span style="color:#66d9ef">int</span> n) {
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printPairs</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arr, <span style="color:#66d9ef">int</span> n) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;</span> n; j<span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>            std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> arr[i] <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">&lt;&lt;</span> arr[j] <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
   </div>
 </details>
 
@@ -277,7 +321,20 @@ $$<div class="footnotes" role="doc-endnotes">
     Пример 4
   </summary>
   <div class="box-content">
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printUnorderedPairs</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arrA, <span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arrB, <span style="color:#66d9ef">int</span> m) {
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printUnorderedPairs</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arrA, <span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arrB, <span style="color:#66d9ef">int</span> m) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> m; j<span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (arrA[i] <span style="color:#f92672">&lt;</span> arrB[j]) {
@@ -285,7 +342,9 @@ $$<div class="footnotes" role="doc-endnotes">
 </span></span><span style="display:flex;"><span>            }
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
   </div>
 </details>
 
@@ -296,7 +355,20 @@ $$<div class="footnotes" role="doc-endnotes">
     Пример 5
   </summary>
   <div class="box-content">
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printUnorderedPairs</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arrA, <span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arrB, <span style="color:#66d9ef">int</span> m) {
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">printUnorderedPairs</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arrA, <span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arrB, <span style="color:#66d9ef">int</span> m) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> m; j<span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100000</span>; j<span style="color:#f92672">++</span>) {
@@ -304,7 +376,9 @@ $$<div class="footnotes" role="doc-endnotes">
 </span></span><span style="display:flex;"><span>            }
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
   </div>
 </details>
 
@@ -315,14 +389,28 @@ $$<div class="footnotes" role="doc-endnotes">
     Пример 6
   </summary>
   <div class="box-content">
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">reverse</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arr, <span style="color:#66d9ef">int</span> n) {
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">reverse</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> arr, <span style="color:#66d9ef">int</span> n) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; i<span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> other <span style="color:#f92672">=</span> n <span style="color:#f92672">-</span> i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> temp <span style="color:#f92672">=</span> arr[i];
 </span></span><span style="display:flex;"><span>        arr[i] <span style="color:#f92672">=</span> arr[other];
 </span></span><span style="display:flex;"><span>        arr[other] <span style="color:#f92672">=</span> temp
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
   </div>
 </details>
 
@@ -333,7 +421,20 @@ $$<div class="footnotes" role="doc-endnotes">
     Пример 7
   </summary>
   <div class="box-content">
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">isPrime</span>(<span style="color:#66d9ef">int</span> n) {
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">isPrime</span>(<span style="color:#66d9ef">int</span> n) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>; x <span style="color:#f92672">*</span> x <span style="color:#f92672">&lt;=</span> n; x<span style="color:#f92672">++</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">%</span> x <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> false;
@@ -341,7 +442,9 @@ $$<div class="footnotes" role="doc-endnotes">
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> true;
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
   </div>
 </details>
 
@@ -352,7 +455,20 @@ $$<div class="footnotes" role="doc-endnotes">
     Пример 8
   </summary>
   <div class="box-content">
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">factorial</span>(<span style="color:#66d9ef">int</span> n) {
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">factorial</span>(<span style="color:#66d9ef">int</span> n) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) {
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
@@ -360,7 +476,9 @@ $$<div class="footnotes" role="doc-endnotes">
 </span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> n <span style="color:#f92672">*</span> factorial(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
   </div>
 </details>
 
@@ -371,11 +489,22 @@ $$<div class="footnotes" role="doc-endnotes">
     Пример 9
   </summary>
   <div class="box-content">
-<div class="highlight wrap-code"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fib</span>(<span style="color:#66d9ef">int</span> n) {
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">fib</span>(<span style="color:#66d9ef">int</span> n) {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>);
-</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
   </div>
 </details>
 
@@ -395,7 +524,7 @@ $$<div class="footnotes" role="doc-endnotes">
 
         </div>
         <script>
-          window.index_js_url="/searchindex.ru.js?1739773459";
+          window.index_js_url="/searchindex.ru.js?1740377908";
         </script>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
@@ -408,12 +537,12 @@ $$<div class="footnotes" role="doc-endnotes">
         <script>
           var contentLangs=['ru'];
         </script>
-        <script src="/js/auto-complete.js?1739773459" defer></script>
-        <script src="/js/lunr/lunr.min.js?1739773459" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1739773459" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1739773459" defer></script>
-        <script src="/js/lunr/lunr.ru.min.js?1739773459" defer></script>
-        <script src="/js/search.js?1739773459" defer></script>
+        <script src="/js/auto-complete.js?1740377908" defer></script>
+        <script src="/js/lunr/lunr.min.js?1740377908" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1740377908" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1740377908" defer></script>
+        <script src="/js/lunr/lunr.ru.min.js?1740377908" defer></script>
+        <script src="/js/search.js?1740377908" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
         <ul>
@@ -429,7 +558,8 @@ $$<div class="footnotes" role="doc-endnotes">
             <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
             <li class="active " data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
             <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
-            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li></ul></li>
+            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li></ul></li>
           </ul>
         </div>
     
@@ -483,8 +613,8 @@ $$<div class="footnotes" role="doc-endnotes">
         </div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1739773459" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1739773459" defer></script>
+    <script src="/js/clipboard.min.js?1740377908" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1740377908" defer></script>
     <script>
       function useMathJax( config ){
         window.MathJax = Object.assign( window.MathJax || {}, {
@@ -499,8 +629,8 @@ $$<div class="footnotes" role="doc-endnotes">
       }
       useMathJax( JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1739773459"></script>
-    <script src="/js/theme.js?1739773459" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1740377908"></script>
+    <script src="/js/theme.js?1740377908" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
