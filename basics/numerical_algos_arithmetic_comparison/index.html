@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.145.0">
+    <meta name="generator" content="Relearn 7.3.2+3ac0206314069cacb7c5585d7271248b8304f4db">
+    <meta name="description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
+Сложение и умножение по модулю Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="9. Арифметика сравнений :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
+Сложение и умножение по модулю Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/numerical_algos_arithmetic_comparison/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="9. Арифметика сравнений :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
+Сложение и умножение по модулю Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Basics">
+    <meta property="article:published_time" content="2025-03-15T19:04:59+03:00">
+    <meta property="article:modified_time" content="2025-03-15T19:04:59+03:00">
+    <meta itemprop="name" content="9. Арифметика сравнений :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
+Сложение и умножение по модулю Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.">
+    <meta itemprop="datePublished" content="2025-03-15T19:04:59+03:00">
+    <meta itemprop="dateModified" content="2025-03-15T19:04:59+03:00">
+    <meta itemprop="wordCount" content="1192">
+    <title>9. Арифметика сравнений :: Краткий курс по основам программирования</title>
+    <link href="/css/fontawesome-all.min.css?1742120390" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1742120390" rel="stylesheet"></noscript>
+    <link href="/css/auto-complete.css?1742120390" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1742120390" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1742120390" rel="stylesheet">
+    <link href="/css/theme.min.css?1742120390" rel="stylesheet">
+    <link href="/css/format-html.min.css?1742120390" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.min = `.min`;
+      window.relearn.disableAnchorCopy=false;
+      window.relearn.disableAnchorScrolling=false;
+      window.relearn.enableBlockCodeWrap=true;
+      window.relearn.disableInlineCopyToClipboard=false;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantname = "my-custom-variant";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        var select = document.querySelector("#R-select-variant");
+        if (select) {
+          select.value = variant;
+        }
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( variant == window.relearn.customvariantname ){
+        }else if( !variant || !window.relearn.themevariants.includes(variant) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+      // translations
+      window.T_Copy_to_clipboard = `Копировать в буфер`;
+      window.T_Copied_to_clipboard = `Скопировано в буфер обмена!`;
+      window.T_Copy_link_to_clipboard = `Скопировать ссылку в буфер обмена`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+    </script>
+  </head>
+  <body class="mobile-support html" data-url="/basics/numerical_algos_arithmetic_comparison/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar">
+        <div class="topbar-wrapper">
+          <div class="topbar-sidebar-divider"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide"><button class="topbar-control" onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button>
+            </div>
+            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#сложение-и-умножение-по-модулю">Сложение и умножение по модулю</a></li>
+        <li><a href="#возведение-в-степень-по-модулю">Возведение в степень по модулю </a></li>
+        <li><a href="#алгоритм-евклида">Алгоритм Евклида</a></li>
+        <li><a href="#расширенный-алгоритм-евклида">Расширенный алгоритм Евклида</a></li>
+        <li><a href="#нахождение-обратного-по-модулю">Нахождение обратного по модулю </a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/basics/index.html"><span itemprop="name">Basics</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li
+            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><span itemprop="name">9. Арифметика сравнений</span><meta itemprop="position" content="2"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/hashing/index.html" title="8. Хеширование (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/numerical_algos_prime_test_and_factorization/index.html" title="10. Проверка на простоту и факторизация (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable basics" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+
+  </header>
+
+<h1 id="9-арифметика-сравнений">9. Арифметика сравнений</h1>
+
+<p>Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.</p>
+<h3 id="сложение-и-умножение-по-модулю">Сложение и умножение по модулю</h3>
+<p>Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.</p>
+<h3 id="возведение-в-степень-по-модулю">Возведение в степень по модулю $N$</h3>
+<p>Воспользуемся той же идеей, что и в рекурсивном алгоритме умножения:</p>
+$$
+a^{b}= \begin{cases}\left(a^{\left\lfloor\frac{b}{2}\right\rfloor}\right)^{2}, & \text { если } b \text { чётно, } \\ a \cdot\left(a^{\left\lfloor\frac{b}{2}\right\rfloor}\right)^{2}, & \text { иначе. }\end{cases}
+$$<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>modExp(a, b, N): <span style="color:#75715e"># a и b - двоичные записи чисел, N - модуль</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> modExp(a, b <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>, N) <span style="color:#75715e"># деление нацело</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> c <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span> mod N
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">*</span> c <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span> mod N</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Если $n$ - максимальная длина чисел $a, b, N$, то происходит $O(n)$ рекурсивных вызовов, на каждом из которых не более двух умножений по модулю $N$. Получаем оценку сложности $O(n \cdot M(n))$.</p>
+<h3 id="алгоритм-евклида">Алгоритм Евклида</h3>
+<p>Алгоритм Евклида находит наибольший общий делитель (НОД, greatest common divisor, $\operatorname{gcd}$) двух чисел $a$ и $b$.</p>
+
+<details open class=" box cstyle notices lemma">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-horse"></i> 
+    Лемма
+  </summary>
+  <div class="box-content">
+<p>Для любых $a, b \geqslant 0$ выполняется $\operatorname{gcd}(a, b)=\operatorname{gcd}(a \bmod b, b)$.
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Ясно, что любой общий делитель $a$ и $b$ является и делителем $a-b$. Наоборот, любой общий делитель $a-b$ и $b$ является делителем $a$. Тогда $\operatorname{gcd}(a, b)=$ $\operatorname{gcd}(a-b, b)$. Остаётся $\left\lfloor\frac{a}{b}\right\rfloor$ раз вычесть $b$ из $a$.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+<p>Алгоритм Евклида пользуется вышеописанным правилом, пока не окажется, что $b=0$. Ясно, что $\operatorname{gcd}(a, 0)=a$ для любого $a$.</p>
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>gcd(a, b): <span style="color:#75715e"># a, b &gt;= 0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> gcd(b, a <span style="color:#f92672">%</span> b)
+</span></span><span style="display:flex;"><span>gcd(a, b): <span style="color:#75715e"># нерекурсивная версия</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> b <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">%=</span>b
+</span></span><span style="display:flex;"><span>        swap(a, b)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Оценим время работы алгоритма:</p>
+
+<details open class=" box cstyle notices lemma">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-horse"></i> 
+    Лемма
+  </summary>
+  <div class="box-content">
+<p>Если $a \geqslant b \geqslant 0$, то $a \bmod b<\frac{a}{2}$.</p>
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Если $b \leqslant \frac{a}{2}$, то $a \bmod b < b \leqslant \frac{a}{2}$. Если $b > \frac{a}{2}$, то $a \bmod b=a-b < \frac{a}{2}$.</p>
+  </div>
+</details>
+  </div>
+</details>
+
+<details open class=" box cstyle notices corollar">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Следствие
+  </summary>
+  <div class="box-content">
+<p>Время работы алгоритма Евклида на числах длины не более $n$ есть $O(n \cdot M(n))$.</p>
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>За каждые две итерации алгоритма $a$ и $b$ уменьшаются хотя бы вдвое, поэтому число итераций не превосходит $2 n$. На каждой происходит одно деление с остатком, имеющее сложность $O(M(n))$.</p>
+  </div>
+</details>
+  </div>
+</details>
+<p>Если использовать алгоритм деления в столбик, можно показать оценку получше:</p>
+
+<details open class=" box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>Время работы использующего деление в столбик алгоритма Евклида на числах длины не более $n$ есть $O\left(n^{2}\right)$.
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Вспомним, что если мы пользуемся алгоритмом деления в столбик, то остаток от деления $k$-битного числа $a$ на $l$-битное число $b$ вычисляется за $O(k(k-l+1)$ ).</p>
+<p>Пусть в процессе выполнения алгоритма Евклида мы работали с числами $z_{1}=a, z_{2}=$ $b, z_{3}=a \bmod b, \ldots, z_{k+1}=z_{k-1} \bmod z_{k}=0$, имеющими длины $n_{1}, n_{2}, \ldots, n_{k}, n_{k+1}$. Суммарное время выполнения всех делений -</p>
+$$
+\sum_{i=1}^{k-1} O\left(n_{i}\left(n_{i}-n_{i+1}+1\right)\right)=O\left(n k+n \cdot \sum_{i=1}^{k-1}\left(n_{i}-n_{i+1}\right)\right)=O\left(n k+n\left(n_{1}-n_{k}\right)\right)=O\left(n^{2}\right)
+$$
+  </div>
+</details></p>
+  </div>
+</details>
+<h3 id="расширенный-алгоритм-евклида">Расширенный алгоритм Евклида</h3>
+<p>Расширенный алгоритм Евклида одновременно с $d=\operatorname{gcd}(a, b)$ находит такие $x$ и $y$, что $a x+b y=d$. Эти $x$ и $y$ можно использовать как сертификат, подтверждающий, что $d$ действительно НОД $a$ и $b$ :</p>
+
+<details open class=" box cstyle notices lemma">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-horse"></i> 
+    Лемма
+  </summary>
+  <div class="box-content">
+<p>Если $a$ и $b$ делятся на $d$, и $d=a x+b y$ для некоторых $x, y$, то $d=\operatorname{gcd}(a, b)$.</p>
+
+<details open class=" box cstyle notices prove">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>$a$ и $b$ делятся на $d$, тогда $d \leqslant \operatorname{gcd}(a, b)$. С другой стороны $a$ и $b$ делятся на $\operatorname{gcd}(a, b)$, тогда и $d=a x+b y$ делится на $\operatorname{gcd}(a, b)$, то есть $d \geqslant \operatorname{gcd}(a, b)$.</p>
+  </div>
+</details>
+  </div>
+</details>
+<p>Такие $x$ и $y$ всегда можно найти следующим алгоритмом:</p>
+<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>extendedEuclid(a, b): <span style="color:#75715e"># возвращает x,y такие, что ax + by = gcd(a, b)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> extendedEuclid(b, a <span style="color:#f92672">%</span> b)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> y, x <span style="color:#f92672">-</span> (a <span style="color:#f92672">/</span> b) <span style="color:#f92672">*</span> y <span style="color:#75715e"># деление нацело</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details open class=" box cstyle notices corollar">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Следствие
+  </summary>
+  <div class="box-content">
+<p>Вышеописанный алгоритм возвращает такие $x, y$, что $a x+b y=$ $\operatorname{gcd}(a, b)$.
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Докажем утверждение индукцией по $b$.</p>
+<p>База. Если $b=0$, то $a=a \cdot 1+b \cdot 0$.</p>
+<p>Переход. Пусть рекурсивный вызов вернул $x, y$. По предположению индукции выполняется равенство $\operatorname{gcd}(b, a \bmod b)=b \cdot x+(a \bmod b) \cdot y$.</p>
+<p>Тогда $\operatorname{gcd}(a, b)=\operatorname{gcd}(b, a \bmod b)=b \cdot x+(a \bmod b) \cdot y=b \cdot x+\left(a-\left\lfloor\frac{a}{b}\right\rfloor b\right) \cdot y=$ $a \cdot y+b \cdot\left(x-\left\lfloor\frac{a}{b}\right\rfloor y\right)$.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+<p>Ясно, что число итераций этого алгоритма совпадает с числом итераций обычного алгоритма Евклида (так как рекурсивные переходы устроены точно так же). Чтобы оценить время работы расширенного алгоритма Евклида, нужно ещё понять, насколько большими могут быть $x$ и $y$ :</p>
+
+<details open class=" box cstyle notices corollar">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Следствие
+  </summary>
+  <div class="box-content">
+<p>Если $a, b>0$, то для возвращаемых алгоритмом $x$ и $y$ верно, что $|x| \leqslant b,|y| \leqslant a$.
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Снова воспользуемся индукцией по $b$.</p>
+<p>База. При $b=0$ алгоритм возвращает $x=1, y=0$ (случай $b=0$ не подходит под условие предложения, но нужен нам как база индукции).</p>
+<p>Переход. Если $a \bmod b=0$, то extendedEuclid(b, a mod b) вернул $x^{\prime}=1, y^{\prime}=0$. Тогда extendedEuclid(a, b) вернёт $x=0 \leqslant b, y=1 \leqslant a$.</p>
+<p>Если же $a \bmod b \neq 0$, то по предположению индукции extendedEuclid(b, a mod b) вернул такие $x^{\prime}, y^{\prime}$, что $\left|x^{\prime}\right| \leqslant a \bmod b,\left|y^{\prime}\right| \leqslant b$. Тогда extendedEuclid(a, b) вернёт $|x|=\left|y^{\prime}\right| \leqslant b,|y|=\left|x^{\prime}-\left\lfloor\frac{a}{b}\right\rfloor y^{\prime}\right| \leqslant\left|x^{\prime}\right|+\left\lfloor\frac{a}{b}\right\rfloor\left|y^{\prime}\right| \leqslant a \bmod b+\left\lfloor\frac{a}{b}\right\rfloor b=a$.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+<p>Пусть длина битовой записи $a$ и $b$ не превосходит $n$. Поскольку $a$ и $b$ только уменьшаются при рекурсивных вызовах, ясно, что все числа, возникающие в процессе промежуточных вычислений, имеют длину не более $n$. Теперь уже ясно, что оценка времени работы алгоритма Евклида $O(n \cdot M(n))$ остаётся верной и для расширенной версии.</p>
+<p>Покажем, что остаётся верной и оценка $O\left(n^{2}\right)$ :</p>
+
+<details open class=" box cstyle notices corollar">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Следствие
+  </summary>
+  <div class="box-content">
+<p>Время работы использующего деление в столбик расширенного алгоритма Евклида на числах длины не более $n$ есть $O\left(n^{2}\right)$.
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Для того, чтобы повторить доказательство теоремы 9.3, достаточно показать, что суммарное время работы всех операций, кроме рекурсивного вызова, в extendedEuclid(a,b) на числах длины $n$ и $m$ соответственно, есть $O(n(n-m+1))$.</p>
+<p>Частное $\left\lfloor\frac{a}{b}\right\rfloor$ можно вычислить одновременно с остатком $a \bmod b$ за $O(n(n-m+1))$. Также нужно произвести умножение $\left\lfloor\frac{a}{b}\right\rfloor$ на $y$, но, поскольку длина $\left\lfloor\frac{a}{b}\right\rfloor$ не превосходит $n-m+1$, а длина $y$ не превосходит $n$, это умножение имеет ту же сложность, что и деление выше. Помимо умножения и деления, происходит ещё лишь линейное от $n$ число действий.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+<h3 id="нахождение-обратного-по-модулю">Нахождение обратного по модулю $N$</h3>
+<p>Число, обратное к $а$ по модулю $N\left(\right.$ об. $\left.a^{-1}\right)$ - это такое $x$, что $a x \equiv 1(\bmod N)$.
+Такое $x$ существует тогда и только тогда, когда $a x+N y=1$ для некоторого $y$. Как мы уже знаем, такое уравнение имеет решение только когда $\operatorname{gcd}(a, N)=1$, то есть когда $a$ взаимно просто с $N$.</p>
+<p>С помощью расширенного алгоритма Евклида мы можем за $O\left(n^{2}\right)$ проверить, существует ли обратное к $a$ по модулю $N$, и если существует, то найти его.</p>
+<p>Если для числа $a$ существует обратное по модулю $N$ число $a^{-1}$, то можно осуществлять деление на $a$ по модулю $N$ : это равносильно умножению на $a^{-1}$.</p>
+
+  <footer class="footline">
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <div id="R-header" class="default-animation">
+
+
+
+
+        </div>
+        <script>
+          window.index_js_url="/searchindex.ru.js?1742120390";
+        </script>
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+        <script>
+          var contentLangs=['ru'];
+        </script>
+        <script src="/js/auto-complete.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.min.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.ru.min.js?1742120390" defer></script>
+        <script src="/js/search.js?1742120390" defer></script>
+      </div>
+      <div id="R-homelinks" class="default-animation homelinks">
+        <ul>
+          <li><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+        </ul>
+        <hr class="padding">
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div id="R-shortcutmenu-home" class="R-sidebarmenu">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/basics/index.html"><a class="padding" href="/basics/index.html">Basics</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
+            <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
+            <li class="" data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
+            <li class="active " data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li></ul></li>
+          </ul>
+        </div>
+    
+        <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
+        <div id="R-menu-footer">
+          <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
+          <div id="R-prefooter" class="footerLangSwitch footerVariantSwitch footerVisitedLinks">
+            <ul>
+              <li id="R-select-language-container" class="footerLangSwitch">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-language"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="R-select-language">Язык</label>
+                    <select id="R-select-language" onchange="location = this.querySelector( this.value ).dataset.url;">
+                      <option id="R-select-language-ru" value="#R-select-language-ru" data-url="/basics/numerical_algos_arithmetic_comparison/index.html" lang="ru-ru" selected></option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+              <li id="R-select-variant-container" class="footerVariantSwitch">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-paint-brush"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <label class="a11y-only" for="R-select-variant">Тема</label>
+                    <select id="R-select-variant" onchange="window.relearn.changeVariant( this.value );">
+                      <option id="R-select-variant-green" value="green" selected>Green</option>
+                    </select>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                <script>window.relearn.markVariant();</script>
+              </li>
+              <li class="footerVisitedLinks">
+                <div class="padding menu-control">
+                  <i class="fa-fw fas fa-history"></i>
+                  <span>&nbsp;</span>
+                  <div class="control-style">
+                    <button onclick="clearHistory();">Очистить историю</button>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="R-footer" class="footerFooter showFooter">
+            <p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <script src="/js/clipboard.min.js?1742120390" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1742120390" defer></script>
+    <script>
+      function useMathJax( config ){
+        window.MathJax = Object.assign( window.MathJax || {}, {
+          tex: {
+            inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+            displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+          },
+          options: {
+            enableMenu: false 
+          }
+        }, config );
+      }
+      useMathJax( JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1742120390"></script>
+    <script src="/js/theme.js?1742120390" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+  </body>
+</html>

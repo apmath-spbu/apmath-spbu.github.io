@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.145.0">
     <meta name="generator" content="Relearn 7.3.2+3ac0206314069cacb7c5585d7271248b8304f4db">
     <meta name="description" content="Современные компьютеры умеют за одну элементарную операцию складывать два 32(или 64)-битных числа. Часто (например, в криптографии) приходится работать с куда более длинными числами. Поговорим о том, как проводить с ними элементарные арифметические операции.
 Для удобства будем считать, что на вход алгоритмам даются натуральные числа в двоичной записи. Мы будем работать с числами, имеющими двоичную запись длины $n$ (возможно, с ведущими нулями).
-В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.">
+✍️ В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="2. Элементарная арифметика :: Краткий курс по основам программирования">
     <meta name="twitter:description" content="Современные компьютеры умеют за одну элементарную операцию складывать два 32(или 64)-битных числа. Часто (например, в криптографии) приходится работать с куда более длинными числами. Поговорим о том, как проводить с ними элементарные арифметические операции.
 Для удобства будем считать, что на вход алгоритмам даются натуральные числа в двоичной записи. Мы будем работать с числами, имеющими двоичную запись длины $n$ (возможно, с ведущими нулями).
-В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.">
-    <meta property="og:url" content="http://localhost:1313/basics/elementary_arithmetic/index.html">
+✍️ В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/elementary_arithmetic/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="2. Элементарная арифметика :: Краткий курс по основам программирования">
     <meta property="og:description" content="Современные компьютеры умеют за одну элементарную операцию складывать два 32(или 64)-битных числа. Часто (например, в криптографии) приходится работать с куда более длинными числами. Поговорим о том, как проводить с ними элементарные арифметические операции.
 Для удобства будем считать, что на вход алгоритмам даются натуральные числа в двоичной записи. Мы будем работать с числами, имеющими двоичную запись длины $n$ (возможно, с ведущими нулями).
-В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.">
+✍️ В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Basics">
@@ -28,22 +28,22 @@
     <meta itemprop="name" content="2. Элементарная арифметика :: Краткий курс по основам программирования">
     <meta itemprop="description" content="Современные компьютеры умеют за одну элементарную операцию складывать два 32(или 64)-битных числа. Часто (например, в криптографии) приходится работать с куда более длинными числами. Поговорим о том, как проводить с ними элементарные арифметические операции.
 Для удобства будем считать, что на вход алгоритмам даются натуральные числа в двоичной записи. Мы будем работать с числами, имеющими двоичную запись длины $n$ (возможно, с ведущими нулями).
-В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.">
+✍️ В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.">
     <meta itemprop="datePublished" content="2025-02-15T22:36:51+03:00">
     <meta itemprop="dateModified" content="2025-02-15T22:36:51+03:00">
-    <meta itemprop="wordCount" content="1533">
+    <meta itemprop="wordCount" content="1536">
     <title>2. Элементарная арифметика :: Краткий курс по основам программирования</title>
-    <link href="/css/fontawesome-all.min.css?1741587848" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1741587848" rel="stylesheet"></noscript>
-    <link href="/css/auto-complete.css?1741587848" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1741587848" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1741587848" rel="stylesheet">
-    <link href="/css/theme.css?1741587848" rel="stylesheet">
-    <link href="/css/format-html.css?1741587848" rel="stylesheet" id="R-format-style">
+    <link href="/css/fontawesome-all.min.css?1742120390" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1742120390" rel="stylesheet"></noscript>
+    <link href="/css/auto-complete.css?1742120390" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1742120390" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1742120390" rel="stylesheet">
+    <link href="/css/theme.min.css?1742120390" rel="stylesheet">
+    <link href="/css/format-html.min.css?1742120390" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
-      window.relearn.absBaseUri='http:\/\/localhost:1313';
-      window.relearn.min = ``;
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.min = `.min`;
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
       window.relearn.enableBlockCodeWrap=true;
@@ -160,7 +160,7 @@
 
 <p>Современные компьютеры умеют за одну элементарную операцию складывать два 32(или 64)-битных числа. Часто (например, в криптографии) приходится работать с куда более длинными числами. Поговорим о том, как проводить с ними элементарные арифметические операции.</p>
 <p>Для удобства будем считать, что на вход алгоритмам даются натуральные числа в двоичной записи. Мы будем работать с числами, имеющими двоичную запись длины $n$ (возможно, с ведущими нулями).</p>
-<p><i class="fa-fw fas fa-hand-point-right"></i> В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.</p>
+<p>✍️ В произвольном случае можно применить соответствующий алгоритм для $n$ равного максимуму из длин чисел, а в конце определить длину записи результата применения операции (удалить ведущие нули), что потребует $O(n)$ операций и не повлияет на оценку сложности алгоритма.</p>
 <h3 id="21-сложение">2.1 Сложение</h3>
 <p>Используем всем знакомый со школы способ сложения чисел в столбик:</p>
 <div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -184,7 +184,7 @@
 </div>
 </div>
 <p>Время работы алгоритма - $O(n)$, существенно быстрее нельзя, потому что столько времени занимает уже считывание входных данных или вывод ответа.</p>
-<p><i class="fa-fw fas fa-hand-point-right"></i> Аналогичный алгоритм можно написать для чисел, записанных в $b$-ичной системе счисления. Если сумма трёх $b$-ичных чисел помещается в 32(64)-битный тип данных, то алгоритм всё ещё будет корректен. При этом $n$-битное число будет иметь примерно $\frac{n}{\log b}$ цифр в $b$-ичной записи, то есть алгоритм будет работать за $O\left(\frac{n}{\log b}\right)=O(n)$, так как $\frac{1}{\log b}$ - это константа. Тем не менее, это может дать ускорение в несколько десятков раз, что безусловно бывает полезно на практике.</p>
+<p>✍️ Аналогичный алгоритм можно написать для чисел, записанных в $b$-ичной системе счисления. Если сумма трёх $b$-ичных чисел помещается в 32(64)-битный тип данных, то алгоритм всё ещё будет корректен. При этом $n$-битное число будет иметь примерно $\frac{n}{\log b}$ цифр в $b$-ичной записи, то есть алгоритм будет работать за $O\left(\frac{n}{\log b}\right)=O(n)$, так как $\frac{1}{\log b}$ - это константа. Тем не менее, это может дать ускорение в несколько десятков раз, что безусловно бывает полезно на практике.</p>
 <h3 id="22-умножение">2.2 Умножение</h3>
 <p>Вспомним теперь и школьное умножение чисел в столбик (заметим лишь, что ответ имеет длину не больше $2 n$, поскольку $\left.\left(2^{n}-1\right) \cdot\left(2^{n}-1\right)<2^{2 n}\right)$ :</p>
 <div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
@@ -323,7 +323,7 @@ $$
 T(n)=3 \cdot T\left(\frac{n}{2}\right)+\Theta(n) \tag{2.2}
 \end{equation*}
 $$<p>Время работы такого алгоритма по той же теореме можно оценить уже как $\Theta\left(n^{\log _{2} 3}\right)=$ $\Theta\left(n^{1.585 \ldots}\right)$.</p>
-<p><i class="fa-fw fas fa-hand-point-right"></i> Строго говоря, длина чисел $a_{l}+b_{l}, a_{r}+b_{r}$ может оказаться равна $\frac{n}{2}+1$. Чтобы честно получить рекуррентное соотношение 2.2, можно за линейное время свести умножение $\left(\frac{n}{2}+1\right)$-битных чисел к умножению $\frac{n}{2}$-битных. На самом деле можно показать, что соотношение $T(n)=3 \cdot T\left(\frac{n}{2}+1\right)+\Theta(n)$ даёт такую же асимптотическую оценку.</p>
+<p>✍️ Строго говоря, длина чисел $a_{l}+b_{l}, a_{r}+b_{r}$ может оказаться равна $\frac{n}{2}+1$. Чтобы честно получить рекуррентное соотношение 2.2, можно за линейное время свести умножение $\left(\frac{n}{2}+1\right)$-битных чисел к умножению $\frac{n}{2}$-битных. На самом деле можно показать, что соотношение $T(n)=3 \cdot T\left(\frac{n}{2}+1\right)+\Theta(n)$ даёт такую же асимптотическую оценку.</p>
 <div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -401,7 +401,7 @@ $$<p>Время работы такого алгоритма по той же т
 
         </div>
         <script>
-          window.index_js_url="/searchindex.ru.js?1741587848";
+          window.index_js_url="/searchindex.ru.js?1742120390";
         </script>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
@@ -414,12 +414,12 @@ $$<p>Время работы такого алгоритма по той же т
         <script>
           var contentLangs=['ru'];
         </script>
-        <script src="/js/auto-complete.js?1741587848" defer></script>
-        <script src="/js/lunr/lunr.min.js?1741587848" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1741587848" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1741587848" defer></script>
-        <script src="/js/lunr/lunr.ru.min.js?1741587848" defer></script>
-        <script src="/js/search.js?1741587848" defer></script>
+        <script src="/js/auto-complete.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.min.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.ru.min.js?1742120390" defer></script>
+        <script src="/js/search.js?1742120390" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
         <ul>
@@ -438,7 +438,9 @@ $$<p>Время работы такого алгоритма по той же т
             <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
             <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
             <li class="" data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
-            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li></ul></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li></ul></li>
           </ul>
         </div>
     
@@ -492,8 +494,8 @@ $$<p>Время работы такого алгоритма по той же т
         </div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1741587848" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1741587848" defer></script>
+    <script src="/js/clipboard.min.js?1742120390" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1742120390" defer></script>
     <script>
       function useMathJax( config ){
         window.MathJax = Object.assign( window.MathJax || {}, {
@@ -508,8 +510,8 @@ $$<p>Время работы такого алгоритма по той же т
       }
       useMathJax( JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1741587848"></script>
-    <script src="/js/theme.js?1741587848" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1742120390"></script>
+    <script src="/js/theme.js?1742120390" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];

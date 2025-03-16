@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.145.0">
@@ -12,7 +12,7 @@
     <meta name="twitter:title" content="7. Двоичная куча :: Краткий курс по основам программирования">
     <meta name="twitter:description" content="Пусть мы хотим поддерживать множество элементов и быстро выполнять на нём следующие операции: добавлять и удалять элементы, а также находить минимум.
 Можно попытаться сделать это с помощью динамического массива или списка. Тогда мы сможем добавлять и удалять элементы за $O(1)$ (чтобы быстро удалить элемент из массива, поменяем его местами с последним элементом, после чего уменьшим длину массива на один). Однако быстро находить минимум не получится: можно пытаться поддерживать указатель на минимальный элемент, но после каждого удаления минимума новый минимум получится найти лишь перебором всех оставшихся элементов за $\Theta(n)$ (где $n$ - число элементов в множестве). Можно было бы поддерживать массив в отсортированном порядке (тогда минимум всегда будет в начале), но тогда не получится быстро добавлять или удалять произвольный элемент.">
-    <meta property="og:url" content="http://localhost:1313/basics/heap/index.html">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/heap/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="7. Двоичная куча :: Краткий курс по основам программирования">
     <meta property="og:description" content="Пусть мы хотим поддерживать множество элементов и быстро выполнять на нём следующие операции: добавлять и удалять элементы, а также находить минимум.
@@ -29,17 +29,17 @@
     <meta itemprop="dateModified" content="2025-03-02T11:30:34+03:00">
     <meta itemprop="wordCount" content="689">
     <title>7. Двоичная куча :: Краткий курс по основам программирования</title>
-    <link href="/css/fontawesome-all.min.css?1741587848" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1741587848" rel="stylesheet"></noscript>
-    <link href="/css/auto-complete.css?1741587848" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1741587848" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1741587848" rel="stylesheet">
-    <link href="/css/theme.css?1741587848" rel="stylesheet">
-    <link href="/css/format-html.css?1741587848" rel="stylesheet" id="R-format-style">
+    <link href="/css/fontawesome-all.min.css?1742120390" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1742120390" rel="stylesheet"></noscript>
+    <link href="/css/auto-complete.css?1742120390" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1742120390" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar.min.css?1742120390" rel="stylesheet">
+    <link href="/css/theme.min.css?1742120390" rel="stylesheet">
+    <link href="/css/format-html.min.css?1742120390" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
-      window.relearn.absBaseUri='http:\/\/localhost:1313';
-      window.relearn.min = ``;
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.min = `.min`;
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
       window.relearn.enableBlockCodeWrap=true;
@@ -170,10 +170,10 @@
 </details>
 <p>При этом выполняется свойство кучи: значение любого элемента не меньше значения его родителя: $a[i] \geqslant a\left[\left\lfloor\frac{i}{2}\right]\right]$. Такую кучу также могут называть неубывающая пирамида. Аналогично, если $a[i] \leqslant a\left[\left\lfloor\frac{i}{2}\right]\right]$ - то невозрастающая пирамида.</p>
 <p>Заметим, что отсортированный массив всегда является кучей. Но фиксированный набор элементов обычно можно упорядочить и многими другими способами так, что тоже получится куча.
-<a href="#R-image-c114a825f11c618c56da4e21359f10fd" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-c114a825f11c618c56da4e21359f10fd"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg"></a></p>
-<p><a href="#R-image-d200cb19966d96bf640e868c530f7486" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-d200cb19966d96bf640e868c530f7486"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg"></a></p>
+<a href="#R-image-e2e5dc8340262026c4f252d0be64a8e4" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-e2e5dc8340262026c4f252d0be64a8e4"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg"></a></p>
+<p><a href="#R-image-0cc5b6023a3ce97a3de0bc6bc98332a2" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-0cc5b6023a3ce97a3de0bc6bc98332a2"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg"></a></p>
 <p>Будем пользоваться терминами из теории графов. Элементы дерева (кучи) будем называть вершинами. Корень дерева - единственная вершина без родителя (в нашем случае это $a[1]$ ). Потомки вершины - это она сама, её дети, а также все их потомки; у листа (вершины без детей) потомков (кроме него самого) нет. Предок вершины $v$ - любая такая вершина $u$, что $v$ - потомок $u$. Поддерево вершины $v$ состоит из всех её потомков; $v$ - корень своего поддерева.</p>
 <p>Иногда мы будем называть кучей не массив с индексами от 1 до $n$, а просто дерево, в котором свойство кучи выполняется для всех пар родитель-ребёнок. В этом смысле любое поддерево кучи тоже является кучей.</p>
 <p>Глубина $x$ - количество вершин на пути от корня дерева до $x$ (все вершины являются потомками корня). Высота вершины $x$ - максимальное количество вершин на пути от $x$ до какого-либо её потомка. Высота дерева - максимум из высот вершин, то есть высота корня.</p>
@@ -405,7 +405,7 @@ $$
 </span></span><span style="display:flex;"><span>            extractMax()</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p><i class="fa-fw fas fa-hand-point-right"></i> Heapsort не является стабильной сортировкой.</p>
+<p>✍️ Heapsort не является стабильной сортировкой.</p>
 <h2 id="очередь-с-приоритетами">Очередь с приоритетами</h2>
 <p>Очередь с приоритетами (priority queue) отличается от обычной очереди тем, что у каждого элемента есть приоритет, и извлекается не тот элемент, что был добавлен в очередь раньше всех, а элемент с максимальным приоритетом. Встроенная в C++ реализация очереди с приоритетами - <a href="https://en.cppreference.com/w/cpp/container/priority_queue" rel="external" target="_blank">std::priority_queue</a>.</p>
 <p>Потребность в использовании очереди с приоритетами возникает, например, при планировании задач в многозадачных операционных системах (процессы с большим приоритетом нужно выполнить раньше). Также очередь с приоритетами используется во многих алгоритмах, некоторые из которых нам ещё встретятся.</p>
@@ -447,7 +447,7 @@ $$
 </span></span><span style="display:flex;"><span>    siftDown(i)</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p><i class="fa-fw fas fa-hand-point-right"></i> Существуют и более сложные кучи, обладающие различными дополнительными полезными свойствами. Фибоначчиевы кучи (Fredman, Tarjan, 1987) известны тем, что позволяют в среднем за $O(1)$ не только находить минимум, но и добавлять новый элемент, а также уменьшать значение элемента. Удаление работает в среднем за $O(\log n)$. Использование фибоначчиевой кучи позволяет улучшить теоретическую оценку времени работы некоторых алгоритмов. Проблема в том, что из-за сложности реализации и большой константы в оценке времени работы на практике фибоначчиевы кучи, как правило, работают не быстрее обычных, поэтому практически не применяются и имеют скорее теоретическую ценность.</p>
+<p>✍️ Существуют и более сложные кучи, обладающие различными дополнительными полезными свойствами. Фибоначчиевы кучи (Fredman, Tarjan, 1987) известны тем, что позволяют в среднем за $O(1)$ не только находить минимум, но и добавлять новый элемент, а также уменьшать значение элемента. Удаление работает в среднем за $O(\log n)$. Использование фибоначчиевой кучи позволяет улучшить теоретическую оценку времени работы некоторых алгоритмов. Проблема в том, что из-за сложности реализации и большой константы в оценке времени работы на практике фибоначчиевы кучи, как правило, работают не быстрее обычных, поэтому практически не применяются и имеют скорее теоретическую ценность.</p>
 
   <footer class="footline">
   </footer>
@@ -465,7 +465,7 @@ $$
 
         </div>
         <script>
-          window.index_js_url="/searchindex.ru.js?1741587848";
+          window.index_js_url="/searchindex.ru.js?1742120390";
         </script>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
@@ -478,12 +478,12 @@ $$
         <script>
           var contentLangs=['ru'];
         </script>
-        <script src="/js/auto-complete.js?1741587848" defer></script>
-        <script src="/js/lunr/lunr.min.js?1741587848" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1741587848" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1741587848" defer></script>
-        <script src="/js/lunr/lunr.ru.min.js?1741587848" defer></script>
-        <script src="/js/search.js?1741587848" defer></script>
+        <script src="/js/auto-complete.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.min.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.stemmer.support.min.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.multi.min.js?1742120390" defer></script>
+        <script src="/js/lunr/lunr.ru.min.js?1742120390" defer></script>
+        <script src="/js/search.js?1742120390" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
         <ul>
@@ -502,7 +502,9 @@ $$
             <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
             <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
             <li class="active " data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
-            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li></ul></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li></ul></li>
           </ul>
         </div>
     
@@ -556,8 +558,8 @@ $$
         </div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1741587848" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1741587848" defer></script>
+    <script src="/js/clipboard.min.js?1742120390" defer></script>
+    <script src="/js/perfect-scrollbar.min.js?1742120390" defer></script>
     <script>
       function useMathJax( config ){
         window.MathJax = Object.assign( window.MathJax || {}, {
@@ -572,8 +574,8 @@ $$
       }
       useMathJax( JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1741587848"></script>
-    <script src="/js/theme.js?1741587848" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1742120390"></script>
+    <script src="/js/theme.js?1742120390" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
