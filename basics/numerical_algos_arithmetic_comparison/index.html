@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.145.0">
-    <meta name="generator" content="Relearn 7.3.2+3ac0206314069cacb7c5585d7271248b8304f4db">
+    <meta name="generator" content="Relearn 7.6.1+b0c6bb558d7728ac4535a2ac677c5f47297203cc">
     <meta name="description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
 Сложение и умножение по модулю Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.">
     <meta name="author" content="">
@@ -29,45 +29,57 @@
     <meta itemprop="dateModified" content="2025-03-15T19:04:59+03:00">
     <meta itemprop="wordCount" content="1192">
     <title>9. Арифметика сравнений :: Краткий курс по основам программирования</title>
-    <link href="/css/fontawesome-all.min.css?1743956751" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1743956751" rel="stylesheet"></noscript>
-    <link href="/css/auto-complete.css?1743956751" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1743956751" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1743956751" rel="stylesheet">
-    <link href="/css/theme.min.css?1743956751" rel="stylesheet">
-    <link href="/css/format-html.min.css?1743956751" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744612242" rel="stylesheet">
+    <link href="/css/theme.min.css?1744612242" rel="stylesheet">
+    <link href="/css/format-html.min.css?1744612242" rel="stylesheet" id="R-format-style">
+    <link href="/css/auto-complete/auto-complete.min.css?1744612242" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js?1744612242" defer></script>
+    <script src="/js/search.min.js?1744612242" defer></script>
     <script>
       window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/basics\/numerical_algos_arithmetic_comparison\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
-      window.relearn.min = `.min`;
+      window.relearn.contentLangs=['ru'];
+      window.relearn.index_js_url="/searchindex.ru.js?1744612242";
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
-      window.relearn.enableBlockCodeWrap=true;
       window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // legal
+      window.relearn.getItem = (s,n) => {return s.getItem(n)};
+      window.relearn.setItem = (s,n,v) => {return s.setItem(n,v)};
+      window.relearn.removeItem = (s,n) => {return s.removeItem(n)};
       // variant stuff
       window.relearn.themevariants = [ 'green' ];
       window.relearn.customvariantname = "my-custom-variant";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
-        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
         document.documentElement.dataset.rThemeVariant = variant;
         if (oldVariant != variant) {
           document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
         }
       }
       window.relearn.markVariant = function() {
-        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
-        var select = document.querySelector("#R-select-variant");
-        if (select) {
-          select.value = variant;
-        }
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
       }
       window.relearn.initVariant = function() {
-        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant") ?? "";
         if( variant == window.relearn.customvariantname ){
         }else if( !variant || !window.relearn.themevariants.includes(variant) ){
           variant = window.relearn.themevariants[0];
-          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+          window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
         }
         document.documentElement.dataset.rThemeVariant = variant;
       }
@@ -113,9 +125,10 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li
-            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/basics/index.html"><span itemprop="name">Basics</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li
-            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><span itemprop="name">9. Арифметика сравнений</span><meta itemprop="position" content="2"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Basics</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">9. Арифметика сравнений</span><meta itemprop="position" content="3"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/hashing/index.html" title="8. Хеширование (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
@@ -162,7 +175,7 @@
 <p>Воспользуемся той же идеей, что и в рекурсивном алгоритме умножения:</p>
 $$
 a^{b}= \begin{cases}\left(a^{\left\lfloor\frac{b}{2}\right\rfloor}\right)^{2}, & \text { если } b \text { чётно, } \\ a \cdot\left(a^{\left\lfloor\frac{b}{2}\right\rfloor}\right)^{2}, & \text { иначе. }\end{cases}
-$$<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+$$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
@@ -209,7 +222,7 @@ $$<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#2
   </div>
 </details>
 <p>Алгоритм Евклида пользуется вышеописанным правилом, пока не окажется, что $b=0$. Ясно, что $\operatorname{gcd}(a, 0)=a$ для любого $a$.</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
@@ -325,7 +338,7 @@ $$
   </div>
 </details>
 <p>Такие $x$ и $y$ всегда можно найти следующим алгоритмом:</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
@@ -421,6 +434,7 @@ $$
 <p>Если для числа $a$ существует обратное по модулю $N$ число $a^{-1}$, то можно осуществлять деление на $a$ по модулю $N$ : это равносильно умножению на $a^{-1}$.</p>
 
   <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 15 мар. 2025 г.
   </footer>
 </article>
         </div>
@@ -435,9 +449,6 @@ $$
 
 
         </div>
-        <script>
-          window.index_js_url="/searchindex.ru.js?1743956751";
-        </script>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
             <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
@@ -446,24 +457,29 @@ $$
             <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-times" title="Очистить поиск"></i></button>
           </div>
         </form></search>
-        <script>
-          var contentLangs=['ru'];
-        </script>
-        <script src="/js/auto-complete.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.min.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.ru.min.js?1743956751" defer></script>
-        <script src="/js/search.js?1743956751" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
-        <ul>
-          <li><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
-        </ul>
-        <hr class="padding">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="/index.html"><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
       </div>
       <div id="R-content-wrapper" class="highlightable">
-        <div id="R-shortcutmenu-home" class="R-sidebarmenu">
+        <div class="R-sidebarmenu R-shortcutmenu-main">
           <ul class="enlarge morespace collapsible-menu">
             <li class="parent " data-nav-id="/basics/index.html"><a class="padding" href="/basics/index.html">Basics</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
             <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
@@ -478,78 +494,40 @@ $$
             <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="" data-nav-id="/basics/graph_definition/index.html"><a class="padding" href="/basics/graph_definition/index.html">12. Графы. Определения и способы хранения</a></li>
-            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li></ul></li>
+            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li>
+            <li class="" data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li></ul></li>
           </ul>
         </div>
-    
-        <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
-        <div id="R-menu-footer">
-          <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
-          <div id="R-prefooter" class="footerLangSwitch footerVariantSwitch footerVisitedLinks">
-            <ul>
-              <li id="R-select-language-container" class="footerLangSwitch">
-                <div class="padding menu-control">
-                  <i class="fa-fw fas fa-language"></i>
-                  <span>&nbsp;</span>
-                  <div class="control-style">
-                    <label class="a11y-only" for="R-select-language">Язык</label>
-                    <select id="R-select-language" onchange="location = this.querySelector( this.value ).dataset.url;">
-                      <option id="R-select-language-ru" value="#R-select-language-ru" data-url="/basics/numerical_algos_arithmetic_comparison/index.html" lang="ru-ru" selected></option>
-                    </select>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-              </li>
-              <li id="R-select-variant-container" class="footerVariantSwitch">
-                <div class="padding menu-control">
-                  <i class="fa-fw fas fa-paint-brush"></i>
-                  <span>&nbsp;</span>
-                  <div class="control-style">
-                    <label class="a11y-only" for="R-select-variant">Тема</label>
-                    <select id="R-select-variant" onchange="window.relearn.changeVariant( this.value );">
-                      <option id="R-select-variant-green" value="green" selected>Green</option>
-                    </select>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-                <script>window.relearn.markVariant();</script>
-              </li>
-              <li class="footerVisitedLinks">
-                <div class="padding menu-control">
-                  <i class="fa-fw fas fa-history"></i>
-                  <span>&nbsp;</span>
-                  <div class="control-style">
-                    <button onclick="clearHistory();">Очистить историю</button>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div id="R-footer" class="footerFooter showFooter">
-            <p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
-          </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
+          <ul class="space collapsible-menu">
+          </ul>
         </div>
+        <div id="R-footer-margin"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1743956751" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1743956751" defer></script>
+    <script src="/js/clipboard/clipboard.min.js?1744612242" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744612242" defer></script>
     <script>
-      function useMathJax( config ){
-        window.MathJax = Object.assign( window.MathJax || {}, {
-          tex: {
-            inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
-            displayMath: [['\\[', '\\]'], ['$$', '$$']], 
-          },
-          options: {
-            enableMenu: false 
-          }
-        }, config );
-      }
-      useMathJax( JSON.parse("{}") );
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1743956751"></script>
-    <script src="/js/theme.js?1743956751" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744612242"></script>
+    <script src="/js/theme.min.js?1744612242" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];

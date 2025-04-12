@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.145.0">
-    <meta name="generator" content="Relearn 7.3.2+3ac0206314069cacb7c5585d7271248b8304f4db">
+    <meta name="generator" content="Relearn 7.6.1+b0c6bb558d7728ac4535a2ac677c5f47297203cc">
     <meta name="description" content="Массив Массив (array) - структура данных, позволяющая хранить набор значений в ячейках, пронумерованных индексами (или набором индексов в случае многомерного массива) из некоторого отрезка целых чисел. Встроен в большинство современных языков программирования.
 Массив позволяет за константное $(O(1))$ время получать доступ к элементу по индексу, а также изменять этот элемент. При этом массив имеет фиксированный размер, поэтому не поддерживает операций вставки и удаления элементов. Если хочется вставить или удалить элемент, можно создать новый массив нужного размера и скопировать информацию в него, но это потребует $\Theta(n)$ операций, где $n$ - длина массива.">
     <meta name="author" content="">
@@ -29,45 +29,57 @@
     <meta itemprop="dateModified" content="2025-02-16T12:32:57+03:00">
     <meta itemprop="wordCount" content="1338">
     <title>4. Базовые структуры данных :: Краткий курс по основам программирования</title>
-    <link href="/css/fontawesome-all.min.css?1743956751" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1743956751" rel="stylesheet"></noscript>
-    <link href="/css/auto-complete.css?1743956751" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1743956751" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1743956751" rel="stylesheet">
-    <link href="/css/theme.min.css?1743956751" rel="stylesheet">
-    <link href="/css/format-html.min.css?1743956751" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744612242" rel="stylesheet">
+    <link href="/css/theme.min.css?1744612242" rel="stylesheet">
+    <link href="/css/format-html.min.css?1744612242" rel="stylesheet" id="R-format-style">
+    <link href="/css/auto-complete/auto-complete.min.css?1744612242" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js?1744612242" defer></script>
+    <script src="/js/search.min.js?1744612242" defer></script>
     <script>
       window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/basics\/basic_data_structures\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
-      window.relearn.min = `.min`;
+      window.relearn.contentLangs=['ru'];
+      window.relearn.index_js_url="/searchindex.ru.js?1744612242";
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
-      window.relearn.enableBlockCodeWrap=true;
       window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // legal
+      window.relearn.getItem = (s,n) => {return s.getItem(n)};
+      window.relearn.setItem = (s,n,v) => {return s.setItem(n,v)};
+      window.relearn.removeItem = (s,n) => {return s.removeItem(n)};
       // variant stuff
       window.relearn.themevariants = [ 'green' ];
       window.relearn.customvariantname = "my-custom-variant";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
-        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
         document.documentElement.dataset.rThemeVariant = variant;
         if (oldVariant != variant) {
           document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
         }
       }
       window.relearn.markVariant = function() {
-        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
-        var select = document.querySelector("#R-select-variant");
-        if (select) {
-          select.value = variant;
-        }
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
       }
       window.relearn.initVariant = function() {
-        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant") ?? "";
         if( variant == window.relearn.customvariantname ){
         }else if( !variant || !window.relearn.themevariants.includes(variant) ){
           variant = window.relearn.themevariants[0];
-          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+          window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
         }
         document.documentElement.dataset.rThemeVariant = variant;
       }
@@ -112,9 +124,10 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li
-            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/basics/index.html"><span itemprop="name">Basics</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li
-            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><span itemprop="name">4. Базовые структуры данных</span><meta itemprop="position" content="2"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Basics</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">4. Базовые структуры данных</span><meta itemprop="position" content="3"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/recurrence_relation/index.html" title="3. Рекурентные соотношения (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
@@ -159,7 +172,7 @@
 <p>Массив позволяет за константное $(O(1))$ время получать доступ к элементу по индексу, а также изменять этот элемент. При этом массив имеет фиксированный размер, поэтому не поддерживает операций вставки и удаления элементов. Если хочется вставить или удалить элемент, можно создать новый массив нужного размера и скопировать информацию в него, но это потребует $\Theta(n)$ операций, где $n$ - длина массива.</p>
 <p>Поиск элемента в массиве по значению также имеет сложность $\Theta(n)$, так как нужно проверить все элементы массива. Если массив специально упорядочен (например, элементы массива расположены в возрастающем порядке), то поиск можно делать быстрее (скоро мы изучим алгоритм двоичного поиска).</p>
 <p>Немного о работе с массивом в C++:</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
@@ -182,17 +195,17 @@
 </div>
 <h3 id="связный-список">Связный список</h3>
 <p>Связный список (linked list) состоит из узлов, каждый из которых содержит данные и ссылки на соседние узлы.
-<a href="#R-image-509c324142ed4fbbf4fbbc9df6a7e07b" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/linkedList.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-509c324142ed4fbbf4fbbc9df6a7e07b"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/linkedList.png"></a>
+<a href="#R-image-eecaaa37f085c10b3495e773dbd2c360" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/linkedList.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-eecaaa37f085c10b3495e773dbd2c360"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/linkedList.png"></a>
 В двусвязном списке поддерживаются ссылки на следующий и предыдущий узел, в односвязном списке - только на следующий.
-<a href="#R-image-ca43d0fedf1d110a04e9550e8bead3df" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/doubleLinkedList.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-ca43d0fedf1d110a04e9550e8bead3df"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/doubleLinkedList.png"></a>
+<a href="#R-image-b4fae685a54e91eeeacf744060d32723" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/doubleLinkedList.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-b4fae685a54e91eeeacf744060d32723"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/doubleLinkedList.png"></a>
 Также поддерживаются ссылки на начало и конец списка (их часто называют головой и хвостом). Для того, чтобы посетить все узлы, можно начать с головы и переходить по ссылке на следующий узел, пока он существует.</p>
 <p>Преимущество списка перед массивом - возможность вставлять и удалять элементы за $O(1)$.</p>
 <p>Недостаток списка - невозможность быстрого доступа к произвольному элементу. Так, доступ к $i$-му элементу можно получить, лишь $i$ раз пройдя по ссылке вперёд, начиная из головы списка (то есть за $\Theta(i)$ ).</p>
 <p>Удобно делать голову и хвост фиктивными элементами и не хранить в них никаких данных, тогда функции вставки и удаления элементов пишутся проще.</p>
 <p>Примерная реализация двусвязного списка на C++:</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
@@ -279,7 +292,7 @@
 <p>Пусть мы хотим научиться вставлять новые элементы в конец массива. Можно попытаться сразу создать массив достаточно большого размера, и в отдельной переменной поддер-</p>
 <p>живать его реальную длину. Но далеко не всегда максимальное количество элементов известно заранее.</p>
 <p>Поступим следующим образом: если мы хотим вставить новый элемент, а место в массиве закончилось, то создадим новый массив вдвое большего размера, и скопируем данные туда.</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
@@ -349,15 +362,15 @@
 </details>
 <h3 id="стек-очередь-дек">Стек, очередь, дек</h3>
 <p>Стек (stack) позволяет поддерживать список элементов, вставлять элемент в конец списка, а также удалять элемент из конца списка. Часто также говорят, что он организован по принципу LIFO (last in - first out).</p>
-<p><a href="#R-image-31a9be03ca095551920a0c94576cced2" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/stack.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-31a9be03ca095551920a0c94576cced2"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/stack.png"></a></p>
+<p><a href="#R-image-5cd9a9daa8ff4d285a9bdf1c2975ed64" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/stack.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-5cd9a9daa8ff4d285a9bdf1c2975ed64"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/stack.png"></a></p>
 <p>Очередь (queue) организована по принципу FIFO (first in - first out). Она позволяет вставлять элемент в конец списка, а также удалять элемент из начала списка.</p>
-<p><a href="#R-image-272d9099869d8f6d0bfe14c3b7b89e4f" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/queue.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-272d9099869d8f6d0bfe14c3b7b89e4f"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/queue.png"></a></p>
+<p><a href="#R-image-d049e674768c5566b41fc249cb616657" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/queue.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-d049e674768c5566b41fc249cb616657"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/queue.png"></a></p>
 <p>Дек (deque - double ended queue), или двусторонняя очередь, отличается от обычной очереди тем, что позволяет добавлять и удалять элементы как в начало, так и в конец списка.</p>
 <p>Все эти структуры можно реализовать с помощью связного списка. Для стека и очереди хватит односвязного списка: в стеке достаточно поддерживать ссылку на предыдущий элемент, а в очереди - на следующий. Для реализации дека понадобится двусвязный список.</p>
 <p>Также все три структуры можно реализовать с помощью динамического массива. В случае дека нужно научиться добавлять элементы в начало, для чего можно зациклить массив. То же самое можно сделать в реализации очереди, чтобы переиспользовать освободившееся место в начале массива. Приведём примерную реализацию дека на динамическом массиве:</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
@@ -428,6 +441,7 @@
 <p>В C++ существуют встроенные реализации этих структур - std::stack, std::queue, std::deque.</p>
 
   <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 16 февр. 2025 г.
   </footer>
 </article>
         </div>
@@ -442,9 +456,6 @@
 
 
         </div>
-        <script>
-          window.index_js_url="/searchindex.ru.js?1743956751";
-        </script>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
             <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
@@ -453,24 +464,29 @@
             <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-times" title="Очистить поиск"></i></button>
           </div>
         </form></search>
-        <script>
-          var contentLangs=['ru'];
-        </script>
-        <script src="/js/auto-complete.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.min.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.ru.min.js?1743956751" defer></script>
-        <script src="/js/search.js?1743956751" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
-        <ul>
-          <li><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
-        </ul>
-        <hr class="padding">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="/index.html"><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
       </div>
       <div id="R-content-wrapper" class="highlightable">
-        <div id="R-shortcutmenu-home" class="R-sidebarmenu">
+        <div class="R-sidebarmenu R-shortcutmenu-main">
           <ul class="enlarge morespace collapsible-menu">
             <li class="parent " data-nav-id="/basics/index.html"><a class="padding" href="/basics/index.html">Basics</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
             <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
@@ -485,78 +501,40 @@
             <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="" data-nav-id="/basics/graph_definition/index.html"><a class="padding" href="/basics/graph_definition/index.html">12. Графы. Определения и способы хранения</a></li>
-            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li></ul></li>
+            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li>
+            <li class="" data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li></ul></li>
           </ul>
         </div>
-    
-        <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
-        <div id="R-menu-footer">
-          <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
-          <div id="R-prefooter" class="footerLangSwitch footerVariantSwitch footerVisitedLinks">
-            <ul>
-              <li id="R-select-language-container" class="footerLangSwitch">
-                <div class="padding menu-control">
-                  <i class="fa-fw fas fa-language"></i>
-                  <span>&nbsp;</span>
-                  <div class="control-style">
-                    <label class="a11y-only" for="R-select-language">Язык</label>
-                    <select id="R-select-language" onchange="location = this.querySelector( this.value ).dataset.url;">
-                      <option id="R-select-language-ru" value="#R-select-language-ru" data-url="/basics/basic_data_structures/index.html" lang="ru-ru" selected></option>
-                    </select>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-              </li>
-              <li id="R-select-variant-container" class="footerVariantSwitch">
-                <div class="padding menu-control">
-                  <i class="fa-fw fas fa-paint-brush"></i>
-                  <span>&nbsp;</span>
-                  <div class="control-style">
-                    <label class="a11y-only" for="R-select-variant">Тема</label>
-                    <select id="R-select-variant" onchange="window.relearn.changeVariant( this.value );">
-                      <option id="R-select-variant-green" value="green" selected>Green</option>
-                    </select>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-                <script>window.relearn.markVariant();</script>
-              </li>
-              <li class="footerVisitedLinks">
-                <div class="padding menu-control">
-                  <i class="fa-fw fas fa-history"></i>
-                  <span>&nbsp;</span>
-                  <div class="control-style">
-                    <button onclick="clearHistory();">Очистить историю</button>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div id="R-footer" class="footerFooter showFooter">
-            <p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
-          </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
+          <ul class="space collapsible-menu">
+          </ul>
         </div>
+        <div id="R-footer-margin"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1743956751" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1743956751" defer></script>
+    <script src="/js/clipboard/clipboard.min.js?1744612242" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744612242" defer></script>
     <script>
-      function useMathJax( config ){
-        window.MathJax = Object.assign( window.MathJax || {}, {
-          tex: {
-            inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
-            displayMath: [['\\[', '\\]'], ['$$', '$$']], 
-          },
-          options: {
-            enableMenu: false 
-          }
-        }, config );
-      }
-      useMathJax( JSON.parse("{}") );
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1743956751"></script>
-    <script src="/js/theme.js?1743956751" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744612242"></script>
+    <script src="/js/theme.min.js?1744612242" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];

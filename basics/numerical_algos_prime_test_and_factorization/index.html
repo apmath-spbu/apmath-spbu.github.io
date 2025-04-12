@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="generator" content="Hugo 0.145.0">
-    <meta name="generator" content="Relearn 7.3.2+3ac0206314069cacb7c5585d7271248b8304f4db">
+    <meta name="generator" content="Relearn 7.6.1+b0c6bb558d7728ac4535a2ac677c5f47297203cc">
     <meta name="description" content="Решето Эратосфена Решето Эратосфена - алгоритм, находящий все простые числа, не превосходящие некоторой границы $n$. Алгоритм рассматривает последовательно все числа от 2 до $n$. Если очередное число ещё не помечено как составное, он помечает его как простое, а все числа, делящиеся на него, помечает как составные.
 Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата.
 1 2 3 4 5 6 vector&lt;bool&gt; isPrime(n &#43; 1, 1) isPrime[0] = isPrime[1] = 0 for i = 2..n: if isPrime[i]: for (j = i * i; j &lt;= n; j &#43;= i): isPrime[j] = 0 Время работы алгоритма есть">
@@ -33,45 +33,57 @@
     <meta itemprop="dateModified" content="2025-03-15T19:04:58+03:00">
     <meta itemprop="wordCount" content="1474">
     <title>10. Проверка на простоту и факторизация :: Краткий курс по основам программирования</title>
-    <link href="/css/fontawesome-all.min.css?1743956751" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/fontawesome-all.min.css?1743956751" rel="stylesheet"></noscript>
-    <link href="/css/auto-complete.css?1743956751" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/css/auto-complete.css?1743956751" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar.min.css?1743956751" rel="stylesheet">
-    <link href="/css/theme.min.css?1743956751" rel="stylesheet">
-    <link href="/css/format-html.min.css?1743956751" rel="stylesheet" id="R-format-style">
+    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744612242" rel="stylesheet">
+    <link href="/css/theme.min.css?1744612242" rel="stylesheet">
+    <link href="/css/format-html.min.css?1744612242" rel="stylesheet" id="R-format-style">
+    <link href="/css/auto-complete/auto-complete.min.css?1744612242" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js?1744612242" defer></script>
+    <script src="/js/search.min.js?1744612242" defer></script>
     <script>
       window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/basics\/numerical_algos_prime_test_and_factorization\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
-      window.relearn.min = `.min`;
+      window.relearn.contentLangs=['ru'];
+      window.relearn.index_js_url="/searchindex.ru.js?1744612242";
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
-      window.relearn.enableBlockCodeWrap=true;
       window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // legal
+      window.relearn.getItem = (s,n) => {return s.getItem(n)};
+      window.relearn.setItem = (s,n,v) => {return s.setItem(n,v)};
+      window.relearn.removeItem = (s,n) => {return s.removeItem(n)};
       // variant stuff
       window.relearn.themevariants = [ 'green' ];
       window.relearn.customvariantname = "my-custom-variant";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
-        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
         document.documentElement.dataset.rThemeVariant = variant;
         if (oldVariant != variant) {
           document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
         }
       }
       window.relearn.markVariant = function() {
-        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
-        var select = document.querySelector("#R-select-variant");
-        if (select) {
-          select.value = variant;
-        }
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
       }
       window.relearn.initVariant = function() {
-        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant") ?? "";
         if( variant == window.relearn.customvariantname ){
         }else if( !variant || !window.relearn.themevariants.includes(variant) ){
           variant = window.relearn.themevariants[0];
-          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+          window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
         }
         document.documentElement.dataset.rThemeVariant = variant;
       }
@@ -117,9 +129,10 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li
-            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><a itemprop="item" href="/basics/index.html"><span itemprop="name">Basics</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li
-            itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement"><span itemprop="name">10. Проверка на простоту и факторизация</span><meta itemprop="position" content="2"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Basics</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">10. Проверка на простоту и факторизация</span><meta itemprop="position" content="3"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/numerical_algos_arithmetic_comparison/index.html" title="9. Арифметика сравнений (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
@@ -162,7 +175,7 @@
 <h3 id="решето-эратосфена">Решето Эратосфена</h3>
 <p>Решето Эратосфена - алгоритм, находящий все простые числа, не превосходящие некоторой границы $n$. Алгоритм рассматривает последовательно все числа от 2 до $n$. Если очередное число ещё не помечено как составное, он помечает его как простое, а все числа, делящиеся на него, помечает как составные.</p>
 <p>Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата.</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
@@ -191,7 +204,7 @@ $$<p>(факт из теории чисел, который мы доказыв�
 <p>Существует алгоритм со временем работы $O(n)$ (Gries, Misra, 1978), который устроен похожим образом, но помечает каждое составное число ровно один раз. Более того, для каждого числа, не большего $n$, он находит его наименьший простой делитель, что позволяет потом быстро факторизовать (разложить на простые множители) любое из чисел.</p>
 <p>Обозначим наименьший простой делитель $x$ за $p[x]$. Алгоритм помечает составное число $x$ в тот момент, когда он рассматривает число $\frac{x}{p[x]}$. Заметим, что $p[x] \leqslant p\left[\frac{x}{p[x]}\right]$.</p>
 <p>Чтобы сделать все такие пометки, достаточно, рассматривая число $y$, пометить все числа вида $y q$, где $q$ - простое, меньшее или равное $p[y]$.</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
@@ -230,7 +243,7 @@ $$<p>(факт из теории чисел, который мы доказыв�
 </details>
 <p>На основе этой теоремы можно проверять $n$ на простоту следующим тестом: возьмём случайное $1 \leqslant a \leqslant n-1$ и проверим, правда ли, что $a^{n-1} \equiv 1(\bmod n)$. Если сравнение не выполняется (то есть $n$ не прошло тест), то $n$ точно составное.</p>
 <p>Проблема в том, что из того, что сравнение выполняется, совсем не следует, что $n$ простое. Например, $341=31 \cdot 11$ - составное, но $2^{340}=1024^{34} \equiv 1(\bmod 341)$. Можно пытаться бороться с этой проблемой, запуская тест несколько (s) раз с различными $a$.</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
@@ -319,7 +332,7 @@ $$A=\left\{a: 1 \leqslant a < n, a^{n-1} \equiv 1 \quad(\bmod n)\right\}$$<p>Н�
 </details>
 <p>Тест Миллера-Рабина помимо проверки условия из теоремы Ферма пытается найти нетривиальный корень из единицы по модулю $n$. Делается это следующим образом: пусть дано нечётное $n$ (чётные числа проверять на простоту очень просто). Из чётного числа $n-1$ выделяются все степени двойки: $n-1=2^{k} m$ для $k \geqslant 1$ и нечётного $m$. После этого вычисляется последовательность $a^{m} \bmod n, a^{2 m} \bmod n, \ldots, a^{2^{k} m} \bmod n=a^{n-1} \bmod n$.</p>
 <p>Если $a^{n-1} \not \equiv 1(\bmod n)$, то, как и в тесте Ферма, мы делаем вывод, что число составное. Иначе найдём в последовательности первую единицу, и посмотрим на элемент перед ней. Если он есть (то есть последовательность состоит не только из единиц), и он не равен $-1 \bmod n$, то мы нашли нетривиальный корень из единицы по модулю $n$, то есть $n$ - составное.</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
@@ -404,12 +417,12 @@ $\rho$-алгоритм Полларда (1975) с вероятностью, б�
 <p>Пусть $p$ - минимальный нетривиальный делитель $n$, обозначим $x_{i}^{\prime}=x_{i} \bmod p$. Рано или поздно какое-то значение $x_{i}^{\prime}$ встретится второй раз (то есть совпадёт с $x_{j}^{\prime}, j<i$ ). Если предположить, что функция $f$ ведёт себя как &ldquo;случайная&rdquo; функция, то можно считать, что каждое $x_{i}^{\prime}$ - случайный остаток по модулю $p$, тогда по парадоксу дней рождения первый повтор с большой вероятностью случится за первые $O(\sqrt{p})$ шагов (ниже мы докажем это утверждение более формально).</p>
 <p>Если $x_{i}^{\prime}=x_{j}^{\prime}$, то $x_{i}-x_{j}$ делится на $p$, тогда $\operatorname{gcd}\left(x_{j}-x_{i}, n\right)>1$. Более того, поскольку вычисление $f(x)$ состоит из применения нескольких сложений и умножений, из $x_{i} \bmod p=$ $x_{j} \bmod p$ следует, что $f\left(x_{i}\right) \bmod p=f\left(x_{j}\right) \bmod p$, то есть $x_{i+1}^{\prime}=x_{j+1}^{\prime}$. Тогда по индукции $\operatorname{gcd}\left(x_{j+k}-x_{i+k}, n\right)>1$ для любого $k \geqslant 0$.</p>
 <p>Тогда можно поступить следующим образом: будем вычислять одновременно две последовательности: $x_{i}=f\left(x_{i-1}\right)$ и $y_{0}=x_{0}, y_{i}=f\left(f\left(y_{i-1}\right)\right)$, и на каждом шаге вычислять $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)$, пока он не окажется больше единицы.
-<a href="#R-image-67e4f25db83df10f6a26a509def88f27" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/numerical_algos/pollard.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-67e4f25db83df10f6a26a509def88f27"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/numerical_algos/pollard.png"></a></p>
+<a href="#R-image-66810b7e8b0d6ae5de55b98343ed7edb" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/numerical_algos/pollard.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-66810b7e8b0d6ae5de55b98343ed7edb"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/numerical_algos/pollard.png"></a></p>
 <p>За первые $O(\sqrt{p})$ шагов значения $x_{i}$ по модулю $p$ с большой вероятностью начнут повторяться (то есть $x_{i}$ попадёт на цикл на рисунке<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>). В этот момент $y_{i}$ тоже уже будет находиться на этом цикле, причём на каждой следующей итерации $y_{i}$ будет делать два шага вперёд по циклу, а $x_{i}$ только один. Тогда ещё за $O(\sqrt{p})$ шагов $y_{i}$ &ldquo;догонит&rdquo; $x_{i}$, то есть для какого-то $i$ окажется верным $x_{i} \bmod p=y_{i} \bmod p$, откуда $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)>1$, значит мы найдём делитель $n$, больший единицы.</p>
 <p>Заметим, что совсем не обязательно $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)$ окажется равным $p$. $y_{i}$ и $x_{i}$ могут в тот же момент времени оказаться на одной позиции в цикле и по какому-нибудь другому модулю $q$, где $q$ - делитель $n$. Может даже оказаться, что $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)=n$, тогда алгоритм не даст нам никакой полезной информации. Но можно показать, что для достаточно больших $n$ вероятность этого мала (мы должны одновременно попасть на одну позицию в цикле по всем нетривиальным делителям $n$ ). В случае, если это случается, можно перезапустить алгоритм с другим $x_{0}$.</p>
 <p>Как уже говорилось, в качестве $f$ обычно используют $f(x)=\left(x^{2}+1\right) \bmod n$ или $f(x)=\left(x^{2}-1\right) \bmod n$. Эти функции, конечно, не являются случайными, поэтому описанный выше анализ не является строгим доказательством времени работы алгоритма, а лишь эвристическими рассуждениями. Тем не менее, время работы алгоритма на практике хорошо согласуется с этими рассуждениями.</p>
-<div class="highlight wrap-code"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
@@ -477,6 +490,7 @@ $$\sum_{i=1}^{l} \ln \left(1-\frac{i}{p}\right)<-\sum_{i=1}^{l} \frac{i}{p}=-\fr
 </div>
 
   <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 15 мар. 2025 г.
   </footer>
 </article>
         </div>
@@ -491,9 +505,6 @@ $$\sum_{i=1}^{l} \ln \left(1-\frac{i}{p}\right)<-\sum_{i=1}^{l} \frac{i}{p}=-\fr
 
 
         </div>
-        <script>
-          window.index_js_url="/searchindex.ru.js?1743956751";
-        </script>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
             <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
@@ -502,24 +513,29 @@ $$\sum_{i=1}^{l} \ln \left(1-\frac{i}{p}\right)<-\sum_{i=1}^{l} \frac{i}{p}=-\fr
             <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-times" title="Очистить поиск"></i></button>
           </div>
         </form></search>
-        <script>
-          var contentLangs=['ru'];
-        </script>
-        <script src="/js/auto-complete.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.min.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.stemmer.support.min.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.multi.min.js?1743956751" defer></script>
-        <script src="/js/lunr/lunr.ru.min.js?1743956751" defer></script>
-        <script src="/js/search.js?1743956751" defer></script>
       </div>
       <div id="R-homelinks" class="default-animation homelinks">
-        <ul>
-          <li><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
-        </ul>
-        <hr class="padding">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="/index.html"><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
       </div>
       <div id="R-content-wrapper" class="highlightable">
-        <div id="R-shortcutmenu-home" class="R-sidebarmenu">
+        <div class="R-sidebarmenu R-shortcutmenu-main">
           <ul class="enlarge morespace collapsible-menu">
             <li class="parent " data-nav-id="/basics/index.html"><a class="padding" href="/basics/index.html">Basics</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
             <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
@@ -534,78 +550,40 @@ $$\sum_{i=1}^{l} \ln \left(1-\frac{i}{p}\right)<-\sum_{i=1}^{l} \frac{i}{p}=-\fr
             <li class="active " data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="" data-nav-id="/basics/graph_definition/index.html"><a class="padding" href="/basics/graph_definition/index.html">12. Графы. Определения и способы хранения</a></li>
-            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li></ul></li>
+            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li>
+            <li class="" data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li></ul></li>
           </ul>
         </div>
-    
-        <div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter"></div>
-        <div id="R-menu-footer">
-          <hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showFooter">
-          <div id="R-prefooter" class="footerLangSwitch footerVariantSwitch footerVisitedLinks">
-            <ul>
-              <li id="R-select-language-container" class="footerLangSwitch">
-                <div class="padding menu-control">
-                  <i class="fa-fw fas fa-language"></i>
-                  <span>&nbsp;</span>
-                  <div class="control-style">
-                    <label class="a11y-only" for="R-select-language">Язык</label>
-                    <select id="R-select-language" onchange="location = this.querySelector( this.value ).dataset.url;">
-                      <option id="R-select-language-ru" value="#R-select-language-ru" data-url="/basics/numerical_algos_prime_test_and_factorization/index.html" lang="ru-ru" selected></option>
-                    </select>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-              </li>
-              <li id="R-select-variant-container" class="footerVariantSwitch">
-                <div class="padding menu-control">
-                  <i class="fa-fw fas fa-paint-brush"></i>
-                  <span>&nbsp;</span>
-                  <div class="control-style">
-                    <label class="a11y-only" for="R-select-variant">Тема</label>
-                    <select id="R-select-variant" onchange="window.relearn.changeVariant( this.value );">
-                      <option id="R-select-variant-green" value="green" selected>Green</option>
-                    </select>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-                <script>window.relearn.markVariant();</script>
-              </li>
-              <li class="footerVisitedLinks">
-                <div class="padding menu-control">
-                  <i class="fa-fw fas fa-history"></i>
-                  <span>&nbsp;</span>
-                  <div class="control-style">
-                    <button onclick="clearHistory();">Очистить историю</button>
-                  </div>
-                  <div class="clear"></div>
-                </div>
-              </li>
-            </ul>
-          </div>
-          <div id="R-footer" class="footerFooter showFooter">
-            <p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p>
-          </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
+          <ul class="space collapsible-menu">
+          </ul>
         </div>
+        <div id="R-footer-margin"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/clipboard.min.js?1743956751" defer></script>
-    <script src="/js/perfect-scrollbar.min.js?1743956751" defer></script>
+    <script src="/js/clipboard/clipboard.min.js?1744612242" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744612242" defer></script>
     <script>
-      function useMathJax( config ){
-        window.MathJax = Object.assign( window.MathJax || {}, {
-          tex: {
-            inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
-            displayMath: [['\\[', '\\]'], ['$$', '$$']], 
-          },
-          options: {
-            enableMenu: false 
-          }
-        }, config );
-      }
-      useMathJax( JSON.parse("{}") );
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1743956751"></script>
-    <script src="/js/theme.js?1743956751" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744612242"></script>
+    <script src="/js/theme.min.js?1744612242" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];

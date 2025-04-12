@@ -18,9 +18,6 @@
   --CODE-INLINE-BG-color: rgba(255, 250, 233, 1); /* color for inline code background */
   --CODE-INLINE-BORDER-color: rgba(248, 232, 200, 1); /* color of inline code border */
 
-  --MENU-HOME-LINK-color: rgba(46, 59, 46, 1); /* Color of the home button text */
-  --MENU-HOME-LINK-HOVER-color: rgba(0, 0, 0, 1); /* Color of the hovered home button text */
-
   --MENU-HEADER-color: rgba(255, 255, 255, 1); /* color of menu header */
   --MENU-HEADER-BG-color: rgba(116, 181, 89, 1); /* Background color of menu header */
   --MENU-HEADER-BORDER-color: rgba(156, 212, 132, 1); /*Color of menu header border */
@@ -28,6 +25,10 @@
   --MENU-SEARCH-color: rgba(255, 255, 255, 1); /* Color of search field text */
   --MENU-SEARCH-BG-color: rgba(89, 154, 62, 1); /* Search field background color (by default borders + icons) */
   --MENU-SEARCH-BORDER-color: rgba(132, 199, 103, 1); /* Override search field border color */
+
+  --MENU-HOME-LINK-color: rgba(46, 59, 46, 1); /* Color of the home button text */
+  --MENU-HOME-LINK-HOVER-color: rgba(0, 0, 0, 1); /* Color of the hovered home button text */
+  --MENU-HOME-TOP-SEPARATOR-color: var(--MENU-HEADER-BORDER-color); /* separator color between menu search box and home menu */
 
   --MENU-SECTIONS-ACTIVE-BG-color: rgba(27, 33, 28, 1); /* Background color of the active section and its children */
   --MENU-SECTIONS-BG-color: rgba(34, 39, 35, 1); /* Background color of other sections */
@@ -162,12 +163,12 @@
 
   --MENU-HEADER-color: rgba(40, 40, 40, 1); /* color of menu header */
 
-  --MENU-HOME-LINK-color: rgba(64, 64, 64, 1); /* home button color if configured */
-  --MENU-HOME-LINK-HOVER-color: rgba(0, 0, 0, 1); /* hovered home button color if configured */
-
   --MENU-SEARCH-color: rgba(224, 224, 224, 1); /* text and icon color of search box */
   --MENU-SEARCH-BG-color: rgba(50, 50, 50, 1); /* background color of search box */
   --MENU-SEARCH-BORDER-color: rgba(224, 224, 224, 1); /* border color of search box */
+
+  --MENU-HOME-LINK-color: rgba(64, 64, 64, 1); /* home button color if configured */
+  --MENU-HOME-LINK-HOVER-color: rgba(0, 0, 0, 1); /* hovered home button color if configured */
 
   --MENU-SECTIONS-BG-color: rgba(40, 40, 40, 1); /* background of the menu; this is NOT just a color value but can be a complete CSS background definition including gradients, etc. */
   --MENU-SECTIONS-ACTIVE-BG-color: rgba(0, 0, 0, 0.166); /* background color of the active menu section */
@@ -290,11 +291,6 @@ html {
 body {
   background-color: rgba(255, 255, 255, 1);
 }
-code.copy-to-clipboard-code {
-  border-start-end-radius: 2px;
-  border-end-end-radius: 2px;
-  border-inline-end-width: 1px;
-}
 pre:not(.mermaid) {
   border: 1px solid rgba(204, 204, 204, 1);
 }
@@ -316,17 +312,11 @@ pre:not(.mermaid) {
     visibility: visible;
   }
 }
-#R-body .copy-to-clipboard-code {
-  padding-inline-end: 2px;
-}
-#R-body .inline-copy-to-clipboard-button,
-#R-body .block-copy-to-clipboard-button {
-  display: none;
-}
 
-#R-body .inline-copy-to-clipboard-button + code.copy-to-clipboard-code,
-#R-body code.copy-to-clipboard-code:has(+ .inline-copy-to-clipboard-button) {
-  margin-inline-end: 0;
+code.copy-to-clipboard-code:after,
+.inline-copy-to-clipboard-button,
+.block-copy-to-clipboard-button {
+  display: none;
 }
 
 #R-body .svg-reset-button {

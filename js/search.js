@@ -14,11 +14,14 @@ window.relearn.runInitialSearch = function () {
 var lunrIndex, pagesIndex;
 
 function initLunrIndex(index) {
+  if (!window.lunr) {
+    return;
+  }
   pagesIndex = index;
   // Set up Lunr by declaring the fields we use
   // Also provide their boost level for the ranking
   lunrIndex = lunr(function () {
-    this.use(lunr.multiLanguage.apply(null, contentLangs));
+    this.use(lunr.multiLanguage.apply(null, window.relearn.contentLangs));
     this.ref('index');
     this.field('title', {
       boost: 15,
@@ -33,7 +36,7 @@ function initLunrIndex(index) {
     this.pipeline.remove(lunr.stemmer);
     this.searchPipeline.remove(lunr.stemmer);
 
-    // Feed Lunr with each file and let LUnr actually index them
+    // Feed Lunr with each file and let Lunr actually index them
     pagesIndex.forEach(function (page, idx) {
       page.index = idx;
       this.add(page);
@@ -113,9 +116,9 @@ if (input) {
 
 function initLunrJs() {
   // new way to load our search index
-  if (window.index_js_url) {
+  if (window.relearn.index_js_url) {
     var js = document.createElement('script');
-    js.src = index_js_url;
+    js.src = window.relearn.index_js_url;
     js.setAttribute('async', '');
     js.onload = function () {
       initLunrIndex(relearn_searchindex);
@@ -136,6 +139,9 @@ function initLunrJs() {
 function search(term) {
   // Find the item in our index corresponding to the Lunr one to have more info
   // Remove Lunr special search characters: https://lunrjs.com/guides/searching.html
+  if (!window.lunr) {
+    return [];
+  }
   term = term.replace(/[*:^~+-]/g, ' ');
   var searchTerm = lunr
     .tokenizer(term)
@@ -152,7 +158,7 @@ function search(term) {
 
 function searchPatterns(word) {
   // for short words high amounts of typos doesn't make sense
-  // for long words we allow less typos because this largly increases search time
+  // for long words we allow less typos because this largely increases search time
   var typos = [
     { len: -1, typos: 1 },
     { len: 60, typos: 2 },

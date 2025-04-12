@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="generator" content="Hugo 0.145.0">
+    <meta name="generator" content="Relearn 7.6.1+b0c6bb558d7728ac4535a2ac677c5f47297203cc">
+    <meta name="description" content="Во взвешенном графе (weighted graph) каждое ребро имеет вес (weight) $w_{e}$. В зависимости от задачи, веса могут быть как целыми, так и вещественными; иногда допускаются отрицательные веса.
+Длина (length) пути во взвешенном графе - это сумма весов рёбер на пути. Можно считать, что все рёбра в невзвешенном графе имеют вес, равный единице. Тогда длина пути в невзвешенном графе - это просто количество рёбер в этом пути. Кратчайший путь (shortest path) между двумя вершинами - это путь минимальной длины между этими вершинами (путь с минимальным числом рёбер в невзвешенном случае). Расстояние (distance) между вершинами - длина кратчайшего пути между ними. Если пути между вершинами нет, расстояние считается бесконечным.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="14. Графы. Алгоритмы поиска кратчайших путей :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Во взвешенном графе (weighted graph) каждое ребро имеет вес (weight) $w_{e}$. В зависимости от задачи, веса могут быть как целыми, так и вещественными; иногда допускаются отрицательные веса.
+Длина (length) пути во взвешенном графе - это сумма весов рёбер на пути. Можно считать, что все рёбра в невзвешенном графе имеют вес, равный единице. Тогда длина пути в невзвешенном графе - это просто количество рёбер в этом пути. Кратчайший путь (shortest path) между двумя вершинами - это путь минимальной длины между этими вершинами (путь с минимальным числом рёбер в невзвешенном случае). Расстояние (distance) между вершинами - длина кратчайшего пути между ними. Если пути между вершинами нет, расстояние считается бесконечным.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/graph_shortest_path_algos/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="14. Графы. Алгоритмы поиска кратчайших путей :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Во взвешенном графе (weighted graph) каждое ребро имеет вес (weight) $w_{e}$. В зависимости от задачи, веса могут быть как целыми, так и вещественными; иногда допускаются отрицательные веса.
+Длина (length) пути во взвешенном графе - это сумма весов рёбер на пути. Можно считать, что все рёбра в невзвешенном графе имеют вес, равный единице. Тогда длина пути в невзвешенном графе - это просто количество рёбер в этом пути. Кратчайший путь (shortest path) между двумя вершинами - это путь минимальной длины между этими вершинами (путь с минимальным числом рёбер в невзвешенном случае). Расстояние (distance) между вершинами - длина кратчайшего пути между ними. Если пути между вершинами нет, расстояние считается бесконечным.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Basics">
+    <meta property="article:published_time" content="2025-03-12T09:30:55+03:00">
+    <meta property="article:modified_time" content="2025-03-12T09:30:55+03:00">
+    <meta itemprop="name" content="14. Графы. Алгоритмы поиска кратчайших путей :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Во взвешенном графе (weighted graph) каждое ребро имеет вес (weight) $w_{e}$. В зависимости от задачи, веса могут быть как целыми, так и вещественными; иногда допускаются отрицательные веса.
+Длина (length) пути во взвешенном графе - это сумма весов рёбер на пути. Можно считать, что все рёбра в невзвешенном графе имеют вес, равный единице. Тогда длина пути в невзвешенном графе - это просто количество рёбер в этом пути. Кратчайший путь (shortest path) между двумя вершинами - это путь минимальной длины между этими вершинами (путь с минимальным числом рёбер в невзвешенном случае). Расстояние (distance) между вершинами - длина кратчайшего пути между ними. Если пути между вершинами нет, расстояние считается бесконечным.">
+    <meta itemprop="datePublished" content="2025-03-12T09:30:55+03:00">
+    <meta itemprop="dateModified" content="2025-03-12T09:30:55+03:00">
+    <meta itemprop="wordCount" content="1531">
+    <title>14. Графы. Алгоритмы поиска кратчайших путей :: Краткий курс по основам программирования</title>
+    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744612242" rel="stylesheet">
+    <link href="/css/theme.min.css?1744612242" rel="stylesheet">
+    <link href="/css/format-html.min.css?1744612242" rel="stylesheet" id="R-format-style">
+    <link href="/css/auto-complete/auto-complete.min.css?1744612242" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1744612242" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js?1744612242" defer></script>
+    <script src="/js/search.min.js?1744612242" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/basics\/graph_shortest_path_algos\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.contentLangs=['ru'];
+      window.relearn.index_js_url="/searchindex.ru.js?1744612242";
+      window.relearn.disableAnchorCopy=false;
+      window.relearn.disableAnchorScrolling=false;
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // legal
+      window.relearn.getItem = (s,n) => {return s.getItem(n)};
+      window.relearn.setItem = (s,n,v) => {return s.setItem(n,v)};
+      window.relearn.removeItem = (s,n) => {return s.removeItem(n)};
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantname = "my-custom-variant";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant") ?? "";
+        if( variant == window.relearn.customvariantname ){
+        }else if( !variant || !window.relearn.themevariants.includes(variant) ){
+          variant = window.relearn.themevariants[0];
+          window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+      // translations
+      window.T_Copy_to_clipboard = `Копировать в буфер`;
+      window.T_Copied_to_clipboard = `Скопировано в буфер обмена!`;
+      window.T_Copy_link_to_clipboard = `Скопировать ссылку в буфер обмена`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+    </script>
+  </head>
+  <body class="mobile-support html" data-url="/basics/graph_shortest_path_algos/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar">
+        <div class="topbar-wrapper">
+          <div class="topbar-sidebar-divider"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide"><button class="topbar-control" onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button>
+            </div>
+            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#поиск-в-ширину">Поиск в ширину</a>
+      <ul>
+        <li><a href="#дерево-кратчайших-путей">Дерево кратчайших путей</a></li>
+        <li><a href="#0-1-bfs">0-1-BFS</a></li>
+        <li><a href="#-bfs">-BFS</a></li>
+        <li><a href="#произвольные-веса">Произвольные веса</a></li>
+      </ul>
+    </li>
+    <li><a href="#алгоритм-дейкстры">Алгоритм Дейкстры</a>
+      <ul>
+        <li><a href="#реализация">Реализация</a></li>
+        <li><a href="#восстановление-кратчайшего-пути">Восстановление кратчайшего пути</a></li>
+      </ul>
+    </li>
+    <li><a href="#алгоритм">Алгоритм </a>
+      <ul>
+        <li><a href="#неравенство-треугольника">Неравенство треугольника</a></li>
+      </ul>
+    </li>
+    <li><a href="#алгоритм-форда-беллмана">Алгоритм Форда-Беллмана</a>
+      <ul>
+        <li><a href="#восстановление-кратчайшего-пути-1">Восстановление кратчайшего пути</a></li>
+        <li><a href="#поиск-отрицательного-цикла">Поиск отрицательного цикла</a></li>
+        <li><a href="#алгоритм-форда-беллмана-с-очередью">Алгоритм Форда-Беллмана с очередью</a></li>
+      </ul>
+    </li>
+    <li><a href="#алгоритм-флойда">Алгоритм Флойда</a>
+      <ul>
+        <li><a href="#восстановление-пути">Восстановление пути</a></li>
+        <li><a href="#графы-с-отрицательными-циклами">Графы с отрицательными циклами</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList">
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Basics</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li>
+            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">14. Графы. Алгоритмы поиска кратчайших путей</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/graph_depth_search/index.html" title="13. Графы. Поиск в глубину (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
+            </div>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><span class="topbar-control"><i class="fa-fw fas fa-chevron-right"></i></span>
+            </div>
+            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable basics" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script>
+
+  </header>
+
+<h1 id="14-графы-алгоритмы-поиска-кратчайших-путей">14. Графы. Алгоритмы поиска кратчайших путей</h1>
+
+<p>Во взвешенном графе (weighted graph) каждое ребро имеет вес (weight) $w_{e}$. В зависимости от задачи, веса могут быть как целыми, так и вещественными; иногда допускаются отрицательные веса.</p>
+<p>Длина (length) пути во взвешенном графе - это сумма весов рёбер на пути. Можно считать, что все рёбра в невзвешенном графе имеют вес, равный единице. Тогда длина пути в невзвешенном графе - это просто количество рёбер в этом пути. Кратчайший путь (shortest path) между двумя вершинами - это путь минимальной длины между этими вершинами (путь с минимальным числом рёбер в невзвешенном случае). Расстояние (distance) между вершинами - длина кратчайшего пути между ними. Если пути между вершинами нет, расстояние считается бесконечным.</p>
+<p>Алгоритмы поиска кратчайших путей, которые мы изучим, применимы как для неориентированных, так и для ориентированных графов. Отличие лишь в том, что в ориентированном графе расстояние от вершины $a$ до вершины $b$ может не совпадать с расстоянием от вершины $b$ до вершины $a$.</p>
+<h2 id="поиск-в-ширину">Поиск в ширину</h2>
+<p>Поиск в ширину (breadth-first search, BFS) находит расстояния в невзвешенном графе от одной вершины $s$ до всех остальных вершин. Пусть $d_{v}$ - расстояние от $s$ до вершины $v$; $A_{k}$ - множество вершин, расстояние до которых равняется $k: A_{k}=\left\{v \in V: d_{v}=k\right\}$.</p>
+<p>Будем находить множества $A_{k}$ последовательно: $A_{0}=\{s\}$; пусть уже найдены $A_{0}, \ldots, A_{k-1}$, тогда $A_{k}$ - это множество вершин из $V \backslash A_{0} \backslash \cdots \backslash A_{k-1}$, в которые ведут рёбра из $A_{k-1}$. Быстро понимать, лежит ли уже вершина $v$ в одном из множеств, можно с помощью массива расстояний dist: $\operatorname{dist}[v]=k$, если $v \in A_{k} ; \operatorname{dist}[v]=\infty$, если множество, в котором лежит $v$, ещё не найдено (или если $v$ не достижима из $s$ ). Здесь $\infty$ - бесконечность; на практике в качестве $\infty$ можно использовать число, заведомо большее, чем длина любого кратчайшего пути; поскольку мы работаем с невзвешенными графами, подойдёт $\infty=|V|$.</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> <span style="color:#f92672">&gt;</span> A
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> dist(n) <span style="color:#75715e"># в графе n вершин</span>
+</span></span><span style="display:flex;"><span>fill(dist, inf) <span style="color:#75715e"># inf - &#34;бесконечность&#34;</span>
+</span></span><span style="display:flex;"><span>dist[s] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>A<span style="color:#f92672">.</span>push_back({s})
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; A[i]<span style="color:#f92672">.</span>size() <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    A<span style="color:#f92672">.</span>push_back({})
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> v <span style="color:#f92672">in</span> A[i]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> es[v]:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> dist[u] <span style="color:#f92672">==</span> inf:
+</span></span><span style="display:flex;"><span>                dist[u] <span style="color:#f92672">=</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                A[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]<span style="color:#f92672">.</span>push_back(u)</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Этот алгоритм уже работает за $O(V+E)$, так как он просматривает список смежности каждой вершины не более одного раза. Можно ещё упростить алгоритм: представим, что множества $A_{0}, A_{1}, \ldots$ хранятся подряд в одном массиве: $q=A_{0} A_{1} A_{2} \ldots$ Тогда вышеописанный алгоритм просматривает элементы этого массива по порядку (то есть по очереди достаёт вершины из начала массива), и иногда добавляет новые вершины в конец массива. Значит, $q$ - это просто очередь; можно не хранить множества $A_{k}$ явно, вместо этого поддерживая очередь $q$. Получившийся алгоритм и называют поиском в ширину.</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> dist(n) <span style="color:#75715e"># в графе n вершин</span>
+</span></span><span style="display:flex;"><span>fill(dist, inf)
+</span></span><span style="display:flex;"><span>dist[s] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">&lt;--</span> s <span style="color:#75715e"># кладём s в очередь</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> q<span style="color:#f92672">.</span>empty():
+</span></span><span style="display:flex;"><span>    q <span style="color:#f92672">--&gt;</span> v <span style="color:#75715e"># достаём v из очереди</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> es[v]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> dist[u] <span style="color:#f92672">==</span> inf:
+</span></span><span style="display:flex;"><span>            dist[u] <span style="color:#f92672">=</span> dist[v] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            q <span style="color:#f92672">&lt;--</span> u</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="дерево-кратчайших-путей">Дерево кратчайших путей</h3>
+<p>Пока мы научились только находить расстояния от $s$ до остальных вершин. Что делать, если нужно восстановить сами кратчайшие пути? Аналогично дереву поиска в глубину, можно построить дерево поиска в ширину: в него войдут рёбра, при просмотре которых алгоритм добавлял новые вершины в очередь. В простом графе достаточно для каждой вершины $u$ запомнить её предка в дереве поиска в ширину; в графе с кратными рёбрами нужно запомнить, какое именно из кратных рёбер алгоритм просматривал при добавлении u в очередь.</p>
+<p>Путь в этом дереве из $s$ в любую вершину $u$ - кратчайший; поэтому дерево поиска в ширину называют также деревом кратчайших путей. Для того, чтобы восстановить кратчайший путь из $s$ в $u$, нужно подниматься по рёбрам дерева из $u$, пока не попадём в $s$.</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> dist[u] <span style="color:#f92672">==</span> inf:
+</span></span><span style="display:flex;"><span>    dist[u] <span style="color:#f92672">=</span> dist[v] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    p[u] <span style="color:#f92672">=</span> v <span style="color:#75715e"># v - родитель u в дереве кратчайших путей</span>
+</span></span><span style="display:flex;"><span>    q <span style="color:#f92672">&lt;--</span> u</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><a href="#R-image-7fbe61f3cbe944b9995e6c3e8e2e4191" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_shortest_path_tree.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-7fbe61f3cbe944b9995e6c3e8e2e4191"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_and_shortest_path_tree.png"></a></p>
+<p>Граф и его дерево кратчайших путей</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> path
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> u <span style="color:#f92672">!=</span> s:
+</span></span><span style="display:flex;"><span>    path<span style="color:#f92672">.</span>push_back(u)
+</span></span><span style="display:flex;"><span>    u <span style="color:#f92672">=</span> p[u]
+</span></span><span style="display:flex;"><span>path<span style="color:#f92672">.</span>push_back(s)
+</span></span><span style="display:flex;"><span>reverse(path<span style="color:#f92672">.</span>begin(), path<span style="color:#f92672">.</span>end())</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="0-1-bfs">0-1-BFS</h3>
+<p>Пусть теперь каждое ребро в графе имеет вес, равный 0 или 1 . Модифицируем алгоритм поиска в ширину следующим образом: вместо очереди будем использовать дек; при просмотре ребра $e$ из $v$ в $u$ будем класть $u$ в дек, если нашёлся более короткий путь до $u$, чем был известен ранее (если $\operatorname{dist}[u]>\operatorname{dist}[v]+w_{e}$ ). При этом положим $u$ в начало дека, если $w_{e}=0$, и в конец дека, если $w_{e}=1$.</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> dist(n) <span style="color:#75715e"># в графе n вершин</span>
+</span></span><span style="display:flex;"><span>fill(dist, inf)
+</span></span><span style="display:flex;"><span>dist[s] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>deque <span style="color:#f92672">&lt;--</span> s <span style="color:#75715e"># кладём s в дек</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> deque<span style="color:#f92672">.</span>empty():
+</span></span><span style="display:flex;"><span>    v <span style="color:#f92672">&lt;--</span> deque <span style="color:#75715e"># достаём v из начала дека</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u, w <span style="color:#f92672">in</span> es[v]: <span style="color:#75715e"># u - конец ребра, w - его вес</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> dist[u] <span style="color:#f92672">&gt;</span> dist[v] <span style="color:#f92672">+</span> w:
+</span></span><span style="display:flex;"><span>            dist[u] <span style="color:#f92672">=</span> dist[v] <span style="color:#f92672">+</span> w
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> w <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                u <span style="color:#f92672">--&gt;</span> deque <span style="color:#75715e"># кладём и в начало дека</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                deque <span style="color:#f92672">&lt;--</span> u <span style="color:#75715e"># кладём u в конеп дека</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Заметим сначала, что для любой вершины $v$ значение $\operatorname{dist}[v]$ равно $\infty$, либо соответствует длине какого-то пути из $s$ в $v$, поэтому $\operatorname{dist}[v]$ не может оказаться меньше длины кратчайшего пути.</p>
+<p>Посмотрим на все вершины в порядке, в котором мы достаём их из дека в первый раз (пока для удобства будем считать, что алгоритм игнорирует повторные попадания вершины в дек). Сначала мы достанем вершину $s$, затем все вершины, достижимые из $s$ только по рёбрам веса 0 . K этому моменту мы достали ровно множество $A_{0}$, при этом в момент извлечения этих вершин из дека расстояние до них уже посчитано корректно.</p>
+<p>После этого мы достанем из дека вершины из $V \backslash A_{0}$, достижимые из $A_{0}$ по ребру веса 1 , а также все вершины, достижимые из этих по рёбрам веса 0 , то есть ровно множество $A_{1}$; расстояние до этих вершин также уже посчитано корректно в момент извлечения их из дека. Аналогично, после этого мы достанем множества $A_{2}, A_{3}$, и так далее; в момент извлечения любой вершины из дека расстояние до неё уже посчитано корректно.</p>
+<p>Поймём теперь, почему каждая вершина попала в дек не более двух раз (тогда время работы алгоритма оценивается как $O(V+E)$ ). Пусть $u$ попала в дек в первый раз в момент обработки ребра $e=(v, u)$, в $\operatorname{dist}[u]$ при этом было записано $\operatorname{dist}[v]+w_{e}$. K этому моменту уже была хотя бы раз обработана любая вершина $t$ с $d_{t} < d_{v}$. Значит, $d_{u} \geqslant d_{v}$. Тогда, если $w_{e}=0$, то $\operatorname{dist}[u]=d_{u}$, то есть $u$ больше никогда не будет добавлена в дек. Если же $w_{e}=1$, то $\operatorname{dist}[u] \leqslant d_{u}+1$, тогда $u$ может быть добавлена в дек ещё не более одного раза.</p>
+<h3 id="-bfs">$1-k$-BFS</h3>
+<p>Пусть теперь рёбра в графе могут иметь любой целый вес от 1 до $k$. Как найти кратчайшие пути от $s$ до остальных вершин в таком графе?</p>
+<p>Первый способ - заменим каждое ребро длины $l>1$ на $l$ рёбер длины 1 , добавив при этом в граф $l-1$ новую вершину: ребро $e=(u, v), w_{e}=l>1$ заменим на $l$ рёбер $e_{1}=\left(u, a_{1}\right), e_{2}=\left(a_{1}, a_{2}\right), \ldots, e_{l}=\left(a_{l-1}, v\right)$, где $a_{1}, \ldots, a_{l-1}$ - новые вершины (свои для каждого такого ребра). Расстояния между вершинами исходного графа в новом графе не изменились. При этом все рёбра нового графа имеют длину 1 , поэтому расстояния в нём можно найти поиском в ширину. Поскольку в новом графе $O(V+(k-1) E)$ вершин и $O(k E)$ рёбер, получаем время работы $O(V+k E)$.</p>
+<p>Второй способ - будем поддерживать свою очередь $q_{i}$ для каждого расстояния $i$. Вначале $q_{0}=\{s\}$, остальные очереди пустые; $\operatorname{dist}[s]=0, \operatorname{dist}[v]=\infty$ для $v \neq s$. Будем рассматривать очереди $q_{i}$ в порядке возрастания $i$. Для каждой вершины $v$ из $q_{i}$ такой, что $\operatorname{dist}[v]=i$, и каждого ребра $e=(v, u)$ такого, что $\operatorname{dist}[u]>\operatorname{dist}[v]+w_{e}$, обновим $\operatorname{dist}[u]$ и положим $u$ в $q_{d i s t[v]+w_{e}}$.</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> dist(n) <span style="color:#75715e"># в графе n вершин</span>
+</span></span><span style="display:flex;"><span>fill(dist, inf)
+</span></span><span style="display:flex;"><span>dist[s] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>q[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;--</span> s
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>((n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">*</span> k): <span style="color:#75715e"># (n - 1) * k - максимально возможное расстояние</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> q[i]<span style="color:#f92672">.</span>empty():
+</span></span><span style="display:flex;"><span>        v <span style="color:#f92672">&lt;--</span> q[i]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> dist[v] <span style="color:#f92672">!=</span> i:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> u, w <span style="color:#f92672">in</span> es[v]:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> dist[u] <span style="color:#f92672">&gt;</span> dist[v] <span style="color:#f92672">+</span> w:
+</span></span><span style="display:flex;"><span>                dist[u] <span style="color:#f92672">=</span> dist[v] <span style="color:#f92672">+</span> w
+</span></span><span style="display:flex;"><span>                q[i <span style="color:#f92672">+</span> w] <span style="color:#f92672">&lt;--</span> u</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>$\operatorname{dist}[v]$ снова всегда равняется длине какого-то пути от $s$ до $v$ (либо $\infty$ ). Покажем по индукции, что вершины $v$ такие, что $\operatorname{dist}[v]=i$ в момент извлечения $v$ из $q_{i}$ - это ровно вершины множества $A_{i}$. Это верно для $i=0$; для $i>0$ в $q_{i}$ попадают вершины из $V \backslash A_{0} \backslash \cdots \backslash A_{i-1}$, в которые ведёт ребро веса 1 из $A_{i-1}$, веса 2 из $A_{i-2}, \ldots$ или веса $k$ из $A_{i-k}$ (то есть вершины множества $A_{i}$ ), а также, возможно, часть вершин из $A_{0} \cup \cdots \cup A_{i-1}$, в которые ведут такие же рёбра. Тогда такие вершины $v$, что $\operatorname{dist}[v]=i$ в момент извлечения $v$ из $q_{i}$ - это ровно вершины множества $A_{i}$.</p>
+<p>При этом каждая вершина попадёт в не более чем $k$ различных очередей: пусть вершина $u$ попала в $q_{d i s t[v]+w_{e}}$ при рассмотрении ребра $e=(v, u)$, до этого было верно $\operatorname{dist}[u]=\infty$. Тогда в этот момент $\operatorname{dist}[v]=d_{v}$, откуда $d_{u}>d_{v}$ (иначе $u$ уже попала бы до этого в очередь $q_{i}$ для $i \leqslant d_{v}$ ). Но тогда $\operatorname{dist}[u]=\operatorname{dist}[v]+w_{e}<d_{u}+k$, значит, $u$ попадёт в другие очереди ещё не более $k-1$ раза.</p>
+<p>Получаем время работы $O(k V+E)$, так как каждая вершина попала не более, чем в $k$ очередей; при этом список смежности каждой вершины был рассмотрен ровно один раз.</p>
+<h3 id="произвольные-веса">Произвольные веса</h3>
+<p>Что делать, если веса рёбер - произвольные вещественные числа? Попробуем модифицировать алгоритм поиска в ширину так, чтобы он всё ещё работал. Первая идея: будем класть вершину $v$ в очередь каждый раз, когда значение $\operatorname{dist}[v]$ уменьшается; теперь каждую вершину, мы, возможно, будем обрабатывать несколько раз. Другая идея: вместо обычной очереди будем пользоваться очередью с приоритетами, извлекая на каждом шаге такую вершину $v$, что значение $\operatorname{dist}[v]$ минимально среди всех вершин в очереди.</p>
+<p>Обе эти идеи при правильной реализации приводят к рабочим алгоритмам: первая — к алгоритму Форда-Беллмана, вторая - к алгоритму Дейкстры. Изучением этих алгоритмов мы сейчас и займёмся.</p>
+<h2 id="алгоритм-дейкстры">Алгоритм Дейкстры</h2>
+<p>Алгоритм Дейкстры (Dijkstra, 1959) находит расстояния от вершины $s$ до всех остальных вершин в графе с неотрицательными весами рёбер. Алгоритм постепенно расширяет множество $A$ вершин, до которых уже найдены расстояния и кратчайшие пути. При этом для любой вершины $v$ алгоритм поддерживает значение $\operatorname{dist}[v]$, равное $\infty$ либо длине какого-то пути из $s$ в $v$.</p>
+<p>Как и раньше, за $d_{v}$ будем обозначать длину кратчайшего пути от $s$ до $v$.
+Вначале $\operatorname{dist}[s]=0, \operatorname{dist}[v]=\infty$ для $v \neq s$, множество $A$ пусто. На каждом шаге алгоритм добавляет в множество $A$ вершину $v$ с минимальным значением $\operatorname{dist}[v]$ среди всех вершин из $V \backslash A$ (на первом шаге в $A$ всегда добавляется вершина $s$ ). После этого алгоритм просматривает все исходящие из только что добавленной вершины $v$ рёбра, и для каждого ребра $e=(v, u)$ обновляет значение $\operatorname{dist}[u]$ значением $\min \left(\operatorname{dist}[u], \operatorname{dist}[v]+w_{e}\right)$; будем называть эту операцию релаксацией ребра $e$.</p>
+<p>Докажем по индукции, что в момент добавления вершины $v$ в множество $A$ расстояние от $s$ до $v$ уже найдено: $\operatorname{dist}[v]=d_{v}$. Это верно на первом шаге алгоритма, когда в $A$ добавляется сама вершина $s$. Далее, пусть для всех вершин из $A$ расстояние до них уже найдено, $\operatorname{dist}[v]=\min _{u \in V \backslash A} \operatorname{dist}[u]$; нужно показать, что $\operatorname{dist}[v]=d_{v}$.</p>
+<p>Пусть $P$ - кратчайший путь из $s$ в $v$; здесь и дальше длину пути $P$ будем обозначать как $l(P)$. Пусть $u$ - первая вершина на пути $P$, не лежащая в множестве $A ; x$ - вершина на пути перед ней, $e=(x, u)$ - соединяющее их ребро. Обозначим часть пути от $s$ до $x$ за $P_{1}$, часть пути от $u$ до $v$ за $P_{2}$, тогда $l(P)=l\left(P_{1}\right)+w_{e}+l\left(P_{2}\right) \geqslant l\left(P_{1}\right)+w_{e}$ (так как веса рёбер неотрицательны, то есть $\left.l\left(P_{2}\right) \geqslant 0\right)$.
+$l\left(P_{1}\right) \geqslant d_{x}$, при этом $d_{x}=\operatorname{dist}[x]$ по предположению индукции (так как $x \in A$ ). Кроме того, $\operatorname{dist}[u] \leqslant \operatorname{dist}[x]+w_{e}$, так как при добавлении $x$ в $A$ была произведена релаксация ребра $e$. Соберём все неравенства вместе:</p>
+$$
+d_{v}=l(P) \geqslant l\left(P_{1}\right)+w_{e} \geqslant d_{x}+w_{e}=\operatorname{dist}[x]+w_{e} \geqslant \operatorname{dist}[u] \geqslant \operatorname{dist}[v] .
+$$<p>С другой стороны, $\operatorname{dist}[v] \geqslant d_{v}$, поскольку $\operatorname{dist}[v]$ равно $\infty$ или соответствует длине какого-то пути из $s$ в $v$.</p>
+<h3 id="реализация">Реализация</h3>
+<p>Удобно воспользоваться очередью с приоритетами: будем хранить в очереди ещё не рассмотренные вершины с приоритетами, равными значениям dist. Тогда в ходе алгоритма нужно $O(V)$ раз извлечь из очереди вершину с минимальным приоритетом, и $O(E)$ раз уменьшить приоритет вершины в очереди.</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> dist(n) <span style="color:#75715e"># в графе n вершин</span>
+</span></span><span style="display:flex;"><span>fill(dist, inf)
+</span></span><span style="display:flex;"><span>dist[s] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> v <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    q <span style="color:#f92672">&lt;--</span> (v, dist[v]) <span style="color:#75715e"># кладём в очередь вершину v с приоритетом dist[v]</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    v <span style="color:#f92672">&lt;--</span> q <span style="color:#75715e"># достаём из очереди вершину с минимальным приоритетом</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u, w <span style="color:#f92672">in</span> es[v]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> dist[u] <span style="color:#f92672">&gt;</span> dist[v] <span style="color:#f92672">+</span> w:
+</span></span><span style="display:flex;"><span>            dist[u] <span style="color:#f92672">=</span> dist[v] <span style="color:#f92672">+</span> w
+</span></span><span style="display:flex;"><span>            q<span style="color:#f92672">.</span>decreaseKey(u, dist[u]) <span style="color:#75715e"># уменьшаем значение приоритета u до dist[u]</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Очередь с приоритетами можно реализовывать разными способами: можно просто хранить значения dist в массиве, и искать минимум проходом по массиву за $O(V)$ (дополнительно надо хранить пометки о том, была ли вершина уже рассмотрена). В этом случае время работы алгоритма составит $O(V \cdot V+E \cdot 1)=O\left(V^{2}+E\right)$.</p>
+<p>Если реализовать очередь с приоритетами с помощью двоичной кучи, то получим время работы $O(V \cdot \log V+E \cdot \log V)=O((V+E) \log V)$.</p>
+<p>Первый способ эффективнее в случае плотного графа ( $E=\Omega\left(V^{2}\right)$ ), второй - при $E=o\left(V^{2}\right)$.
+(R) При реализации очереди с приоритетами при помощи фибоначчиевой кучи получается теоретическая оценка времени работы $O(V \log V+E)$, так как амортизированное время выполнения операции уменьшения приоритета в таких кучах равно $O(1)$.
+Если известно, что веса рёбер и длины путей - целые числа, не превосходящие $C$, реализация очереди с приоритетами с помощью дерева Ван-Эмде-Боаса даст оценку времени работы $O((V+E) \log \log C)$.</p>
+<h3 id="восстановление-кратчайшего-пути">Восстановление кратчайшего пути</h3>
+<p>Восстановление кратчайшего пути осуществляется полностью аналогично тому, как это делалось в алгоритме поиска в ширину: запомним для каждой вершины $v$ последнее ребро, при релаксации которого $\operatorname{dist}[v]$ уменьшилось. Эти рёбра снова образуют дерево кратчайших путей, поднимаясь по ним, можно восстановить кратчайший путь от $s$ до любой вершины $v$ за время, пропорциональное количеству рёбер на этом пути.</p>
+<h2 id="алгоритм">Алгоритм $A^{*}$</h2>
+<p>Алгоритм $A^{*}$ (произносится как &ldquo;A-star&rdquo;; Hart, Nilsson, Raphael, 1968) находит расстояния от вершины $s$ до вершины $t$ в графе с неотрицательными весами рёбер. В каком-то смысле он является модификацией алгоритма Дейкстры, более эффективной в случае, когда нужно найти расстояние от $s$ лишь до одной вершины $t$, а не до всех остальных вершин.</p>
+<p>Алгоритм использует вспомогательные значения $f[v]$ для каждой вершины графа $v$. $f$ - какая-то дополнительная информация о графе. Обычно (хотя не всегда) под $f[v]$ имеется в виду какая-то оценка снизу на расстояние от $v$ до $t$ в графе. Например, пусть вершины графа - это точки на плоскости, а вес ребра - расстояние на плоскости между концами этого ребра. Тогда в качестве $f[v]$ логично взять расстояние на плоскости между $v$ и $t$ : для любого пути в графе из $v$ в $t$ длина этого пути будет не меньше $f[v]$.</p>
+<p>Единственное отличие алгоритма $A^{*}$ от алгоритма Дейкстры: в качестве приоритета вершины $v$ используется не $\operatorname{dist}[v]$, а $\operatorname{dist}[v]+f[v]$.</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> dist(n) <span style="color:#75715e"># в графе n вершин</span>
+</span></span><span style="display:flex;"><span>fill(dist, inf)
+</span></span><span style="display:flex;"><span>dist[s] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> v <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    q<span style="color:#f92672">&lt;--</span> (v, dist[v] <span style="color:#f92672">+</span> f[v])
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    v <span style="color:#f92672">&lt;--</span> q
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> v <span style="color:#f92672">==</span> t:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">break</span> <span style="color:#75715e"># нас интересовало только расстояние до t</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u, w <span style="color:#f92672">in</span> es[v]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> dist[u] <span style="color:#f92672">&gt;</span> dist[v] <span style="color:#f92672">+</span> w:
+</span></span><span style="display:flex;"><span>            dist[u] <span style="color:#f92672">=</span> dist[v] <span style="color:#f92672">+</span> w
+</span></span><span style="display:flex;"><span>            q<span style="color:#f92672">.</span>decreaseKey(u, dist[u] <span style="color:#f92672">+</span> f[u])</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Интуитивно это можно понимать так: алгоритм пытается в первую очередь рассматривать вершины, которые больше похожи на лежащие на кратчайшем пути от $s$ к $t$. Поскольку $d i s t[v]+f[v]$ - это оценка на длину пути из $s$ в $t$, проходящего через $v$, логично сначала рассматривать вершины, для которых эта величина минимальна.</p>
+<h3 id="неравенство-треугольника">Неравенство треугольника</h3>
+<p>Будем говорить, что для $f$ выполняется неравенство треугольника, если $f[a] \leqslant f[b]+w_{e}$ для любого ребра $e$ из $a$ в $b$. В примере выше $f$ удовлетворяет неравенству треугольника, поскольку оно эквивалентно неравенству треугольника для расстояний между точками на плоскости (нужно рассмотреть треугольник на вершинах $a, b, t$ ).</p>
+
+<details open class=" box cstyle notices offer">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-palette"></i> 
+    Предложение
+  </summary>
+  <div class="box-content">
+<p>Если для $f$ выполняется неравенство треугольника, то алгоритм $A^{*}$ корректно найдёт расстояние от $s$ до $t$.
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Ход рассуждений тот же, что и в доказательстве алгоритма Дейкстры. Покажем, что в момент, когда алгоритм достаёт из очереди вершину $v$, расстояние до неё уже найдено: $\operatorname{dist}[v]=d_{v}$. Это верно на первом шаге, когда $v=s$.</p>
+<p>Рассмотрим один из последующих шагов. Пусть $v$ - вершина с минимальным значением $\operatorname{dist}[v]+f[v]$ из ещё не рассмотренных. Пусть $P$ - кратчайший путь из $s$ в $v ; u, x$, $e, P_{1}, P_{2}$ имеют тот же смысл, что и в доказательстве алгоритма Дейкстры. Кроме того, пусть $P_{2}$ состоит из рёбер $e_{1}, \ldots, e_{k}$, соединяющих вершины $u, a_{1}, \ldots, a_{k-1}, v$.</p>
+<p>По неравенству треугольника,</p>
+$$
+f[u] \leqslant f\left[a_{1}\right]+w_{e_{1}} \leqslant \cdots \leqslant w_{e_{1}}+\cdots+w_{e_{k}}+f[v]=l\left(P_{2}\right)+f[v] .
+$$<p>Кроме того, снова верно, что $\operatorname{dist}[u] \leqslant l\left(P_{1}\right)+w_{e}$, так как при обработке вершины $x$ была произведена релаксация ребра $e$. Тогда</p>
+$$
+\operatorname{dist}[v]+f[v] \leqslant \operatorname{dist}[u]+f[u] \leqslant l\left(P_{1}\right)+w_{e}+l\left(P_{2}\right)+f[v]=l(P)+f[v],
+$$<p>откуда $\operatorname{dist}[v] \leqslant l(P)$.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+<p>Алгоритм $A^{*}$ останавливается, когда находит расстояние до вершины $t$. Такое же условие остановки можно добавить в алгоритм Дейкстры, если расстояние до остальных вершин нас не интересует; будем называть такую версию алгоритмом Дейкстры с break.</p>
+
+<details open class=" box cstyle notices offer">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-palette"></i> 
+    Предложение
+  </summary>
+  <div class="box-content">
+<p>Пусть для $f$ выполняется неравенство треугольника, $f[v] \geqslant 0$ для любой $v \in V, f[t]=0$. Тогда алгоритм $A^{*}$ переберёт подмножество тех вершин, которые перебрал бы алгоритм Дейкстры с break.
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Алгоритм Дейкстры перебирает вершины в порядке увеличения расстояния от $s$ до них: на каждом шаге он достаёт из очереди вершину $v$ с минимальным значением $\operatorname{dist}[v]$, после чего при релаксации исходящих из $v$ рёбер обновляет значения dist других вершин величинами, больше или равными dist $[v]$. Значит, алгоритм Дейкстры c break переберёт вершины $v$ с $\operatorname{dist}[v] \leqslant \operatorname{dist}[t]$.</p>
+<p>Алгоритм $A^{*}$ перебирает вершины в порядке увеличения $\operatorname{dist}[v] + f[v]$: на каждом шаге он достаёт из очереди вершину $v$ с минимальным значением $\operatorname{dist}[v]+f[v]$. При релаксации исходящего из $v$ ребра $e=(v, u)$ алгоритм пытается обновить значение $\operatorname{dist}[u]$ величиной $\operatorname{dist}[v]+w_{e}$; заметим однако, что по неравенству треугольника</p>
+$$
+\operatorname{dist}[v]+w_{e}+f[u] \geqslant \operatorname{dist}[v]+f[v],
+$$<p>поэтому $\operatorname{dist}[u]+f[u] \geqslant \operatorname{dist}[v]+f[v]$ для любой извлечённой на последующих шагах вершины $u$. Значит, алгоритм $A^{*}$ переберёт вершины $\operatorname{dist}[v] + f[v] \leqslant \operatorname{dist}[t] + f[t]$</p>
+<p>Остаётся доказать, что если $\operatorname{dist}[v]+f[v] \leqslant \operatorname{dist}[t]+f[t]$, то $\operatorname{dist}[v] \leqslant \operatorname{dist}[t]$.</p>
+<p>Пусть $\operatorname{dist}[v]+f[v] \leqslant \operatorname{dist}[t]+f[t]$. Тогда</p>
+$$
+\operatorname{dist}[v] \leqslant \operatorname{dist}[t]+f[t]-f[v] \leqslant \operatorname{dist}[t]
+$$<p>так как $f[v] \geqslant 0, f[t]=0$.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+<p>Заметим, что если $f$ удовлетворяет условию последнего предложения, то $f[v]$ является оценкой снизу на расстояние от $v$ до $t$ : пусть кратчайший путь $P$ из $v$ в $t$ состоит из рёбер $e_{1}, \ldots, e_{k}$. Тогда, применив несколько раз неравенство треугольника, получаем</p>
+$$
+f[v] \leqslant w_{e_{1}}+\cdots+w_{e_{k}}+f[t]=l(P)+f[t]=l(P)
+$$<p>поскольку $f[t]=0$.</p>
+<h2 id="алгоритм-форда-беллмана">Алгоритм Форда-Беллмана</h2>
+<p>Алгоритм Форда-Беллмана (Shimbel, 1955; Bellman, 1958; Ford, 1956; Moore, 1957) находит расстояние от вершины $s$ до всех остальных вершин в графе с произвольными вещественными весами, но без отрицательных циклов (циклов, длина которых отрицательна).</p>
+<p>Если из $s$ достижим отрицательный цикл, то кратчайшего пути до любой вершины на этом цикле (и до любой вершины, достижимой из вершин цикла) не существует: к любому пути можно добавлять проходы по циклу, при этом с каждым таким проходом длина пути будет уменьшаться.</p>
+<p>✍️ Заметим, что в неориентированном графе любое ребро отрицательного веса соответствует отрицательному циклу, который получается при проходе по этому ребру вперёд и назад. Поэтому в неориентированных графах понятие кратчайшего пути имеет смысл, только если веса всех рёбер неотрицательны.</p>
+<p>Пусть в графе нет (достижимых из $s$ ) отрицательных циклов. Тогда для любой достижимой из $s$ вершины $v$ найдётся простой (без повторяющихся вершин) кратчайший путь из $s$ в $v$. Если бы это было не так, то путь содержал бы цикл. Тогда, удалив цикл из пути, мы не увеличим длину пути. Значит, достаточно искать простые кратчайшие пути из $s$ в другие вершины. С этой задачей справляется следующий алгоритм:</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fill(dist, inf)
+</span></span><span style="display:flex;"><span>dist[s] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> v <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> u, w <span style="color:#f92672">in</span> es[v]:
+</span></span><span style="display:flex;"><span>            dist[u] <span style="color:#f92672">=</span> min(dist[u], dist[v] <span style="color:#f92672">+</span> w)</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Всё, что делает этот алгоритм &mdash; $|V|-1$ раз проводит релаксацию всех рёбер графа. Почему он найдёт расстояния до всех вершин корректно? Пусть $Q$ - любой простой путь из $s$ в $v$; пусть он состоит из рёбер $e_{1}, \ldots, e_{k}, k \leqslant|V|-1$. На первом шаге внешнего цикла алгоритм проведёт релаксацию ребра $e_{1}$, на втором шаге - ребра $e_{2}, \ldots$, на $k$-м - ребра $e_{k}$. Тогда после $k$ шагов внешнего цикла</p>
+$$
+\operatorname{dist}[v] \leqslant w_{e_{1}}+\cdots+w_{e_{k}}=l(Q) .
+$$<p>Мы знаем, что если $v$ достижима из $s$, то существует простой кратчайший путь $P$ из $s$ в $v$, тогда после $|V|-1$ шага внешнего цикла $\operatorname{dist}[v] \leqslant l(P)$. С другой стороны, $\operatorname{dist}[v]$ в любой момент - либо $\infty$, либо длина какого-то пути из $s$ в $v$. Значит, $\operatorname{dist}[v] \geqslant l(P)$.</p>
+<p>Время работы алгоритма &mdash; $O(V E)$.</p>
+<h3 id="восстановление-кратчайшего-пути-1">Восстановление кратчайшего пути</h3>
+<p>Восстановление кратчайшего пути полностью аналогично алгоритмам поиска в ширину и Дейкстры - запоминаем для каждой вершины последнее ребро, при релаксации которого $\operatorname{dist}[v]$ уменьшилось; эти рёбра образуют дерево кратчайших путей и позволяют восстановить кратчайший путь от $s$ до любой достижимой из неё вершины $v$ за время, пропорциональное количеству рёбер на этом пути.</p>
+<h3 id="поиск-отрицательного-цикла">Поиск отрицательного цикла</h3>
+<p>Что делать, если неизвестно, есть ли в графе отрицательные циклы? С помощью алгоритма Форда-Беллмана можно проверить их наличие, и даже найти один из отрицательных циклов, если они есть. Всё, что нужно сделать - ещё одну ( $|V|$-ю по счёту) релаксацию всех</p>
+<p>рёбер графа в конце алгоритма. Будем называть релаксацию ребра $e=(v, u)$ успешной, если в результате её выполнения $\operatorname{dist}[u]$ строго уменьшилось.</p>
+<p>Если в графе нет отрицательных циклов, то успешных релаксаций на дополнительном шаге алгоритма не произойдёт, поскольку после $|V|-1$ шага все расстояния уже были найдены. С другой стороны, пусть в графе есть достижимый из $s$ отрицательный цикл, состоящий из вершин $v_{1}, \ldots, v_{k}$ и рёбер $e_{1}, \ldots, e_{k}$ ( $e_{i}$ соединяет $v_{i}$ и $v_{i+1}, v_{k+1}=v_{1}$ ). Тогда, если на последнем шаге алгоритма не было успешных релаксаций, то $dist \left[v_{i+1}\right] \leqslant\operatorname{dist}\left[v_{i}\right]+w_{e_{i}}$ для $1 \leqslant i \leqslant k$, откуда</p>
+$$
+\sum_{i=1}^{k} \operatorname{dist}\left[v_{i}\right] \leqslant \sum_{i=1}^{k} \operatorname{dist}\left[v_{i}\right]+\sum_{i=1}^{k} w_{e_{i}},
+$$<p>то есть $w_{e_{1}}+\cdots+w_{e_{k}} \geqslant 0$, что противоречит отрицательности цикла.
+Итак, для того, чтобы проверить, если ли в графе достижимые из $s$ отрицательные циклы, достаточно проверить, произойдёт ли на дополнительном шаге алгоритма хотя бы одна успешная релаксация.</p>
+<p>✍️ Для того, чтобы проверить, есть ли вообще в графе отрицательные циклы (не обязательно достижимые из какой-то фиксированной вершины графа), можно добавить в граф новую вершину, провести из неё во все остальные вершины рёбра веса 0 , и использовать эту вершину в качестве $s$.</p>
+<p>Восстановить отрицательный цикл можно примерно так же, как восстанавливается кратчайший путь: пусть $e[v]$ - последнее ребро, при релаксации которого $\operatorname{dist}[v]$ уменьшилось, $p[v]$ - его второй конец. $p[v]$ и $e[v]$ не определены, если $\operatorname{dist}[v]$ ни разу не уменьшалось в ходе алгоритма.</p>
+
+<details open class=" box cstyle notices lemma">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-horse"></i> 
+    Лемма
+  </summary>
+  <div class="box-content">
+<p>Если $p[v], e[v]$ определены, то $\operatorname{dist}[v] \geqslant \operatorname{dist}[p[v]]+w_{e[v]}$.</p>
+
+<details open class=" box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>$\operatorname{dist}[v]$ не менялось после успешной релаксации $e[v]$, а $\operatorname{dist}[p[v]]$ могло только уменьшиться.</p>
+  </div>
+</details>
+  </div>
+</details>
+<p>Почему описанный выше алгоритм действительно найдёт отрицательный цикл? Сначала нужно понять, почему последовательность действительно зациклится. Предположим, что повтора вершины так и не произошло. Переобозначим выписанную последовательность за $v=v_{1}, u=v_{2}, \ldots, v_{k}$. Тогда $p\left[v_{k}\right]$ не определено, при этом $\operatorname{dist}\left[v_{k}\right] \neq \infty$, поскольку $v_{k}$ участвовала в успешной релаксации ребра $e\left[v_{k-1}\right]$. Тогда $v_{k}=s, \operatorname{dist}\left[v_{k}\right]=0$. Значит, выписанная последовательность образует простой путь $P$ из $s$ в $v$. При этом по лемме выполняется неравенство</p>
+$$
+\operatorname{dist}[v]=\operatorname{dist}\left[v_{1}\right] \geqslant \operatorname{dist}\left[v_{2}\right]+w_{e\left[v_{1}\right]} \geqslant \cdots \geqslant \operatorname{dist}\left[v_{k}\right]+w_{e\left[v_{1}\right]}+\cdots+w_{e\left[v_{k-1}\right]}=l(P) .
+$$<p>С другой стороны, поскольку $P$ - простой путь, $\operatorname{dist}[v] \leqslant l(P)$ после $|V|-1$ шага внешнего цикла. Но это противоречит тому, что $\operatorname{dist}[v]$ уменьшилось при релаксации ребра $e[v]$ на дополнительном шаге алгоритма.</p>
+<p>Итак, последовательность зациклилась; обозначим вершины в подотрезке последовательности за $v_{1}, \ldots, v_{k}, v_{k+1}=v_{1}\left(p\left[v_{i}\right]=v_{i+1}\right)$; эти вершины вместе с рёбрами
+$e\left[v_{1}\right], \ldots, e\left[v_{k}\right]$ образуют цикл $C$. Осталось показать, что длина этого цикла отрицательна. По лемме, $\operatorname{dist}\left[v_{i}\right] \geqslant \operatorname{dist}\left[v_{i+1}\right]+w_{e\left[v_{i}\right]}$. Просуммируем эти неравенства по $i$ от 1 до $k$ и получим</p>
+$$
+\sum_{i=1}^{k} \operatorname{dist}\left[v_{i}\right] \geqslant \sum_{i=1}^{k} \operatorname{dist}\left[v_{i}\right]+\sum_{i=1}^{k} w_{e\left[v_{i}\right]}
+$$<p>откуда $l(C)=w_{e\left[v_{1}\right]}+\cdots+w_{e\left[v_{k}\right]} \leqslant 0$. Нам же нужно показать, что $l(C) < 0$. Пусть $v_{j}-$ вершина на цикле $C$, значение $\operatorname{dist}\left[v_{j}\right]$ которой менялось в последний раз позже остальных вершин на цикле. Тогда $\operatorname{dist}\left[v_{j-1}\right]>\operatorname{dist}\left[v_{j}\right]+w_{e\left[v_{j-1}\right]}$, поскольку $\operatorname{dist}\left[v_{j}\right]$ уменьшилось после релаксации ребра $e\left[v_{j-1}\right]$. Значит, одно из $k$ неравенств выше строгое, и $l(C) < 0$.</p>
+<h3 id="алгоритм-форда-беллмана-с-очередью">Алгоритм Форда-Беллмана с очередью</h3>
+<p>Вернёмся к графам без отрицательных циклов. Алгоритм Форда-Беллмана можно соптимизировать, избавившись от повторного выполнения одних и тех же действий. При этом получается алгоритм, который называют алгоритмом Форда-Беллмана с очередью; также он известен как SPFA (Shortest path faster algorithm; Moore, 1959). Он имеет ту же теоретическую оценку времени, что и алгоритм Форда-Беллмана, но на практике часто работает намного быстрее.</p>
+<p>Первая идея - на $k$-м шаге алгоритма нет смысла проводить релаксацию исходящих из $v$ рёбер, если $\operatorname{dist}[v]$ не поменялось с $(k-1)$-го шага. Обозначим за $B_{k}$ множество таких вершин $v$, что dist $[v]$ уменьшилось в течение ( $k-1$ )-го шага; $B_{0}=\{s\}$. На $k$-м шаге алгоритма достаточно произвести релаксацию рёбер, исходящих из вершин множества $B_{k}$.</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fill(dist, inf)
+</span></span><span style="display:flex;"><span>dist[s] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>B[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&lt;--</span> s
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> v <span style="color:#f92672">in</span> B[k]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> u, w <span style="color:#f92672">in</span> es[v]:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> dist[u] <span style="color:#f92672">&gt;</span> dist[v] <span style="color:#f92672">+</span> w:
+</span></span><span style="display:flex;"><span>                dist[u] <span style="color:#f92672">=</span> dist[v] <span style="color:#f92672">+</span> w
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> u <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> B[k <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]:
+</span></span><span style="display:flex;"><span>                    B[k<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;--</span> u</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Получившийся алгоритм очень похож на версию алгоритма поиска в ширину, в которой множества $A_{k}=\left\{v \in V: d_{v}=k\right\}$ строились явно. Как и в том случае, множества $B_{k}$ можно моделировать с помощью очереди: будем складывать вершину $v$ в очередь, если $d i s t[v]$ уменьшилось, и $v$ в данный момент ещё не лежит в очереди. Такой алгоритм с очередью эквивалентен предыдущему алгоритму, но с ещё одной оптимизацией: теперь мы не будем класть вершину $v$ в $B_{k+1}$, если с момента её обработки в $B_{k}$ до конца обработки вершин из $B_{k} \operatorname{dist}[v]$ не менялось. Эту оптимизацию можно сделать, так как релаксация рёбер, исходящих из такой вершины $v$, на ( $k+1$ )-м шаге бессмысленна, поскольку значение dist $[v]$ не поменялось с предыдущей релаксации тех же рёбер.</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fill(dist, inf)
+</span></span><span style="display:flex;"><span>fill(inQueue, <span style="color:#66d9ef">False</span>)
+</span></span><span style="display:flex;"><span>dist[s] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>q <span style="color:#f92672">&lt;--</span> s, inQueue[s] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> q<span style="color:#f92672">.</span>empty():
+</span></span><span style="display:flex;"><span>    q <span style="color:#f92672">--&gt;</span> v, inQueue[v] <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u, w <span style="color:#f92672">in</span> es[v]:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> dist[u] <span style="color:#f92672">&gt;</span> dist[v] <span style="color:#f92672">+</span> w:
+</span></span><span style="display:flex;"><span>            dist[u] <span style="color:#f92672">=</span> dist[v] <span style="color:#f92672">+</span> w
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> inQueue[u]:
+</span></span><span style="display:flex;"><span>            q <span style="color:#f92672">&lt;--</span> u, inQueue[u] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Время работы получившегося алгоритма можно оценить как $O(V E)$, поскольку он делает не больше релаксаций рёбер, чем делал обычный алгоритм Форда-Беллмана.</p>
+<h2 id="алгоритм-флойда">Алгоритм Флойда</h2>
+<p>Алгоритм Флойда (Floyd, 1962; Roy, 1959; Warshall, 1962) находит расстояния между всеми парами вершин в графе с произвольными вещественными весами, но без отрицательных циклов.</p>
+<p>Алгоритм последовательно для $0 \leqslant k \leqslant n$ и для каждой пары вершин $0 \leqslant i, j < n$ вычисляет $\operatorname{dist}[k, i, j]$ - минимальную длину пути из $i$ в $j$, промежуточные вершины (все вершины, кроме концов пути) в котором имеют номера меньше $k$. Будем считать, что $\operatorname{dist}[k, i, j]=\infty$, если ни одного такого пути не существует. $\operatorname{dist}[n, i, j]$ - это расстояние от $i$ до $j$.</p>
+<p>Если $i \neq j$, то $\operatorname{dist}[0, i, j]=w_{e}$, где $e-$ минимальное по весу ребро из $i$ в $j$; $\operatorname{dist}[0, i, j]=\infty$, если из $i$ в $j$ нет рёбер. $\operatorname{dist}[0, i, i]=0$ для любого $i$.</p>
+<p>Пусть теперь $k \geqslant 0$, для всех пар вершин $i, j$ уже известно dist $[k, i, j]$; чему равняется $\operatorname{dist}[k+1, i, j]$ ? Пусть $P$ - минимальный по длине путь из $i$ в $j$, промежуточные вершины в котором имеют номера меньше $k+1$. Если вершина $k$ не является промежуточной вершиной $P$, то $\operatorname{dist}[k+1, i, j]=\operatorname{dist}[k, i, j]$. Если же $k$ является промежуточной вершиной $P$, то можно считать, что $P$ проходит через $k$ ровно один раз (так как в графе нет отрицательных циклов). Тогда $P$ распадается на два пути: путь $P_{1}$ из $i$ в $k$, и путь $P_{2}$ из $k$ в $j$. При этом промежуточные вершины в путях $P_{1}, P_{2}$ имеют номера меньше $k ; P_{1}, P_{2}$ имеют минимально возможную длину среди таких путей (иначе $P$ был бы не минимальным по длине). Значит, $l\left(P_{1}\right)=\operatorname{dist}[k, i, k], l\left(P_{2}\right)=\operatorname{dist}[k, k, j]$. Итак,</p>
+$$
+\operatorname{dist}[k+1, i, j]=\min (\operatorname{dist}[k, i, j], \operatorname{dist}[k, i, k]+\operatorname{dist}[k, k, j]) .
+$$<p>Получаем алгоритм со временем работы $O\left(V^{3}\right)$, использующий $O\left(V^{3}\right)$ дополнительной памяти. На самом деле можно ограничиться $O\left(V^{2}\right)$ памяти: для любого $k$ будем использовать одно и то же $\operatorname{dist}[i, j]$ вместо $\operatorname{dist}[k, i, j]$.</p>
+<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># dist[i, j] равняется минимальному весу ребра из i в j или inf, если рёбер из i в ј нет</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># dist[i, i] = 0</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            dist[i, j] <span style="color:#f92672">=</span> min(dist[i, j], dist[i, k] <span style="color:#f92672">+</span> dist[k, j])</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Почему алгоритм с двумерным массивом вместо трёхмерного остаётся корректным? В любой момент $\operatorname{dist}[i, j]$ - это длина какого-то пути из $i$ в $j$; при этом после $k$ итераций внешнего цикла $\operatorname{dist}[i, j]$ не больше длины любого пути из $i$ в $j$, промежуточные вершины в котором имеют номера меньше $k$ (это было верно для $\operatorname{dist}[k, i, j]$, a $\operatorname{dist}[i, j] \leqslant \operatorname{dist}[k, i, j]$ после $k$ итераций). Значит, после $n$ итераций $\operatorname{dist}[i, j]$ - это расстояние от $i$ до $j$.</p>
+<h3 id="восстановление-пути">Восстановление пути</h3>
+<p>Для каждой пары $i, j$ запомним $\operatorname{maxNum}[i, j]$ - последнее $k$, при котором $\operatorname{dist}[i, j]$ уменьшилось. Тогда $\operatorname{maxN} \operatorname{Num}[i, j]$ - максимальная по номеру вершина на кратчайшем пути из $i$ в $j$; кратчайший путь из $i$ в $j$ состоит из двух путей: кратчайшего пути из $i$ в $k$ и из $k$ в $j$. Каждый из этих путей восстановим рекурсивно теми же рассуждениями.</p>
+<p>Альтернативный способ: для каждой пары $i, j$ запомним first $[i, j]$ - первую после $i$ вершину на кратчайшем пути. Вначале $\operatorname{first}[i, j]=j$, если $\operatorname{dist}[i, j]$ равняется весу ребра из $i$ в $j$, и -1 , если рёбер из $i$ в $j$ нет. В момент, когда $\operatorname{dist}[i, j]$ обновляется значением
+$\operatorname{dist}[i, k]+\operatorname{dist}[k, j]$, обновим $\operatorname{first}[i, j]$ значением $\operatorname{first}[i, k]$. Теперь для того, чтобы восстановить путь из $i$ в $j$, надо заменять $i$ на $\operatorname{first}[i, j]$, пока $i$ не станет равно $j$.</p>
+<h3 id="графы-с-отрицательными-циклами">Графы с отрицательными циклами</h3>
+<p>Что делать, если в графе могут быть отрицательные циклы? Заметим, что массив $\operatorname{dist}$, получившийся в результате выполнения алгоритма, удовлетворяет следующим утверждениям:</p>
+<ul>
+<li><strong>Вершина $i$ лежит на отрицательном цикле тогда и только тогда, когда $\operatorname{dist}[i, i]<0$.</strong></li>
+</ul>
+<blockquote>
+<p>Действительно, поскольку $\operatorname{dist}[i, i]$ - это длина какого-то пути из $i$ в $i$, если $\operatorname{dist}[i, i]<0$, то $i$ лежит на отрицательном цикле. С другой стороны, пусть $i$ лежит на отрицательном цикле $C$, и $k$ - вершина с максимальным номером на этом цикле, не считая $i$. Тогда после $k$-го шага алгоритма $\operatorname{dist}[i, i] \leqslant \operatorname{dist}[i, k]+\operatorname{dist}[k, i] \leqslant l(C)<0$.</p></blockquote>
+<ul>
+<li><strong>В графе не существует кратчайшего пути из $a$ в $b$ тогда и только тогда, когда существует такая вершина $i$, что $\operatorname{dist}[i, i]<0, \operatorname{dist}[a, i]<\infty, \operatorname{dist}[i, b]<\infty$.</strong></li>
+</ul>
+<blockquote>
+<p>Действительно, в графе не существует кратчайшего пути из $a$ в $b$ тогда и только тогда, когда из а достижим отрицательный цикл, из которого достижима вершина $b$; вершина $i$ из условия выше - любая вершина на этом цикле.</p></blockquote>
+<p>Заметим, что, пользуясь первым утверждением, можно не только понять, есть ли в графе отрицательные циклы, но и восстановить какой-то из них: это делается так же, как восстанавливается кратчайший путь в графе без отрицательных циклов.</p>
+<p>Пользуясь вторым утверждением, можно за $O\left(V^{3}\right)$ для каждой пары вершин $a, b$ понять, существует ли кратчайший путь из $a$ в $b$. Если путь существует, то его длина была найдена алгоритмом корректно, и путь может быть восстановлен обычным способом.</p>
+<p>✍️ В графе с неотрицательными весами рёбер расстояния между всеми парами вершин можно найти несколькими запусками алгоритма Дейкстры за $O\left(V^{2} \log V+V E\right)$ (если использовать фибоначчиеву кучу). В разреженных графах ( $E=o\left(V^{2}\right)$ ) этот способ даёт лучшую теоретическую оценку, чем алгоритм Флойда. В графах с произвольными вещественными весами рёбер, но без отрицательных циклов, можно добиться той же оценки времени работы, специальным образом модифицировав веса рёбер (Johnson, 1977). Мы изучим эту идею подробно, когда будем изучать задачу поиска максимального потока минимальной стоимости.</p>
+<p>✍️ В <strong>неориентированном</strong> графе с неотрицательными весами рёбер расстояния от одной вершины до всех остальных можно находить за $O(V+E)$ (Thorup, 1999). Несколькими запусками этого алгоритма можно найти расстояния между всеми парами вершин за $O\left(V^{2}+V E\right)$.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 12 мар. 2025 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+        <div id="R-header" class="default-animation">
+
+
+
+
+        </div>
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation homelinks">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks">
+          <ul class="space collapsible-menu">
+            <li class="" data-nav-id="/index.html"><a class="padding" href="/index.html"><i class="fa-fw fas fa-home"></i> Home</a></li>
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/basics/index.html"><a class="padding" href="/basics/index.html">Basics</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
+            <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
+            <li class="" data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
+            <li class="" data-nav-id="/basics/graph_definition/index.html"><a class="padding" href="/basics/graph_definition/index.html">12. Графы. Определения и способы хранения</a></li>
+            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li>
+            <li class="active " data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script src="/js/clipboard/clipboard.min.js?1744612242" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744612242" defer></script>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744612242"></script>
+    <script src="/js/theme.min.js?1744612242" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+  </body>
+</html>
