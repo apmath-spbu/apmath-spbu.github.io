@@ -29,17 +29,17 @@
     <meta itemprop="dateModified" content="2025-03-15T19:04:56+03:00">
     <meta itemprop="wordCount" content="700">
     <title>12. Графы. Определения и способы хранения :: Краткий курс по основам программирования</title>
-    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744612242" rel="stylesheet">
-    <link href="/css/theme.min.css?1744612242" rel="stylesheet">
-    <link href="/css/format-html.min.css?1744612242" rel="stylesheet" id="R-format-style">
-    <link href="/css/auto-complete/auto-complete.min.css?1744612242" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.ru.min.js?1744612242" defer></script>
-    <script src="/js/search.min.js?1744612242" defer></script>
+    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744984597" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744984597" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744984597" rel="stylesheet">
+    <link href="/css/theme.min.css?1744984597" rel="stylesheet">
+    <link href="/css/format-html.min.css?1744984597" rel="stylesheet" id="R-format-style">
+    <link href="/css/auto-complete/auto-complete.min.css?1744984597" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js?1744984597" defer></script>
+    <script src="/js/search.min.js?1744984597" defer></script>
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -49,7 +49,7 @@
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
       window.relearn.contentLangs=['ru'];
-      window.relearn.index_js_url="/searchindex.ru.js?1744612242";
+      window.relearn.index_js_url="/searchindex.ru.js?1744984597";
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
       window.relearn.disableInlineCopyToClipboard=false;
@@ -164,13 +164,13 @@
 <h2 id="определения">Определения</h2>
 <p>Граф задаётся множеством вершин $V$ и множеством рёбер $E$, соединяющих пары вершин (в английском языке граф - graph, вершина - vertex или node, ребро - edge).</p>
 <p>В ориентированном (directed graph, digraph) графе каждое ребро имеет направление, то есть является упорядоченной парой вершин (может быть ребро из вершины $a$ в вершину $b$, но не быть ребра из $b$ в $a$ ). В неориентированном (undirected) графе рёбра направлений не имеют, то есть являются неупорядоченными парами (считаем, что ребро, ведущее из $a$ в $b$, ведёт и из $b$ в $a$ тоже).</p>
-<p><a href="#R-image-293e36a727099bf3119e816d63f3a282" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_examples.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-293e36a727099bf3119e816d63f3a282"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_examples.png"></a></p>
+<p><a href="#R-image-f5ca9496eff26f14cf93c6ee1759ad13" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_examples.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-f5ca9496eff26f14cf93c6ee1759ad13"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_examples.png"></a></p>
 <p>Неориентированный и ориентированный графы</p>
 <p>Пример неориентированного графа - карта стран (вершины - страны, рёбра есть между странами, имеющими общую границу). Пример ориентированного графа - интернет (вершины - сайты, рёбра - гиперссылки). Ещё примеры графов - транспортные сети (автомобильные, железнодорожные, авиационные), графы друзей в соцсетях.</p>
 <p>В графе может быть несколько рёбер между одной парой вершин (несколько рёбер в одном направлении в ориентированном графе). Такие рёбра называются кратными (multiple edges). Ребро, концы которого совпадают, называют петлёй (loор). Графы без петель и кратных рёбер называют простыми (simple).</p>
-<p><a href="#R-image-45134b1e9fdc0c2153e721d74f32512d" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_with_circles.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-45134b1e9fdc0c2153e721d74f32512d"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_with_circles.png"></a></p>
+<p><a href="#R-image-3e2768c230a179c13481f62cc2214893" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_with_circles.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-3e2768c230a179c13481f62cc2214893"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_with_circles.png"></a></p>
 <p>Граф с петлями и кратными рёбрами</p>
 <p>Для ребра $e=(a, b)$ вершины $a$ и $b$ называют его концами (endpoints) (или началом и концом в случае ориентированного графа). Ребро инцидентно (incident) каждому из</p>
 <p>своих концов. Две вершины неориентированного графа, соединённые ребром, называют смежными (adjacent). Два ребра неориентированного графа, имеющие общий конец, тоже называют смежными.</p>
@@ -182,8 +182,8 @@
 <li>Матрица смежности (adjacency matrix) графа - это матрица (двумерный массив) $a$ размера $n \times n$, где $a_{i, j}$ - количество рёбер, идущих из $v_{i}$ в $v_{j}$. Матрица смежности простого графа состоит из нулей и единиц, а её главная диагональ (множество элементов вида $a_{i, i}$ ) состоит из нулей. Матрица смежности неориентированного графа симметрична ( $a_{i, j}=a_{j, i}$ ).</li>
 <li>Списки смежности (adjacency lists) графа - это набор списков, по одному для каждой вершины: в списке смежности вершины $v$ хранится список вершин, в которые ведут рёбра из $v$ (или список самих рёбер). В графе с кратными рёбрами вершина $u$ встречается в списке $v$ столько раз, сколько рёбер из $v$ в $u$ есть в графе. В неориентированном графе каждое ребро входит в списки обоих своих концов; в ориентированном - только в список своего начала. Размер списка смежности вершины $v$ равен $\operatorname{deg}(v)\left(\operatorname{deg}_{\text {out }}(v)\right.$ в ориентированном графе).</li>
 </ul>
-<p><a href="#R-image-a0883331332bb5838ce2b546d19dee78" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_example_store.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-a0883331332bb5838ce2b546d19dee78"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_example_store.png"></a></p>
+<p><a href="#R-image-e8e8954bf4bb0df8e85b9789025f7b84" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_example_store.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-e8e8954bf4bb0df8e85b9789025f7b84"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_example_store.png"></a></p>
 $$
 \begin{pmatrix}
 0 & 1 & 0 & 2 & 0 \\
@@ -283,8 +283,8 @@ $$<p>Матрица смежности позволяет для любой па
 <div id="R-footer"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/clipboard/clipboard.min.js?1744612242" defer></script>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744612242" defer></script>
+    <script src="/js/clipboard/clipboard.min.js?1744984597" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744984597" defer></script>
     <script>
       window.MathJax = Object.assign( window.MathJax || {}, {
         tex: {
@@ -296,8 +296,8 @@ $$<p>Матрица смежности позволяет для любой па
         }
       }, JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744612242"></script>
-    <script src="/js/theme.min.js?1744612242" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744984597"></script>
+    <script src="/js/theme.min.js?1744984597" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];

@@ -29,17 +29,17 @@
     <meta itemprop="dateModified" content="2025-03-02T11:30:34+03:00">
     <meta itemprop="wordCount" content="689">
     <title>7. Двоичная куча :: Краткий курс по основам программирования</title>
-    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744612242" rel="stylesheet">
-    <link href="/css/theme.min.css?1744612242" rel="stylesheet">
-    <link href="/css/format-html.min.css?1744612242" rel="stylesheet" id="R-format-style">
-    <link href="/css/auto-complete/auto-complete.min.css?1744612242" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.ru.min.js?1744612242" defer></script>
-    <script src="/js/search.min.js?1744612242" defer></script>
+    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744984597" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744984597" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744984597" rel="stylesheet">
+    <link href="/css/theme.min.css?1744984597" rel="stylesheet">
+    <link href="/css/format-html.min.css?1744984597" rel="stylesheet" id="R-format-style">
+    <link href="/css/auto-complete/auto-complete.min.css?1744984597" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js?1744984597" defer></script>
+    <script src="/js/search.min.js?1744984597" defer></script>
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -49,7 +49,7 @@
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
       window.relearn.contentLangs=['ru'];
-      window.relearn.index_js_url="/searchindex.ru.js?1744612242";
+      window.relearn.index_js_url="/searchindex.ru.js?1744984597";
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
       window.relearn.disableInlineCopyToClipboard=false;
@@ -183,10 +183,10 @@
 </details>
 <p>При этом выполняется свойство кучи: значение любого элемента не меньше значения его родителя: $a[i] \geqslant a\left[\left\lfloor\frac{i}{2}\right]\right]$. Такую кучу также могут называть неубывающая пирамида. Аналогично, если $a[i] \leqslant a\left[\left\lfloor\frac{i}{2}\right]\right]$ - то невозрастающая пирамида.</p>
 <p>Заметим, что отсортированный массив всегда является кучей. Но фиксированный набор элементов обычно можно упорядочить и многими другими способами так, что тоже получится куча.
-<a href="#R-image-43692103743fef8b8b4a1ece3b4a7614" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-43692103743fef8b8b4a1ece3b4a7614"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg"></a></p>
-<p><a href="#R-image-9ee4f2e65c6d9e16c83ab7619341ad21" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-9ee4f2e65c6d9e16c83ab7619341ad21"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg"></a></p>
+<a href="#R-image-5c3349c9c3f4d936681e3e7f751a1973" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-5c3349c9c3f4d936681e3e7f751a1973"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg"></a></p>
+<p><a href="#R-image-dab8bf34f8472f395d0be14307daf516" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-dab8bf34f8472f395d0be14307daf516"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg"></a></p>
 <p>Будем пользоваться терминами из теории графов. Элементы дерева (кучи) будем называть вершинами. Корень дерева - единственная вершина без родителя (в нашем случае это $a[1]$ ). Потомки вершины - это она сама, её дети, а также все их потомки; у листа (вершины без детей) потомков (кроме него самого) нет. Предок вершины $v$ - любая такая вершина $u$, что $v$ - потомок $u$. Поддерево вершины $v$ состоит из всех её потомков; $v$ - корень своего поддерева.</p>
 <p>Иногда мы будем называть кучей не массив с индексами от 1 до $n$, а просто дерево, в котором свойство кучи выполняется для всех пар родитель-ребёнок. В этом смысле любое поддерево кучи тоже является кучей.</p>
 <p>Глубина $x$ - количество вершин на пути от корня дерева до $x$ (все вершины являются потомками корня). Высота вершины $x$ - максимальное количество вершин на пути от $x$ до какого-либо её потомка. Высота дерева - максимум из высот вершин, то есть высота корня.</p>
@@ -542,8 +542,8 @@ $$
 <div id="R-footer"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/clipboard/clipboard.min.js?1744612242" defer></script>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744612242" defer></script>
+    <script src="/js/clipboard/clipboard.min.js?1744984597" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744984597" defer></script>
     <script>
       window.MathJax = Object.assign( window.MathJax || {}, {
         tex: {
@@ -555,8 +555,8 @@ $$
         }
       }, JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744612242"></script>
-    <script src="/js/theme.min.js?1744612242" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744984597"></script>
+    <script src="/js/theme.min.js?1744984597" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];

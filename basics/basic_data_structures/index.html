@@ -29,17 +29,17 @@
     <meta itemprop="dateModified" content="2025-02-16T12:32:57+03:00">
     <meta itemprop="wordCount" content="1338">
     <title>4. Базовые структуры данных :: Краткий курс по основам программирования</title>
-    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744612242" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744612242" rel="stylesheet">
-    <link href="/css/theme.min.css?1744612242" rel="stylesheet">
-    <link href="/css/format-html.min.css?1744612242" rel="stylesheet" id="R-format-style">
-    <link href="/css/auto-complete/auto-complete.min.css?1744612242" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1744612242" defer></script>
-    <script src="/js/lunr/lunr.ru.min.js?1744612242" defer></script>
-    <script src="/js/search.min.js?1744612242" defer></script>
+    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744984597" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744984597" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744984597" rel="stylesheet">
+    <link href="/css/theme.min.css?1744984597" rel="stylesheet">
+    <link href="/css/format-html.min.css?1744984597" rel="stylesheet" id="R-format-style">
+    <link href="/css/auto-complete/auto-complete.min.css?1744984597" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js?1744984597" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js?1744984597" defer></script>
+    <script src="/js/search.min.js?1744984597" defer></script>
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -49,7 +49,7 @@
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
       window.relearn.contentLangs=['ru'];
-      window.relearn.index_js_url="/searchindex.ru.js?1744612242";
+      window.relearn.index_js_url="/searchindex.ru.js?1744984597";
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
       window.relearn.disableInlineCopyToClipboard=false;
@@ -195,11 +195,11 @@
 </div>
 <h3 id="связный-список">Связный список</h3>
 <p>Связный список (linked list) состоит из узлов, каждый из которых содержит данные и ссылки на соседние узлы.
-<a href="#R-image-eecaaa37f085c10b3495e773dbd2c360" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/linkedList.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-eecaaa37f085c10b3495e773dbd2c360"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/linkedList.png"></a>
+<a href="#R-image-87bbb6dc7ee78065292684c7b2c0b147" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/linkedList.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-87bbb6dc7ee78065292684c7b2c0b147"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/linkedList.png"></a>
 В двусвязном списке поддерживаются ссылки на следующий и предыдущий узел, в односвязном списке - только на следующий.
-<a href="#R-image-b4fae685a54e91eeeacf744060d32723" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/doubleLinkedList.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-b4fae685a54e91eeeacf744060d32723"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/doubleLinkedList.png"></a>
+<a href="#R-image-02ea0b1148786e976836435d5f734c2b" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/doubleLinkedList.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-02ea0b1148786e976836435d5f734c2b"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/doubleLinkedList.png"></a>
 Также поддерживаются ссылки на начало и конец списка (их часто называют головой и хвостом). Для того, чтобы посетить все узлы, можно начать с головы и переходить по ссылке на следующий узел, пока он существует.</p>
 <p>Преимущество списка перед массивом - возможность вставлять и удалять элементы за $O(1)$.</p>
 <p>Недостаток списка - невозможность быстрого доступа к произвольному элементу. Так, доступ к $i$-му элементу можно получить, лишь $i$ раз пройдя по ссылке вперёд, начиная из головы списка (то есть за $\Theta(i)$ ).</p>
@@ -362,11 +362,11 @@
 </details>
 <h3 id="стек-очередь-дек">Стек, очередь, дек</h3>
 <p>Стек (stack) позволяет поддерживать список элементов, вставлять элемент в конец списка, а также удалять элемент из конца списка. Часто также говорят, что он организован по принципу LIFO (last in - first out).</p>
-<p><a href="#R-image-5cd9a9daa8ff4d285a9bdf1c2975ed64" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/stack.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-5cd9a9daa8ff4d285a9bdf1c2975ed64"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/stack.png"></a></p>
+<p><a href="#R-image-fe0626812a942ad2e3a50def8f93240b" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/stack.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-fe0626812a942ad2e3a50def8f93240b"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/stack.png"></a></p>
 <p>Очередь (queue) организована по принципу FIFO (first in - first out). Она позволяет вставлять элемент в конец списка, а также удалять элемент из начала списка.</p>
-<p><a href="#R-image-d049e674768c5566b41fc249cb616657" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/queue.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-d049e674768c5566b41fc249cb616657"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/queue.png"></a></p>
+<p><a href="#R-image-8c40b86fd07b805df6735fa2b0698349" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/queue.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-8c40b86fd07b805df6735fa2b0698349"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/basic_data_structures/queue.png"></a></p>
 <p>Дек (deque - double ended queue), или двусторонняя очередь, отличается от обычной очереди тем, что позволяет добавлять и удалять элементы как в начало, так и в конец списка.</p>
 <p>Все эти структуры можно реализовать с помощью связного списка. Для стека и очереди хватит односвязного списка: в стеке достаточно поддерживать ссылку на предыдущий элемент, а в очереди - на следующий. Для реализации дека понадобится двусвязный список.</p>
 <p>Также все три структуры можно реализовать с помощью динамического массива. В случае дека нужно научиться добавлять элементы в начало, для чего можно зациклить массив. То же самое можно сделать в реализации очереди, чтобы переиспользовать освободившееся место в начале массива. Приведём примерную реализацию дека на динамическом массиве:</p>
@@ -520,8 +520,8 @@
 <div id="R-footer"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/clipboard/clipboard.min.js?1744612242" defer></script>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744612242" defer></script>
+    <script src="/js/clipboard/clipboard.min.js?1744984597" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744984597" defer></script>
     <script>
       window.MathJax = Object.assign( window.MathJax || {}, {
         tex: {
@@ -533,8 +533,8 @@
         }
       }, JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744612242"></script>
-    <script src="/js/theme.min.js?1744612242" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744984597"></script>
+    <script src="/js/theme.min.js?1744984597" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
