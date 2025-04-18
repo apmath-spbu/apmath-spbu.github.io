@@ -3,8 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.145.0">
-    <meta name="generator" content="Relearn 7.6.1+b0c6bb558d7728ac4535a2ac677c5f47297203cc">
     <meta name="description" content="Во взвешенном графе (weighted graph) каждое ребро имеет вес (weight) $w_{e}$. В зависимости от задачи, веса могут быть как целыми, так и вещественными; иногда допускаются отрицательные веса.
 Длина (length) пути во взвешенном графе - это сумма весов рёбер на пути. Можно считать, что все рёбра в невзвешенном графе имеют вес, равный единице. Тогда длина пути в невзвешенном графе - это просто количество рёбер в этом пути. Кратчайший путь (shortest path) между двумя вершинами - это путь минимальной длины между этими вершинами (путь с минимальным числом рёбер в невзвешенном случае). Расстояние (distance) между вершинами - длина кратчайшего пути между ними. Если пути между вершинами нет, расстояние считается бесконечным.">
     <meta name="author" content="">
@@ -29,17 +27,17 @@
     <meta itemprop="dateModified" content="2025-03-12T09:30:55+03:00">
     <meta itemprop="wordCount" content="1531">
     <title>14. Графы. Алгоритмы поиска кратчайших путей :: Краткий курс по основам программирования</title>
-    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744984597" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744984597" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744984597" rel="stylesheet">
-    <link href="/css/theme.min.css?1744984597" rel="stylesheet">
-    <link href="/css/format-html.min.css?1744984597" rel="stylesheet" id="R-format-style">
-    <link href="/css/auto-complete/auto-complete.min.css?1744984597" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1744984597" defer></script>
-    <script src="/js/lunr/lunr.min.js?1744984597" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1744984597" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1744984597" defer></script>
-    <script src="/js/lunr/lunr.ru.min.js?1744984597" defer></script>
-    <script src="/js/search.min.js?1744984597" defer></script>
+    <link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -49,7 +47,7 @@
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
       window.relearn.contentLangs=['ru'];
-      window.relearn.index_js_url="/searchindex.ru.js?1744984597";
+      window.relearn.index_js_url="/searchindex.ru.js";
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
       window.relearn.disableInlineCopyToClipboard=false;
@@ -156,7 +154,7 @@
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/graph_depth_search/index.html" title="13. Графы. Поиск в глубину (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
             </div>
-            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><span class="topbar-control"><i class="fa-fw fas fa-chevron-right"></i></span>
+            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/greedy_algorithms/index.html" title="15. Жадные алгоритмы (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a>
             </div>
             <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button>
               <div class="topbar-content">
@@ -271,8 +269,8 @@
 </span></span><span style="display:flex;"><span>    q <span style="color:#f92672">&lt;--</span> u</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p><a href="#R-image-3f50b90818aea321b8d4e1f8da2810cb" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_shortest_path_tree.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-3f50b90818aea321b8d4e1f8da2810cb"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_and_shortest_path_tree.png"></a></p>
+<p><a href="#R-image-3027fca5d16372031196dad9220d3222" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_shortest_path_tree.png" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-3027fca5d16372031196dad9220d3222"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_and_shortest_path_tree.png"></a></p>
 <p>Граф и его дерево кратчайших путей</p>
 <div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -761,7 +759,8 @@ $\operatorname{dist}[i, k]+\operatorname{dist}[k, j]$, обновим $\operator
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="" data-nav-id="/basics/graph_definition/index.html"><a class="padding" href="/basics/graph_definition/index.html">12. Графы. Определения и способы хранения</a></li>
             <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li>
-            <li class="active " data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li></ul></li>
+            <li class="active " data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li>
+            <li class="" data-nav-id="/basics/greedy_algorithms/index.html"><a class="padding" href="/basics/greedy_algorithms/index.html">15. Жадные алгоритмы</a></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
@@ -779,8 +778,8 @@ $\operatorname{dist}[i, k]+\operatorname{dist}[k, j]$, обновим $\operator
 <div id="R-footer"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/clipboard/clipboard.min.js?1744984597" defer></script>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744984597" defer></script>
+    <script src="/js/clipboard/clipboard.min.js" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
     <script>
       window.MathJax = Object.assign( window.MathJax || {}, {
         tex: {
@@ -792,8 +791,8 @@ $\operatorname{dist}[i, k]+\operatorname{dist}[k, j]$, обновим $\operator
         }
       }, JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744984597"></script>
-    <script src="/js/theme.min.js?1744984597" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/theme.min.js" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];

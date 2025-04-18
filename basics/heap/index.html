@@ -3,8 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="generator" content="Hugo 0.145.0">
-    <meta name="generator" content="Relearn 7.6.1+b0c6bb558d7728ac4535a2ac677c5f47297203cc">
     <meta name="description" content="Пусть мы хотим поддерживать множество элементов и быстро выполнять на нём следующие операции: добавлять и удалять элементы, а также находить минимум.
 Можно попытаться сделать это с помощью динамического массива или списка. Тогда мы сможем добавлять и удалять элементы за $O(1)$ (чтобы быстро удалить элемент из массива, поменяем его местами с последним элементом, после чего уменьшим длину массива на один). Однако быстро находить минимум не получится: можно пытаться поддерживать указатель на минимальный элемент, но после каждого удаления минимума новый минимум получится найти лишь перебором всех оставшихся элементов за $\Theta(n)$ (где $n$ - число элементов в множестве). Можно было бы поддерживать массив в отсортированном порядке (тогда минимум всегда будет в начале), но тогда не получится быстро добавлять или удалять произвольный элемент.">
     <meta name="author" content="">
@@ -29,17 +27,17 @@
     <meta itemprop="dateModified" content="2025-03-02T11:30:34+03:00">
     <meta itemprop="wordCount" content="689">
     <title>7. Двоичная куча :: Краткий курс по основам программирования</title>
-    <link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744984597" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css?1744984597" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css?1744984597" rel="stylesheet">
-    <link href="/css/theme.min.css?1744984597" rel="stylesheet">
-    <link href="/css/format-html.min.css?1744984597" rel="stylesheet" id="R-format-style">
-    <link href="/css/auto-complete/auto-complete.min.css?1744984597" rel="stylesheet">
-    <script src="/js/auto-complete/auto-complete.min.js?1744984597" defer></script>
-    <script src="/js/lunr/lunr.min.js?1744984597" defer></script>
-    <script src="/js/lunr/lunr.stemmer.support.min.js?1744984597" defer></script>
-    <script src="/js/lunr/lunr.multi.min.js?1744984597" defer></script>
-    <script src="/js/lunr/lunr.ru.min.js?1744984597" defer></script>
-    <script src="/js/search.min.js?1744984597" defer></script>
+    <link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -49,7 +47,7 @@
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
       window.relearn.contentLangs=['ru'];
-      window.relearn.index_js_url="/searchindex.ru.js?1744984597";
+      window.relearn.index_js_url="/searchindex.ru.js";
       window.relearn.disableAnchorCopy=false;
       window.relearn.disableAnchorScrolling=false;
       window.relearn.disableInlineCopyToClipboard=false;
@@ -183,10 +181,10 @@
 </details>
 <p>При этом выполняется свойство кучи: значение любого элемента не меньше значения его родителя: $a[i] \geqslant a\left[\left\lfloor\frac{i}{2}\right]\right]$. Такую кучу также могут называть неубывающая пирамида. Аналогично, если $a[i] \leqslant a\left[\left\lfloor\frac{i}{2}\right]\right]$ - то невозрастающая пирамида.</p>
 <p>Заметим, что отсортированный массив всегда является кучей. Но фиксированный набор элементов обычно можно упорядочить и многими другими способами так, что тоже получится куча.
-<a href="#R-image-5c3349c9c3f4d936681e3e7f751a1973" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-5c3349c9c3f4d936681e3e7f751a1973"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg"></a></p>
-<p><a href="#R-image-dab8bf34f8472f395d0be14307daf516" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-dab8bf34f8472f395d0be14307daf516"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg"></a></p>
+<a href="#R-image-f282b283c137a8a954c16ffb04e746bc" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-f282b283c137a8a954c16ffb04e746bc"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_arr.jpg"></a></p>
+<p><a href="#R-image-8d4a6cce904a51b660e96d20e26b56aa" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg" style=" height: auto; width: auto;"></a>
+<a href="javascript:history.back();" class="lightbox-back" id="R-image-8d4a6cce904a51b660e96d20e26b56aa"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/heap/heap_tree.jpg"></a></p>
 <p>Будем пользоваться терминами из теории графов. Элементы дерева (кучи) будем называть вершинами. Корень дерева - единственная вершина без родителя (в нашем случае это $a[1]$ ). Потомки вершины - это она сама, её дети, а также все их потомки; у листа (вершины без детей) потомков (кроме него самого) нет. Предок вершины $v$ - любая такая вершина $u$, что $v$ - потомок $u$. Поддерево вершины $v$ состоит из всех её потомков; $v$ - корень своего поддерева.</p>
 <p>Иногда мы будем называть кучей не массив с индексами от 1 до $n$, а просто дерево, в котором свойство кучи выполняется для всех пар родитель-ребёнок. В этом смысле любое поддерево кучи тоже является кучей.</p>
 <p>Глубина $x$ - количество вершин на пути от корня дерева до $x$ (все вершины являются потомками корня). Высота вершины $x$ - максимальное количество вершин на пути от $x$ до какого-либо её потомка. Высота дерева - максимум из высот вершин, то есть высота корня.</p>
@@ -524,7 +522,8 @@ $$
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="" data-nav-id="/basics/graph_definition/index.html"><a class="padding" href="/basics/graph_definition/index.html">12. Графы. Определения и способы хранения</a></li>
             <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li>
-            <li class="" data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li></ul></li>
+            <li class="" data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li>
+            <li class="" data-nav-id="/basics/greedy_algorithms/index.html"><a class="padding" href="/basics/greedy_algorithms/index.html">15. Жадные алгоритмы</a></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
@@ -542,8 +541,8 @@ $$
 <div id="R-footer"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/clipboard/clipboard.min.js?1744984597" defer></script>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js?1744984597" defer></script>
+    <script src="/js/clipboard/clipboard.min.js" defer></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
     <script>
       window.MathJax = Object.assign( window.MathJax || {}, {
         tex: {
@@ -555,8 +554,8 @@ $$
         }
       }, JSON.parse("{}") );
     </script>
-    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js?1744984597"></script>
-    <script src="/js/theme.min.js?1744984597" defer></script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/theme.min.js" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
