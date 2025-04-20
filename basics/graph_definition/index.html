@@ -162,13 +162,11 @@
 <h2 id="определения">Определения</h2>
 <p>Граф задаётся множеством вершин $V$ и множеством рёбер $E$, соединяющих пары вершин (в английском языке граф - graph, вершина - vertex или node, ребро - edge).</p>
 <p>В ориентированном (directed graph, digraph) графе каждое ребро имеет направление, то есть является упорядоченной парой вершин (может быть ребро из вершины $a$ в вершину $b$, но не быть ребра из $b$ в $a$ ). В неориентированном (undirected) графе рёбра направлений не имеют, то есть являются неупорядоченными парами (считаем, что ребро, ведущее из $a$ в $b$, ведёт и из $b$ в $a$ тоже).</p>
-<p><a href="#R-image-ecec9924cfda1a9e8dc861d63922d065" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_examples.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-ecec9924cfda1a9e8dc861d63922d065"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_examples.png"></a></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_examples.png" style=" height: auto; width: auto;"></p>
 <p>Неориентированный и ориентированный графы</p>
 <p>Пример неориентированного графа - карта стран (вершины - страны, рёбра есть между странами, имеющими общую границу). Пример ориентированного графа - интернет (вершины - сайты, рёбра - гиперссылки). Ещё примеры графов - транспортные сети (автомобильные, железнодорожные, авиационные), графы друзей в соцсетях.</p>
 <p>В графе может быть несколько рёбер между одной парой вершин (несколько рёбер в одном направлении в ориентированном графе). Такие рёбра называются кратными (multiple edges). Ребро, концы которого совпадают, называют петлёй (loор). Графы без петель и кратных рёбер называют простыми (simple).</p>
-<p><a href="#R-image-9db8a87a3eb78f096ba9d8babfe820c1" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_with_circles.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-9db8a87a3eb78f096ba9d8babfe820c1"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_with_circles.png"></a></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_with_circles.png" style=" height: auto; width: auto;"></p>
 <p>Граф с петлями и кратными рёбрами</p>
 <p>Для ребра $e=(a, b)$ вершины $a$ и $b$ называют его концами (endpoints) (или началом и концом в случае ориентированного графа). Ребро инцидентно (incident) каждому из</p>
 <p>своих концов. Две вершины неориентированного графа, соединённые ребром, называют смежными (adjacent). Два ребра неориентированного графа, имеющие общий конец, тоже называют смежными.</p>
@@ -180,8 +178,7 @@
 <li>Матрица смежности (adjacency matrix) графа - это матрица (двумерный массив) $a$ размера $n \times n$, где $a_{i, j}$ - количество рёбер, идущих из $v_{i}$ в $v_{j}$. Матрица смежности простого графа состоит из нулей и единиц, а её главная диагональ (множество элементов вида $a_{i, i}$ ) состоит из нулей. Матрица смежности неориентированного графа симметрична ( $a_{i, j}=a_{j, i}$ ).</li>
 <li>Списки смежности (adjacency lists) графа - это набор списков, по одному для каждой вершины: в списке смежности вершины $v$ хранится список вершин, в которые ведут рёбра из $v$ (или список самих рёбер). В графе с кратными рёбрами вершина $u$ встречается в списке $v$ столько раз, сколько рёбер из $v$ в $u$ есть в графе. В неориентированном графе каждое ребро входит в списки обоих своих концов; в ориентированном - только в список своего начала. Размер списка смежности вершины $v$ равен $\operatorname{deg}(v)\left(\operatorname{deg}_{\text {out }}(v)\right.$ в ориентированном графе).</li>
 </ul>
-<p><a href="#R-image-e7058091b9d83040e36b0c1ccc11476f" class="lightbox-link"><img class="lazy lightbox figure-image" loading="lazy" src="/static/images/basics/graph/graph_example_store.png" style=" height: auto; width: auto;"></a>
-<a href="javascript:history.back();" class="lightbox-back" id="R-image-e7058091b9d83040e36b0c1ccc11476f"><img class="lazy lightbox lightbox-image" loading="lazy" src="/static/images/basics/graph/graph_example_store.png"></a></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_example_store.png" style=" height: auto; width: auto;"></p>
 $$
 \begin{pmatrix}
 0 & 1 & 0 & 2 & 0 \\
