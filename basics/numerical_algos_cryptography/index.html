@@ -25,7 +25,7 @@
 Более формально, пусть Алиса хочет послать Бобу секретное сообщение - битовую строку $x$. Она шифрует её с помощью некоторой функции $E(\cdot)$ (от англ. encoder) и посылает Бобу зашифрованное сообщение $E(x)$. Боб использует функцию $D(\cdot)$ (от англ. decoder), чтобы восстановить исходное сообщение: $D(E(x))=x$.">
     <meta itemprop="datePublished" content="2025-03-15T19:04:57+03:00">
     <meta itemprop="dateModified" content="2025-03-15T19:04:57+03:00">
-    <meta itemprop="wordCount" content="998">
+    <meta itemprop="wordCount" content="2383">
     <title>11. Криптография :: Краткий курс по основам программирования</title>
     <link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet"></noscript>
     <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
@@ -92,7 +92,21 @@
       window.T_View_reset = `Посмотреть сброс!`;
       window.T_No_results_found = `Ничего не найдено для "{0}"`;
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
-    </script>
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
   </head>
   <body class="mobile-support html" data-url="/basics/numerical_algos_cryptography/index.html">
     <div id="R-body" class="default-animation">
@@ -171,19 +185,6 @@
         <div class="flex-block-wrapper">
 <article class="default">
   <header class="headline">
-      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script>
-
   </header>
 
 <h1 id="11-криптография">11. Криптография</h1>
@@ -223,7 +224,7 @@
 <li>Боб выбирает два случайных больших простых числа $p \neq q$, вычисляет $n=p q$, $\varphi(n)=(p-1)(q-1)$.</li>
 <li>Боб выбирает $e$, взаимно простое с $\varphi(n)$. Обычно берётся небольшое $e$, чтобы шифрование занимало меньше времени. Боб публикует пару ( $n, e$ ) - открытый ключ.</li>
 <li>Боб вычисляет $d$, обратное к $e$ по модулю $\varphi(n): d e \equiv 1(\bmod \varphi(n))$. Пара $(n, d)$ - закрытый ключ Боба.</li>
-<li>Алиса хочет передать Бобу сообщение $x$. Считаем, что $0 \leqslant x<n$ (иначе поделим сообщение на части и пошлём каждую отдельно). Используя открытый ключ Боба, Алиса вычисляет $y=E(x)=x^{e} \bmod n$ и передаёт его Бобу.</li>
+<li>Алиса хочет передать Бобу сообщение $x$. Считаем, что $0 \leqslant x < n$ (иначе поделим сообщение на части и пошлём каждую отдельно). Используя открытый ключ Боба, Алиса вычисляет $y=E(x)=x^{e} \bmod n$ и передаёт его Бобу.</li>
 <li>Боб получает $y$, и, пользуясь закрытым ключом, вычисляет $D(y)=y^{d} \bmod n=$ $x^{d e} \bmod n$.</li>
 </ul>
 

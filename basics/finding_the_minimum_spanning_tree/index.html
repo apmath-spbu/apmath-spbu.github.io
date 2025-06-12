@@ -25,7 +25,7 @@
 Пусть дан связный неориентированный граф с неотрицательными весами рёбер, и мы хотим выбрать подмножество рёбер как можно меньшего суммарного веса, с помощью которого можно было бы добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно из рёбер, не увеличив суммарный вес и не нарушив связности. Значит, мы хотим найти остовное дерево минимально возможного веса, или минимальное остовное дерево (minimum spanning tree).">
     <meta itemprop="datePublished" content="2025-04-20T13:55:32+03:00">
     <meta itemprop="dateModified" content="2025-04-20T13:55:32+03:00">
-    <meta itemprop="wordCount" content="1601">
+    <meta itemprop="wordCount" content="2837">
     <title>Поиск минимального остовного дерева :: Краткий курс по основам программирования</title>
     <link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet"></noscript>
     <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
@@ -92,7 +92,21 @@
       window.T_View_reset = `Посмотреть сброс!`;
       window.T_No_results_found = `Ничего не найдено для "{0}"`;
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
-    </script>
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
   </head>
   <body class="mobile-support html" data-url="/basics/finding_the_minimum_spanning_tree/index.html">
     <div id="R-body" class="default-animation">
@@ -155,19 +169,6 @@
         <div class="flex-block-wrapper">
 <article class="default">
   <header class="headline">
-      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script>
-
   </header>
 
 <h1 id="поиск-минимального-остовного-дерева">Поиск минимального остовного дерева</h1>
@@ -389,7 +390,7 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
   <div class="box-content">
 <p>Для рангов вершин выполняются следующие свойства:</p>
 <ol>
-<li>если $v \neq p[v]$, то $r k[v]<r k[p[v]]$;</li>
+<li>если $v \neq p[v]$, то $r k[v] < r k[p[v]]$;</li>
 <li>вершина ранга $k$ имеет поддерево размера хотя бы $2^{k}$;</li>
 <li>количество вершин ранга $k$ не превосходит $n / 2^{k}$.</li>
 </ol>
@@ -463,7 +464,7 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
   <div class="box-content">
 <p>Для рангов вершин выполняются следующие свойства:</p>
 <ol>
-<li>если $v \neq p[v]$, то $r k[v]<r k[p[v]]$;</li>
+<li>если $v \neq p[v]$, то $r k[v] < r k[p[v]]$;</li>
 <li>корневая вершина ранга $k$ имеет поддерево размера хотя бы $2^{k}$;</li>
 <li>количество вершин ранга $k$ не превосходит $n / 2^{k}$.</li>
 </ol>

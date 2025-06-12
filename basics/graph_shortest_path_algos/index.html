@@ -25,7 +25,7 @@
 Длина (length) пути во взвешенном графе - это сумма весов рёбер на пути. Можно считать, что все рёбра в невзвешенном графе имеют вес, равный единице. Тогда длина пути в невзвешенном графе - это просто количество рёбер в этом пути. Кратчайший путь (shortest path) между двумя вершинами - это путь минимальной длины между этими вершинами (путь с минимальным числом рёбер в невзвешенном случае). Расстояние (distance) между вершинами - длина кратчайшего пути между ними. Если пути между вершинами нет, расстояние считается бесконечным.">
     <meta itemprop="datePublished" content="2025-03-12T09:30:55+03:00">
     <meta itemprop="dateModified" content="2025-03-12T09:30:55+03:00">
-    <meta itemprop="wordCount" content="1531">
+    <meta itemprop="wordCount" content="5302">
     <title>14. Графы. Алгоритмы поиска кратчайших путей :: Краткий курс по основам программирования</title>
     <link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet"></noscript>
     <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
@@ -92,7 +92,21 @@
       window.T_View_reset = `Посмотреть сброс!`;
       window.T_No_results_found = `Ничего не найдено для "{0}"`;
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
-    </script>
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
   </head>
   <body class="mobile-support html" data-url="/basics/graph_shortest_path_algos/index.html">
     <div id="R-body" class="default-animation">
@@ -174,19 +188,6 @@
         <div class="flex-block-wrapper">
 <article class="default">
   <header class="headline">
-      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script>
-
   </header>
 
 <h1 id="14-графы-алгоритмы-поиска-кратчайших-путей">14. Графы. Алгоритмы поиска кратчайших путей</h1>
@@ -366,7 +367,7 @@
 </div>
 </div>
 <p>$\operatorname{dist}[v]$ снова всегда равняется длине какого-то пути от $s$ до $v$ (либо $\infty$ ). Покажем по индукции, что вершины $v$ такие, что $\operatorname{dist}[v]=i$ в момент извлечения $v$ из $q_{i}$ - это ровно вершины множества $A_{i}$. Это верно для $i=0$; для $i>0$ в $q_{i}$ попадают вершины из $V \backslash A_{0} \backslash \cdots \backslash A_{i-1}$, в которые ведёт ребро веса 1 из $A_{i-1}$, веса 2 из $A_{i-2}, \ldots$ или веса $k$ из $A_{i-k}$ (то есть вершины множества $A_{i}$ ), а также, возможно, часть вершин из $A_{0} \cup \cdots \cup A_{i-1}$, в которые ведут такие же рёбра. Тогда такие вершины $v$, что $\operatorname{dist}[v]=i$ в момент извлечения $v$ из $q_{i}$ - это ровно вершины множества $A_{i}$.</p>
-<p>При этом каждая вершина попадёт в не более чем $k$ различных очередей: пусть вершина $u$ попала в $q_{d i s t[v]+w_{e}}$ при рассмотрении ребра $e=(v, u)$, до этого было верно $\operatorname{dist}[u]=\infty$. Тогда в этот момент $\operatorname{dist}[v]=d_{v}$, откуда $d_{u}>d_{v}$ (иначе $u$ уже попала бы до этого в очередь $q_{i}$ для $i \leqslant d_{v}$ ). Но тогда $\operatorname{dist}[u]=\operatorname{dist}[v]+w_{e}<d_{u}+k$, значит, $u$ попадёт в другие очереди ещё не более $k-1$ раза.</p>
+<p>При этом каждая вершина попадёт в не более чем $k$ различных очередей: пусть вершина $u$ попала в $q_{d i s t[v]+w_{e}}$ при рассмотрении ребра $e=(v, u)$, до этого было верно $\operatorname{dist}[u]=\infty$. Тогда в этот момент $\operatorname{dist}[v]=d_{v}$, откуда $d_{u}>d_{v}$ (иначе $u$ уже попала бы до этого в очередь $q_{i}$ для $i \leqslant d_{v}$ ). Но тогда $\operatorname{dist}[u]=\operatorname{dist}[v]+w_{e} < d_{u}+k$, значит, $u$ попадёт в другие очереди ещё не более $k-1$ раза.</p>
 <p>Получаем время работы $O(k V+E)$, так как каждая вершина попала не более, чем в $k$ очередей; при этом список смежности каждой вершины был рассмотрен ровно один раз.</p>
 <h3 id="произвольные-веса">Произвольные веса</h3>
 <p>Что делать, если веса рёбер - произвольные вещественные числа? Попробуем модифицировать алгоритм поиска в ширину так, чтобы он всё ещё работал. Первая идея: будем класть вершину $v$ в очередь каждый раз, когда значение $\operatorname{dist}[v]$ уменьшается; теперь каждую вершину, мы, возможно, будем обрабатывать несколько раз. Другая идея: вместо обычной очереди будем пользоваться очередью с приоритетами, извлекая на каждом шаге такую вершину $v$, что значение $\operatorname{dist}[v]$ минимально среди всех вершин в очереди.</p>

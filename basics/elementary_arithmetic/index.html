@@ -96,7 +96,21 @@
       window.T_View_reset = `Посмотреть сброс!`;
       window.T_No_results_found = `Ничего не найдено для "{0}"`;
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
-    </script>
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
   </head>
   <body class="mobile-support html" data-url="/basics/elementary_arithmetic/index.html">
     <div id="R-body" class="default-animation">
@@ -154,19 +168,6 @@
         <div class="flex-block-wrapper">
 <article class="default">
   <header class="headline">
-      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script>
-
   </header>
 
 <h1 id="2-элементарная-арифметика">2. Элементарная арифметика</h1>
@@ -316,7 +317,7 @@ $$<p>При этом $\left\lfloor\frac{2 \cdot r^{\prime}}{b}\right\rfloor,\lef
 </div>
 <p>Время работы, как и в предыдущем случае, оценивается как $O\left(n^{2}\right)$. Есть и более точная в некоторых случаях оценка: если длины битовых записей $a$ и $b$ равны $n$ и $m$, то количество итераций цикла не превосходит $n-m+1$, поэтому получаем оценку $O(n(n-m+1))$.</p>
 <h3 id="24-алгоритм-карацубы">2.4 Алгоритм Карацубы</h3>
-<p>Можно ли перемножать числа быстрее? Оказывается, что да! Следующий алгоритм был придуман советским математиком Анатолием Карацубой в 1962 году.</p>
+<p>Можно ли перемножать числа быстрее? Оказывается, что да! Следующий алгоритм был придуман советским математиком <a href="https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D1%80%D0%B0%D1%86%D1%83%D0%B1%D0%B0,_%D0%90%D0%BD%D0%B0%D1%82%D0%BE%D0%BB%D0%B8%D0%B9_%D0%90%D0%BB%D0%B5%D0%BA%D1%81%D0%B5%D0%B5%D0%B2%D0%B8%D1%87" rel="external" target="_blank">Анатолием Карацубой</a> в 1962 году.</p>
 <p>Будем для удобства считать, что длина битовой записи чисел $n$ - степень двойки (если это не так, добавим ведущих нулей, при этом длина чисел увеличится не более чем вдвое, что не повлияет на асимптотическую оценку).</p>
 <p>Разобьём каждое из чисел на две равных половины: $a=2^{\frac{n}{2}} a_{l}+a_{r}, b=2^{\frac{n}{2}} b_{l}+b_{r}$.
 Заметим, что</p>
