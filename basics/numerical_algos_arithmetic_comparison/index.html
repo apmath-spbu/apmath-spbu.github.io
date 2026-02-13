@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
-  <head>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
@@ -10,14 +10,14 @@
     <meta name="twitter:title" content="9. Арифметика сравнений :: Краткий курс по основам программирования">
     <meta name="twitter:description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
 Сложение и умножение по модулю Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.">
-    <meta property="og:url" content="https://apmath-spbu.github.io/basics/numerical_algos_arithmetic_comparison/index.html">
+    <meta property="og:url" content="http://localhost:1313/basics/numerical_algos_arithmetic_comparison/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="9. Арифметика сравнений :: Краткий курс по основам программирования">
     <meta property="og:description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
 Сложение и умножение по модулю Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
-    <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2024/25 учебный год">
+    <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
     <meta property="article:published_time" content="2025-03-15T19:04:59+03:00">
     <meta property="article:modified_time" content="2025-03-15T19:04:59+03:00">
     <meta itemprop="name" content="9. Арифметика сравнений :: Краткий курс по основам программирования">
@@ -27,17 +27,26 @@
     <meta itemprop="dateModified" content="2025-03-15T19:04:59+03:00">
     <meta itemprop="wordCount" content="1192">
     <title>9. Арифметика сравнений :: Краткий курс по основам программирования</title>
-    <link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/fontawesome-all.min.css" rel="stylesheet"></noscript>
-    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
-    <link href="/css/theme.min.css" rel="stylesheet">
-    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
     <script src="/js/lunr/lunr.min.js" defer></script>
     <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
     <script src="/js/lunr/lunr.multi.min.js" defer></script>
     <script src="/js/lunr/lunr.ru.min.js" defer></script>
-    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
     <script>
       window.relearn = window.relearn || {};
       // configuration
@@ -45,23 +54,24 @@
       window.relearn.path='\/basics\/numerical_algos_arithmetic_comparison\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
-      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
-      window.relearn.contentLangs=['ru'];
-      window.relearn.index_js_url="/searchindex.ru.js";
-      window.relearn.disableAnchorCopy=false;
-      window.relearn.disableAnchorScrolling=false;
+      window.relearn.absBaseUri='http:\/\/localhost:1313';
       window.relearn.disableInlineCopyToClipboard=false;
       window.relearn.enableBlockCodeWrap=true;
-      // legal
-      window.relearn.getItem = (s,n) => {return s.getItem(n)};
-      window.relearn.setItem = (s,n,v) => {return s.setItem(n,v)};
-      window.relearn.removeItem = (s,n) => {return s.removeItem(n)};
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
       // variant stuff
       window.relearn.themevariants = [ 'green' ];
-      window.relearn.customvariantname = "my-custom-variant";
+      window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
-        window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
         document.documentElement.dataset.rThemeVariant = variant;
         if (oldVariant != variant) {
           document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
@@ -69,29 +79,21 @@
         }
       }
       window.relearn.markVariant = function() {
-        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant");
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
         document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
       }
       window.relearn.initVariant = function() {
-        var variant = window.relearn.getItem(window.localStorage, window.relearn.absBaseUri + "/variant") ?? "";
-        if( variant == window.relearn.customvariantname ){
-        }else if( !variant || !window.relearn.themevariants.includes(variant) ){
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
           variant = window.relearn.themevariants[0];
-          window.relearn.setItem(window.localStorage, window.relearn.absBaseUri + "/variant", variant);
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
         }
         document.documentElement.dataset.rThemeVariant = variant;
       }
       window.relearn.initVariant();
       window.relearn.markVariant();
-      // translations
-      window.T_Copy_to_clipboard = `Копировать в буфер`;
-      window.T_Copied_to_clipboard = `Скопировано в буфер обмена!`;
-      window.T_Copy_link_to_clipboard = `Скопировать ссылку в буфер обмена`;
-      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
-      window.T_Reset_view = `Вид на сброс`;
-      window.T_View_reset = `Посмотреть сброс!`;
-      window.T_No_results_found = `Ничего не найдено для "{0}"`;
-      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
     </script> <link href="/css/custom_links.css" rel="stylesheet" />
   
  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
@@ -108,16 +110,18 @@
 </script> 
 
   </head>
-  <body class="mobile-support html" data-url="/basics/numerical_algos_arithmetic_comparison/index.html">
+  <body class="mobile-support html" data-origin="/basics/numerical_algos_arithmetic_comparison/index.html">
     <div id="R-body" class="default-animation">
       <div id="R-body-overlay"></div>
-      <nav id="R-topbar">
-        <div class="topbar-wrapper">
-          <div class="topbar-sidebar-divider"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
           <div class="topbar-area topbar-area-start" data-area="start">
-            <div class="topbar-button topbar-button-sidebar" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide"><button class="topbar-control" onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button>
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
             </div>
-            <div class="topbar-button topbar-button-toc" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-list-alt"></i></button>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
               <div class="topbar-content">
                 <div class="topbar-content-wrapper">
 <nav class="TableOfContents">
@@ -137,19 +141,20 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList">
-            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li>
-            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2025.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li>
-            <li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">9. Арифметика сравнений</span><meta itemprop="position" content="3"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">9. Арифметика сравнений</span><meta itemprop="position" content="3"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
-            <div class="topbar-button topbar-button-edit" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show"><a class="topbar-control" href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/numerical_algos_arithmetic_comparison.md" rel="external" target="_blank" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a>
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/numerical_algos_arithmetic_comparison.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
             </div>
-            <div class="topbar-button topbar-button-prev" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/hashing/index.html" title="8. Хеширование (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/hashing/index.html" title="8. Хеширование (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
-            <div class="topbar-button topbar-button-next" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show"><a class="topbar-control" href="/basics/numerical_algos_prime_test_and_factorization/index.html" title="10. Проверка на простоту и факторизация (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/numerical_algos_prime_test_and_factorization/index.html" title="10. Проверка на простоту и факторизация (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
-            <div class="topbar-button topbar-button-more" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show"><button class="topbar-control" onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
               <div class="topbar-content">
                 <div class="topbar-content-wrapper">
                   <div class="topbar-area topbar-area-more" data-area="more">
@@ -170,15 +175,15 @@
 <h1 id="9-арифметика-сравнений">9. Арифметика сравнений</h1>
 
 <p>Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.</p>
-<h3 id="сложение-и-умножение-по-модулю">Сложение и умножение по модулю</h3>
+<h3 id="сложение-и-умножение-по-модулю">Сложение и умножение по модулю<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.</p>
-<h3 id="возведение-в-степень-по-модулю">Возведение в степень по модулю $N$</h3>
+<h3 id="возведение-в-степень-по-модулю">Возведение в степень по модулю $N$<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Воспользуемся той же идеей, что и в рекурсивном алгоритме умножения:</p>
 $$
 a^{b}= \begin{cases}\left(a^{\left\lfloor\frac{b}{2}\right\rfloor}\right)^{2}, & \text { если } b \text { чётно, } \\ a \cdot\left(a^{\left\lfloor\frac{b}{2}\right\rfloor}\right)^{2}, & \text { иначе. }\end{cases}
-$$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+$$<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
@@ -188,7 +193,7 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>modExp(a, b, N): <span style="color:#75715e"># a и b - двоичные записи чисел, N - модуль</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>modExp(a, b, N): <span style="color:#75715e"># a и b - двоичные записи чисел, N - модуль</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> modExp(a, b <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>, N) <span style="color:#75715e"># деление нацело</span>
@@ -199,10 +204,10 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
 </div>
 </div>
 <p>Если $n$ - максимальная длина чисел $a, b, N$, то происходит $O(n)$ рекурсивных вызовов, на каждом из которых не более двух умножений по модулю $N$. Получаем оценку сложности $O(n \cdot M(n))$.</p>
-<h3 id="алгоритм-евклида">Алгоритм Евклида</h3>
+<h3 id="алгоритм-евклида">Алгоритм Евклида<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Алгоритм Евклида находит наибольший общий делитель (НОД, greatest common divisor, $\operatorname{gcd}$) двух чисел $a$ и $b$.</p>
 
-<details open class=" box cstyle notices lemma">
+<details open class="box cstyle notices lemma">
   <summary class="box-label" tabindex="-1">
     <i class="fa-fw fas fa-horse"></i> 
     Лемма
@@ -210,7 +215,7 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
   <div class="box-content">
 <p>Для любых $a, b \geqslant 0$ выполняется $\operatorname{gcd}(a, b)=\operatorname{gcd}(a \bmod b, b)$.
 
-<details open class=" box cstyle notices prove expand">
+<details open class="box cstyle notices prove expand">
   <summary class="box-label">
     <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
     <i class="fa-fw fas fa-lock-open"></i> 
@@ -223,9 +228,9 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
   </div>
 </details>
 <p>Алгоритм Евклида пользуется вышеописанным правилом, пока не окажется, что $b=0$. Ясно, что $\operatorname{gcd}(a, 0)=a$ для любого $a$.</p>
-<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
@@ -236,7 +241,7 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>gcd(a, b): <span style="color:#75715e"># a, b &gt;= 0</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>gcd(a, b): <span style="color:#75715e"># a, b &gt;= 0</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> gcd(b, a <span style="color:#f92672">%</span> b)
@@ -249,7 +254,7 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
 </div>
 <p>Оценим время работы алгоритма:</p>
 
-<details open class=" box cstyle notices lemma">
+<details open class="box cstyle notices lemma">
   <summary class="box-label" tabindex="-1">
     <i class="fa-fw fas fa-horse"></i> 
     Лемма
@@ -257,7 +262,7 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
   <div class="box-content">
 <p>Если $a \geqslant b \geqslant 0$, то $a \bmod b<\frac{a}{2}$.</p>
 
-<details open class=" box cstyle notices prove expand">
+<details open class="box cstyle notices prove expand">
   <summary class="box-label">
     <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
     <i class="fa-fw fas fa-lock-open"></i> 
@@ -270,7 +275,7 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
   </div>
 </details>
 
-<details open class=" box cstyle notices corollar">
+<details open class="box cstyle notices corollar">
   <summary class="box-label" tabindex="-1">
     <i class="fa-fw fas fa-chart-gantt"></i> 
     Следствие
@@ -278,7 +283,7 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
   <div class="box-content">
 <p>Время работы алгоритма Евклида на числах длины не более $n$ есть $O(n \cdot M(n))$.</p>
 
-<details open class=" box cstyle notices prove expand">
+<details open class="box cstyle notices prove expand">
   <summary class="box-label">
     <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
     <i class="fa-fw fas fa-lock-open"></i> 
@@ -292,7 +297,7 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
 </details>
 <p>Если использовать алгоритм деления в столбик, можно показать оценку получше:</p>
 
-<details open class=" box cstyle notices theorem">
+<details open class="box cstyle notices theorem">
   <summary class="box-label" tabindex="-1">
     <i class="fa-fw fas fa-shapes"></i> 
     Теорема
@@ -300,7 +305,7 @@ $$<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;backgrou
   <div class="box-content">
 <p>Время работы использующего деление в столбик алгоритма Евклида на числах длины не более $n$ есть $O\left(n^{2}\right)$.
 
-<details open class=" box cstyle notices prove expand">
+<details open class="box cstyle notices prove expand">
   <summary class="box-label">
     <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
     <i class="fa-fw fas fa-lock-open"></i> 
@@ -316,10 +321,10 @@ $$
 </details></p>
   </div>
 </details>
-<h3 id="расширенный-алгоритм-евклида">Расширенный алгоритм Евклида</h3>
+<h3 id="расширенный-алгоритм-евклида">Расширенный алгоритм Евклида<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Расширенный алгоритм Евклида одновременно с $d=\operatorname{gcd}(a, b)$ находит такие $x$ и $y$, что $a x+b y=d$. Эти $x$ и $y$ можно использовать как сертификат, подтверждающий, что $d$ действительно НОД $a$ и $b$ :</p>
 
-<details open class=" box cstyle notices lemma">
+<details open class="box cstyle notices lemma">
   <summary class="box-label" tabindex="-1">
     <i class="fa-fw fas fa-horse"></i> 
     Лемма
@@ -327,7 +332,7 @@ $$
   <div class="box-content">
 <p>Если $a$ и $b$ делятся на $d$, и $d=a x+b y$ для некоторых $x, y$, то $d=\operatorname{gcd}(a, b)$.</p>
 
-<details open class=" box cstyle notices prove">
+<details open class="box cstyle notices prove">
   <summary class="box-label" tabindex="-1">
     <i class="fa-fw fas fa-lock-open"></i> 
     Доказательство
@@ -339,16 +344,16 @@ $$
   </div>
 </details>
 <p>Такие $x$ и $y$ всегда можно найти следующим алгоритмом:</p>
-<div class="highlight wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>extendedEuclid(a, b): <span style="color:#75715e"># возвращает x,y такие, что ax + by = gcd(a, b)</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>extendedEuclid(a, b): <span style="color:#75715e"># возвращает x,y такие, что ax + by = gcd(a, b)</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>
 </span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> extendedEuclid(b, a <span style="color:#f92672">%</span> b)
@@ -356,7 +361,7 @@ $$
 </div>
 </div>
 
-<details open class=" box cstyle notices corollar">
+<details open class="box cstyle notices corollar">
   <summary class="box-label" tabindex="-1">
     <i class="fa-fw fas fa-chart-gantt"></i> 
     Следствие
@@ -364,7 +369,7 @@ $$
   <div class="box-content">
 <p>Вышеописанный алгоритм возвращает такие $x, y$, что $a x+b y=$ $\operatorname{gcd}(a, b)$.
 
-<details open class=" box cstyle notices prove expand">
+<details open class="box cstyle notices prove expand">
   <summary class="box-label">
     <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
     <i class="fa-fw fas fa-lock-open"></i> 
@@ -381,7 +386,7 @@ $$
 </details>
 <p>Ясно, что число итераций этого алгоритма совпадает с числом итераций обычного алгоритма Евклида (так как рекурсивные переходы устроены точно так же). Чтобы оценить время работы расширенного алгоритма Евклида, нужно ещё понять, насколько большими могут быть $x$ и $y$ :</p>
 
-<details open class=" box cstyle notices corollar">
+<details open class="box cstyle notices corollar">
   <summary class="box-label" tabindex="-1">
     <i class="fa-fw fas fa-chart-gantt"></i> 
     Следствие
@@ -389,7 +394,7 @@ $$
   <div class="box-content">
 <p>Если $a, b>0$, то для возвращаемых алгоритмом $x$ и $y$ верно, что $|x| \leqslant b,|y| \leqslant a$.
 
-<details open class=" box cstyle notices prove expand">
+<details open class="box cstyle notices prove expand">
   <summary class="box-label">
     <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
     <i class="fa-fw fas fa-lock-open"></i> 
@@ -407,7 +412,7 @@ $$
 <p>Пусть длина битовой записи $a$ и $b$ не превосходит $n$. Поскольку $a$ и $b$ только уменьшаются при рекурсивных вызовах, ясно, что все числа, возникающие в процессе промежуточных вычислений, имеют длину не более $n$. Теперь уже ясно, что оценка времени работы алгоритма Евклида $O(n \cdot M(n))$ остаётся верной и для расширенной версии.</p>
 <p>Покажем, что остаётся верной и оценка $O\left(n^{2}\right)$ :</p>
 
-<details open class=" box cstyle notices corollar">
+<details open class="box cstyle notices corollar">
   <summary class="box-label" tabindex="-1">
     <i class="fa-fw fas fa-chart-gantt"></i> 
     Следствие
@@ -415,7 +420,7 @@ $$
   <div class="box-content">
 <p>Время работы использующего деление в столбик расширенного алгоритма Евклида на числах длины не более $n$ есть $O\left(n^{2}\right)$.
 
-<details open class=" box cstyle notices prove expand">
+<details open class="box cstyle notices prove expand">
   <summary class="box-label">
     <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
     <i class="fa-fw fas fa-lock-open"></i> 
@@ -428,7 +433,7 @@ $$
 </details></p>
   </div>
 </details>
-<h3 id="нахождение-обратного-по-модулю">Нахождение обратного по модулю $N$</h3>
+<h3 id="нахождение-обратного-по-модулю">Нахождение обратного по модулю $N$<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Число, обратное к $а$ по модулю $N\left(\right.$ об. $\left.a^{-1}\right)$ - это такое $x$, что $a x \equiv 1(\bmod N)$.
 Такое $x$ существует тогда и только тогда, когда $a x+N y=1$ для некоторого $y$. Как мы уже знаем, такое уравнение имеет решение только когда $\operatorname{gcd}(a, N)=1$, то есть когда $a$ взаимно просто с $N$.</p>
 <p>С помощью расширенного алгоритма Евклида мы можем за $O\left(n^{2}\right)$ проверить, существует ли обратное к $a$ по модулю $N$, и если существует, то найти его.</p>
@@ -444,44 +449,41 @@ $$
     <aside id="R-sidebar" class="default-animation">
       <div id="R-header-topbar" class="default-animation"></div>
       <div id="R-header-wrapper" class="default-animation">
-        <div id="R-header" class="default-animation">
 
 
 
-
-        </div>
         <search><form action="/search/index.html" method="get">
           <div class="searchbox default-animation">
-            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
             <label class="a11y-only" for="R-search-by">Поиск</label>
             <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
-            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-times" title="Очистить поиск"></i></button>
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
           </div>
         </form></search>
       </div>
       <div id="R-homelinks" class="default-animation">
         <div class="R-menu-divider default-animation">
-          <hr class="padding">
+          <hr class="padding default-animation">
         </div>
-        <div class="R-sidebarmenu R-shortcutmenu-homelinks">
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
           <ul class="space collapsible-menu">
           </ul>
         </div>
         <div class="R-menu-divider default-animation">
-          <hr class="padding">
+          <hr class="padding default-animation">
         </div>
-        <div class="R-sidebarmenu R-shortcutmenu-headercontrols">
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
           <ul class="">
           </ul>
         </div>
         <div class="R-menu-divider default-animation">
-          <hr class="padding">
+          <hr class="padding default-animation">
         </div>
       </div>
       <div id="R-content-wrapper" class="highlightable">
-        <div class="R-sidebarmenu R-shortcutmenu-main">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
           <ul class="enlarge morespace collapsible-menu">
-            <li class="parent " data-nav-id="/basics/index.html"><a class="padding" href="/basics/index.html">Основы программирования. Весна 2025.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
+            <li class="parent " data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
             <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
             <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
             <li class="" data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
@@ -498,26 +500,24 @@ $$
             <li class="" data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li>
             <li class="" data-nav-id="/basics/greedy_algorithms/index.html"><a class="padding" href="/basics/greedy_algorithms/index.html">15. Жадные алгоритмы</a></li>
             <li class="" data-nav-id="/basics/finding_the_minimum_spanning_tree/index.html"><a class="padding" href="/basics/finding_the_minimum_spanning_tree/index.html">16. Поиск минимального остовного дерева</a></li>
-            <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding" href="/basics/dynamic_programming/index.html">17. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">17. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
           </ul>
         </div>
-        <div class="R-sidebarmenu R-shortcutmenu-shortcuts">
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
           <ul class="space collapsible-menu">
           </ul>
         </div>
-        <div id="R-footer-margin"></div>
+        <div id="R-footer-margin" class="default-animation"></div>
         <div class="R-menu-divider default-animation">
-          <hr class="padding">
+          <hr class="padding default-animation">
         </div>
-        <div class="R-sidebarmenu R-shortcutmenu-footercontrols">
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
           </ul>
         </div>
-<div id="R-footer"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
       </div>
     </aside>
-    <script src="/js/clipboard/clipboard.min.js" defer></script>
-    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
     <script>
       window.MathJax = Object.assign( window.MathJax || {}, {
         tex: {
@@ -530,6 +530,7 @@ $$
       }, JSON.parse("{}") );
     </script>
     <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
     <script src="/js/theme.min.js" defer></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
 <script>
@@ -539,5 +540,6 @@ $$
 
   gtag('config', 'UA-179019749-1');
 </script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
   </body>
 </html>

@@ -2,74 +2,81 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Динамическое программирование :: Краткий курс по основам программирования</title>
-    <link>https://apmath-spbu.github.io/basics/dynamic_programming/index.html</link>
+    <link>http://localhost:1313/basics/dynamic_programming/index.html</link>
     <description>Поиск кратчайшего пути в ациклическом ориентированном графе Пусть перед нами стоит задача поиска кратчайших путей от вершины $s$ до всех остальных вершин в ациклическом ориентированном графе. Конечно, можно воспользоваться одним из уже изученных алгоритмов. Есть, однако, и более простое решение с линейным временем работы.&#xA;Для любой вершины $v \neq s$ верно следующее равенство:&#xA;$$ \operatorname{dist}[v]=\min \left\{d i s t[u]+w_{e}: e=(u, v) \in E\right\} $$Будем перебирать вершины в порядке топологической сортировки. Тогда все значения dist, встречающиеся в выражении справа, к моменту рассмотрения вершины $v$ уже будут найдены.</description>
     <generator>Hugo</generator>
     <language>ru-ru</language>
     <lastBuildDate>Thu, 24 Apr 2025 17:19:09 +0300</lastBuildDate>
-    <atom:link href="https://apmath-spbu.github.io/basics/dynamic_programming/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/basics/dynamic_programming/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Наибольшая общая подпоследовательность</title>
-      <link>https://apmath-spbu.github.io/basics/dynamic_programming/longest_common_subsequence/index.html</link>
+      <link>http://localhost:1313/basics/dynamic_programming/longest_common_subsequence/index.html</link>
       <pubDate>Thu, 24 Apr 2025 15:53:33 +0300</pubDate>
-      <guid>https://apmath-spbu.github.io/basics/dynamic_programming/longest_common_subsequence/index.html</guid>
+      <guid>http://localhost:1313/basics/dynamic_programming/longest_common_subsequence/index.html</guid>
       <description>Пусть даны две последовательности чисел (символов) $a_{1}, \ldots, a_{n}$ и $b_{1}, \ldots, b_{m}$. Требуется найти последовательность $c$ как можно большей длины, которая была бы подпоследовательностью и $a$, и $b$. Например, для последовательностей $2,1,2,3,1,2$ и $2,3,2,2,1$ возможные ответы $-2,2,2 ; 2,3,2 ; 2,3,1$ и $2,2,1$.&#xA;Пусть $l[i, j]$ - длина наибольшей общей последовательности (НОП, longest common subsequence, LCS) последовательностей $a_{1}, \ldots, a_{i}$ и $b_{1}, \ldots, b_{j}$. Начальные значения: $l[i, 0]=$ $l[0, j]=0$. Нас интересует $l[n, m]$.</description>
     </item>
     <item>
       <title>Расстояние Левенштейна</title>
-      <link>https://apmath-spbu.github.io/basics/dynamic_programming/levenshtein_distance/index.html</link>
+      <link>http://localhost:1313/basics/dynamic_programming/levenshtein_distance/index.html</link>
       <pubDate>Thu, 24 Apr 2025 16:21:19 +0300</pubDate>
-      <guid>https://apmath-spbu.github.io/basics/dynamic_programming/levenshtein_distance/index.html</guid>
+      <guid>http://localhost:1313/basics/dynamic_programming/levenshtein_distance/index.html</guid>
       <description>Расстояние Левенштейна (редакционное расстояние) между двумя последовательностями это минимальное количество операций вставки, удаления и замены символа, с помощью которых можно из одной последовательности получить другую.&#xA;Расстояние Левенштейна между $a_{1}, \ldots, a_{n}$ и $b_{1}, \ldots, b_{m}$ можно вычислить алгоритмом, практически полностью совпадающим с алгоритмом поиска НОП: пусть $d[i, j]$ - расстояние Левенштейна между последовательностями $a_{1}, \ldots, a_{i}$ и $b_{1}, \ldots, b_{j}$. Тогда $d[i, 0]=i$, $d[0, j]=j$, а при $i, j&gt;0$ верно</description>
     </item>
     <item>
       <title>Алгоритм Хиршберга</title>
-      <link>https://apmath-spbu.github.io/basics/dynamic_programming/hirschbergs_algorithm/index.html</link>
+      <link>http://localhost:1313/basics/dynamic_programming/hirschbergs_algorithm/index.html</link>
       <pubDate>Thu, 24 Apr 2025 16:21:19 +0300</pubDate>
-      <guid>https://apmath-spbu.github.io/basics/dynamic_programming/hirschbergs_algorithm/index.html</guid>
+      <guid>http://localhost:1313/basics/dynamic_programming/hirschbergs_algorithm/index.html</guid>
       <description>В предыдущих двух алгоритмах мы имели альтернативу: либо мы умеем восстанавливать ответ, либо можем себе позволить использовать $O(\min (m, n))$ дополнительной памяти. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min (m, n)+$ $\log (\max (m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.&#xA;Для определённости будем решать задачу о поиске НОП. В очередной раз применим метод “разделяй и властвуй”: отдельно решим задачу для последовательностей $a_{1}, \ldots, a_{n / 2}$ и $b_{1}, \ldots, b_{m}$, и для последовательностей $a_{n}, \ldots, a_{n / 2+1}$ и $b_{m}, \ldots, b_{1}$. И ту, и другую задачу решим, используя $O(m)$ дополнительной памяти.</description>
     </item>
     <item>
       <title>Наибольшая возрастающая подпоследовательность</title>
-      <link>https://apmath-spbu.github.io/basics/dynamic_programming/longest_increasing_subsequence/index.html</link>
+      <link>http://localhost:1313/basics/dynamic_programming/longest_increasing_subsequence/index.html</link>
       <pubDate>Thu, 24 Apr 2025 17:19:09 +0300</pubDate>
-      <guid>https://apmath-spbu.github.io/basics/dynamic_programming/longest_increasing_subsequence/index.html</guid>
+      <guid>http://localhost:1313/basics/dynamic_programming/longest_increasing_subsequence/index.html</guid>
       <description>Дана последовательность чисел $a_{1}, \ldots, a_{n}$. Требуется найти возрастающую подпоследовательность (такую, что каждое следующее число в ней строго больше предыдущего) максимально возможной длины - наибольшую возрастающую подпоследовательность (НВП, longest increasing subsequence).&#xA;Решение за $O\left(n^{2}\right)$ Пусть $l_{i}$ - максимально возможная длина возрастающей подпоследовательности, заканчивающейся в $a_{i}$. Тогда&#xA;$$ l_{i}=1+\max _{\substack{0 \leqslant j &lt; i, a_{j} &lt; a_{i}}} l_{j} $$(максимум по пустому множеству считаем равным нулю). Ответ на задачу - максимальное значение $l_{i}$ по всем $i$. Восстановление ответа делается стандартными методами. Получаем решение за $O\left(n^{2}\right)$.</description>
     </item>
     <item>
       <title>Задача о рюкзаке</title>
-      <link>https://apmath-spbu.github.io/basics/dynamic_programming/knapsack_problem/index.html</link>
+      <link>http://localhost:1313/basics/dynamic_programming/knapsack_problem/index.html</link>
       <pubDate>Thu, 24 Apr 2025 17:19:09 +0300</pubDate>
-      <guid>https://apmath-spbu.github.io/basics/dynamic_programming/knapsack_problem/index.html</guid>
+      <guid>http://localhost:1313/basics/dynamic_programming/knapsack_problem/index.html</guid>
       <description>Есть рюкзак (knapsack) вместимости $W$, а также $n$ предметов веса $w_{1}, \ldots, w_{n}$ и стоимости $p_{1}, \ldots, p_{n}$. Необходимо поместить в рюкзак множество предметов как можно большей суммарной стоимости. Более формально, нужно найти такое подмножество предметов $A \subset\{1, \ldots, n\}$, что $\sum_{i \in A} w_{i} \leqslant W$, а значение $\sum_{i \in A} p_{i}$ максимально возможно.&#xA;Существует много различных вариаций этой задачи. Можно, например, считать, что есть лишь одна копия каждого предмета (версия “без повторений”), а можно - что копий каждого предмета бесконечно много (версия “с повторениями”).</description>
     </item>
     <item>
       <title>Произведение матриц</title>
-      <link>https://apmath-spbu.github.io/basics/dynamic_programming/matrices_multiplication/index.html</link>
+      <link>http://localhost:1313/basics/dynamic_programming/matrices_multiplication/index.html</link>
       <pubDate>Thu, 24 Apr 2025 17:19:09 +0300</pubDate>
-      <guid>https://apmath-spbu.github.io/basics/dynamic_programming/matrices_multiplication/index.html</guid>
+      <guid>http://localhost:1313/basics/dynamic_programming/matrices_multiplication/index.html</guid>
       <description>Пусть мы хотим вычислить произведение $n$ матриц $A_{1} \times \cdots \times A_{n}$; матрица $A_{i}$ имеет размер $m_{i-1} \times m_{i}$. Сами умножения мы будем производить, пользуясь определением произведения матриц, то есть на вычисление произведения матриц размеров $m \times n$ и $n \times p$ мы потратим $O(m n p)$ действий. Однако мы вольны выбирать порядок, в котором будем производить умножения (то есть расставлять скобки в выражении выше). Хочется минимизировать суммарное количество действий, которые придётся сделать, чтобы вычислить произведение всех матриц.</description>
     </item>
     <item>
       <title>Независимое множество максимального веса в дереве</title>
-      <link>https://apmath-spbu.github.io/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html</link>
+      <link>http://localhost:1313/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html</link>
       <pubDate>Thu, 24 Apr 2025 17:19:09 +0300</pubDate>
-      <guid>https://apmath-spbu.github.io/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html</guid>
+      <guid>http://localhost:1313/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html</guid>
       <description>Множество вершин в графе независимо (independent), если никакая пара вершин в нём не соединена ребром.&#xA;Дано дерево, каждая вершина $v$ которого имеет вес $w_{v}$. Необходимо найти независимое множество максимального суммарного веса.&#xA;✍️ Невзвешенная версия этой задачи (все веса равны единице) решается жадным алгоритмом.&#xA;Динамическое программирование по поддеревьям Выберем любую вершину $r$ в качестве корня дерева. Теперь каждой вершине дерева $v$ соответствует подзадача поиска независимого множества максимального веса в поддереве этой вершины; обозначим искомое множество за $I_{v}$. Как выразить решение подзадачи для вершины $v$ через подзадачи попроще? Если сама вершина $v$ не входит в $I_{v}$, то $I_{v}$ объединение $I_{u}$ по всем $u$ - детям $v$. Если же $v$ входит в $I_{v}$, то никто из детей $v$ в $I_{v}$ входить не может. В этом случае $I_{v}$ - объединение $I_{u}$ по всем $u$ - “внукам” $v$ - детям детей $v$.</description>
     </item>
     <item>
       <title>Задача коммивояжёра</title>
-      <link>https://apmath-spbu.github.io/basics/dynamic_programming/travelling_salesman_problem/index.html</link>
+      <link>http://localhost:1313/basics/dynamic_programming/travelling_salesman_problem/index.html</link>
       <pubDate>Thu, 24 Apr 2025 17:19:09 +0300</pubDate>
-      <guid>https://apmath-spbu.github.io/basics/dynamic_programming/travelling_salesman_problem/index.html</guid>
+      <guid>http://localhost:1313/basics/dynamic_programming/travelling_salesman_problem/index.html</guid>
       <description>Коммивояжёр (travelling salesman) хочет посетить каждый из $n$ городов по одному разу и вернуться в свой родной город. Он знает расстояния между всеми парами городов. Какой порядок посещения городов оптимален?&#xA;Более формально: дан полный (есть ребро между каждой парой вершин) взвешенный неориентированный граф на $n$ вершинах; необходимо найти гамильтонов цикл (цикл, проходящий по каждой вершине ровно один раз), имеющий минимально возможную длину. Расстояние между вершинами $u$ и $v$ будем обозначать как $d_{u, v}$.</description>
     </item>
     <item>
       <title>Генерация номера по объекту и объекта по номеру</title>
-      <link>https://apmath-spbu.github.io/basics/dynamic_programming/generate_number_by_object/index.html</link>
+      <link>http://localhost:1313/basics/dynamic_programming/generate_number_by_object/index.html</link>
       <pubDate>Thu, 24 Apr 2025 17:19:09 +0300</pubDate>
-      <guid>https://apmath-spbu.github.io/basics/dynamic_programming/generate_number_by_object/index.html</guid>
+      <guid>http://localhost:1313/basics/dynamic_programming/generate_number_by_object/index.html</guid>
       <description>Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в списке всех возможных объектов (списке всех перестановок фиксированной длины), упорядоченном лексикографически; или, наоборот, генерировать объект по его номеру.&#xA;Это бывает полезно, если хочется закодировать объект как можно меньшим количеством бит, а также если хочется использовать объект в качестве индекса массива (например, если при применении метода динамического программирования состояние описывается комбинаторным объектом).&#xA;Номер по перестановке Как вычислить номер перестановки $p_{1}, \ldots, p_{n}$ чисел $1, \ldots, n$ в списке всех перестановок длины $n$, упорядоченных лексикографически? Например, у нас есть упорядоченный лексикографически список перестановок длины 3:</description>
+    </item>
+    <item>
+      <title>Решение рекуррентных соотношений возведением матрицы в степень</title>
+      <link>http://localhost:1313/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html</link>
+      <pubDate>Thu, 24 Apr 2025 17:19:09 +0300</pubDate>
+      <guid>http://localhost:1313/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html</guid>
+      <description>Пусть дано рекуррентное соотношение $f_{j}=a_{1} f_{j-1}+\cdots+a_{k} f_{j-k}+b$, а также начальные значения $f_{0}, \ldots, f_{k-1}$; необходимо найти $f_{n}$.&#xA;Простой способ - применить метод динамического программирования: вычислить все значения $f_{j}$ по очереди за $O(n k)$. Для того, чтобы получить более быстрое решение, выпишем рекуррентное соотношение в матричном виде:&#xA;$$ \left(\begin{array}{c} f_{j} \\ f_{j-1} \\ f_{j-2} \\ \vdots \\ f_{j-k+1} \\ 1 \end{array}\right)=\left(\begin{array}{cccccc} a_{1} &amp; a_{2} &amp; \cdots &amp; a_{k-1} &amp; a_{k} &amp; b \\ 1 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots \\ 0 &amp; 0 &amp; \cdots &amp; 1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 1 \end{array}\right) \cdot\left(\begin{array}{c} f_{j-1} \\ f_{j-2} \\ f_{j-3} \\ \vdots \\ f_{j-k} \\ 1 \end{array}\right) . $$Тогда</description>
     </item>
   </channel>
 </rss>
