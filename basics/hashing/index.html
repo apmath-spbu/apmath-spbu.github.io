@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="Хеш-таблица Пусть мы хотим поддерживать множество $A$ элементов - ключей, то есть уметь добавлять ключ в $A$, удалять ключ из $A$, а также искать ключ в $A$. Мы будем считать, что все ключи берутся из множества $U=\{0,1, \ldots,|U|-1\}$.
@@ -10,7 +10,7 @@
     <meta name="twitter:title" content="8. Хеширование :: Краткий курс по основам программирования">
     <meta name="twitter:description" content="Хеш-таблица Пусть мы хотим поддерживать множество $A$ элементов - ключей, то есть уметь добавлять ключ в $A$, удалять ключ из $A$, а также искать ключ в $A$. Мы будем считать, что все ключи берутся из множества $U=\{0,1, \ldots,|U|-1\}$.
 ✍️ В общем случае ключами могут быть какие угодно объекты, которым можно каким-либо образом сопоставить числа (например, строки).">
-    <meta property="og:url" content="http://localhost:1313/basics/hashing/index.html">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/hashing/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="8. Хеширование :: Краткий курс по основам программирования">
     <meta property="og:description" content="Хеш-таблица Пусть мы хотим поддерживать множество $A$ элементов - ключей, то есть уметь добавлять ключ в $A$, удалять ключ из $A$, а также искать ключ в $A$. Мы будем считать, что все ключи берутся из множества $U=\{0,1, \ldots,|U|-1\}$.
@@ -18,14 +18,14 @@
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
-    <meta property="article:published_time" content="2025-03-02T11:30:34+03:00">
-    <meta property="article:modified_time" content="2025-03-02T11:30:34+03:00">
+    <meta property="article:published_time" content="2026-03-13T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-03-13T09:30:00+03:00">
     <meta itemprop="name" content="8. Хеширование :: Краткий курс по основам программирования">
     <meta itemprop="description" content="Хеш-таблица Пусть мы хотим поддерживать множество $A$ элементов - ключей, то есть уметь добавлять ключ в $A$, удалять ключ из $A$, а также искать ключ в $A$. Мы будем считать, что все ключи берутся из множества $U=\{0,1, \ldots,|U|-1\}$.
 ✍️ В общем случае ключами могут быть какие угодно объекты, которым можно каким-либо образом сопоставить числа (например, строки).">
-    <meta itemprop="datePublished" content="2025-03-02T11:30:34+03:00">
-    <meta itemprop="dateModified" content="2025-03-02T11:30:34+03:00">
-    <meta itemprop="wordCount" content="2960">
+    <meta itemprop="datePublished" content="2026-03-13T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-03-13T09:30:00+03:00">
+    <meta itemprop="wordCount" content="3466">
     <title>8. Хеширование :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
@@ -54,7 +54,7 @@
       window.relearn.path='\/basics\/hashing\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
-      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
       window.relearn.disableInlineCopyToClipboard=false;
       window.relearn.enableBlockCodeWrap=true;
       // translations
@@ -156,7 +156,7 @@
 <span class="btn cstyle button link noborder notitle interactive"><a href="/basics/heap/index.html" title="7. Двоичная куча (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/numerical_algos_arithmetic_comparison/index.html" title="9. Арифметика сравнений (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle"><span><i class="fa-fw fas fa-chevron-right"></i></span></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -187,7 +187,33 @@
 <p>Хеш-таблица позволяет решить ту же задачу, используя $\Theta(n)$ памяти, и осуществляя все операции в среднем за $O(1)$. Идея состоит в том, чтобы использовать массив размера $m$, где $m$ намного меньше $|U|$, и ключ $x$ хранить в ячейке с номером $h(x)$, пользуясь хеш-функцией $h: U \rightarrow M=\{0,1, \ldots, m-1\}$.</p>
 <p>Может случиться так, что $x \neq y$, но $h(x)=h(y)$. Такую ситуацию мы будем называть коллизией. Хеш-функцию стараются выбрать так, чтобы минимизировать число коллизий. Тем не менее, поскольку $m<|U|$, всегда найдётся пара ключей из $U$ с одинаковым значением хеш-функции, то есть какой бы хорошей ни была хеш-функция, коллизии иногда будут происходить.</p>
 <h3 id="метод-цепочек">Метод цепочек<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Самый простой способ разрешения коллизий - в каждой ячейке массива хранить &ldquo;цепочку&rdquo; - список всех ключей, попавших в эту ячейку. Этот список можно реализовывать как с помощью связного списка, так и с помощью динамического массива, или даже ещё одной внутренней хеш-таблицы (чуть позже мы увидим пример, когда именно такой способ оказывается полезен).</p>
+<p>Самый простой способ разрешения коллизий - в каждой ячейке массива хранить &ldquo;цепочку&rdquo; - список всех ключей, попавших в эту ячейку. Этот список можно реализовывать как с помощью связного списка, так и с помощью динамического массива, или даже ещё одной внутренней хеш-таблицы (чуть позже мы увидим пример, когда именно такой способ оказывается полезен).
+<div class="tab-panel" data-tab-group="R-tabs-d2935d2c7365b62964091489a0565da4">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-4d01628a1d9679d1fb71bba09852d262" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-d2935d2c7365b62964091489a0565da4','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-705634d5dce045b0823867091d08b6eb" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-d2935d2c7365b62964091489a0565da4','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-4d01628a1d9679d1fb71bba09852d262"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -209,45 +235,82 @@
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> T[m] <span style="color:#75715e"># хеш-таблица</span>
-</span></span><span style="display:flex;"><span>find(x): <span style="color:#75715e"># возвращает True, если x лежит в хеш-таблице</span>
-</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> h(x)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(T[p]<span style="color:#f92672">.</span>size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> T[p][i] <span style="color:#f92672">==</span> x:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HashTable</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, m, hash_func):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>m <span style="color:#f92672">=</span> m
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>T <span style="color:#f92672">=</span> [[] <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(m)]
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>h <span style="color:#f92672">=</span> hash_func
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find</span>(self, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Возвращает True, если x лежит в хеш-таблице&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>h(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(self<span style="color:#f92672">.</span>T[p])):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>T[p][i] <span style="color:#f92672">==</span> x:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert</span>(self, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Вставляет x в хеш-таблицу&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> self<span style="color:#f92672">.</span>find(x):
+</span></span><span style="display:flex;"><span>            p <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>h(x)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>T[p]<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">delete</span>(self, x):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Удаляет x из хеш-таблицы&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>h(x)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(self<span style="color:#f92672">.</span>T[p])):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>T[p][i] <span style="color:#f92672">==</span> x:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Обмениваем с последним элементом и удаляем</span>
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>T[p][i], self<span style="color:#f92672">.</span>T[p][<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>T[p][<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], self<span style="color:#f92672">.</span>T[p][i]
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>T[p]<span style="color:#f92672">.</span>pop()
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>insert(x):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> find(x):
-</span></span><span style="display:flex;"><span>        T[h(x)]<span style="color:#f92672">.</span>push_back(x)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>delete(x):
-</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> h(x)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(T[p]<span style="color:#f92672">.</span>size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> T[p][i] <span style="color:#f92672">==</span> x:
-</span></span><span style="display:flex;"><span>            swap(T[p][i], T[p]<span style="color:#f92672">.</span>back())
-</span></span><span style="display:flex;"><span>            T[p]<span style="color:#f92672">.</span>pop_back()
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span></span></span></code></pre></td></tr></table>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Простая хеш-функция</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hash_func</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> x <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ht <span style="color:#f92672">=</span> HashTable(<span style="color:#ae81ff">10</span>, hash_func)
+</span></span><span style="display:flex;"><span>ht<span style="color:#f92672">.</span>insert(<span style="color:#ae81ff">5</span>)
+</span></span><span style="display:flex;"><span>ht<span style="color:#f92672">.</span>insert(<span style="color:#ae81ff">15</span>)
+</span></span><span style="display:flex;"><span>ht<span style="color:#f92672">.</span>insert(<span style="color:#ae81ff">25</span>)
+</span></span><span style="display:flex;"><span>print(ht<span style="color:#f92672">.</span>find(<span style="color:#ae81ff">15</span>))  <span style="color:#75715e"># True</span>
+</span></span><span style="display:flex;"><span>ht<span style="color:#f92672">.</span>delete(<span style="color:#ae81ff">15</span>)
+</span></span><span style="display:flex;"><span>print(ht<span style="color:#f92672">.</span>find(<span style="color:#ae81ff">15</span>))  <span style="color:#75715e"># False</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>Все операции работают за время, пропорциональное длине списка в соответствующей ячейке, то есть за $O(|T[h(x)]|+1)$. Если ключи распределены по таблице равномерно, то есть в каждом списке оказалось примерно $\frac{n}{m}$ элементов, то операции будут работать в среднем за $O\left(\frac{n}{m}+1\right)$, то есть за $O(1)$ при $m=\Omega(n)$ (мы докажем подобное утверждение более формально, когда будем рассматривать технику универсального хеширования).</p>
-<p>Как добиться равномерного распределения? Подобрать &ldquo;хорошую&rdquo; хеш-функцию. Иногда это можно сделать, пользуясь информацией о том, с какими ключами придётся работать.</p>
-<p>Так, если известно, что ключи выбираются из множества $U$ случайно равновероятно, и $|U|$ делится на $m$, то подойдёт хеш-функция $h(x)=x \bmod m$ : каждый ключ попадёт в каждую ячейку таблицы с равной вероятностью.</p>
-<p>На практике часто используют хеш-функцию $h(x)=x \bmod m$, даже если о ключах, с которыми придётся работать, ничего не известно. При этом $m$ обычно стараются выбирать простым.</p>
-<h3 id="открытая-адресация">Открытая адресация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Поговорим о ещё одном способе разрешения коллизий. В хеш-таблицах с открытой адресацией в каждой ячейке хранится не более одного ключа, а при поиске ключа ячейки проверяются в некотором порядке, пока не найдётся этот ключ или пустая ячейка. Этот порядок, конечно же, будет зависеть от того, какой ключ мы ищем. Поскольку в каждой ячейке хранится не более одного ключа, в таблице размера $m$ не может храниться больше $m$ ключей.</p>
-<p>Более формально, теперь мы будем работать с хеш-функцией от двух аргументов $h: U \times\{0, \ldots, m-1\} \rightarrow\{0, \ldots, m-1\}$, и при поиске $x$ перебирать ячейки в порядке $h(x, 0), h(x, 1), \ldots, h(x, m-1)$. При этом мы будем требовать, чтобы эта последовательность (будем называть её последовательностью проб) была перестановкой чисел от 0 до $m-1$ (чтобы не проверять одну ячейку несколько раз, и чтобы рано или поздно проверить каждую ячейку).</p>
-<p>Последовательность проб чаще всего строят одним из следующих трёх способов (здесь $h^{\prime}, h_{1}, h_{2}: U \rightarrow\{0, \ldots, m-1\}$ - вспомогательные хеш-функции):</p>
-<ul>
-<li><strong>Линейное пробирование.</strong> $h(x, i)=\left(h^{\prime}(x)+c \cdot i\right) \bmod m$. Обычно используют $c=1$.</li>
-<li><strong>Квадратичное пробирование.</strong> $h(x, i)=\left(h^{\prime}(x)+c_{1} \cdot i+c_{2} \cdot i^{2}\right) \bmod m$.</li>
-<li><strong>Двойное хеширование.</strong> $h(x, i)=\left(h_{1}(x)+i \cdot h_{2}(x)\right) \bmod m$.</li>
-</ul>
-<p>При этом $c$ в первом способе и $h_{2}(x)$ в третьем должны быть взаимно просты с $m$ (чтобы последовательность пробегала все ячейки). Во втором способе по тем же причинам тоже подойдут не все $c_{1}, c_{2}$.</p>
-<p>Линейное пробирование самое простое и имеет наименьшую константу во времени работы, но страдает от кластеризации: блоки из лежащих в таблице подряд ключей со временем становятся всё больше и больше (потому что всё больше и больше становится вероятность попасть в такой блок).</p>
-<p>Двойное хеширование отличается тем, что может дать $\Theta\left(m^{2}\right)$ различных последовательностей (в первых двух способах вся последовательность проб однозначно определяется по $h^{\prime}(x)$, поэтому всего возможно $\Theta(m)$ различных последовательностей), поэтому менее подвержено кластеризации. Квадратичное пробирование - некий компромисс между линейным пробированием и двойным хешированием.</p>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-705634d5dce045b0823867091d08b6eb"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -267,28 +330,323 @@
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-PY" data-lang="PY"><span style="display:flex;"><span>int T[m] <span style="color:#75715e"># Хеш-таблица</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HashTable</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> T;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>(<span style="color:#66d9ef">int</span>)<span style="color:#f92672">&gt;</span> h;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> m;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    HashTable(<span style="color:#66d9ef">int</span> size, std<span style="color:#f92672">::</span>function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>(<span style="color:#66d9ef">int</span>)<span style="color:#f92672">&gt;</span> hash_func) <span style="color:#f92672">:</span> m(size), h(hash_func) {
+</span></span><span style="display:flex;"><span>        T.resize(m);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">find</span>(<span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> h(x);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> T[p].size(); <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (T[p][i] <span style="color:#f92672">==</span> x) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(<span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>find(x)) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> h(x);
+</span></span><span style="display:flex;"><span>            T[p].push_back(x);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove</span>(<span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> h(x);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> T[p].size(); <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (T[p][i] <span style="color:#f92672">==</span> x) {
+</span></span><span style="display:flex;"><span>                std<span style="color:#f92672">::</span>swap(T[p][i], T[p].back());
+</span></span><span style="display:flex;"><span>                T[p].pop_back();
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Простая хеш-функция
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> hash_func <span style="color:#f92672">=</span> [](<span style="color:#66d9ef">int</span> x) { <span style="color:#66d9ef">return</span> x <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>; };
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    HashTable ht(<span style="color:#ae81ff">10</span>, hash_func);
+</span></span><span style="display:flex;"><span>    ht.insert(<span style="color:#ae81ff">5</span>);
+</span></span><span style="display:flex;"><span>    ht.insert(<span style="color:#ae81ff">15</span>);
+</span></span><span style="display:flex;"><span>    ht.insert(<span style="color:#ae81ff">25</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>boolalpha <span style="color:#f92672">&lt;&lt;</span> ht.find(<span style="color:#ae81ff">15</span>) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;  <span style="color:#75715e">// true
+</span></span></span><span style="display:flex;"><span>    ht.remove(<span style="color:#ae81ff">15</span>);
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> ht.find(<span style="color:#ae81ff">15</span>) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;  <span style="color:#75715e">// false
+</span></span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div></p>
+<p>Все операции работают за время, пропорциональное длине списка в соответствующей ячейке, то есть за $O(|T[h(x)]|+1)$. Если ключи распределены по таблице равномерно, то есть в каждом списке оказалось примерно $\frac{n}{m}$ элементов, то операции будут работать в среднем за $O\left(\frac{n}{m}+1\right)$, то есть за $O(1)$ при $m=\Omega(n)$ (мы докажем подобное утверждение более формально, когда будем рассматривать технику универсального хеширования).</p>
+<p>Как добиться равномерного распределения? Подобрать &ldquo;хорошую&rdquo; хеш-функцию. Иногда это можно сделать, пользуясь информацией о том, с какими ключами придётся работать.</p>
+<p>Так, если известно, что ключи выбираются из множества $U$ случайно равновероятно, и $|U|$ делится на $m$, то подойдёт хеш-функция $h(x)=x \bmod m$ : каждый ключ попадёт в каждую ячейку таблицы с равной вероятностью.</p>
+<p>На практике часто используют хеш-функцию $h(x)=x \bmod m$, даже если о ключах, с которыми придётся работать, ничего не известно. При этом $m$ обычно стараются выбирать простым.</p>
+<h3 id="открытая-адресация">Открытая адресация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Поговорим о ещё одном способе разрешения коллизий. В хеш-таблицах с открытой адресацией в каждой ячейке хранится не более одного ключа, а при поиске ключа ячейки проверяются в некотором порядке, пока не найдётся этот ключ или пустая ячейка. Этот порядок, конечно же, будет зависеть от того, какой ключ мы ищем. Поскольку в каждой ячейке хранится не более одного ключа, в таблице размера $m$ не может храниться больше $m$ ключей.</p>
+<p>Более формально, теперь мы будем работать с хеш-функцией от двух аргументов $h: U \times\{0, \ldots, m-1\} \rightarrow\{0, \ldots, m-1\}$, и при поиске $x$ перебирать ячейки в порядке $h(x, 0), h(x, 1), \ldots, h(x, m-1)$. При этом мы будем требовать, чтобы эта последовательность (будем называть её последовательностью проб) была перестановкой чисел от 0 до $m-1$ (чтобы не проверять одну ячейку несколько раз, и чтобы рано или поздно проверить каждую ячейку).</p>
+<p>Последовательность проб чаще всего строят одним из следующих трёх способов (здесь $h^{\prime}, h_{1}, h_{2}: U \rightarrow\{0, \ldots, m-1\}$ - вспомогательные хеш-функции):</p>
+<ul>
+<li><strong>Линейное пробирование.</strong> $h(x, i)=\left(h^{\prime}(x)+c \cdot i\right) \bmod m$. Обычно используют $c=1$.</li>
+<li><strong>Квадратичное пробирование.</strong> $h(x, i)=\left(h^{\prime}(x)+c_{1} \cdot i+c_{2} \cdot i^{2}\right) \bmod m$.</li>
+<li><strong>Двойное хеширование.</strong> $h(x, i)=\left(h_{1}(x)+i \cdot h_{2}(x)\right) \bmod m$.</li>
+</ul>
+<p>При этом $c$ в первом способе и $h_{2}(x)$ в третьем должны быть взаимно просты с $m$ (чтобы последовательность пробегала все ячейки). Во втором способе по тем же причинам тоже подойдут не все $c_{1}, c_{2}$.</p>
+<p>Линейное пробирование самое простое и имеет наименьшую константу во времени работы, но страдает от кластеризации: блоки из лежащих в таблице подряд ключей со временем становятся всё больше и больше (потому что всё больше и больше становится вероятность попасть в такой блок).</p>
+<p>Двойное хеширование отличается тем, что может дать $\Theta\left(m^{2}\right)$ различных последовательностей (в первых двух способах вся последовательность проб однозначно определяется по $h^{\prime}(x)$, поэтому всего возможно $\Theta(m)$ различных последовательностей), поэтому менее подвержено кластеризации. Квадратичное пробирование - некий компромисс между линейным пробированием и двойным хешированием.</p>
+<div class="tab-panel" data-tab-group="R-tabs-abaf054c1f67c1342e58023025db2adb">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-eb9e80a1cc9ffc79c4f2b8b556c57b97" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-abaf054c1f67c1342e58023025db2adb','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-ff0cc0d60726999133fa1c9f5f0f8d62" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-abaf054c1f67c1342e58023025db2adb','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-eb9e80a1cc9ffc79c4f2b8b556c57b97"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Хеш-таблица</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># считаем, что ключи - неотрицательные целые числа,</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># в пустых ячейках лежит -1</span>
-</span></span><span style="display:flex;"><span>getIndex(x): <span style="color:#75715e"># возвращает индекс ячейки, в которой лежит x,</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># или индекс первой встретившейся пустой ячейки</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(m<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>T <span style="color:#f92672">=</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> m
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getIndex</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># возвращает индекс ячейки, в которой лежит x,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># или индекс первой встретившейся пустой ячейки</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(m):
 </span></span><span style="display:flex;"><span>        p <span style="color:#f92672">=</span> h(x, i)
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> T[p] <span style="color:#f92672">==</span> x <span style="color:#f92672">or</span> T[p] <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> p
-</span></span><span style="display:flex;"><span>    error <span style="color:#e6db74">&#34;Hash table is full&#34;</span>
-</span></span><span style="display:flex;"><span>find(x): <span style="color:#75715e"># возвращает True, если x лежит в хеш-таблице</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">Exception</span>(<span style="color:#e6db74">&#34;Hash table is full&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find</span>(x):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># возвращает True, если x лежит в хеш-таблице</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> T[getIndex(x)] <span style="color:#f92672">==</span> x
-</span></span><span style="display:flex;"><span>insert(x):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert</span>(x):
 </span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> getIndex(x)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> T[p] <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#75715e"># x уже есть в таблице</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>  <span style="color:#75715e"># x уже есть в таблице</span>
 </span></span><span style="display:flex;"><span>    T[p] <span style="color:#f92672">=</span> x</span></span></code></pre></td></tr></table>
 </div>
 </div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-ff0cc0d60726999133fa1c9f5f0f8d62"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;stdexcept&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Хеш-таблица
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// считаем, что ключи - неотрицательные целые числа,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// в пустых ячейках лежит -1
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> T(m, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Вспомогательная функция хеширования (нужно определить)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">h</span>(<span style="color:#66d9ef">int</span> key, <span style="color:#66d9ef">int</span> i);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">getIndex</span>(<span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// возвращает индекс ячейки, в которой лежит x,
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">// или индекс первой встретившейся пустой ячейки
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> m; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> h(x, i);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (T[p] <span style="color:#f92672">==</span> x <span style="color:#f92672">||</span> T[p] <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> p;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">throw</span> std<span style="color:#f92672">::</span>runtime_error(<span style="color:#e6db74">&#34;Hash table is full&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">find</span>(<span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// возвращает True, если x лежит в хеш-таблице
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> T[getIndex(x)] <span style="color:#f92672">==</span> x;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(<span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> getIndex(x);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (T[p] <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>;  <span style="color:#75715e">// x уже есть в таблице
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    T[p] <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
 <p>Удалить ключ из хеш-таблицы теперь не так просто. Если просто пометить ячейку, где лежал ключ, как свободную, то поиск других ключей может перестать работать корректно (потому что при вставке другого ключа мы могли проходить через эту ячейку при поиске свободного места). Можно при удалении специальным образом помечать ячейку и пропускать её при дальнейшей работе с таблицей, но такую ячейку никогда нельзя будет переиспользовать.</p>
+<div class="tab-panel" data-tab-group="R-tabs-6361c474559a3652dc45f35869c049d3">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-03c2ada42c669f7e65109f08949c3297" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-6361c474559a3652dc45f35869c049d3','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-dd397d6890312f12fae4830bd844f380" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-6361c474559a3652dc45f35869c049d3','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-03c2ada42c669f7e65109f08949c3297"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -297,11 +655,40 @@
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>delete(x):
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">delete</span>(x):
 </span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> getIndex(x)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> T[p] <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>        T[p] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span> <span style="color:#75715e"># getIndex всегда будет пропускать такую ячейку</span></span></span></code></pre></td></tr></table>
+</span></span><span style="display:flex;"><span>        T[p] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>  <span style="color:#75715e"># getIndex всегда будет пропускать такую ячейку</span></span></span></code></pre></td></tr></table>
 </div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-dd397d6890312f12fae4830bd844f380"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">delete</span>(<span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> getIndex(x);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (T[p] <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        T[p] <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>;  <span style="color:#75715e">// getIndex всегда будет пропускать такую ячейку
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
 </div>
 <p>Пусть в таблице размера $m$ занято (в том числе удалёнными элементами) $n$ ячеек. Предположим, что занятые ячейки расположены по таблице равномерно. Тогда оценим время работы $\operatorname{getIndex}$: на каждом шаге вероятность не остановиться примерно равна $\alpha=\frac{n}{m}<1$. Тогда математическое ожидание количества шагов примерно равно
 </p>
@@ -316,7 +703,25 @@ $$<p>Мы эвристически оценили время работы опе
 <h2 id="сортировка-киркпатрика-рейша">Сортировка Киркпатрика-Рейша<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>С помощью хеш-таблицы можно соптимизировать поразрядную сортировку, улучшив время работы до $O(n \log \log C)$ на массиве из $n$ целых чисел от 0 до $C-1$.</p>
 <p>Алгоритм (Kirkpatrick, Reisch, 1984) выглядит следующим образом: пусть $C=2^{2^{k}}$ (если надо, округлим $C$ вверх до ближайшего числа такого вида, при этом $\log \log C$ увеличится не более, чем на один). Если $C \leqslant n$, просто отсортируем числа подсчётом за $O(n)$, иначе представим каждое число в $\sqrt{C}$-ичной системе счисления; при этом каждое число будет состоять из двух $2^{k-1}$-битных цифр ( $\sqrt{C}=2^{2^{k-1}}$ ). Осталось отсортировать числа по старшей цифре, а при равенстве по младшей рекурсивными вызовами.</p>
-<p>Хеш-таблицы (точнее, ассоциативные массивы) нужны, чтобы сгруппировать числа в блоки с равной старшей цифрой.</p>
+<p>Хеш-таблицы (точнее, ассоциативные массивы) нужны, чтобы сгруппировать числа в блоки с равной старшей цифрой.
+<div class="tab-panel" data-tab-group="R-tabs-a77845cc5e5a420664f5ec4a544f7df5">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-e61d5e6e48d000b15688ef18a231cd06" aria-expanded="true"
+      data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-a77845cc5e5a420664f5ec4a544f7df5','R-tab-8b5820e171efb7042b7e190c10d26713')"
+    >
+      <span class="tab-nav-text">псевдокод</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-e61d5e6e48d000b15688ef18a231cd06"
+      data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -377,7 +782,11 @@ $$<p>Мы эвристически оценили время работы опе
 </span></span><span style="display:flex;"><span>        a<span style="color:#f92672">.</span>push_back(x <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">**</span> (k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)) <span style="color:#f92672">+</span> rmax)</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>Получаем рекуррентное соотношение</p>
+      </div>
+    </div>
+  </div>
+</div>
+Получаем рекуррентное соотношение</p>
 $$
 T(n)=\Theta(n)+T(|l|)+\sum_{x \in l} T(|t[x]|-1)
 $$<p>Заметим, что</p>
@@ -596,7 +1005,7 @@ $$
 <p>Снова получаем, что за $s$ попыток с вероятностью хотя бы $1-2^{-s}$ (и не больше чем за две попытки в среднем) мы подберём такую хеш-функцию для внешней хеш-таблицы, что суммарный размер всех внутренних хеш-таблиц будет оцениваться как $O(n)$ (будет меньше $4 n$ ).</p>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 2 мар. 2025 г.
+              <i class='fa-fw fas fa-calendar'></i> 13 мар. 2026 г.
   </footer>
 </article>
         </div>
@@ -647,16 +1056,7 @@ $$
             <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
             <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
             <li class="" data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
-            <li class="active " data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
-            <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
-            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
-            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
-            <li class="" data-nav-id="/basics/graph_definition/index.html"><a class="padding" href="/basics/graph_definition/index.html">12. Графы. Определения и способы хранения</a></li>
-            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li>
-            <li class="" data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li>
-            <li class="" data-nav-id="/basics/greedy_algorithms/index.html"><a class="padding" href="/basics/greedy_algorithms/index.html">15. Жадные алгоритмы</a></li>
-            <li class="" data-nav-id="/basics/finding_the_minimum_spanning_tree/index.html"><a class="padding" href="/basics/finding_the_minimum_spanning_tree/index.html">16. Поиск минимального остовного дерева</a></li>
-            <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">17. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="active " data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">

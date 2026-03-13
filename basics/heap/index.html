@@ -151,7 +151,7 @@
 <span class="btn cstyle button link noborder notitle interactive"><a href="/basics/sorts/index.html" title="6. Сортировки (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle"><span><i class="fa-fw fas fa-chevron-right"></i></span></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/hashing/index.html" title="8. Хеширование (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -200,21 +200,21 @@
 <p>Научимся выполнять три простых операции: getMin() - поиск минимального элемента в куче, insert(x) - добавление нового элемента $x$ в кучу, и extractMin() - удаление минимума из кучи. Последние две операции будут пользоваться вспомогательными операциями $\operatorname{siftUp(i)~и~siftDown(i).~}$</p>
 <h4 id="поиск-минимума">Поиск минимума<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>Из определения кучи сразу же следует, что минимальный элемент всегда будет находиться в корне. Тогда просто вернём $a[1]$, время работы $-O(1)$.
-<div class="tab-panel" data-tab-group="R-tabs-4a196359102382e7ad239ff6eb76ba70">
+<div class="tab-panel" data-tab-group="R-tabs-e88438f65551924c1f8534ce612741bf">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-a065e33b72020e0cf1fdb2028161e9e2" aria-expanded="true"
+      aria-controls="R-tab-id-a6e399d9c517ce611da144e2201bd277" aria-expanded="true"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-4a196359102382e7ad239ff6eb76ba70','R-tab-8b5820e171efb7042b7e190c10d26713')"
+      onclick="switchTab('R-tabs-e88438f65551924c1f8534ce612741bf','R-tab-8b5820e171efb7042b7e190c10d26713')"
     >
       <span class="tab-nav-text">псевдокод</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-a065e33b72020e0cf1fdb2028161e9e2"
+      id="R-tab-id-a6e399d9c517ce611da144e2201bd277"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -234,37 +234,37 @@
 </div></p>
 <h4 id="добавление-нового-элемента">Добавление нового элемента<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>Пусть свойство кучи &ldquo;практически&rdquo; выполняется: для некоторого $i$ известно, что $a[i]=x$ можно увеличить так, что массив $a$ станет кучей. Такую почти кучу можно &ldquo;починить&rdquo;, не меняя множество лежащих в ней значений, следующим образом: просто будем &ldquo;поднимать&rdquo; $x$ вверх, пока $x$ меньше значения в родителе.
-<div class="tab-panel" data-tab-group="R-tabs-b45a91e76cff8c50bf337ce5d7b93fbb">
+<div class="tab-panel" data-tab-group="R-tabs-a09770877629891dacff5d65f5cc681c">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-3dde5a60fa026f729d103a40096f42fa" aria-expanded="true"
+      aria-controls="R-tab-id-cdb893df3782912355b1e074e5a9288f" aria-expanded="true"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-b45a91e76cff8c50bf337ce5d7b93fbb','R-tab-8b5820e171efb7042b7e190c10d26713')"
+      onclick="switchTab('R-tabs-a09770877629891dacff5d65f5cc681c','R-tab-8b5820e171efb7042b7e190c10d26713')"
     >
       <span class="tab-nav-text">псевдокод</span>
     </button>
     <button
-      aria-controls="R-tab-id-29d906144859057fd14fcc7a06b2a5e4" aria-expanded="false"
+      aria-controls="R-tab-id-7871270ae9205a4fb8ec5ea33cef26c7" aria-expanded="false"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-b45a91e76cff8c50bf337ce5d7b93fbb','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-a09770877629891dacff5d65f5cc681c','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-ca5a71a4e7c63adaac18d18d13e03170" aria-expanded="false"
+      aria-controls="R-tab-id-9c595873a2d65412e19183e8d97ee7d4" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-b45a91e76cff8c50bf337ce5d7b93fbb','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-a09770877629891dacff5d65f5cc681c','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-3dde5a60fa026f729d103a40096f42fa"
+      id="R-tab-id-cdb893df3782912355b1e074e5a9288f"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -285,7 +285,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-29d906144859057fd14fcc7a06b2a5e4"
+      id="R-tab-id-7871270ae9205a4fb8ec5ea33cef26c7"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -324,7 +324,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-ca5a71a4e7c63adaac18d18d13e03170"
+      id="R-tab-id-9c595873a2d65412e19183e8d97ee7d4"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -393,21 +393,21 @@
 </details>
 <p>Количество итераций цикла в siftUp(i) не превосходит глубины $i$-й вершины, то есть время работы оценивается как $O(\log i+1)$.</p>
 <p>Чтобы добавить новый элемент $x$ в кучу размера $n$, запишем $x$ в $a[n+1]$ (мы предполагаем, что массив $a$ достаточно большого размера либо динамический). При этом $a$ мог перестать быть кучей, но $a[n+1]$ можно увеличить так, что $a$ снова станет кучей (например, сделав его больше всех остальных элементов), поэтому достаточно запустить от него siftUp. Получаем время работы $O(\log n)$.
-<div class="tab-panel" data-tab-group="R-tabs-bb2f00648b173371fd74d6665c242ea1">
+<div class="tab-panel" data-tab-group="R-tabs-210a5af78544063deaf0557c5dfbb6b2">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-c0f3453aaf49bd3d3b72a1da23378efb" aria-expanded="true"
+      aria-controls="R-tab-id-8a65bc6a7fd55891d73217e0bacf540b" aria-expanded="true"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-bb2f00648b173371fd74d6665c242ea1','R-tab-8b5820e171efb7042b7e190c10d26713')"
+      onclick="switchTab('R-tabs-210a5af78544063deaf0557c5dfbb6b2','R-tab-8b5820e171efb7042b7e190c10d26713')"
     >
       <span class="tab-nav-text">псевдокод</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-c0f3453aaf49bd3d3b72a1da23378efb"
+      id="R-tab-id-8a65bc6a7fd55891d73217e0bacf540b"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -431,37 +431,37 @@
 </div></p>
 <h4 id="удаление-минимума">Удаление минимума<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>Пусть известно, что $a[i]=x$ можно уменьшить так, что массив $a$ станет кучей. Такую почти кучу тоже можно &ldquo;починить&rdquo;: будем &ldquo;опускать&rdquo; $x$ вниз, пока $x$ больше хотя бы одного из значений в детях, при этом будем менять $x$ местами с тем ребёнком, значение в котором меньше.
-<div class="tab-panel" data-tab-group="R-tabs-985799487f09d00ce5bb541e92df8625">
+<div class="tab-panel" data-tab-group="R-tabs-0b7caba3ce4aafd654ba54a670438e2e">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-db468de98a580dbcc508a1182c90bcd3" aria-expanded="true"
+      aria-controls="R-tab-id-5da3f62639edde1bb4dc1536bbbe1546" aria-expanded="true"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-985799487f09d00ce5bb541e92df8625','R-tab-8b5820e171efb7042b7e190c10d26713')"
+      onclick="switchTab('R-tabs-0b7caba3ce4aafd654ba54a670438e2e','R-tab-8b5820e171efb7042b7e190c10d26713')"
     >
       <span class="tab-nav-text">псевдокод</span>
     </button>
     <button
-      aria-controls="R-tab-id-a7a73c857ce803d91b5bf6f33a8f82fa" aria-expanded="false"
+      aria-controls="R-tab-id-0dc9ce9ba3a1dc51e219e23c412e318b" aria-expanded="false"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-985799487f09d00ce5bb541e92df8625','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-0b7caba3ce4aafd654ba54a670438e2e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-7d52c571cb37ed8f9e23c11a0de840e3" aria-expanded="false"
+      aria-controls="R-tab-id-3f01d64a8e9c6cb09baae92e38e1bdd1" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-985799487f09d00ce5bb541e92df8625','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-0b7caba3ce4aafd654ba54a670438e2e','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-db468de98a580dbcc508a1182c90bcd3"
+      id="R-tab-id-5da3f62639edde1bb4dc1536bbbe1546"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -494,7 +494,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-a7a73c857ce803d91b5bf6f33a8f82fa"
+      id="R-tab-id-0dc9ce9ba3a1dc51e219e23c412e318b"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -545,7 +545,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-7d52c571cb37ed8f9e23c11a0de840e3"
+      id="R-tab-id-3f01d64a8e9c6cb09baae92e38e1bdd1"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -634,37 +634,37 @@
 </details>
 <p>Количество итераций цикла в $\operatorname{siftDown(i)}$ не больше высоты $i$-й вершины, поэтому время работы оценивается как $O(\log n-\log i+1)=O\left(\log \frac{n}{i}+1\right)$, или, более грубо, $O(\log n)$.</p>
 <p>Чтобы удалить минимум из кучи размера $n$, поменяем местами $a[1]$ и $a[n]$, и уменьшим размер кучи на один. Теперь в $a[1]$ находится возможно не минимальный элемент, но его можно уменьшить так, что $a$ опять станет кучей (например, сделать его меньше всех остальных элементов). Тогда достаточно запустить $\operatorname{siftDown(1)}$. Получаем время работы $O(\log n)$.
-<div class="tab-panel" data-tab-group="R-tabs-e8011b35fbd3e749c0cd1b75d2005b1d">
+<div class="tab-panel" data-tab-group="R-tabs-134fd58c9b5dc4755251d2206fe0d690">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-478c1db43e2c242ab3f5b45153ba14f6" aria-expanded="true"
+      aria-controls="R-tab-id-f42c2876127a64f2d4ac77d771e3ef7c" aria-expanded="true"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-e8011b35fbd3e749c0cd1b75d2005b1d','R-tab-8b5820e171efb7042b7e190c10d26713')"
+      onclick="switchTab('R-tabs-134fd58c9b5dc4755251d2206fe0d690','R-tab-8b5820e171efb7042b7e190c10d26713')"
     >
       <span class="tab-nav-text">псевдокод</span>
     </button>
     <button
-      aria-controls="R-tab-id-4a31c4190ee57ff18bf70c242e8e3ba7" aria-expanded="false"
+      aria-controls="R-tab-id-30980ad6c6c624cc553d59ef357d9d7b" aria-expanded="false"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-e8011b35fbd3e749c0cd1b75d2005b1d','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-134fd58c9b5dc4755251d2206fe0d690','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-9f43a123b4bc96921a2aa067de960751" aria-expanded="false"
+      aria-controls="R-tab-id-71cfac257d1629c2d72248c2814c490b" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-e8011b35fbd3e749c0cd1b75d2005b1d','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-134fd58c9b5dc4755251d2206fe0d690','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-478c1db43e2c242ab3f5b45153ba14f6"
+      id="R-tab-id-f42c2876127a64f2d4ac77d771e3ef7c"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -687,7 +687,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-4a31c4190ee57ff18bf70c242e8e3ba7"
+      id="R-tab-id-30980ad6c6c624cc553d59ef357d9d7b"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -718,7 +718,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-9f43a123b4bc96921a2aa067de960751"
+      id="R-tab-id-71cfac257d1629c2d72248c2814c490b"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -787,37 +787,37 @@
 <h2 id="построение-кучи">Построение кучи<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Самый простой способ построить кучу из $n$ элементов - начать с пустой кучи, и добавлять элементы по одному. В худшем случае (если все вызовы $\operatorname{siftUp}$ будут подниматься до корня, то есть если элементы добавляются в убывающем порядке) получим время работы $\Theta(n \log n)$.</p>
 <p>Можно построить кучу быстрее: сложим элементы в массив в произвольном порядке, после чего поочерёдно запустим siftDown от всех элементов, не являющихся листьями, в порядке убывания их номеров.
-<div class="tab-panel" data-tab-group="R-tabs-a476f3a5b5d4d389868c3f60a989792e">
+<div class="tab-panel" data-tab-group="R-tabs-2d6539497c95e71d300c31fd96322fac">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-85cb1f8fd767840113828a595f08dba3" aria-expanded="true"
+      aria-controls="R-tab-id-600df96485b45bb9e2fd25143522b16a" aria-expanded="true"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-a476f3a5b5d4d389868c3f60a989792e','R-tab-8b5820e171efb7042b7e190c10d26713')"
+      onclick="switchTab('R-tabs-2d6539497c95e71d300c31fd96322fac','R-tab-8b5820e171efb7042b7e190c10d26713')"
     >
       <span class="tab-nav-text">псевдокод</span>
     </button>
     <button
-      aria-controls="R-tab-id-a7f3c880fa4001be6cc06acb971b475d" aria-expanded="false"
+      aria-controls="R-tab-id-c1c50aaabe8119cde3ca8c94a3b480dd" aria-expanded="false"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-a476f3a5b5d4d389868c3f60a989792e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-2d6539497c95e71d300c31fd96322fac','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-fe2c528a31e8c7198d10b5ef77ddd008" aria-expanded="false"
+      aria-controls="R-tab-id-bc3722fcbf3c5bf2dae58a8900fa5f8d" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-a476f3a5b5d4d389868c3f60a989792e','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-2d6539497c95e71d300c31fd96322fac','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-85cb1f8fd767840113828a595f08dba3"
+      id="R-tab-id-600df96485b45bb9e2fd25143522b16a"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -838,7 +838,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-a7f3c880fa4001be6cc06acb971b475d"
+      id="R-tab-id-c1c50aaabe8119cde3ca8c94a3b480dd"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -945,7 +945,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-fe2c528a31e8c7198d10b5ef77ddd008"
+      id="R-tab-id-bc3722fcbf3c5bf2dae58a8900fa5f8d"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1156,37 +1156,37 @@ $$
 </details>
 <h2 id="heapsort">Heapsort<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>С помощью двоичной кучи можно отсортировать массив за $O(n \log n)$ : построим кучу на массиве, после чего $n$ раз извлечём минимум. Если в корне кучи хранится максимум, а не минимум (свойство кучи в таком случае меняется на противоположное: любой элемент не больше своего родителя), то при извлечении максимума из кучи размера $k$ он как раз оказывается на $k$-й позиции в массиве, поэтому алгоритму даже не нужна дополнительная память.
-<div class="tab-panel" data-tab-group="R-tabs-f985bcceb476a28165d474a407e6b56d">
+<div class="tab-panel" data-tab-group="R-tabs-6a1578d43fba115d838a04110e4c6de8">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-6760347d20f534be27c0f45bcef5b7ac" aria-expanded="true"
+      aria-controls="R-tab-id-d84f7015e864d6367e86e573ebd23de3" aria-expanded="true"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-f985bcceb476a28165d474a407e6b56d','R-tab-8b5820e171efb7042b7e190c10d26713')"
+      onclick="switchTab('R-tabs-6a1578d43fba115d838a04110e4c6de8','R-tab-8b5820e171efb7042b7e190c10d26713')"
     >
       <span class="tab-nav-text">псевдокод</span>
     </button>
     <button
-      aria-controls="R-tab-id-3a79965901aed72926313c4720307289" aria-expanded="false"
+      aria-controls="R-tab-id-0d4007b711dddeab91b45110eafc6fb1" aria-expanded="false"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-f985bcceb476a28165d474a407e6b56d','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-6a1578d43fba115d838a04110e4c6de8','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-b9851ea8e3df0e6c433c0483eb191df3" aria-expanded="false"
+      aria-controls="R-tab-id-130619f6e4df0814b0e3a3c062ac883a" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-f985bcceb476a28165d474a407e6b56d','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-6a1578d43fba115d838a04110e4c6de8','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-6760347d20f534be27c0f45bcef5b7ac"
+      id="R-tab-id-d84f7015e864d6367e86e573ebd23de3"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1207,7 +1207,7 @@ $$
       </div>
     </div>
     <div
-      id="R-tab-id-3a79965901aed72926313c4720307289"
+      id="R-tab-id-0d4007b711dddeab91b45110eafc6fb1"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1300,7 +1300,7 @@ $$
       </div>
     </div>
     <div
-      id="R-tab-id-b9851ea8e3df0e6c433c0483eb191df3"
+      id="R-tab-id-130619f6e4df0814b0e3a3c062ac883a"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1443,21 +1443,21 @@ $$
 <p>При использовании очереди с приоритетами часто хочется иметь возможность делать дополнительные операции: менять значение приоритета у объекта, лежащего в очереди, или удалять из очереди произвольный объект, не обязательно с максимальным приоритетом. Покажем, что двоичная куча поддерживает такие операции.</p>
 <p>Если приоритет объекта не максимален, то сложно быстро понять, где именно в куче он находится. Поэтому когда возникает потребность в таких операциях, обычно для каждого объекта дополнительно поддерживается ссылка на его позицию в куче (обычно это просто номер этой позиции), а для каждой позиции в куче поддерживается ссылка на объект, который находится в этой позиции. Так, если объекты пронумерованы числами от $1$ до $n$, можно поддерживать массив pos, в $i$-й ячейке которого будет храниться позиция в куче элемента с номером $i$. При перестройке кучи этот массив несложно пересчитывать.</p>
 <p>Итак, пусть мы хотим удалить объект из кучи $a$ размера $n$, при этом мы знаем, что сейчас он находится на позиции $i$. Поступим так же, как и при удалении максимума: поменяем $i$-й элемент местами с последним, и уменьшим размер кучи. После этого $a$ может перестать быть кучей, но $i$-й элемент можно либо увеличить, либо уменьшить так, что $a$ снова станет кучей (например, можно вернуть старое значение $i$-го элемента). Значит после вызова $\operatorname{siftUp(i)}$ или $\operatorname{siftDown(i)}$ $a$ снова станет кучей. Если мы вызовем обе операции, то одна из них &ldquo;починит&rdquo; кучу, а вторая ничего не сделает. Время работы $O(\log n)$.
-<div class="tab-panel" data-tab-group="R-tabs-f017620ca482d6649140282e6d3d4b9e">
+<div class="tab-panel" data-tab-group="R-tabs-11205997840450a4e366782f71f6e4bd">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-97280dbf28d34ca089df865cfd65c246" aria-expanded="true"
+      aria-controls="R-tab-id-8bd516ec3c609dc42f28e073deb01bc4" aria-expanded="true"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-f017620ca482d6649140282e6d3d4b9e','R-tab-8b5820e171efb7042b7e190c10d26713')"
+      onclick="switchTab('R-tabs-11205997840450a4e366782f71f6e4bd','R-tab-8b5820e171efb7042b7e190c10d26713')"
     >
       <span class="tab-nav-text">псевдокод</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-97280dbf28d34ca089df865cfd65c246"
+      id="R-tab-id-8bd516ec3c609dc42f28e073deb01bc4"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1484,21 +1484,21 @@ $$
   </div>
 </div></p>
 <p>Точно так же можно менять значение приоритета у произвольного объекта. Пусть объект находится в куче в позиции $i$, тогда поменяем значение приоритета и снова запустим $\operatorname{siftUp(i)}$, $\operatorname{siftDown(i)}$. Это работает ровно по тем же причинам, что и в случае удаления. Время работы снова $O(\log n)$.
-<div class="tab-panel" data-tab-group="R-tabs-b8757dc16fcadfbbb1245be3e1a3c3e8">
+<div class="tab-panel" data-tab-group="R-tabs-e4c3535df266cb47e0cb4f9b4959d40a">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-0dea20676bc99b84c0e652a4601c51da" aria-expanded="true"
+      aria-controls="R-tab-id-a3dab829197edfeeb4364f86d655deca" aria-expanded="true"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-b8757dc16fcadfbbb1245be3e1a3c3e8','R-tab-8b5820e171efb7042b7e190c10d26713')"
+      onclick="switchTab('R-tabs-e4c3535df266cb47e0cb4f9b4959d40a','R-tab-8b5820e171efb7042b7e190c10d26713')"
     >
       <span class="tab-nav-text">псевдокод</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-0dea20676bc99b84c0e652a4601c51da"
+      id="R-tab-id-a3dab829197edfeeb4364f86d655deca"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1573,7 +1573,8 @@ $$
             <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
             <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
             <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
-            <li class="active " data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li></ul></li>
+            <li class="active " data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
