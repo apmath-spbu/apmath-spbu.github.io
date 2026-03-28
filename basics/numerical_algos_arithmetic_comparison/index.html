@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
@@ -10,7 +10,7 @@
     <meta name="twitter:title" content="9. Арифметика сравнений :: Краткий курс по основам программирования">
     <meta name="twitter:description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
 Сложение и умножение по модулю Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.">
-    <meta property="og:url" content="http://localhost:1313/basics/numerical_algos_arithmetic_comparison/index.html">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/numerical_algos_arithmetic_comparison/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="9. Арифметика сравнений :: Краткий курс по основам программирования">
     <meta property="og:description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
@@ -18,14 +18,14 @@
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
-    <meta property="article:published_time" content="2025-03-15T19:04:59+03:00">
-    <meta property="article:modified_time" content="2025-03-15T19:04:59+03:00">
+    <meta property="article:published_time" content="2026-03-28T09:00:00+03:00">
+    <meta property="article:modified_time" content="2026-03-28T09:00:00+03:00">
     <meta itemprop="name" content="9. Арифметика сравнений :: Краткий курс по основам программирования">
     <meta itemprop="description" content="Начиная с этой части, при оценке сложности алгоритмов будем использовать обозначение $M(n)$, имея в виду сложность умножения двух чисел длины $n$. Можно показать (с помощью метода Ньютона), что деление нацело имеет ту же сложность, что и умножение, поэтому для деления отдельного обозначения вводить не будем.
 Сложение и умножение по модулю Сложение и умножение по $n$-битному модулю $N$ имеет ту же сложность, что и обычные сложение и умножение, то есть $O(n)$ и $O(M(n))$ : нужно произвести вычисление без модуля, при этом результат будем иметь не более $2 n$ бит, после чего вычислить остаток от деления результата на $N$. В случае сложения результат меньше $2 N$, поэтому достаточно просто (возможно) вычесть $N$, что требует ещё $O(n)$ операций и не увеличивает оценку времени работы. В случае умножения осуществляем деление с остатком за $O(M(n))$.">
-    <meta itemprop="datePublished" content="2025-03-15T19:04:59+03:00">
-    <meta itemprop="dateModified" content="2025-03-15T19:04:59+03:00">
-    <meta itemprop="wordCount" content="1192">
+    <meta itemprop="datePublished" content="2026-03-28T09:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-03-28T09:00:00+03:00">
+    <meta itemprop="wordCount" content="1407">
     <title>9. Арифметика сравнений :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
@@ -54,7 +54,7 @@
       window.relearn.path='\/basics\/numerical_algos_arithmetic_comparison\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
-      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
       window.relearn.disableInlineCopyToClipboard=false;
       window.relearn.enableBlockCodeWrap=true;
       // translations
@@ -181,7 +181,33 @@
 <p>Воспользуемся той же идеей, что и в рекурсивном алгоритме умножения:</p>
 $$
 a^{b}= \begin{cases}\left(a^{\left\lfloor\frac{b}{2}\right\rfloor}\right)^{2}, & \text { если } b \text { чётно, } \\ a \cdot\left(a^{\left\lfloor\frac{b}{2}\right\rfloor}\right)^{2}, & \text { иначе. }\end{cases}
-$$<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+$$<div class="tab-panel" data-tab-group="R-tabs-2ad1f05a8727d8c6ada5408d4604b527">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-f4cc2ab0774464072309d6c23b54bd5c" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-2ad1f05a8727d8c6ada5408d4604b527','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-934724a4d8a42e1e6ffe12b63174e9fa" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-2ad1f05a8727d8c6ada5408d4604b527','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-f4cc2ab0774464072309d6c23b54bd5c"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
@@ -191,17 +217,58 @@ $$<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="colo
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>modExp(a, b, N): <span style="color:#75715e"># a и b - двоичные записи чисел, N - модуль</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">modExp</span>(a, b, N):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># a, b, N - целые числа</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> modExp(a, b <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>, N) <span style="color:#75715e"># деление нацело</span>
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> modExp(a, b <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>, N)  <span style="color:#75715e"># целочисленное деление</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> c <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span> mod N
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (c <span style="color:#f92672">*</span> c) <span style="color:#f92672">%</span> N
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a <span style="color:#f92672">*</span> c <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span> mod N</span></span></code></pre></td></tr></table>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (a <span style="color:#f92672">*</span> c <span style="color:#f92672">*</span> c) <span style="color:#f92672">%</span> N</span></span></code></pre></td></tr></table>
 </div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-934724a4d8a42e1e6ffe12b63174e9fa"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">modExp</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b, <span style="color:#66d9ef">int</span> N) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> modExp(a, b <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>, N);  <span style="color:#75715e">// целочисленное деление
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (b <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (c <span style="color:#f92672">*</span> c) <span style="color:#f92672">%</span> N;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (a <span style="color:#f92672">*</span> c <span style="color:#f92672">*</span> c) <span style="color:#f92672">%</span> N;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
 </div>
 <p>Если $n$ - максимальная длина чисел $a, b, N$, то происходит $O(n)$ рекурсивных вызовов, на каждом из которых не более двух умножений по модулю $N$. Получаем оценку сложности $O(n \cdot M(n))$.</p>
 <h3 id="алгоритм-евклида">Алгоритм Евклида<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
@@ -227,31 +294,114 @@ $$<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="colo
 </details></p>
   </div>
 </details>
-<p>Алгоритм Евклида пользуется вышеописанным правилом, пока не окажется, что $b=0$. Ясно, что $\operatorname{gcd}(a, 0)=a$ для любого $a$.</p>
+<p>Алгоритм Евклида пользуется вышеописанным правилом, пока не окажется, что $b=0$. Ясно, что $\operatorname{gcd}(a, 0)=a$ для любого $a$.
+<div class="tab-panel" data-tab-group="R-tabs-ebbf13f276e3eb29ed09a98aced84243">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-e7da5c301404fadd558c709a48a3373e" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-ebbf13f276e3eb29ed09a98aced84243','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-dbee6fad54975ca10c0d84593298b1eb" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-ebbf13f276e3eb29ed09a98aced84243','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-e7da5c301404fadd558c709a48a3373e"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>gcd(a, b): <span style="color:#75715e"># a, b &gt;= 0</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gcd</span>(a, b):  <span style="color:#75715e"># a, b &gt;= 0</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> gcd(b, a <span style="color:#f92672">%</span> b)
-</span></span><span style="display:flex;"><span>gcd(a, b): <span style="color:#75715e"># нерекурсивная версия</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">gcd_iterative</span>(a, b):  <span style="color:#75715e"># нерекурсивная версия</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> b <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
-</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">%=</span>b
-</span></span><span style="display:flex;"><span>        swap(a, b)
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">%=</span> b
+</span></span><span style="display:flex;"><span>        a, b <span style="color:#f92672">=</span> b, a  <span style="color:#75715e"># swap(a, b)</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a</span></span></code></pre></td></tr></table>
 </div>
 </div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-dbee6fad54975ca10c0d84593298b1eb"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;utility&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Рекурсивная версия
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {  <span style="color:#75715e">// a, b &gt;= 0
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> gcd(b, a <span style="color:#f92672">%</span> b);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Нерекурсивная версия
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">gcd_iterative</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {  <span style="color:#75715e">// a, b &gt;= 0
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (b <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">%=</span> b;
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>swap(a, b);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div></p>
 <p>Оценим время работы алгоритма:</p>
 
 <details open class="box cstyle notices lemma">
@@ -343,7 +493,33 @@ $$
 </details>
   </div>
 </details>
-<p>Такие $x$ и $y$ всегда можно найти следующим алгоритмом:</p>
+<p>Такие $x$ и $y$ всегда можно найти следующим алгоритмом:
+<div class="tab-panel" data-tab-group="R-tabs-bb3981ccb52d57ea7a4d2c8691746718">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-73c74f9545c0425420036e64665d2238" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-bb3981ccb52d57ea7a4d2c8691746718','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-ef66af30661bee6e6e1b256d2f839c8c" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-bb3981ccb52d57ea7a4d2c8691746718','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-73c74f9545c0425420036e64665d2238"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -353,13 +529,50 @@ $$
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>extendedEuclid(a, b): <span style="color:#75715e"># возвращает x,y такие, что ax + by = gcd(a, b)</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">extendedEuclid</span>(a, b):  <span style="color:#75715e"># возвращает x,y такие, что ax + by = gcd(a, b)</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>
 </span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> extendedEuclid(b, a <span style="color:#f92672">%</span> b)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> y, x <span style="color:#f92672">-</span> (a <span style="color:#f92672">/</span> b) <span style="color:#f92672">*</span> y <span style="color:#75715e"># деление нацело</span></span></span></code></pre></td></tr></table>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> y, x <span style="color:#f92672">-</span> (a <span style="color:#f92672">//</span> b) <span style="color:#f92672">*</span> y  <span style="color:#75715e"># целочисленное деление</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-ef66af30661bee6e6e1b256d2f839c8c"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;utility&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// возвращает x,y такие, что ax + by = gcd(a, b)
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> extendedEuclid(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>};
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> [x, y] <span style="color:#f92672">=</span> extendedEuclid(b, a <span style="color:#f92672">%</span> b);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {y, x <span style="color:#f92672">-</span> (a <span style="color:#f92672">/</span> b) <span style="color:#f92672">*</span> y}; 
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div></p>
 
 <details open class="box cstyle notices corollar">
   <summary class="box-label" tabindex="-1">
@@ -403,8 +616,8 @@ $$
   <div class="box-content">
 <p>Снова воспользуемся индукцией по $b$.</p>
 <p>База. При $b=0$ алгоритм возвращает $x=1, y=0$ (случай $b=0$ не подходит под условие предложения, но нужен нам как база индукции).</p>
-<p>Переход. Если $a \bmod b=0$, то extendedEuclid(b, a mod b) вернул $x^{\prime}=1, y^{\prime}=0$. Тогда extendedEuclid(a, b) вернёт $x=0 \leqslant b, y=1 \leqslant a$.</p>
-<p>Если же $a \bmod b \neq 0$, то по предположению индукции extendedEuclid(b, a mod b) вернул такие $x^{\prime}, y^{\prime}$, что $\left|x^{\prime}\right| \leqslant a \bmod b,\left|y^{\prime}\right| \leqslant b$. Тогда extendedEuclid(a, b) вернёт $|x|=\left|y^{\prime}\right| \leqslant b,|y|=\left|x^{\prime}-\left\lfloor\frac{a}{b}\right\rfloor y^{\prime}\right| \leqslant\left|x^{\prime}\right|+\left\lfloor\frac{a}{b}\right\rfloor\left|y^{\prime}\right| \leqslant a \bmod b+\left\lfloor\frac{a}{b}\right\rfloor b=a$.</p>
+<p>Переход. Если $a \bmod b=0$, то $\operatorname{extendedEuclid}(b, a \bmod b)$ вернул $x^{\prime}=1, y^{\prime}=0$. Тогда $\operatorname{extendedEuclid}(a, b)$ вернёт $x=0 \leqslant b, y=1 \leqslant a$.</p>
+<p>Если же $a \bmod b \neq 0$, то по предположению индукции $\operatorname{extendedEuclid}(b, a \bmod b)$ вернул такие $x^{\prime}, y^{\prime}$, что $\left|x^{\prime}\right| \leqslant a \bmod b,\left|y^{\prime}\right| \leqslant b$. Тогда $\operatorname{extendedEuclid}(a, b)$ вернёт $|x|=\left|y^{\prime}\right| \leqslant b,|y|=\left|x^{\prime}-\left\lfloor\frac{a}{b}\right\rfloor y^{\prime}\right| \leqslant\left|x^{\prime}\right|+\left\lfloor\frac{a}{b}\right\rfloor\left|y^{\prime}\right| \leqslant a \bmod b+\left\lfloor\frac{a}{b}\right\rfloor b=a$.</p>
   </div>
 </details></p>
   </div>
@@ -427,7 +640,7 @@ $$
     Доказательство
   </summary>
   <div class="box-content">
-<p>Для того, чтобы повторить доказательство теоремы 9.3, достаточно показать, что суммарное время работы всех операций, кроме рекурсивного вызова, в extendedEuclid(a,b) на числах длины $n$ и $m$ соответственно, есть $O(n(n-m+1))$.</p>
+<p>Для того, чтобы повторить доказательство теоремы, достаточно показать, что суммарное время работы всех операций, кроме рекурсивного вызова, в $\operatorname{extendedEuclid}(a,b)$ на числах длины $n$ и $m$ соответственно, есть $O(n(n-m+1))$.</p>
 <p>Частное $\left\lfloor\frac{a}{b}\right\rfloor$ можно вычислить одновременно с остатком $a \bmod b$ за $O(n(n-m+1))$. Также нужно произвести умножение $\left\lfloor\frac{a}{b}\right\rfloor$ на $y$, но, поскольку длина $\left\lfloor\frac{a}{b}\right\rfloor$ не превосходит $n-m+1$, а длина $y$ не превосходит $n$, это умножение имеет ту же сложность, что и деление выше. Помимо умножения и деления, происходит ещё лишь линейное от $n$ число действий.</p>
   </div>
 </details></p>
@@ -440,7 +653,7 @@ $$
 <p>Если для числа $a$ существует обратное по модулю $N$ число $a^{-1}$, то можно осуществлять деление на $a$ по модулю $N$ : это равносильно умножению на $a^{-1}$.</p>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 15 мар. 2025 г.
+              <i class='fa-fw fas fa-calendar'></i> 28 мар. 2026 г.
   </footer>
 </article>
         </div>
@@ -494,13 +707,7 @@ $$
             <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
             <li class="active " data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
             <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
-            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
-            <li class="" data-nav-id="/basics/graph_definition/index.html"><a class="padding" href="/basics/graph_definition/index.html">12. Графы. Определения и способы хранения</a></li>
-            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li>
-            <li class="" data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li>
-            <li class="" data-nav-id="/basics/greedy_algorithms/index.html"><a class="padding" href="/basics/greedy_algorithms/index.html">15. Жадные алгоритмы</a></li>
-            <li class="" data-nav-id="/basics/finding_the_minimum_spanning_tree/index.html"><a class="padding" href="/basics/finding_the_minimum_spanning_tree/index.html">16. Поиск минимального остовного дерева</a></li>
-            <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">17. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">

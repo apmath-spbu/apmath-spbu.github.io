@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta name="description" content="Решето Эратосфена Решето Эратосфена - алгоритм, находящий все простые числа, не превосходящие некоторой границы $n$. Алгоритм рассматривает последовательно все числа от 2 до $n$. Если очередное число ещё не помечено как составное, он помечает его как простое, а все числа, делящиеся на него, помечает как составные.
-Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата.">
+Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата. ​ python c&#43;&#43; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 def sieve_of_eratosthenes(n): isPrime = [True] * (n &#43; 1) isPrime[0] = isPrime[1] = False for i in range(2, n &#43; 1): if isPrime[i]: for j in range(i * i, n &#43; 1, i): isPrime[j] = False return isPrime # Пример использования n = 100 primes = sieve_of_eratosthenes(n) for i in range(n &#43; 1): if primes[i]: print(i, end=&#34; &#34;) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 #include &lt;iostream&gt; #include &lt;vector&gt; std::vector&lt;bool&gt; sieve_of_eratosthenes(int n) { std::vector&lt;bool&gt; isPrime(n &#43; 1, true); isPrime[0] = isPrime[1] = false; for (int i = 2; i &lt;= n; &#43;&#43;i) { if (isPrime[i]) { for (int j = i * i; j &lt;= n; j &#43;= i) { isPrime[j] = false; } } } return isPrime; } int main() { int n = 100; std::vector&lt;bool&gt; primes = sieve_of_eratosthenes(n); for (int i = 0; i &lt;= n; &#43;&#43;i) { if (primes[i]) { std::cout &lt;&lt; i &lt;&lt; &#34; &#34;; } } return 0; }">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="10. Проверка на простоту и факторизация :: Краткий курс по основам программирования">
     <meta name="twitter:description" content="Решето Эратосфена Решето Эратосфена - алгоритм, находящий все простые числа, не превосходящие некоторой границы $n$. Алгоритм рассматривает последовательно все числа от 2 до $n$. Если очередное число ещё не помечено как составное, он помечает его как простое, а все числа, делящиеся на него, помечает как составные.
-Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата.">
-    <meta property="og:url" content="http://localhost:1313/basics/numerical_algos_prime_test_and_factorization/index.html">
+Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата. ​ python c&#43;&#43; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 def sieve_of_eratosthenes(n): isPrime = [True] * (n &#43; 1) isPrime[0] = isPrime[1] = False for i in range(2, n &#43; 1): if isPrime[i]: for j in range(i * i, n &#43; 1, i): isPrime[j] = False return isPrime # Пример использования n = 100 primes = sieve_of_eratosthenes(n) for i in range(n &#43; 1): if primes[i]: print(i, end=&#34; &#34;) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 #include &lt;iostream&gt; #include &lt;vector&gt; std::vector&lt;bool&gt; sieve_of_eratosthenes(int n) { std::vector&lt;bool&gt; isPrime(n &#43; 1, true); isPrime[0] = isPrime[1] = false; for (int i = 2; i &lt;= n; &#43;&#43;i) { if (isPrime[i]) { for (int j = i * i; j &lt;= n; j &#43;= i) { isPrime[j] = false; } } } return isPrime; } int main() { int n = 100; std::vector&lt;bool&gt; primes = sieve_of_eratosthenes(n); for (int i = 0; i &lt;= n; &#43;&#43;i) { if (primes[i]) { std::cout &lt;&lt; i &lt;&lt; &#34; &#34;; } } return 0; }">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/numerical_algos_prime_test_and_factorization/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="10. Проверка на простоту и факторизация :: Краткий курс по основам программирования">
     <meta property="og:description" content="Решето Эратосфена Решето Эратосфена - алгоритм, находящий все простые числа, не превосходящие некоторой границы $n$. Алгоритм рассматривает последовательно все числа от 2 до $n$. Если очередное число ещё не помечено как составное, он помечает его как простое, а все числа, делящиеся на него, помечает как составные.
-Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата.">
+Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата. ​ python c&#43;&#43; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 def sieve_of_eratosthenes(n): isPrime = [True] * (n &#43; 1) isPrime[0] = isPrime[1] = False for i in range(2, n &#43; 1): if isPrime[i]: for j in range(i * i, n &#43; 1, i): isPrime[j] = False return isPrime # Пример использования n = 100 primes = sieve_of_eratosthenes(n) for i in range(n &#43; 1): if primes[i]: print(i, end=&#34; &#34;) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 #include &lt;iostream&gt; #include &lt;vector&gt; std::vector&lt;bool&gt; sieve_of_eratosthenes(int n) { std::vector&lt;bool&gt; isPrime(n &#43; 1, true); isPrime[0] = isPrime[1] = false; for (int i = 2; i &lt;= n; &#43;&#43;i) { if (isPrime[i]) { for (int j = i * i; j &lt;= n; j &#43;= i) { isPrime[j] = false; } } } return isPrime; } int main() { int n = 100; std::vector&lt;bool&gt; primes = sieve_of_eratosthenes(n); for (int i = 0; i &lt;= n; &#43;&#43;i) { if (primes[i]) { std::cout &lt;&lt; i &lt;&lt; &#34; &#34;; } } return 0; }">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
-    <meta property="article:published_time" content="2025-03-15T19:04:58+03:00">
-    <meta property="article:modified_time" content="2025-03-15T19:04:58+03:00">
+    <meta property="article:published_time" content="2026-03-28T09:00:00+03:00">
+    <meta property="article:modified_time" content="2026-03-28T09:00:00+03:00">
     <meta itemprop="name" content="10. Проверка на простоту и факторизация :: Краткий курс по основам программирования">
     <meta itemprop="description" content="Решето Эратосфена Решето Эратосфена - алгоритм, находящий все простые числа, не превосходящие некоторой границы $n$. Алгоритм рассматривает последовательно все числа от 2 до $n$. Если очередное число ещё не помечено как составное, он помечает его как простое, а все числа, делящиеся на него, помечает как составные.
-Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата.">
-    <meta itemprop="datePublished" content="2025-03-15T19:04:58+03:00">
-    <meta itemprop="dateModified" content="2025-03-15T19:04:58+03:00">
-    <meta itemprop="wordCount" content="2817">
+Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата. ​ python c&#43;&#43; 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 def sieve_of_eratosthenes(n): isPrime = [True] * (n &#43; 1) isPrime[0] = isPrime[1] = False for i in range(2, n &#43; 1): if isPrime[i]: for j in range(i * i, n &#43; 1, i): isPrime[j] = False return isPrime # Пример использования n = 100 primes = sieve_of_eratosthenes(n) for i in range(n &#43; 1): if primes[i]: print(i, end=&#34; &#34;) 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 #include &lt;iostream&gt; #include &lt;vector&gt; std::vector&lt;bool&gt; sieve_of_eratosthenes(int n) { std::vector&lt;bool&gt; isPrime(n &#43; 1, true); isPrime[0] = isPrime[1] = false; for (int i = 2; i &lt;= n; &#43;&#43;i) { if (isPrime[i]) { for (int j = i * i; j &lt;= n; j &#43;= i) { isPrime[j] = false; } } } return isPrime; } int main() { int n = 100; std::vector&lt;bool&gt; primes = sieve_of_eratosthenes(n); for (int i = 0; i &lt;= n; &#43;&#43;i) { if (primes[i]) { std::cout &lt;&lt; i &lt;&lt; &#34; &#34;; } } return 0; }">
+    <meta itemprop="datePublished" content="2026-03-28T09:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-03-28T09:00:00+03:00">
+    <meta itemprop="wordCount" content="3976">
     <title>10. Проверка на простоту и факторизация :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
@@ -54,7 +54,7 @@
       window.relearn.path='\/basics\/numerical_algos_prime_test_and_factorization\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
-      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
       window.relearn.disableInlineCopyToClipboard=false;
       window.relearn.enableBlockCodeWrap=true;
       // translations
@@ -176,25 +176,150 @@
 
 <h3 id="решето-эратосфена">Решето Эратосфена<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Решето Эратосфена - алгоритм, находящий все простые числа, не превосходящие некоторой границы $n$. Алгоритм рассматривает последовательно все числа от 2 до $n$. Если очередное число ещё не помечено как составное, он помечает его как простое, а все числа, делящиеся на него, помечает как составные.</p>
-<p>Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата.</p>
+<p>Поскольку у любого составного числа $x$ есть делитель, не больший корня из $x$, достаточно перебирать кратные простого числа, начиная с его квадрата.
+<div class="tab-panel" data-tab-group="R-tabs-794283ff08153a07ba3e44affa304f56">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-a35c513c70cd2086b5ea0a4e441290e4" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-794283ff08153a07ba3e44affa304f56','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-780c62ce13585a1001a92c15c253280e" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-794283ff08153a07ba3e44affa304f56','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-a35c513c70cd2086b5ea0a4e441290e4"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>bool<span style="color:#f92672">&gt;</span> isPrime(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>isPrime[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> isPrime[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.</span><span style="color:#f92672">.</span>n:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isPrime[i]:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> i <span style="color:#f92672">*</span> i; j <span style="color:#f92672">&lt;=</span> n; j <span style="color:#f92672">+=</span> i):
-</span></span><span style="display:flex;"><span>            isPrime[j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sieve_of_eratosthenes</span>(n):
+</span></span><span style="display:flex;"><span>    isPrime <span style="color:#f92672">=</span> [<span style="color:#66d9ef">True</span>] <span style="color:#f92672">*</span> (n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    isPrime[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> isPrime[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> isPrime[i]:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(i <span style="color:#f92672">*</span> i, n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, i):
+</span></span><span style="display:flex;"><span>                isPrime[j] <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> isPrime
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Пример использования</span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>
+</span></span><span style="display:flex;"><span>primes <span style="color:#f92672">=</span> sieve_of_eratosthenes(n)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> primes[i]:
+</span></span><span style="display:flex;"><span>        print(i, end<span style="color:#f92672">=</span><span style="color:#e6db74">&#34; &#34;</span>)</span></span></code></pre></td></tr></table>
 </div>
 </div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-780c62ce13585a1001a92c15c253280e"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> sieve_of_eratosthenes(<span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> isPrime(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, true);
+</span></span><span style="display:flex;"><span>    isPrime[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> isPrime[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>; i <span style="color:#f92672">&lt;=</span> n; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (isPrime[i]) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> i <span style="color:#f92672">*</span> i; j <span style="color:#f92672">&lt;=</span> n; j <span style="color:#f92672">+=</span> i) {
+</span></span><span style="display:flex;"><span>                isPrime[j] <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> isPrime;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span>;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> primes <span style="color:#f92672">=</span> sieve_of_eratosthenes(n);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;=</span> n; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (primes[i]) {
+</span></span><span style="display:flex;"><span>            std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> i <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34; &#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div></p>
 <p>Время работы алгоритма есть</p>
 $$
 \sum_{\substack{p \text {-простое, } \\ p \leqslant n}} \frac{n}{p}=n \cdot\left(\sum_{\substack{p-п р о с т о е, ~}}^{p \leqslant n}<~ \frac{1}{p}\right)=O(n \log \log n)
@@ -203,31 +328,126 @@ $$
 \sum_{\substack{p-\text { простое, } \\ p \leqslant n}} \frac{1}{p}=O(\log \log n)
 $$<p>(факт из теории чисел, который мы доказывать не будем).</p>
 <h4 id="решето-с-линейным-временем-работы">Решето с линейным временем работы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
-<p>Существует алгоритм со временем работы $O(n)$ (Gries, Misra, 1978), который устроен похожим образом, но помечает каждое составное число ровно один раз. Более того, для каждого числа, не большего $n$, он находит его наименьший простой делитель, что позволяет потом быстро факторизовать (разложить на простые множители) любое из чисел.</p>
+<p>Существует алгоритм со временем работы $O(n)$ <a href="https://www.researchgate.net/publication/220423244_A_Linear_Sieve_Algorithm_for_Finding_Prime_Numbers" rel="external">(Gries, Misra, 1978)</a>, который устроен похожим образом, но помечает каждое составное число ровно один раз. Более того, для каждого числа, не большего $n$, он находит его наименьший простой делитель, что позволяет потом быстро факторизовать (разложить на простые множители) любое из чисел.</p>
 <p>Обозначим наименьший простой делитель $x$ за $p[x]$. Алгоритм помечает составное число $x$ в тот момент, когда он рассматривает число $\frac{x}{p[x]}$. Заметим, что $p[x] \leqslant p\left[\frac{x}{p[x]}\right]$.</p>
-<p>Чтобы сделать все такие пометки, достаточно, рассматривая число $y$, пометить все числа вида $y q$, где $q$ - простое, меньшее или равное $p[y]$.</p>
+<p>Чтобы сделать все такие пометки, достаточно, рассматривая число $y$, пометить все числа вида $y q$, где $q$ - простое, меньшее или равное $p[y]$.
+<div class="tab-panel" data-tab-group="R-tabs-2a76532414978a58abad4de35dcabc6b">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-9d8dadec62515f893f5a67d59802b9e0" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-2a76532414978a58abad4de35dcabc6b','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-62c5659027564f880dcd2f04a6971a4f" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-2a76532414978a58abad4de35dcabc6b','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-9d8dadec62515f893f5a67d59802b9e0"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> primes <span style="color:#75715e"># список простых чисел</span>
-</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> d(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#75715e"># d[i] - номер p[i] в списке простых</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.</span><span style="color:#f92672">.</span>n:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> d[i] <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>        d[i] <span style="color:#f92672">=</span> sz(primes)
-</span></span><span style="display:flex;"><span>        primes<span style="color:#f92672">.</span>push_back(i)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;=</span> d[i] <span style="color:#f92672">and</span> i <span style="color:#f92672">*</span> primes[j] <span style="color:#f92672">&lt;=</span> n; <span style="color:#f92672">++</span>j):
-</span></span><span style="display:flex;"><span>        d[i <span style="color:#f92672">*</span> primes[j]] <span style="color:#f92672">=</span> j</span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">linear_sieve</span>(n):
+</span></span><span style="display:flex;"><span>    primes <span style="color:#f92672">=</span> []  <span style="color:#75715e"># список простых чисел</span>
+</span></span><span style="display:flex;"><span>    d <span style="color:#f92672">=</span> [<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> (n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># d[i] - номер минимального простого делителя i в списке primes</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>, n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> d[i] <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:  <span style="color:#75715e"># i - простое число</span>
+</span></span><span style="display:flex;"><span>            d[i] <span style="color:#f92672">=</span> len(primes)
+</span></span><span style="display:flex;"><span>            primes<span style="color:#f92672">.</span>append(i)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> j <span style="color:#f92672">&lt;=</span> d[i] <span style="color:#f92672">and</span> i <span style="color:#f92672">*</span> primes[j] <span style="color:#f92672">&lt;=</span> n:
+</span></span><span style="display:flex;"><span>            d[i <span style="color:#f92672">*</span> primes[j]] <span style="color:#f92672">=</span> j
+</span></span><span style="display:flex;"><span>            j <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> primes, d</span></span></code></pre></td></tr></table>
 </div>
 </div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-62c5659027564f880dcd2f04a6971a4f"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> linear_sieve(<span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> primes;  <span style="color:#75715e">// список простых чисел
+</span></span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> d(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);  <span style="color:#75715e">// d[i] - номер минимального простого делителя i в списке primes
+</span></span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>; i <span style="color:#f92672">&lt;=</span> n; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (d[i] <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) {  <span style="color:#75715e">// i - простое число
+</span></span></span><span style="display:flex;"><span>            d[i] <span style="color:#f92672">=</span> primes.size();
+</span></span><span style="display:flex;"><span>            primes.push_back(i);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;=</span> d[i] <span style="color:#f92672">&amp;&amp;</span> i <span style="color:#f92672">*</span> primes[j] <span style="color:#f92672">&lt;=</span> n; <span style="color:#f92672">++</span>j) {
+</span></span><span style="display:flex;"><span>            d[i <span style="color:#f92672">*</span> primes[j]] <span style="color:#f92672">=</span> j;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> primes;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div></p>
 <h3 id="перебор-делителей">Перебор делителей<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Пусть теперь мы хотим проверить на простоту конкретное число $n$. Самый простой способ - это перебрать все числа, большие единицы, но меньшие $n$, и проверить, делится ли $n$ хоть на одно из них. На самом деле достаточно перебирать числа, не большие $\sqrt{n}$, поскольку у составного $n$ точно найдётся нетривиальный делитель не больше $\sqrt{n}$. Тем не менее, если $b$ - длина битовой записи $n$, такой алгоритм всё ещё будет иметь сложность, экспоненциально зависящую от $b$ : он совершит $\Omega(\sqrt{n})=\Omega\left(2^{b / 2}\right)=\Omega\left((\sqrt{2})^{b}\right)$ итераций.</p>
 <p>В криптографии часто возникает потребность в больших простых числах. Соответственно, хочется иметь алгоритм, умеющий проверять число на простоту за время, полиномиально зависящее от длины числа.</p>
@@ -244,38 +464,151 @@ $$<p>(факт из теории чисел, который мы доказыв�
   </div>
 </details>
 <p>На основе этой теоремы можно проверять $n$ на простоту следующим тестом: возьмём случайное $1 \leqslant a \leqslant n-1$ и проверим, правда ли, что $a^{n-1} \equiv 1(\bmod n)$. Если сравнение не выполняется (то есть $n$ не прошло тест), то $n$ точно составное.</p>
-<p>Проблема в том, что из того, что сравнение выполняется, совсем не следует, что $n$ простое. Например, $341=31 \cdot 11$ - составное, но $2^{340}=1024^{34} \equiv 1(\bmod 341)$. Можно пытаться бороться с этой проблемой, запуская тест несколько (s) раз с различными $a$.</p>
+<p>Проблема в том, что из того, что сравнение выполняется, совсем не следует, что $n$ простое. Например, $341=31 \cdot 11$ - составное, но $2^{340}=1024^{34} \equiv 1(\bmod 341)$. Можно пытаться бороться с этой проблемой, запуская тест несколько ($s$) раз с различными $a$.
+<div class="tab-panel" data-tab-group="R-tabs-6d9d1db92749a3169b99669805199159">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-62a4e89b8368b2985b3e94025580445a" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-6d9d1db92749a3169b99669805199159','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-6ef99e6501c0bb904cff9a93ff31db48" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-6d9d1db92749a3169b99669805199159','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-62a4e89b8368b2985b3e94025580445a"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># возвращает False, если n составное;</span>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># возвращает False, если n составное;</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># возвращает True, если все проверки пройдены успешно</span>
-</span></span><span style="display:flex;"><span>FermatTest(n):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(s <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> random(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#75715e"># случайное число от 1 до n - 1</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> modExp(a, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, n) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span> <span style="color:#75715e"># n точно составное</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span> <span style="color:#75715e"># надеемся, что n простое</span></span></span></code></pre></td></tr></table>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">FermatTest</span>(n, s):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(s):
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># случайное число от 1 до n - 1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> pow(a, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, n) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>:     <span style="color:#75715e"># modExp через встроенный pow с модулем</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>  <span style="color:#75715e"># n точно составное</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>  <span style="color:#75715e"># надеемся, что n простое</span></span></span></code></pre></td></tr></table>
 </div>
 </div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-6ef99e6501c0bb904cff9a93ff31db48"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;random&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// функция для возведения в степень по модулю (быстрое возведение в степень)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">modExp</span>(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> a, <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> power, <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> mod) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> result <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> a <span style="color:#f92672">%</span> mod;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (power <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (power <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> (result <span style="color:#f92672">*</span> a) <span style="color:#f92672">%</span> mod;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> (a <span style="color:#f92672">*</span> a) <span style="color:#f92672">%</span> mod;
+</span></span><span style="display:flex;"><span>        power <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// возвращает false, если n составное;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// возвращает true, если все проверки пройдены успешно
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">FermatTest</span>(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> n, <span style="color:#66d9ef">int</span> s) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>random_device rd;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>mt19937 gen(rd());
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>uniform_int_distribution<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> dist(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> s; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> a <span style="color:#f92672">=</span> dist(gen);  <span style="color:#75715e">// случайное число от 1 до n - 1
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (modExp(a, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, n) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> false;  <span style="color:#75715e">// n точно составное
+</span></span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> true;  <span style="color:#75715e">// надеемся, что n простое
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div></p>
 <p>Время работы теста Ферма на $b$-битном числе $n-O(s b \cdot M(b))$.</p>
 <p>Как нам поможет несколько запусков теста? Заметим во-первых, что если $a$ окажется не взаимно просто с $n$ (то есть $\operatorname{gcd}(a, n) \neq 1)$, то $a^{n-1} \not \equiv 1(\bmod n)$, потому что такое $a$ не обратимо по модулю $n$. Это замечание, однако, не очень полезно, потому что таких $a$ может быть мало (например, если $n$ - произведение двух больших простых чисел), тогда вероятность случайно наткнуться на них невелика.</p>
 <p>Зато можно доказать, что если $a^{n-1} \not \equiv 1(\bmod n)$ хотя бы для одного $a$, взаимно простого с $n$, то сравнение не выполняется и для многих других $a$ тоже:</p>
 <p>Напомним, что $\mathbb{Z}_{n}$ - кольцо вычетов по модулю $n ; \mathbb{Z}_{n}^{*}$ - мультипликативная группа обратимых элементов кольца вычетов по модулю $n$.</p>
 
-<details open class="box cstyle notices offer">
+<details open class="box cstyle notices lemma">
   <summary class="box-label" tabindex="-1">
-    <i class="fa-fw fas fa-palette"></i> 
-    Предложение
+    <i class="fa-fw fas fa-horse"></i> 
+    Лемма о количестве свидетелей Ферма
   </summary>
   <div class="box-content">
 <p>Пусть нашлось $a^{\prime}$ такое, что $\operatorname{gcd}\left(a^{\prime}, n\right)=1,\left(a^{\prime}\right)^{n-1} \not \equiv 1(\bmod n)$. Тогда</p>
@@ -327,13 +660,338 @@ $$A=\left\{a: 1 \leqslant a < n, a^{n-1} \equiv 1 \quad(\bmod n)\right\}$$<p>Н�
   </summary>
   <div class="box-content">
 <p>Доказательство. По модулю 2 есть всего два остатка - $0$ и $1 \equiv-1$, ясно, что $0$ - не корень из единицы. Дальше считаем $p \geqslant 3$.</p>
-<p>Если $a^{2} \equiv 1(\bmod p)$, то $(a-1)(a+1)$ делится на $p . \operatorname{gcd}(a-1, a+1) \leqslant 2$, а $p \geqslant 3$, тогда либо $a-1$ делится на $p$, и $a \equiv 1(\bmod p)$, либо $a+1$ делится на $p$, и $a \equiv-1$ $(\bmod p)$.</p>
+<p>Если $a^{2} \equiv 1(\bmod p)$, то $(a-1)(a+1)$ делится на $p$. $\operatorname{gcd}(a-1, a+1) \leqslant 2$, а $p \geqslant 3$, тогда либо $a-1$ делится на $p$, и $a \equiv 1(\bmod p)$, либо $a+1$ делится на $p$, и $a \equiv-1$ $(\bmod p)$.</p>
   </div>
 </details>
   </div>
 </details>
 <p>Тест Миллера-Рабина помимо проверки условия из теоремы Ферма пытается найти нетривиальный корень из единицы по модулю $n$. Делается это следующим образом: пусть дано нечётное $n$ (чётные числа проверять на простоту очень просто). Из чётного числа $n-1$ выделяются все степени двойки: $n-1=2^{k} m$ для $k \geqslant 1$ и нечётного $m$. После этого вычисляется последовательность $a^{m} \bmod n, a^{2 m} \bmod n, \ldots, a^{2^{k} m} \bmod n=a^{n-1} \bmod n$.</p>
-<p>Если $a^{n-1} \not \equiv 1(\bmod n)$, то, как и в тесте Ферма, мы делаем вывод, что число составное. Иначе найдём в последовательности первую единицу, и посмотрим на элемент перед ней. Если он есть (то есть последовательность состоит не только из единиц), и он не равен $-1 \bmod n$, то мы нашли нетривиальный корень из единицы по модулю $n$, то есть $n$ - составное.</p>
+<p>Если $a^{n-1} \not \equiv 1(\bmod n)$, то, как и в тесте Ферма, мы делаем вывод, что число составное. Иначе найдём в последовательности первую единицу, и посмотрим на элемент перед ней. Если он есть (то есть последовательность состоит не только из единиц), и он не равен $-1 \bmod n$, то мы нашли нетривиальный корень из единицы по модулю $n$, то есть $n$ - составное.
+<div class="tab-panel" data-tab-group="R-tabs-81837395027f7cc1c35e5c8e3f4c56a0">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-6bcc663b63ee1b4fc07959cc49931574" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-81837395027f7cc1c35e5c8e3f4c56a0','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-1c1cd5c19edc5b824426955b472acc71" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-81837395027f7cc1c35e5c8e3f4c56a0','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-6bcc663b63ee1b4fc07959cc49931574"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">modExp</span>(a, m, n):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Быстрое возведение в степень по модулю: a^m mod n&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> a <span style="color:#f92672">%</span> n
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> m <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> m <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>:  <span style="color:#75715e"># если m нечетно</span>
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> (result <span style="color:#f92672">*</span> a) <span style="color:#f92672">%</span> n
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> (a <span style="color:#f92672">*</span> a) <span style="color:#f92672">%</span> n
+</span></span><span style="display:flex;"><span>        m <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># возвращает False, если n составное;</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># возвращает True, если все проверки пройдены успешно</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">MillerRabinTest</span>(n, s<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">or</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    m <span style="color:#f92672">=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># найдём k, m такие, что n - 1 = m * 2 ** k</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> m <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        m <span style="color:#f92672">//=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        k <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(s):
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)  <span style="color:#75715e"># случайное число от 1 до n - 1</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> modExp(a, m, n)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(k):
+</span></span><span style="display:flex;"><span>            y <span style="color:#f92672">=</span> (x <span style="color:#f92672">*</span> x) <span style="color:#f92672">%</span> n
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> x <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> x <span style="color:#f92672">!=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>  <span style="color:#75715e"># нашли нетривиальный корень из единицы, т.е. n - составное</span>
+</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> x <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>  <span style="color:#75715e"># не выполнилось условие теоремы Ферма, т.е. n - составное</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>  <span style="color:#75715e"># надеемся, что n простое</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-1c1cd5c19edc5b824426955b472acc71"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;random&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Быстрое возведение в степень по модулю: a^m mod n
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">modExp</span>(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> a, <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> m, <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> result <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> a <span style="color:#f92672">%</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (m <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (m <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) {  <span style="color:#75715e">// если m нечетно
+</span></span></span><span style="display:flex;"><span>            result <span style="color:#f92672">=</span> (result <span style="color:#f92672">*</span> a) <span style="color:#f92672">%</span> n;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> (a <span style="color:#f92672">*</span> a) <span style="color:#f92672">%</span> n;
+</span></span><span style="display:flex;"><span>        m <span style="color:#f92672">&gt;&gt;=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// возвращает false, если n составное;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// возвращает true, если все проверки пройдены успешно
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">MillerRabinTest</span>(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> n, <span style="color:#66d9ef">int</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">==</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">||</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">3</span>) <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> m <span style="color:#f92672">=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// найдём k, m такие, что n - 1 = m * 2 ** k
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (m <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        m <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        k<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Генератор случайных чисел
+</span></span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>random_device rd;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>mt19937 gen(rd());
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>uniform_int_distribution<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> dist(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> s; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> a <span style="color:#f92672">=</span> dist(gen);  <span style="color:#75715e">// случайное число от 1 до n - 1
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> x <span style="color:#f92672">=</span> modExp(a, m, n);
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> k; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> y <span style="color:#f92672">=</span> (x <span style="color:#f92672">*</span> x) <span style="color:#f92672">%</span> n;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (y <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> x <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> x <span style="color:#f92672">!=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> false;  <span style="color:#75715e">// нашли нетривиальный корень из единицы, т.е. n - составное
+</span></span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> false;  <span style="color:#75715e">// не выполнилось условие теоремы Ферма, т.е. n - составное
+</span></span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> true;  <span style="color:#75715e">// надеемся, что n простое
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div></p>
+<p>Время работы $s$ раундов теста Миллера-Рабина на $b$-битном числе - снова $O(s b \cdot M(b))$.</p>
+<h4 id="оценка-вероятности-ошибки">Оценка вероятности ошибки<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
+<p>Назовём $1 \leqslant a \leqslant n-1$ свидетелем непростоты $n$, если $n$ не проходит тест Миллера-Рабина при использовании $a$, то есть если $a^{n-1} \not \equiv 1(\bmod n)$; либо если для некоторого $0 \leqslant j < k$ $a^{2^{j} m} \not \equiv \pm 1(\bmod n)$, но $a^{2^{j+1} m} \equiv 1(\bmod n)$.</p>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>Пусть $n$ - нечётное составное; $n-1=2^{k} m$, где $k \geqslant 1$, $m$ - нечётное. Тогда существует хотя бы $\frac{n-1}{2}$ свидетелей непростоты $n$.</p>
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Мы можем считать, что $n$ - число Кармайкла, так для остальных $n$ утверждение теоремы следует из леммы &ldquo;О количестве свидетелей Ферма&rdquo;. Рассмотрим два случая - либо $n=p^{t}$ для некоторого простого $p$ и $t \geqslant 2$, либо $n=n_{1} n_{2}$ для некоторых взаимно простых $n_{1}>1$ и $n_{2}>1$.</p>
+<p>Пусть $n=p^{t}$, тогда рассмотрим $a=1+p^{t-1}$. Заметим, что</p>
+$$a^{n}=\left(1+p^{t-1}\right)^{p^{t}}=1+p^{t-1} \cdot p^{t}+\left(p^{t-1}\right)^{2} \cdot(\cdots) \equiv 1 \quad\left(\bmod p^{t}\right)$$<p>Тогда $a^{n-1} \not \equiv 1(\bmod n)\left(\right.$ так как в этом случае было бы верно $\left.a^{n} \equiv a(\bmod n)\right)$, то есть мы нашли $a$, взаимно простое с $n$, но не проходящее даже тест Ферма. Это противоречит предположению, что $n$ - число Кармайкла.</p>
+<p>Значит, $n=n_{1} n_{2}$ для некоторых взаимно простых нечётных $n_{1}, n_{2}$. Рассмотрим максимальное $0 \leqslant j < k$, для которого найдётся $v$ такое, что $v^{2^{j} m} \equiv-1(\bmod n)$.</p>
+<p>Если $B$ - множество чисел от 1 до $n-1$, не являющихся свидетелями непростоты, то</p>
+<blockquote>
+</blockquote>
+$$B \subset B^{\prime}=\left\{b \in \mathbb{Z}_{n}^{*}: b^{2^{j} m} \equiv \pm 1 \quad(\bmod n)\right\}$$<p>Заметим, что $B^{\prime}$ - подгруппа $\mathbb{Z}_{n}^{*}$, поэтому если мы покажем, что $\mathbb{Z}_{n}^{*} \backslash B^{\prime}$ непусто, то сразу получим</p>
+$$|B| \leqslant\left|B^{\prime}\right| \leqslant \frac{\left|\mathbb{Z}_{n}^{*}\right|}{2} \leqslant \frac{n-1}{2}$$<p>По китайской теореме об остатках, существует такое $w$, что</p>
+$$w \equiv v \quad\left(\bmod n_{1}\right), w \equiv 1 \quad\left(\bmod n_{2}\right)$$<p>Заметим, что</p>
+$$w^{2^{j} m} \equiv v^{2^{j} m} \equiv-1 \quad\left(\bmod n_{1}\right), w^{2^{j} m} \equiv 1 \quad\left(\bmod n_{2}\right)$$<p>значит, $w^{2^{j} m} \not \equiv \pm 1(\bmod n)$.
+С другой стороны,</p>
+$$w^{2^{j+1} m} \equiv 1 \quad\left(\bmod n_{1}\right), w^{2^{j+1} m} \equiv 1 \quad\left(\bmod n_{2}\right)$$<p>то есть $w^{2^{j+1} m} \equiv 1(\bmod n)$. Значит, $w \in \mathbb{Z}_{n}^{*} \backslash B^{\prime}$, что завершает доказательство теоремы.</p>
+  </div>
+</details>
+  </div>
+</details>
+<p>Из теоремы следует, что для любого нечётного составного $n$ (в том числе для чисел Кармайкла), доля $a$, являющихся свидетелями непростоты, есть хотя бы $\frac{1}{n-1} \cdot \frac{n-1}{2}=\frac{1}{2}$, то есть вероятность ошибки после $s$ раундов теста не превосходит $2^{-s}$. На самом деле можно показать, что свидетелей непростоты ещё больше, и вероятность ошибки на каждом шаге не превосходит $\frac{1}{4}$.</p>
+<p>✍️ В 2002 году был изобретён детерминированный тест простоты, работающий за полиномиальное от длины числа время. Время работы теста AKS (Agrawal, Kayal, Saxena, 2002) на $b$-битном числе в первой публикации оценивалось как $O\left(b^{12+\varepsilon}\right)$, впоследствии оценка была улучшена до $O\left(b^{6+\varepsilon}\right)(\varepsilon$ - сколь угодно малое положительное число, под $O\left(b^{\varepsilon}\right)$ имеется в виду какая-то степень $\left.\log b\right)$. Однако вероятностные тесты всё равно работают намного быстрее, поэтому на практике этот тест не используется.</p>
+<p>✍️ Пусть $\pi(n)$ - количество простых чисел, не превосходящих $n$. Известно, что </p>
+$$\lim _{n \rightarrow \infty} \frac{\pi(n)}{n / \ln n}=1$$<p> Значит, вероятность того, что случайное число из $b$ бит окажется простым, стремится к $\frac{1}{\ln 2^{b}} \approx \frac{1.44}{b}$ с ростом $b$. Тогда большие простые числа можно находить, просто много раз генерируя случайное число и проверяя его каким-нибудь тестом на простоту, пока тест не окажется пройден. Если генерировать $b$-битное число, в среднем понадобится порядка $b$ попыток.</p>
+<h3 id="-алгоритм-полларда">$\rho$-алгоритм Полларда<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Задачу факторизации числа не умеют решать за время, полиномиальное от длины битовой записи числа. Тем не менее, существуют алгоритмы, работающие эффективнее перебора всех потенциальных делителей до корня из числа.</p>
+<p>$\rho$-алгоритм Полларда (1975) с вероятностью, близкой к единице, находит нетривиальный делитель составного $b$-битного числа $n$ за $O\left(n^{\frac{1}{4}} b^{2}\right)=O\left(2^{\frac{b}{4}} b^{2}\right)$ шагов. Делается это следующим образом: выбирается специальная функция $f: \mathbb{Z}_{n} \rightarrow \mathbb{Z}_{n}$, действующая на остатках по модулю $n$ (обычно используют $f(x)=\left(x^{2}+1\right) \bmod n$ ), а также остаток $0 \leqslant x_{0} < n$. После этого строится последовательность по правилу $x_{i}=f\left(x_{i-1}\right)$.</p>
+<p>Пусть $p$ - минимальный нетривиальный делитель $n$, обозначим $x_{i}^{\prime}=x_{i} \bmod p$. Рано или поздно какое-то значение $x_{i}^{\prime}$ встретится второй раз (то есть совпадёт с $x_{j}^{\prime}, j < i$ ). Если предположить, что функция $f$ ведёт себя как &ldquo;случайная&rdquo; функция, то можно считать, что каждое $x_{i}^{\prime}$ - случайный остаток по модулю $p$, тогда по парадоксу дней рождения первый повтор с большой вероятностью случится за первые $O(\sqrt{p})$ шагов (ниже мы докажем это утверждение более формально).</p>
+<p>Если $x_{i}^{\prime}=x_{j}^{\prime}$, то $x_{i}-x_{j}$ делится на $p$, тогда $\operatorname{gcd}\left(x_{j}-x_{i}, n\right)>1$. Более того, поскольку вычисление $f(x)$ состоит из применения нескольких сложений и умножений, из $x_{i} \bmod p=$ $x_{j} \bmod p$ следует, что $f\left(x_{i}\right) \bmod p=f\left(x_{j}\right) \bmod p$, то есть $x_{i+1}^{\prime}=x_{j+1}^{\prime}$. Тогда по индукции $\operatorname{gcd}\left(x_{j+k}-x_{i+k}, n\right)>1$ для любого $k \geqslant 0$.</p>
+<p>Тогда можно поступить следующим образом: будем вычислять одновременно две последовательности: $x_{i}=f\left(x_{i-1}\right)$ и $y_{0}=x_{0}, y_{i}=f\left(f\left(y_{i-1}\right)\right)$, и на каждом шаге вычислять $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)$, пока он не окажется больше единицы.
+<img class="lazy figure-image" loading="lazy" src="/static/images/basics/numerical_algos/pollard.png" style="height: auto;width: auto;"></p>
+<p>За первые $O(\sqrt{p})$ шагов значения $x_{i}$ по модулю $p$ с большой вероятностью начнут повторяться (то есть $x_{i}$ попадёт на цикл на рисунке<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>). В этот момент $y_{i}$ тоже уже будет находиться на этом цикле, причём на каждой следующей итерации $y_{i}$ будет делать два шага вперёд по циклу, а $x_{i}$ только один. Тогда ещё за $O(\sqrt{p})$ шагов $y_{i}$ &ldquo;догонит&rdquo; $x_{i}$, то есть для какого-то $i$ окажется верным $x_{i} \bmod p=y_{i} \bmod p$, откуда $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)>1$, значит мы найдём делитель $n$, больший единицы.</p>
+<p>Заметим, что совсем не обязательно $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)$ окажется равным $p$. $y_{i}$ и $x_{i}$ могут в тот же момент времени оказаться на одной позиции в цикле и по какому-нибудь другому модулю $q$, где $q$ - делитель $n$. Может даже оказаться, что $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)=n$, тогда алгоритм не даст нам никакой полезной информации. Но можно показать, что для достаточно больших $n$ вероятность этого мала (мы должны одновременно попасть на одну позицию в цикле по всем нетривиальным делителям $n$ ). В случае, если это случается, можно перезапустить алгоритм с другим $x_{0}$.</p>
+<p>Как уже говорилось, в качестве $f$ обычно используют $f(x)=\left(x^{2}+1\right) \bmod n$ или $f(x)=\left(x^{2}-1\right) \bmod n$. Эти функции, конечно, не являются случайными, поэтому описанный выше анализ не является строгим доказательством времени работы алгоритма, а лишь эвристическими рассуждениями. Тем не менее, время работы алгоритма на практике хорошо согласуется с этими рассуждениями.
+<div class="tab-panel" data-tab-group="R-tabs-edd46b4c371190fc979c61d5fb430782">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-55e915db899efcd7fc8850717d416124" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-edd46b4c371190fc979c61d5fb430782','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-873ea5b78ab4d2b35a1a75f9bd748fae" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-edd46b4c371190fc979c61d5fb430782','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-55e915db899efcd7fc8850717d416124"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -355,74 +1013,32 @@ $$A=\left\{a: 1 \leqslant a < n, a^{n-1} \equiv 1 \quad(\bmod n)\right\}$$<p>Н�
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># возвращает False, если n составное;</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># возвращает True, если все проверки пройдены успешно</span>
-</span></span><span style="display:flex;"><span>MillerRabinTest(n):
-</span></span><span style="display:flex;"><span>    m}<span style="color:#f92672">=</span>\textrm{n}<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,\textrm{k}<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>\mathrm{ <span style="color:#75715e"># найдём k, m такие, что n - 1 = m * 2 ** k</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> m <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
-</span></span><span style="display:flex;"><span>        m <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>, k <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(s <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> random(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#75715e"># случайное число от 1 до n - 1</span>
-</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> modExp(a, m, n)
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>            y <span style="color:#f92672">=</span> x <span style="color:#f92672">*</span> x mod n
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> y <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> x <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">and</span> x <span style="color:#f92672">!=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span> <span style="color:#75715e"># нашли нетривиальный корень из единицы, т.е. n - составное</span>
-</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">=</span> y
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> x <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span> <span style="color:#75715e"># не выполнилось условие теоремы Ферма, т.е. n - составное</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span> <span style="color:#75715e"># надеемся, что n простое</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> math
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rhoAlgorithm</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># случайное число от 0 до n - 1</span>
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> x <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    d <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> d <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> (x <span style="color:#f92672">*</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> n
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> (y <span style="color:#f92672">*</span> y <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> n
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> (y <span style="color:#f92672">*</span> y <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> n
+</span></span><span style="display:flex;"><span>        d <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>gcd(abs(x <span style="color:#f92672">-</span> y), n)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> d <span style="color:#f92672">==</span> n:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> rhoAlgorithm(n) <span style="color:#75715e"># запустим алгоритм заново</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> d</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>Время работы $s$ раундов теста Миллера-Рабина на $b$-битном числе - снова $O(s b \cdot M(b))$.</p>
-<h4 id="оценка-вероятности-ошибки">Оценка вероятности ошибки<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
-<p>Назовём $1 \leqslant a \leqslant n-1$ свидетелем непростоты $n$, если $n$ не проходит тест Миллера-Рабина при использовании $a$, то есть если $a^{n-1} \not \equiv 1(\bmod n)$; либо если для некоторого $0 \leqslant j < k$ $a^{2^{j} m} \not \equiv \pm 1(\bmod n)$, но $a^{2^{j+1} m} \equiv 1(\bmod n)$.</p>
-
-<details open class="box cstyle notices theorem">
-  <summary class="box-label" tabindex="-1">
-    <i class="fa-fw fas fa-shapes"></i> 
-    Теорема
-  </summary>
-  <div class="box-content">
-<p>Пусть $n$ - нечётное составное; $n-1=2^{k} m$, где $k \geqslant 1$, $m$ - нечётное. Тогда существует хотя бы $\frac{n-1}{2}$ свидетелей непростоты $n$.</p>
-
-<details open class="box cstyle notices prove expand">
-  <summary class="box-label">
-    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
-    <i class="fa-fw fas fa-lock-open"></i> 
-    Доказательство
-  </summary>
-  <div class="box-content">
-<p>Мы можем считать, что $n$ - число Кармайкла, так для остальных $n$ утверждение теоремы следует из предложения 10.3.2. Рассмотрим два случая - либо $n=p^{t}$ для некоторого простого $p$ и $t \geqslant 2$, либо $n=n_{1} n_{2}$ для некоторых взаимно простых $n_{1}>1$ и $n_{2}>1$.</p>
-<p>Пусть $n=p^{t}$, тогда рассмотрим $a=1+p^{t-1}$. Заметим, что</p>
-$$a^{n}=\left(1+p^{t-1}\right)^{p^{t}}=1+p^{t-1} \cdot p^{t}+\left(p^{t-1}\right)^{2} \cdot(\cdots) \equiv 1 \quad\left(\bmod p^{t}\right)$$<p>Тогда $a^{n-1} \not \equiv 1(\bmod n)\left(\right.$ так как в этом случае было бы верно $\left.a^{n} \equiv a(\bmod n)\right)$, то есть мы нашли $a$, взаимно простое с $n$, но не проходящее даже тест Ферма. Это противоречит предположению, что $n$ - число Кармайкла.</p>
-<p>Значит, $n=n_{1} n_{2}$ для некоторых взаимно простых нечётных $n_{1}, n_{2}$. Рассмотрим максимальное $0 \leqslant j < k$, для которого найдётся $v$ такое, что $v^{2^{j} m} \equiv-1(\bmod n)$.</p>
-<p>Если $B$ - множество чисел от 1 до $n-1$, не являющихся свидетелями непростоты, то</p>
-<blockquote>
-</blockquote>
-$$B \subset B^{\prime}=\left\{b \in \mathbb{Z}_{n}^{*}: b^{2^{j} m} \equiv \pm 1 \quad(\bmod n)\right\}$$<p>Заметим, что $B^{\prime}$ - подгруппа $\mathbb{Z}_{n}^{*}$, поэтому если мы покажем, что $\mathbb{Z}_{n}^{*} \backslash B^{\prime}$ непусто, то сразу получим</p>
-$$|B| \leqslant\left|B^{\prime}\right| \leqslant \frac{\left|\mathbb{Z}_{n}^{*}\right|}{2} \leqslant \frac{n-1}{2}$$<p>По китайской теореме об остатках, существует такое $w$, что</p>
-$$w \equiv v \quad\left(\bmod n_{1}\right), w \equiv 1 \quad\left(\bmod n_{2}\right)$$<p>Заметим, что</p>
-$$w^{2^{j} m} \equiv v^{2^{j} m} \equiv-1 \quad\left(\bmod n_{1}\right), w^{2^{j} m} \equiv 1 \quad\left(\bmod n_{2}\right)$$<p>значит, $w^{2^{j} m} \not \equiv \pm 1(\bmod n)$.
-С другой стороны,</p>
-$$w^{2^{j+1} m} \equiv 1 \quad\left(\bmod n_{1}\right), w^{2^{j+1} m} \equiv 1 \quad\left(\bmod n_{2}\right)$$<p>то есть $w^{2^{j+1} m} \equiv 1(\bmod n)$. Значит, $w \in \mathbb{Z}_{n}^{*} \backslash B^{\prime}$, что завершает доказательство теоремы.</p>
-  </div>
-</details>
-  </div>
-</details>
-<p>Из теоремы следует, что для любого нечётного составного $n$ (в том числе для чисел Кармайкла), доля $a$, являющихся свидетелями непростоты, есть хотя бы $\frac{1}{n-1} \cdot \frac{n-1}{2}=\frac{1}{2}$, то есть вероятность ошибки после $s$ раундов теста не превосходит $2^{-s}$. На самом деле можно показать, что свидетелей непростоты ещё больше, и вероятность ошибки на каждом шаге не превосходит $\frac{1}{4}$.</p>
-<p>✍️ В 2002 году был изобретён детерминированный тест простоты, работающий за полиномиальное от длины числа время. Время работы теста AKS (Agrawal, Kayal, Saxena, 2002) на $b$-битном числе в первой публикации оценивалось как $O\left(b^{12+\varepsilon}\right)$, впоследствии оценка была улучшена до $O\left(b^{6+\varepsilon}\right)(\varepsilon$ - сколь угодно малое положительное число, под $O\left(b^{\varepsilon}\right)$ имеется в виду какая-то степень $\left.\log b\right)$. Однако вероятностные тесты всё равно работают намного быстрее, поэтому на практике этот тест не используется.</p>
-<p>✍️ Пусть $\pi(n)$ - количество простых чисел, не превосходящих $n$. Известно, что $\lim _{n \rightarrow \infty} \frac{\pi(n)}{n / \ln n}=1$. Значит, вероятность того, что случайное число из $b$ бит окажется простым, стремится к $\frac{1}{\ln 2^{b}} \approx \frac{1.44}{b}$ с ростом $b$. Тогда большие простые числа можно находить, просто много раз генерируя случайное число и проверяя его каким-нибудь тестом на простоту, пока тест не окажется пройден. Если генерировать $b$-битное число, в среднем понадобится порядка $b$ попыток.</p>
-<h3 id="-алгоритм-полларда">$\rho$-алгоритм Полларда<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Задачу факторизации числа не умеют решать за время, полиномиальное от длины битовой записи числа. Тем не менее, существуют алгоритмы, работающие эффективнее перебора всех потенциальных делителей до корня из числа.
-$\rho$-алгоритм Полларда (1975) с вероятностью, близкой к единице, находит нетривиальный делитель составного $b$-битного числа $n$ за $O\left(n^{\frac{1}{4}} b^{2}\right)=O\left(2^{\frac{b}{4}} b^{2}\right)$ шагов. Делается это следующим образом: выбирается специальная функция $f: \mathbb{Z}_{n} \rightarrow \mathbb{Z}_{n}$, действующая на остатках по модулю $n$ (обычно используют $f(x)=\left(x^{2}+1\right) \bmod n$ ), а также остаток $0 \leqslant x_{0} < n$. После этого строится последовательность по правилу $x_{i}=f\left(x_{i-1}\right)$.</p>
-<p>Пусть $p$ - минимальный нетривиальный делитель $n$, обозначим $x_{i}^{\prime}=x_{i} \bmod p$. Рано или поздно какое-то значение $x_{i}^{\prime}$ встретится второй раз (то есть совпадёт с $x_{j}^{\prime}, j < i$ ). Если предположить, что функция $f$ ведёт себя как &ldquo;случайная&rdquo; функция, то можно считать, что каждое $x_{i}^{\prime}$ - случайный остаток по модулю $p$, тогда по парадоксу дней рождения первый повтор с большой вероятностью случится за первые $O(\sqrt{p})$ шагов (ниже мы докажем это утверждение более формально).</p>
-<p>Если $x_{i}^{\prime}=x_{j}^{\prime}$, то $x_{i}-x_{j}$ делится на $p$, тогда $\operatorname{gcd}\left(x_{j}-x_{i}, n\right)>1$. Более того, поскольку вычисление $f(x)$ состоит из применения нескольких сложений и умножений, из $x_{i} \bmod p=$ $x_{j} \bmod p$ следует, что $f\left(x_{i}\right) \bmod p=f\left(x_{j}\right) \bmod p$, то есть $x_{i+1}^{\prime}=x_{j+1}^{\prime}$. Тогда по индукции $\operatorname{gcd}\left(x_{j+k}-x_{i+k}, n\right)>1$ для любого $k \geqslant 0$.</p>
-<p>Тогда можно поступить следующим образом: будем вычислять одновременно две последовательности: $x_{i}=f\left(x_{i-1}\right)$ и $y_{0}=x_{0}, y_{i}=f\left(f\left(y_{i-1}\right)\right)$, и на каждом шаге вычислять $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)$, пока он не окажется больше единицы.
-<img class="lazy figure-image" loading="lazy" src="/static/images/basics/numerical_algos/pollard.png" style="height: auto;width: auto;"></p>
-<p>За первые $O(\sqrt{p})$ шагов значения $x_{i}$ по модулю $p$ с большой вероятностью начнут повторяться (то есть $x_{i}$ попадёт на цикл на рисунке<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>). В этот момент $y_{i}$ тоже уже будет находиться на этом цикле, причём на каждой следующей итерации $y_{i}$ будет делать два шага вперёд по циклу, а $x_{i}$ только один. Тогда ещё за $O(\sqrt{p})$ шагов $y_{i}$ &ldquo;догонит&rdquo; $x_{i}$, то есть для какого-то $i$ окажется верным $x_{i} \bmod p=y_{i} \bmod p$, откуда $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)>1$, значит мы найдём делитель $n$, больший единицы.</p>
-<p>Заметим, что совсем не обязательно $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)$ окажется равным $p$. $y_{i}$ и $x_{i}$ могут в тот же момент времени оказаться на одной позиции в цикле и по какому-нибудь другому модулю $q$, где $q$ - делитель $n$. Может даже оказаться, что $\operatorname{gcd}\left(y_{i}-x_{i}, n\right)=n$, тогда алгоритм не даст нам никакой полезной информации. Но можно показать, что для достаточно больших $n$ вероятность этого мала (мы должны одновременно попасть на одну позицию в цикле по всем нетривиальным делителям $n$ ). В случае, если это случается, можно перезапустить алгоритм с другим $x_{0}$.</p>
-<p>Как уже говорилось, в качестве $f$ обычно используют $f(x)=\left(x^{2}+1\right) \bmod n$ или $f(x)=\left(x^{2}-1\right) \bmod n$. Эти функции, конечно, не являются случайными, поэтому описанный выше анализ не является строгим доказательством времени работы алгоритма, а лишь эвристическими рассуждениями. Тем не менее, время работы алгоритма на практике хорошо согласуется с этими рассуждениями.</p>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-873ea5b78ab4d2b35a1a75f9bd748fae"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -436,23 +1052,85 @@ $\rho$-алгоритм Полларда (1975) с вероятностью, б�
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>rhoAlgorithm(n):
-</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> x <span style="color:#f92672">=</span> random(<span style="color:#ae81ff">0</span>, n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#75715e"># случайное число от 0 до n - 1</span>
-</span></span><span style="display:flex;"><span>    d <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> d <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>        x}<span style="color:#f92672">=</span>(\textrm{x}<span style="color:#f92672">*</span>\textrm{x}<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)\operatorname{mod}\textrm{n
-</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span>(y<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) mod n
-</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> (y<span style="color:#f92672">*</span>y <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) mod n
-</span></span><span style="display:flex;"><span>        d <span style="color:#f92672">=</span> gcd(x <span style="color:#f92672">-</span> y, n)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> d <span style="color:#f92672">==</span> n:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> rhoAlgorithm(n) <span style="color:#75715e"># запустим алгоритм заново</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> d</span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;ctime&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cmath&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> a, <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> b) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (b <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> temp <span style="color:#f92672">=</span> b;
+</span></span><span style="display:flex;"><span>        b <span style="color:#f92672">=</span> a <span style="color:#f92672">%</span> b;
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> temp;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">rhoAlgorithm</span>(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// случайное число от 0 до n - 1
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> y <span style="color:#f92672">=</span> rand() <span style="color:#f92672">%</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> x <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> d <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (d <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> (x <span style="color:#f92672">*</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> n;
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> (y <span style="color:#f92672">*</span> y <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> n;
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> (y <span style="color:#f92672">*</span> y <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">%</span> n;
+</span></span><span style="display:flex;"><span>        d <span style="color:#f92672">=</span> gcd(abs(x <span style="color:#f92672">-</span> y), n);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (d <span style="color:#f92672">==</span> n) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> rhoAlgorithm(n); <span style="color:#75715e">// запустим алгоритм заново
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> d;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    srand(time(<span style="color:#66d9ef">nullptr</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">8051</span>; <span style="color:#75715e">// пример составного числа
+</span></span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Делитель: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> rhoAlgorithm(n) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
 </div>
 </div>
+      </div>
+    </div>
+  </div>
+</div></p>
 <p>Обычно число $n$ проверяют на простоту, прежде чем запускать на нём алгоритм Полларда. Если нужно целиком факторизовать $n$, то, получив нетривиальный делитель $d$,нужно проверить $d$ и $\frac{n}{d}$ на простоту, и, если надо, запустить алгоритм на них.</p>
-<p>Алгоритм с большой вероятностью сделает не более $O(\sqrt{p})=O\left(n^{\frac{1}{4}}\right)$ шагов (так как минимальный делитель $p$ не больше корня из $n$ ), на каждом шаге происходит вычисление gcd , поэтому время работы на $b$-битном числе $n$ можно оценить как $O\left(n^{\frac{1}{4}} b^{2}\right)$.</p>
+<p>Алгоритм с большой вероятностью сделает не более $O(\sqrt{p})=O\left(n^{\frac{1}{4}}\right)$ шагов (так как минимальный делитель $p$ не больше корня из $n$ ), на каждом шаге происходит вычисление $\operatorname{gcd}$ , поэтому время работы на $b$-битном числе $n$ можно оценить как $O\left(n^{\frac{1}{4}} b^{2}\right)$.</p>
 <h4 id="оценка-времени-работы">Оценка времени работы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>Покажем, что если бы $f$ действительно была случайной функцией, то значения $x_{i}^{\prime}=$ $x_{i} \bmod n$ с большой вероятностью начали бы повторяться за первые $O(\sqrt{p})$ шагов. Поскольку мы будем работать с последовательностью $x_{i}^{\prime}$, для удобства будем считать, что $x_{0}$ - случайный остаток по модулю $p, f$ определена на остатках по модулю $p$.</p>
 
@@ -480,7 +1158,7 @@ $$\sum_{i=1}^{l} \ln \left(1-\frac{i}{p}\right)<-\sum_{i=1}^{l} \frac{i}{p}=-\fr
 </details>
   </div>
 </details>
-<p>✍️ Существуют и более быстрые алгоритмы факторизации. Например, время работы алгоритма GNFS (general number field sieve) эвристически оценивается как $O\left(e^{(64 / 9)^{1 / 3}(\log n)^{1 / 3}(\log \log n)^{2 / 3}}\right)$.</p>
+<p>✍️ Существуют и более быстрые алгоритмы факторизации. Например, время работы алгоритма <a href="https://en.wikipedia.org/wiki/General_number_field_sieve" rel="external">GNFS</a> (General Number Field Sieve) эвристически оценивается как $O\left(e^{(64 / 9)^{1 / 3}(\log n)^{1 / 3}(\log \log n)^{2 / 3}}\right)$.</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -491,7 +1169,7 @@ $$\sum_{i=1}^{l} \ln \left(1-\frac{i}{p}\right)<-\sum_{i=1}^{l} \frac{i}{p}=-\fr
 </div>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 15 мар. 2025 г.
+              <i class='fa-fw fas fa-calendar'></i> 28 мар. 2026 г.
   </footer>
 </article>
         </div>
@@ -545,13 +1223,7 @@ $$\sum_{i=1}^{l} \ln \left(1-\frac{i}{p}\right)<-\sum_{i=1}^{l} \frac{i}{p}=-\fr
             <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
             <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
             <li class="active " data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
-            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
-            <li class="" data-nav-id="/basics/graph_definition/index.html"><a class="padding" href="/basics/graph_definition/index.html">12. Графы. Определения и способы хранения</a></li>
-            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li>
-            <li class="" data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li>
-            <li class="" data-nav-id="/basics/greedy_algorithms/index.html"><a class="padding" href="/basics/greedy_algorithms/index.html">15. Жадные алгоритмы</a></li>
-            <li class="" data-nav-id="/basics/finding_the_minimum_spanning_tree/index.html"><a class="padding" href="/basics/finding_the_minimum_spanning_tree/index.html">16. Поиск минимального остовного дерева</a></li>
-            <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">17. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
