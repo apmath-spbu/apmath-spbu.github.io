@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Определение бинарного дерева Определение Бинарное дерево (двоичное дерево) — это дерево, в котором каждая вершина имеет не более двух детей, называемых левым и правым потомками.
+Формально, бинарное дерево — это либо пустое дерево, либо тройка $(r, L, R)$, где $r$ — корень, $L$ — левое поддерево (бинарное дерево), $R$ — правое поддерево (бинарное дерево).">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="12.1. Бинарные деревья: определения и свойства :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Определение бинарного дерева Определение Бинарное дерево (двоичное дерево) — это дерево, в котором каждая вершина имеет не более двух детей, называемых левым и правым потомками.
+Формально, бинарное дерево — это либо пустое дерево, либо тройка $(r, L, R)$, где $r$ — корень, $L$ — левое поддерево (бинарное дерево), $R$ — правое поддерево (бинарное дерево).">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/binary_trees/binary_tree_basics/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="12.1. Бинарные деревья: определения и свойства :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Определение бинарного дерева Определение Бинарное дерево (двоичное дерево) — это дерево, в котором каждая вершина имеет не более двух детей, называемых левым и правым потомками.
+Формально, бинарное дерево — это либо пустое дерево, либо тройка $(r, L, R)$, где $r$ — корень, $L$ — левое поддерево (бинарное дерево), $R$ — правое поддерево (бинарное дерево).">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
+    <meta property="article:published_time" content="2026-04-02T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="name" content="12.1. Бинарные деревья: определения и свойства :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Определение бинарного дерева Определение Бинарное дерево (двоичное дерево) — это дерево, в котором каждая вершина имеет не более двух детей, называемых левым и правым потомками.
+Формально, бинарное дерево — это либо пустое дерево, либо тройка $(r, L, R)$, где $r$ — корень, $L$ — левое поддерево (бинарное дерево), $R$ — правое поддерево (бинарное дерево).">
+    <meta itemprop="datePublished" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="wordCount" content="1373">
+    <title>12.1. Бинарные деревья: определения и свойства :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/basics\/binary_trees\/binary_tree_basics\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/basics/binary_trees/binary_tree_basics/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#определение-бинарного-дерева">Определение бинарного дерева</a></li>
+    <li><a href="#основные-понятия">Основные понятия</a></li>
+    <li><a href="#свойства-бинарных-деревьев">Свойства бинарных деревьев</a></li>
+    <li><a href="#типы-бинарных-деревьев">Типы бинарных деревьев</a>
+      <ul>
+        <li><a href="#полное-бинарное-дерево">Полное бинарное дерево</a></li>
+        <li><a href="#совершенное-идеально-сбалансированное-бинарное-дерево">Совершенное (идеально сбалансированное) бинарное дерево</a></li>
+        <li><a href="#сбалансированное-бинарное-дерево">Сбалансированное бинарное дерево</a></li>
+        <li><a href="#вырожденное-дерево">Вырожденное дерево</a></li>
+      </ul>
+    </li>
+    <li><a href="#представления-бинарных-деревьев">Представления бинарных деревьев</a>
+      <ul>
+        <li><a href="#представление-на-основе-узлов">Представление на основе узлов</a></li>
+        <li><a href="#массивное-представление">Массивное представление</a></li>
+      </ul>
+    </li>
+    <li><a href="#количество-бинарных-деревьев">Количество бинарных деревьев</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/binary_trees/index.html"><span itemprop="name">12. Бинарные деревья и деревья поиска</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">12.1. Бинарные деревья: определения и свойства</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/binary_trees/binary_tree_basics.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/binary_trees/index.html" title="Бинарные деревья и деревья поиска (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/binary_trees/tree_traversals/index.html" title="12.2. Обходы деревьев (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable basics" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="121-бинарные-деревья-определения-и-свойства">12.1. Бинарные деревья: определения и свойства</h1>
+
+<h2 id="определение-бинарного-дерева">Определение бинарного дерева<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Бинарное дерево</strong> (двоичное дерево) — это дерево, в котором каждая вершина имеет не более двух детей, называемых левым и правым потомками.</p>
+  </div>
+</details>
+<p>Формально, бинарное дерево — это либо пустое дерево, либо тройка $(r, L, R)$, где $r$ — корень, $L$ — левое поддерево (бинарное дерево), $R$ — правое поддерево (бинарное дерево).</p>
+<p>Бинарное дерево отличается от общего дерева тем, что:</p>
+<ol>
+<li>Каждый узел имеет не более двух детей</li>
+<li>Дети различаются: левый и правый потомки — разные позиции</li>
+<li>Порядок детей важен: дерево с левым ребёнком $A$ и правым $B$ отличается от дерева с левым $B$ и правым $A$</li>
+</ol>
+<h2 id="основные-понятия">Основные понятия<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<ul>
+<li><strong>Корень</strong> — единственная вершина без родителя.</li>
+<li><strong>Лист</strong> — вершина без детей.</li>
+<li><strong>Внутренняя вершина</strong> — вершина, не являющаяся листом.</li>
+<li><strong>Глубина вершины</strong> — длина пути от корня до этой вершины (количество рёбер).</li>
+<li><strong>Высота вершины</strong> — длина самого длинного пути от этой вершины до листа.</li>
+<li><strong>Высота дерева</strong> — высота корня (максимальная глубина среди всех вершин).</li>
+<li><strong>Уровень</strong> — множество вершин с одинаковой глубиной.</li>
+</ul>
+  </div>
+</details>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Полное бинарное дерево</strong> уровня $h$ — это бинарное дерево, в котором все уровни от $0$ до $h$ заполнены полностью (каждая внутренняя вершина имеет ровно двух детей, и все листья находятся на уровне $h$).</p>
+  </div>
+</details>
+<h2 id="свойства-бинарных-деревьев">Свойства бинарных деревьев<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>В бинарном дереве на уровне $i$ находится не более $2^i$ вершин.
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Доказательство по индукции по $i$.</p>
+<p><strong>База:</strong> $i = 0$. На уровне $0$ находится только корень — одна вершина. $2^0 = 1$. Верно.</p>
+<p><strong>Переход:</strong> пусть на уровне $i$ находится не более $2^i$ вершин. Каждая вершина уровня $i$ имеет не более двух детей. Значит, на уровне $i+1$ находится не более $2 \cdot 2^i = 2^{i+1}$ вершин.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>В бинарном дереве высоты $h$ находится не более $2^{h+1} - 1$ вершин.
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Суммируем максимальное количество вершин на каждом уровне:</p>
+$$
+\sum_{i=0}^{h} 2^i = 2^{h+1} - 1
+$$<p>по формуле суммы геометрической прогрессии.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+
+<details open class="box cstyle notices corollar">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Следствие
+  </summary>
+  <div class="box-content">
+<p>Бинарное дерево с $n$ вершинами имеет высоту не менее $\lfloor \log_2 n \rfloor$.
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Из предыдущей теоремы: $n \leqslant 2^{h+1} - 1$, откуда $h \geqslant \log_2(n+1) - 1 = \log_2 \frac{n+1}{2}$.</p>
+<p>Более точная оценка: $h \geqslant \lfloor \log_2 n \rfloor$.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>В бинарном дереве с $n$ вершинами количество листьев не менее $\lceil n/2 \rceil$ в дереве максимальной высоты и не более $n$ (тривиально) в дереве минимальной высоты. Для полного бинарного дерева количество листьев равно $2^h$, где $h$ — высота дерева.</p>
+  </div>
+</details>
+
+<details open class="box cstyle notices lemma">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-horse"></i> 
+    Лемма
+  </summary>
+  <div class="box-content">
+<p>В полном бинарном дереве с $n$ вершинами высота равна $\lfloor \log_2 n \rfloor$.
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Для полного бинарного дерева высоты $h$:</p>
+$$
+2^h \leqslant n < 2^{h+1}
+$$<p>Откуда $h \leqslant \log_2 n < h + 1$, то есть $h = \lfloor \log_2 n \rfloor$.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+<h2 id="типы-бинарных-деревьев">Типы бинарных деревьев<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="полное-бинарное-дерево">Полное бинарное дерево<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Полное бинарное дерево</strong> — бинарное дерево, в котором все уровни полностью заполнены, кроме возможно последнего, причём последний уровень заполнен слева направо без пропусков.</p>
+  </div>
+</details>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>Полное бинарное дерево:
+        1
+       / \
+      2   3
+     / \  /
+    4  5 6</code></pre></div>
+<p>Полные бинарные деревья удобно представлять массивом (как в двоичной куче).</p>
+<h3 id="совершенное-идеально-сбалансированное-бинарное-дерево">Совершенное (идеально сбалансированное) бинарное дерево<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Совершенное бинарное дерево</strong> — полное бинарное дерево, в котором все листья находятся на одном уровне.</p>
+  </div>
+</details>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>Совершенное бинарное дерево:
+        1
+       / \
+      2   3
+     / \ / \
+    4  5 6  7</code></pre></div>
+<p>В совершенном бинарном дереве высоты $h$ ровно $2^{h+1} - 1$ вершин.</p>
+<h3 id="сбалансированное-бинарное-дерево">Сбалансированное бинарное дерево<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p>Бинарное дерево называется <strong>сбалансированным по высоте</strong>, если для каждой вершины высоты её левого и правого поддеревьев отличаются не более чем на 1.</p>
+  </div>
+</details>
+<p>Сбалансированные деревья гарантируют высоту $O(\log n)$ и используются для эффективного поиска.</p>
+<h3 id="вырожденное-дерево">Вырожденное дерево<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Вырожденное дерево</strong> — дерево, в котором каждая внутренняя вершина имеет ровно одного ребёнка. Такое дерево по сути является связным списком.</p>
+  </div>
+</details>
+<p>Вырожденное дерево с $n$ вершинами имеет высоту $n - 1$.</p>
+<h2 id="представления-бинарных-деревьев">Представления бинарных деревьев<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="представление-на-основе-узлов">Представление на основе узлов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Каждый узел содержит данные и ссылки на левого и правого детей (и, возможно, на родителя).</p>
+<div class="tab-panel" data-tab-group="R-tabs-6e7c1a1aae4af598457db50278332caf">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-ede3833ded549908b661815563d7b819" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-6e7c1a1aae4af598457db50278332caf','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-30996c628878a10a6cc2627e90b76ae0" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-6e7c1a1aae4af598457db50278332caf','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-ede3833ded549908b661815563d7b819"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TreeNode</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, value):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>value <span style="color:#f92672">=</span> value
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>  <span style="color:#75715e"># опционально</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_left</span>(self, node):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> node
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> node <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> self
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_right</span>(self, node):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> node
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> node <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> self
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Создание дерева:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#      / \</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     2   3</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    / \</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   4   5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>root <span style="color:#f92672">=</span> TreeNode(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>root<span style="color:#f92672">.</span>set_left(TreeNode(<span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>root<span style="color:#f92672">.</span>set_right(TreeNode(<span style="color:#ae81ff">3</span>))
+</span></span><span style="display:flex;"><span>root<span style="color:#f92672">.</span>left<span style="color:#f92672">.</span>set_left(TreeNode(<span style="color:#ae81ff">4</span>))
+</span></span><span style="display:flex;"><span>root<span style="color:#f92672">.</span>left<span style="color:#f92672">.</span>set_right(TreeNode(<span style="color:#ae81ff">5</span>))</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-30996c628878a10a6cc2627e90b76ae0"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">TreeNode</span> {
+</span></span><span style="display:flex;"><span>    T value;
+</span></span><span style="display:flex;"><span>    TreeNode<span style="color:#f92672">*</span> left;
+</span></span><span style="display:flex;"><span>    TreeNode<span style="color:#f92672">*</span> right;
+</span></span><span style="display:flex;"><span>    TreeNode<span style="color:#f92672">*</span> parent;  <span style="color:#75715e">// опционально
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    TreeNode(T val) <span style="color:#f92672">:</span> value(val), left(<span style="color:#66d9ef">nullptr</span>), right(<span style="color:#66d9ef">nullptr</span>), parent(<span style="color:#66d9ef">nullptr</span>) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setLeft</span>(TreeNode<span style="color:#f92672">*</span> node) {
+</span></span><span style="display:flex;"><span>        left <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (node <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>) {
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">setRight</span>(TreeNode<span style="color:#f92672">*</span> node) {
+</span></span><span style="display:flex;"><span>        right <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (node <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nullptr</span>) {
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Создание дерева:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//       1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//      / \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//     2   3
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//    / \
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//   4   5
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">*</span> root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TreeNode<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    root<span style="color:#f92672">-&gt;</span>setLeft(<span style="color:#66d9ef">new</span> TreeNode<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">2</span>));
+</span></span><span style="display:flex;"><span>    root<span style="color:#f92672">-&gt;</span>setRight(<span style="color:#66d9ef">new</span> TreeNode<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">3</span>));
+</span></span><span style="display:flex;"><span>    root<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>setLeft(<span style="color:#66d9ef">new</span> TreeNode<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">4</span>));
+</span></span><span style="display:flex;"><span>    root<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>setRight(<span style="color:#66d9ef">new</span> TreeNode<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">5</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 id="массивное-представление">Массивное представление<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Полное бинарное дерево можно хранить в массиве. Для вершины с индексом $i$ (нумерация с 1):</p>
+<ul>
+<li>Левый ребёнок: $2i$</li>
+<li>Правый ребёнок: $2i + 1$</li>
+<li>Родитель: $\lfloor i / 2 \rfloor$</li>
+</ul>
+<p>При нумерации с 0:</p>
+<ul>
+<li>Левый ребёнок: $2i + 1$</li>
+<li>Правый ребёнок: $2i + 2$</li>
+<li>Родитель: $\lfloor (i - 1) / 2 \rfloor$</li>
+</ul>
+<div class="tab-panel" data-tab-group="R-tabs-38f9162edea234b8337a7c99518d063a">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-793ec37ba65437e0b5b4b32e9e56f3d3" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-38f9162edea234b8337a7c99518d063a','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-3d907c16ae2c3c3f1d22df535fe9f77a" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-38f9162edea234b8337a7c99518d063a','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-793ec37ba65437e0b5b4b32e9e56f3d3"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArrayBinaryTree</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tree <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">root</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>tree <span style="color:#66d9ef">else</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">left_child</span>(self, i):
+</span></span><span style="display:flex;"><span>        left <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> left <span style="color:#66d9ef">if</span> left <span style="color:#f92672">&lt;</span> len(self<span style="color:#f92672">.</span>tree) <span style="color:#66d9ef">else</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">right_child</span>(self, i):
+</span></span><span style="display:flex;"><span>        right <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> right <span style="color:#66d9ef">if</span> right <span style="color:#f92672">&lt;</span> len(self<span style="color:#f92672">.</span>tree) <span style="color:#66d9ef">else</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">parent</span>(self, i):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span> <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">value</span>(self, i):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>tree[i] <span style="color:#66d9ef">if</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&lt;=</span> i <span style="color:#f92672">&lt;</span> len(self<span style="color:#f92672">.</span>tree) <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">append</span>(self, value):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tree<span style="color:#f92672">.</span>append(value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Создание дерева:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#       1</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#      / \</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#     2   3</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#    / \</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#   4   5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>tree <span style="color:#f92672">=</span> ArrayBinaryTree()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> val <span style="color:#f92672">in</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>]:
+</span></span><span style="display:flex;"><span>    tree<span style="color:#f92672">.</span>append(val)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(tree<span style="color:#f92672">.</span>value(tree<span style="color:#f92672">.</span>left_child(<span style="color:#ae81ff">0</span>)))  <span style="color:#75715e"># 2</span>
+</span></span><span style="display:flex;"><span>print(tree<span style="color:#f92672">.</span>value(tree<span style="color:#f92672">.</span>right_child(<span style="color:#ae81ff">0</span>)))  <span style="color:#75715e"># 3</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-3d907c16ae2c3c3f1d22df535fe9f77a"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ArrayBinaryTree</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> tree;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> root() <span style="color:#66d9ef">const</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> tree.empty() <span style="color:#f92672">?</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">leftChild</span>(<span style="color:#66d9ef">int</span> i) <span style="color:#66d9ef">const</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> left <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> left <span style="color:#f92672">&lt;</span> tree.size() <span style="color:#f92672">?</span> left : <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">rightChild</span>(<span style="color:#66d9ef">int</span> i) <span style="color:#66d9ef">const</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> right <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> right <span style="color:#f92672">&lt;</span> tree.size() <span style="color:#f92672">?</span> right : <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">parent</span>(<span style="color:#66d9ef">int</span> i) <span style="color:#66d9ef">const</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> (i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">value</span>(<span style="color:#66d9ef">int</span> i) <span style="color:#66d9ef">const</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> (i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> i <span style="color:#f92672">&lt;</span> tree.size()) <span style="color:#f92672">?</span> tree[i] <span style="color:#f92672">:</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">append</span>(<span style="color:#66d9ef">int</span> val) {
+</span></span><span style="display:flex;"><span>        tree.push_back(val);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    ArrayBinaryTree tree;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> val : {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}) {
+</span></span><span style="display:flex;"><span>        tree.append(val);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> tree.value(tree.leftChild(<span style="color:#ae81ff">0</span>)) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;   <span style="color:#75715e">// 2
+</span></span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> tree.value(tree.rightChild(<span style="color:#ae81ff">0</span>)) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;  <span style="color:#75715e">// 3
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Массивное представление эффективно для полных деревьев, но может приводить к большому расходу памяти для разреженных деревьев.</p>
+<h2 id="количество-бинарных-деревьев">Количество бинарных деревьев<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>Количество различных бинарных деревьев с $n$ вершинами равно $C_n$ — $n$-му числу Каталана:
+</p>
+$$
+>C_n = \frac{1}{n+1} \binom{2n}{n}
+>$$<p>
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Пусть $T_n$ — количество бинарных деревьев с $n$ вершинами.</p>
+<p><strong>База:</strong> $T_0 = 1$ (пустое дерево).</p>
+<p><strong>Рекуррентное соотношение:</strong> Для дерева с $n$ вершинами корень занимает одну вершину. Если в левом поддереве $k$ вершин, то в правом — $n - 1 - k$ вершин. Суммируя по всем возможным $k$:</p>
+$$
+T_n = \sum_{k=0}^{n-1} T_k \cdot T_{n-1-k}
+$$<p>Это рекуррентное соотношение для чисел Каталана. Решение даёт формулу:</p>
+$$
+T_n = C_n = \frac{1}{n+1} \binom{2n}{n}
+$$
+  </div>
+</details></p>
+  </div>
+</details>
+<p>Числа Каталана растут экспоненциально: $C_n \approx \frac{4^n}{n^{3/2}\sqrt{\pi}}$.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 2 апр. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
+            <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
+            <li class="" data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu">
+            <li class="active " data-nav-id="/basics/binary_trees/binary_tree_basics/index.html"><a class="padding" href="/basics/binary_trees/binary_tree_basics/index.html">12.1. Бинарные деревья: определения и свойства</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/tree_traversals/index.html"><a class="padding" href="/basics/binary_trees/tree_traversals/index.html">12.2. Обходы деревьев</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/bst_operations/index.html"><a class="padding" href="/basics/binary_trees/bst_operations/index.html">12.3. Двоичное дерево поиска: операции</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/bst_complexity/index.html"><a class="padding" href="/basics/binary_trees/bst_complexity/index.html">12.4. BST: анализ сложности</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/avl_trees/index.html"><a class="padding" href="/basics/binary_trees/avl_trees/index.html">12.5. АВЛ-деревья</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/red_black_trees/index.html"><a class="padding" href="/basics/binary_trees/red_black_trees/index.html">12.6. Красно-чёрные деревья (основы)</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/b_trees/index.html"><a class="padding" href="/basics/binary_trees/b_trees/index.html">12.7. Б-деревья</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/segment_trees/index.html"><a class="padding" href="/basics/binary_trees/segment_trees/index.html">12.8. Деревья отрезков (основы)</a></li></ul></li></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

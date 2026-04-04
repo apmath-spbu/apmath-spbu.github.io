@@ -1,0 +1,1585 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Дерево отрезков (Segment Tree) — это структура данных для эффективного выполнения запросов на отрезках массива: суммы, минимума, максимума и других ассоциативных операций.
+Мотивация Пусть есть массив $a[0], a[1], \ldots, a[n-1]$, и нужно поддерживать две операции:
+Запрос на отрезке: найти сумму/минимум/максимум на отрезке $[l, r]$ Обновление элемента: изменить значение $a[i]$ Структура Запрос на отрезке Обновление Массив $O(n)$ $O(1)$ Префиксные суммы $O(1)$ $O(n)$ Дерево отрезков $O(\log n)$ $O(\log n)$ Дерево отрезков обеспечивает логарифмическое время для обеих операций.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="12.8. Деревья отрезков (основы) :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Дерево отрезков (Segment Tree) — это структура данных для эффективного выполнения запросов на отрезках массива: суммы, минимума, максимума и других ассоциативных операций.
+Мотивация Пусть есть массив $a[0], a[1], \ldots, a[n-1]$, и нужно поддерживать две операции:
+Запрос на отрезке: найти сумму/минимум/максимум на отрезке $[l, r]$ Обновление элемента: изменить значение $a[i]$ Структура Запрос на отрезке Обновление Массив $O(n)$ $O(1)$ Префиксные суммы $O(1)$ $O(n)$ Дерево отрезков $O(\log n)$ $O(\log n)$ Дерево отрезков обеспечивает логарифмическое время для обеих операций.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/binary_trees/segment_trees/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="12.8. Деревья отрезков (основы) :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Дерево отрезков (Segment Tree) — это структура данных для эффективного выполнения запросов на отрезках массива: суммы, минимума, максимума и других ассоциативных операций.
+Мотивация Пусть есть массив $a[0], a[1], \ldots, a[n-1]$, и нужно поддерживать две операции:
+Запрос на отрезке: найти сумму/минимум/максимум на отрезке $[l, r]$ Обновление элемента: изменить значение $a[i]$ Структура Запрос на отрезке Обновление Массив $O(n)$ $O(1)$ Префиксные суммы $O(1)$ $O(n)$ Дерево отрезков $O(\log n)$ $O(\log n)$ Дерево отрезков обеспечивает логарифмическое время для обеих операций.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
+    <meta property="article:published_time" content="2026-04-02T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="name" content="12.8. Деревья отрезков (основы) :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Дерево отрезков (Segment Tree) — это структура данных для эффективного выполнения запросов на отрезках массива: суммы, минимума, максимума и других ассоциативных операций.
+Мотивация Пусть есть массив $a[0], a[1], \ldots, a[n-1]$, и нужно поддерживать две операции:
+Запрос на отрезке: найти сумму/минимум/максимум на отрезке $[l, r]$ Обновление элемента: изменить значение $a[i]$ Структура Запрос на отрезке Обновление Массив $O(n)$ $O(1)$ Префиксные суммы $O(1)$ $O(n)$ Дерево отрезков $O(\log n)$ $O(\log n)$ Дерево отрезков обеспечивает логарифмическое время для обеих операций.">
+    <meta itemprop="datePublished" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="wordCount" content="2477">
+    <title>12.8. Деревья отрезков (основы) :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/basics\/binary_trees\/segment_trees\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/basics/binary_trees/segment_trees/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#мотивация">Мотивация</a></li>
+    <li><a href="#структура-дерева-отрезков">Структура дерева отрезков</a></li>
+    <li><a href="#построение">Построение</a></li>
+    <li><a href="#запрос-на-отрезке">Запрос на отрезке</a></li>
+    <li><a href="#обновление-элемента">Обновление элемента</a></li>
+    <li><a href="#дерево-отрезков-для-минимума">Дерево отрезков для минимума</a></li>
+    <li><a href="#обобщённое-дерево-отрезков">Обобщённое дерево отрезков</a></li>
+    <li><a href="#полная-реализация">Полная реализация</a></li>
+    <li><a href="#сложность">Сложность</a></li>
+    <li><a href="#применения">Применения</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/binary_trees/index.html"><span itemprop="name">12. Бинарные деревья и деревья поиска</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">12.8. Деревья отрезков (основы)</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/binary_trees/segment_trees.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/binary_trees/b_trees/index.html" title="12.7. Б-деревья (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle"><span><i class="fa-fw fas fa-chevron-right"></i></span></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable basics" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="128-деревья-отрезков-основы">12.8. Деревья отрезков (основы)</h1>
+
+<p>Дерево отрезков (Segment Tree) — это структура данных для эффективного выполнения запросов на отрезках массива: суммы, минимума, максимума и других ассоциативных операций.</p>
+<h2 id="мотивация">Мотивация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Пусть есть массив $a[0], a[1], \ldots, a[n-1]$, и нужно поддерживать две операции:</p>
+<ol>
+<li><strong>Запрос на отрезке</strong>: найти сумму/минимум/максимум на отрезке $[l, r]$</li>
+<li><strong>Обновление элемента</strong>: изменить значение $a[i]$</li>
+</ol>
+<table>
+  <thead>
+      <tr>
+          <th>Структура</th>
+          <th>Запрос на отрезке</th>
+          <th>Обновление</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Массив</td>
+          <td>$O(n)$</td>
+          <td>$O(1)$</td>
+      </tr>
+      <tr>
+          <td>Префиксные суммы</td>
+          <td>$O(1)$</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Дерево отрезков</td>
+          <td>$O(\log n)$</td>
+          <td>$O(\log n)$</td>
+      </tr>
+  </tbody>
+</table>
+<p>Дерево отрезков обеспечивает логарифмическое время для обеих операций.</p>
+<h2 id="структура-дерева-отрезков">Структура дерева отрезков<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Дерево отрезков</strong> — это полное бинарное дерево, в котором:</p>
+<ul>
+<li>Листья соответствуют элементам исходного массива</li>
+<li>Каждая внутренняя вершина хранит агрегированное значение (сумму, минимум и т.д.) для отрезка, соответствующего её поддереву</li>
+</ul>
+  </div>
+</details>
+<p>Массив: <code>[1, 3, 5, 7, 9, 11]</code></p>
+<pre class="mermaid actionbar-wrapper align-center ">graph TD
+    N1[&#34;[0-5] = 36&#34;] --&gt; N2[&#34;[0-2] = 9&#34;]
+    N1 --&gt; N3[&#34;[3-5] = 27&#34;]
+    N2 --&gt; N4[&#34;[0-1] = 4&#34;]
+    N2 --&gt; N5[&#34;[2] = 5&#34;]
+    N3 --&gt; N6[&#34;[3-4] = 16&#34;]
+    N3 --&gt; N7[&#34;[5] = 11&#34;]
+    N4 --&gt; N8[&#34;[0] = 1&#34;]
+    N4 --&gt; N9[&#34;[1] = 3&#34;]
+    N6 --&gt; N10[&#34;[3] = 7&#34;]
+    N6 --&gt; N11[&#34;[4] = 9&#34;]
+    style N1 fill:#D6E4F0,stroke:#004E8C
+    style N2 fill:#D6E4F0,stroke:#004E8C
+    style N3 fill:#D6E4F0,stroke:#004E8C
+    style N4 fill:#D6E4F0,stroke:#004E8C
+    style N5 fill:#E8F8F5,stroke:#27AE60
+    style N6 fill:#D6E4F0,stroke:#004E8C
+    style N7 fill:#E8F8F5,stroke:#27AE60
+    style N8 fill:#E8F8F5,stroke:#27AE60
+    style N9 fill:#E8F8F5,stroke:#27AE60
+    style N10 fill:#E8F8F5,stroke:#27AE60
+    style N11 fill:#E8F8F5,stroke:#27AE60</pre>
+<p>Каждый внутренний узел хранит сумму своего отрезка. Листья соответствуют элементам исходного массива.</p>
+<h2 id="построение">Построение<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="tab-panel" data-tab-group="R-tabs-42250053273a17e56c8d598b5ccbe9e8">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-ddd634bf402d1a0a578ec11df44903a9" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-42250053273a17e56c8d598b5ccbe9e8','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-694fcc629bbf51e89be1f1684f3eb409" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-42250053273a17e56c8d598b5ccbe9e8','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-ddd634bf402d1a0a578ec11df44903a9"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SegmentTree</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, data):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>n <span style="color:#f92672">=</span> len(data)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Размер дерева: ближайшая степень двойки * 2</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> self<span style="color:#f92672">.</span>size <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>n:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>size <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Дерево хранится в массиве размера 2*size</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tree <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Заполняем листья</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>n):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>tree[self<span style="color:#f92672">.</span>size <span style="color:#f92672">+</span> i] <span style="color:#f92672">=</span> data[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Строим внутренние узлы</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>tree[i] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i] <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build</span>(self, data, node, left, right):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Рекурсивное построение&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> left <span style="color:#f92672">==</span> right:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>tree[node] <span style="color:#f92672">=</span> data[left]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            mid <span style="color:#f92672">=</span> (left <span style="color:#f92672">+</span> right) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>build(data, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node, left, mid)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>build(data, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, right)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>tree[node] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node] <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-694fcc629bbf51e89be1f1684f3eb409"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SegmentTree</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> tree;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> size;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    SegmentTree(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> data) {
+</span></span><span style="display:flex;"><span>        n <span style="color:#f92672">=</span> data.size();
+</span></span><span style="display:flex;"><span>        size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (size <span style="color:#f92672">&lt;</span> n) size <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        tree.assign(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> size, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Заполняем листья
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            tree[size <span style="color:#f92672">+</span> i] <span style="color:#f92672">=</span> data[i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Строим внутренние узлы
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">--</span>) {
+</span></span><span style="display:flex;"><span>            tree[i] <span style="color:#f92672">=</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i] <span style="color:#f92672">+</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">build</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> data, <span style="color:#66d9ef">int</span> node, <span style="color:#66d9ef">int</span> left, <span style="color:#66d9ef">int</span> right) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (left <span style="color:#f92672">==</span> right) {
+</span></span><span style="display:flex;"><span>            tree[node] <span style="color:#f92672">=</span> data[left];
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> (left <span style="color:#f92672">+</span> right) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>            build(data, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node, left, mid);
+</span></span><span style="display:flex;"><span>            build(data, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, right);
+</span></span><span style="display:flex;"><span>            tree[node] <span style="color:#f92672">=</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node] <span style="color:#f92672">+</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Сложность построения: $O(n)$.</p>
+<h2 id="запрос-на-отрезке">Запрос на отрезке<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="tab-panel" data-tab-group="R-tabs-f1ff1726164dbb1a60f0c34121653125">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-29ab85534e9bd39ffaf77e1892fc82a4" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-f1ff1726164dbb1a60f0c34121653125','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-7649dcb4fa0a7f32ccbc07bd5fda3d91" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-f1ff1726164dbb1a60f0c34121653125','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-29ab85534e9bd39ffaf77e1892fc82a4"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">query</span>(self, l, r):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Сумма на отрезке [l, r]&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>_query(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, self<span style="color:#f92672">.</span>size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, l, r)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_query</span>(self, node, node_left, node_right, l, r):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Рекурсивный запрос&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Отрезок запроса не пересекается с отрезком узла</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> r <span style="color:#f92672">&lt;</span> node_left <span style="color:#f92672">or</span> l <span style="color:#f92672">&gt;</span> node_right:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Отрезок запроса полностью содержит отрезок узла</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> l <span style="color:#f92672">&lt;=</span> node_left <span style="color:#f92672">and</span> node_right <span style="color:#f92672">&lt;=</span> r:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>tree[node]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Частичное пересечение</span>
+</span></span><span style="display:flex;"><span>    mid <span style="color:#f92672">=</span> (node_left <span style="color:#f92672">+</span> node_right) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    left_sum <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_query(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node, node_left, mid, l, r)
+</span></span><span style="display:flex;"><span>    right_sum <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_query(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, node_right, l, r)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> left_sum <span style="color:#f92672">+</span> right_sum
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Итеративная версия (быстрее):</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Идея: l и r — указатели на листья в массиве tree[size..2*size-1].</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># На каждом шаге поднимаемся на уровень вверх (l //= 2, r //= 2).</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Если l — правый ребёнок (l % 2 == 1), его родитель покрывает</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># лишние элементы слева, поэтому берём tree[l] отдельно и сдвигаем l вправо.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Аналогично для r: если r — левый ребёнок (r % 2 == 0), берём tree[r]</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># и сдвигаем r влево. Так на каждом уровне O(1) работы, всего O(log n).</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">query_iterative</span>(self, l, r):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Итеративный запрос суммы на [l, r]&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    l <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>size
+</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>size
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> l <span style="color:#f92672">&lt;=</span> r:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> l <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>tree[l]
+</span></span><span style="display:flex;"><span>            l <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> r <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>tree[r]
+</span></span><span style="display:flex;"><span>            r <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        l <span style="color:#f92672">//=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">//=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-7649dcb4fa0a7f32ccbc07bd5fda3d91"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">query</span>(<span style="color:#66d9ef">int</span> node, <span style="color:#66d9ef">int</span> nodeLeft, <span style="color:#66d9ef">int</span> nodeRight, <span style="color:#66d9ef">int</span> l, <span style="color:#66d9ef">int</span> r) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Отрезок запроса не пересекается с отрезком узла
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (r <span style="color:#f92672">&lt;</span> nodeLeft <span style="color:#f92672">||</span> l <span style="color:#f92672">&gt;</span> nodeRight) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Отрезок запроса полностью содержит отрезок узла
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (l <span style="color:#f92672">&lt;=</span> nodeLeft <span style="color:#f92672">&amp;&amp;</span> nodeRight <span style="color:#f92672">&lt;=</span> r) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> tree[node];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Частичное пересечение
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> (nodeLeft <span style="color:#f92672">+</span> nodeRight) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> query(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node, nodeLeft, mid, l, r) <span style="color:#f92672">+</span>
+</span></span><span style="display:flex;"><span>           query(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, nodeRight, l, r);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">query</span>(<span style="color:#66d9ef">int</span> l, <span style="color:#66d9ef">int</span> r) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> query(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, l, r);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Итеративная версия
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">queryIterative</span>(<span style="color:#66d9ef">int</span> l, <span style="color:#66d9ef">int</span> r) {
+</span></span><span style="display:flex;"><span>    l <span style="color:#f92672">+=</span> size;
+</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">+=</span> size;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;=</span> r) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (l <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">+=</span> tree[l];
+</span></span><span style="display:flex;"><span>            l<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (r <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">+=</span> tree[r];
+</span></span><span style="display:flex;"><span>            r<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        l <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Сложность запроса: $O(\log n)$.</p>
+<h2 id="обновление-элемента">Обновление элемента<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="tab-panel" data-tab-group="R-tabs-eda4de92c237ff5e71c761a6abbf23f4">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-9b84bc05855c00035e07b62cb1f88662" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-eda4de92c237ff5e71c761a6abbf23f4','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-1ad98c30bd3f1024ce3272d6000e881b" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-eda4de92c237ff5e71c761a6abbf23f4','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-9b84bc05855c00035e07b62cb1f88662"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>(self, index, value):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Установка значения a[index] = value&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>_update(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, self<span style="color:#f92672">.</span>size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, index, value)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_update</span>(self, node, node_left, node_right, index, value):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> node_left <span style="color:#f92672">==</span> node_right:
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tree[node] <span style="color:#f92672">=</span> value
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        mid <span style="color:#f92672">=</span> (node_left <span style="color:#f92672">+</span> node_right) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> index <span style="color:#f92672">&lt;=</span> mid:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>_update(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node, node_left, mid, index, value)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>_update(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, node_right, index, value)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tree[node] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node] <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Итеративная версия:</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_iterative</span>(self, index, value):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Итеративное обновление&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    index <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>size
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>tree[index] <span style="color:#f92672">=</span> value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> index <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        index <span style="color:#f92672">//=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tree[index] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index] <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-1ad98c30bd3f1024ce3272d6000e881b"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>(<span style="color:#66d9ef">int</span> node, <span style="color:#66d9ef">int</span> nodeLeft, <span style="color:#66d9ef">int</span> nodeRight, <span style="color:#66d9ef">int</span> index, <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> value) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (nodeLeft <span style="color:#f92672">==</span> nodeRight) {
+</span></span><span style="display:flex;"><span>        tree[node] <span style="color:#f92672">=</span> value;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> (nodeLeft <span style="color:#f92672">+</span> nodeRight) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (index <span style="color:#f92672">&lt;=</span> mid) {
+</span></span><span style="display:flex;"><span>            update(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node, nodeLeft, mid, index, value);
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            update(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, mid <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, nodeRight, index, value);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        tree[node] <span style="color:#f92672">=</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node] <span style="color:#f92672">+</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> node <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>(<span style="color:#66d9ef">int</span> index, <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> value) {
+</span></span><span style="display:flex;"><span>    update(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, index, value);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Итеративная версия
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">updateIterative</span>(<span style="color:#66d9ef">int</span> index, <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> value) {
+</span></span><span style="display:flex;"><span>    index <span style="color:#f92672">+=</span> size;
+</span></span><span style="display:flex;"><span>    tree[index] <span style="color:#f92672">=</span> value;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (index <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        index <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        tree[index] <span style="color:#f92672">=</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index] <span style="color:#f92672">+</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Сложность обновления: $O(\log n)$.</p>
+<h2 id="дерево-отрезков-для-минимума">Дерево отрезков для минимума<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="tab-panel" data-tab-group="R-tabs-b08cf5cec340681bee33ad7e87a4e011">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-2460454c9063c5b1efd2d80c58535c07" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-b08cf5cec340681bee33ad7e87a4e011','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-f9394bfa9eae6f68fdcd2583adc315a1" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-b08cf5cec340681bee33ad7e87a4e011','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-2460454c9063c5b1efd2d80c58535c07"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MinSegmentTree</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, data):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>n <span style="color:#f92672">=</span> len(data)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> self<span style="color:#f92672">.</span>size <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>n:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>size <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tree <span style="color:#f92672">=</span> [float(<span style="color:#e6db74">&#39;inf&#39;</span>)] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>n):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>tree[self<span style="color:#f92672">.</span>size <span style="color:#f92672">+</span> i] <span style="color:#f92672">=</span> data[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>tree[i] <span style="color:#f92672">=</span> min(self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i], self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">query_min</span>(self, l, r):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Минимум на отрезке [l, r]&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        l <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>size
+</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>size
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">=</span> float(<span style="color:#e6db74">&#39;inf&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> l <span style="color:#f92672">&lt;=</span> r:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> l <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">=</span> min(result, self<span style="color:#f92672">.</span>tree[l])
+</span></span><span style="display:flex;"><span>                l <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> r <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">=</span> min(result, self<span style="color:#f92672">.</span>tree[r])
+</span></span><span style="display:flex;"><span>                r <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            l <span style="color:#f92672">//=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            r <span style="color:#f92672">//=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>(self, index, value):
+</span></span><span style="display:flex;"><span>        index <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>size
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tree[index] <span style="color:#f92672">=</span> value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> index <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            index <span style="color:#f92672">//=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>tree[index] <span style="color:#f92672">=</span> min(self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index], self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>])</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-f9394bfa9eae6f68fdcd2583adc315a1"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;climits&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MinSegmentTree</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> tree;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> size;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    MinSegmentTree(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> data) {
+</span></span><span style="display:flex;"><span>        n <span style="color:#f92672">=</span> data.size();
+</span></span><span style="display:flex;"><span>        size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (size <span style="color:#f92672">&lt;</span> n) size <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        tree.assign(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> size, INT_MAX);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            tree[size <span style="color:#f92672">+</span> i] <span style="color:#f92672">=</span> data[i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">--</span>) {
+</span></span><span style="display:flex;"><span>            tree[i] <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>min(tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i], tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">queryMin</span>(<span style="color:#66d9ef">int</span> l, <span style="color:#66d9ef">int</span> r) {
+</span></span><span style="display:flex;"><span>        l <span style="color:#f92672">+=</span> size;
+</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">+=</span> size;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> result <span style="color:#f92672">=</span> INT_MAX;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;=</span> r) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (l <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>min(result, tree[l]);
+</span></span><span style="display:flex;"><span>                l<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (r <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>min(result, tree[r]);
+</span></span><span style="display:flex;"><span>                r<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            l <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>            r <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>(<span style="color:#66d9ef">int</span> index, <span style="color:#66d9ef">int</span> value) {
+</span></span><span style="display:flex;"><span>        index <span style="color:#f92672">+=</span> size;
+</span></span><span style="display:flex;"><span>        tree[index] <span style="color:#f92672">=</span> value;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (index <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            index <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>            tree[index] <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>min(tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index], tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h2 id="обобщённое-дерево-отрезков">Обобщённое дерево отрезков<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Дерево отрезков работает для любой <strong>ассоциативной</strong> операции (операции, для которой $(a \circ b) \circ c = a \circ (b \circ c)$):</p>
+<ul>
+<li>Сумма: $a + b$</li>
+<li>Минимум: $\min(a, b)$</li>
+<li>Максимум: $\max(a, b)$</li>
+<li>Произведение: $a \cdot b$</li>
+<li>НОД: $\gcd(a, b)$</li>
+<li>Побитовое И/ИЛИ/XOR</li>
+</ul>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p>Для обобщённого дерева отрезков нужна <strong>нейтральный элемент</strong> $e$, такой что $a \circ e = e \circ a = a$:</p>
+<ul>
+<li>Сумма: $0$</li>
+<li>Минимум: $+\infty$</li>
+<li>Максимум: $-\infty$</li>
+<li>Произведение: $1$</li>
+<li>НОД: $0$</li>
+<li>Побитовое И: все биты равны 1</li>
+<li>Побитовое ИЛИ: все биты равны 0</li>
+</ul>
+  </div>
+</details>
+<h2 id="полная-реализация">Полная реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="tab-panel" data-tab-group="R-tabs-64bd51a85d97238f7493e3537aa5e117">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-f475059a4a77f5fcce6adf2ad38ee3d3" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-64bd51a85d97238f7493e3537aa5e117','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-c22e78a6446ca5c9122b8bdf3ef7d593" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-64bd51a85d97238f7493e3537aa5e117','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-f475059a4a77f5fcce6adf2ad38ee3d3"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SegmentTree</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Дерево отрезков для сумм&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, data):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>n <span style="color:#f92672">=</span> len(data)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> self<span style="color:#f92672">.</span>size <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>n:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>size <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tree <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>size)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Построение</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>n):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>tree[self<span style="color:#f92672">.</span>size <span style="color:#f92672">+</span> i] <span style="color:#f92672">=</span> data[i]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(self<span style="color:#f92672">.</span>size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>tree[i] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i] <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">query</span>(self, l, r):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Сумма на отрезке [l, r]&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        l <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>size
+</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>size
+</span></span><span style="display:flex;"><span>        result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> l <span style="color:#f92672">&lt;=</span> r:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> l <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>tree[l]
+</span></span><span style="display:flex;"><span>                l <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> r <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>tree[r]
+</span></span><span style="display:flex;"><span>                r <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            l <span style="color:#f92672">//=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            r <span style="color:#f92672">//=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update</span>(self, index, value):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Обновление элемента&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        index <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>size
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>tree[index] <span style="color:#f92672">=</span> value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> index <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>            index <span style="color:#f92672">//=</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>tree[index] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index] <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get</span>(self, index):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Получить значение элемента&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>tree[self<span style="color:#f92672">.</span>size <span style="color:#f92672">+</span> index]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Пример использования</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#f92672">=</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">11</span>]
+</span></span><span style="display:flex;"><span>st <span style="color:#f92672">=</span> SegmentTree(data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Сумма [1, 4]:&#34;</span>, st<span style="color:#f92672">.</span>query(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>))  <span style="color:#75715e"># 3 + 5 + 7 + 9 = 24</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>st<span style="color:#f92672">.</span>update(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>)  <span style="color:#75715e"># Заменяем a[2] = 10</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Сумма [1, 4] после обновления:&#34;</span>, st<span style="color:#f92672">.</span>query(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>))  <span style="color:#75715e"># 3 + 10 + 7 + 9 = 29</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-c22e78a6446ca5c9122b8bdf3ef7d593"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SegmentTree</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> tree;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> size;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    SegmentTree(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> data) {
+</span></span><span style="display:flex;"><span>        n <span style="color:#f92672">=</span> data.size();
+</span></span><span style="display:flex;"><span>        size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (size <span style="color:#f92672">&lt;</span> n) size <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        tree.assign(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> size, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Построение
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            tree[size <span style="color:#f92672">+</span> i] <span style="color:#f92672">=</span> data[i];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> size <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; i<span style="color:#f92672">--</span>) {
+</span></span><span style="display:flex;"><span>            tree[i] <span style="color:#f92672">=</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i] <span style="color:#f92672">+</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">query</span>(<span style="color:#66d9ef">int</span> l, <span style="color:#66d9ef">int</span> r) {
+</span></span><span style="display:flex;"><span>        l <span style="color:#f92672">+=</span> size;
+</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">+=</span> size;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> result <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;=</span> r) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (l <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">+=</span> tree[l];
+</span></span><span style="display:flex;"><span>                l<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (r <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>                result <span style="color:#f92672">+=</span> tree[r];
+</span></span><span style="display:flex;"><span>                r<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            l <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>            r <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">update</span>(<span style="color:#66d9ef">int</span> index, <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> value) {
+</span></span><span style="display:flex;"><span>        index <span style="color:#f92672">+=</span> size;
+</span></span><span style="display:flex;"><span>        tree[index] <span style="color:#f92672">=</span> value;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> (index <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>            index <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>            tree[index] <span style="color:#f92672">=</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index] <span style="color:#f92672">+</span> tree[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> index <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">get</span>(<span style="color:#66d9ef">int</span> index) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> tree[size <span style="color:#f92672">+</span> index];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> data <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">9</span>, <span style="color:#ae81ff">11</span>};
+</span></span><span style="display:flex;"><span>    SegmentTree st(data);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Сумма [1, 4]: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> st.query(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;  <span style="color:#75715e">// 24
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    st.update(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Сумма [1, 4] после обновления: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> st.query(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>) <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>endl;  <span style="color:#75715e">// 29
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h2 id="сложность">Сложность<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Сложность операций в дереве отрезков:</p>
+  </div>
+</details>
+<table>
+  <thead>
+      <tr>
+          <th>Операция</th>
+          <th>Время</th>
+          <th>Память</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Построение</td>
+          <td>$O(n)$</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Запрос на отрезке</td>
+          <td>$O(\log n)$</td>
+          <td>—</td>
+      </tr>
+      <tr>
+          <td>Обновление элемента</td>
+          <td>$O(\log n)$</td>
+          <td>—</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="применения">Применения<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Деревья отрезков используются для:</p>
+<ul>
+<li>Сумма/минимум/максимум на отрезке</li>
+<li>Подсчёт элементов, удовлетворяющих условию</li>
+<li>Нахождение $k$-й статистики на отрезке (с расширением)</li>
+<li>Поддержка операций на отрезке (с ленивым распространением — lazy propagation)</li>
+</ul>
+  </div>
+</details>
+<p>Деревья отрезков — одна из самых важных структур данных в спортивном программировании и на олимпиадах по информатике.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 2 апр. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
+            <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
+            <li class="" data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/binary_trees/binary_tree_basics/index.html"><a class="padding" href="/basics/binary_trees/binary_tree_basics/index.html">12.1. Бинарные деревья: определения и свойства</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/tree_traversals/index.html"><a class="padding" href="/basics/binary_trees/tree_traversals/index.html">12.2. Обходы деревьев</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/bst_operations/index.html"><a class="padding" href="/basics/binary_trees/bst_operations/index.html">12.3. Двоичное дерево поиска: операции</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/bst_complexity/index.html"><a class="padding" href="/basics/binary_trees/bst_complexity/index.html">12.4. BST: анализ сложности</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/avl_trees/index.html"><a class="padding" href="/basics/binary_trees/avl_trees/index.html">12.5. АВЛ-деревья</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/red_black_trees/index.html"><a class="padding" href="/basics/binary_trees/red_black_trees/index.html">12.6. Красно-чёрные деревья (основы)</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/b_trees/index.html"><a class="padding" href="/basics/binary_trees/b_trees/index.html">12.7. Б-деревья</a></li>
+            <li class="active " data-nav-id="/basics/binary_trees/segment_trees/index.html"><a class="padding" href="/basics/binary_trees/segment_trees/index.html">12.8. Деревья отрезков (основы)</a></li></ul></li></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/js-yaml/js-yaml.min.js" defer></script>
+    <script src="/js/d3/d3-color.min.js" defer></script>
+    <script src="/js/d3/d3-dispatch.min.js" defer></script>
+    <script src="/js/d3/d3-drag.min.js" defer></script>
+    <script src="/js/d3/d3-ease.min.js" defer></script>
+    <script src="/js/d3/d3-interpolate.min.js" defer></script>
+    <script src="/js/d3/d3-selection.min.js" defer></script>
+    <script src="/js/d3/d3-timer.min.js" defer></script>
+    <script src="/js/d3/d3-transition.min.js" defer></script>
+    <script src="/js/d3/d3-zoom.min.js" defer></script>
+    <script src="/js/mermaid/mermaid.min.js" defer></script>
+    <script>
+      window.relearn.themeUseMermaid = JSON.parse("{}");
+    </script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

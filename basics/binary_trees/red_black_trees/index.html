@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Красно-чёрное дерево (Red-Black Tree, RB-tree) — это самобалансирующееся двоичное дерево поиска, которое обеспечивает логарифмическую высоту с меньшим количеством вращений, чем АВЛ-дерево. Как и АВЛ-дерево, оно основано на базовых операциях BST.
+Свойства красно-чёрного дерева Определение Красно-чёрное дерево — это двоичное дерево поиска, в котором каждая вершина имеет дополнительный бит информации — цвет (красный или чёрный), и выполняются следующие пять свойств:">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="12.6. Красно-чёрные деревья (основы) :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Красно-чёрное дерево (Red-Black Tree, RB-tree) — это самобалансирующееся двоичное дерево поиска, которое обеспечивает логарифмическую высоту с меньшим количеством вращений, чем АВЛ-дерево. Как и АВЛ-дерево, оно основано на базовых операциях BST.
+Свойства красно-чёрного дерева Определение Красно-чёрное дерево — это двоичное дерево поиска, в котором каждая вершина имеет дополнительный бит информации — цвет (красный или чёрный), и выполняются следующие пять свойств:">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/binary_trees/red_black_trees/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="12.6. Красно-чёрные деревья (основы) :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Красно-чёрное дерево (Red-Black Tree, RB-tree) — это самобалансирующееся двоичное дерево поиска, которое обеспечивает логарифмическую высоту с меньшим количеством вращений, чем АВЛ-дерево. Как и АВЛ-дерево, оно основано на базовых операциях BST.
+Свойства красно-чёрного дерева Определение Красно-чёрное дерево — это двоичное дерево поиска, в котором каждая вершина имеет дополнительный бит информации — цвет (красный или чёрный), и выполняются следующие пять свойств:">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
+    <meta property="article:published_time" content="2026-04-02T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="name" content="12.6. Красно-чёрные деревья (основы) :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Красно-чёрное дерево (Red-Black Tree, RB-tree) — это самобалансирующееся двоичное дерево поиска, которое обеспечивает логарифмическую высоту с меньшим количеством вращений, чем АВЛ-дерево. Как и АВЛ-дерево, оно основано на базовых операциях BST.
+Свойства красно-чёрного дерева Определение Красно-чёрное дерево — это двоичное дерево поиска, в котором каждая вершина имеет дополнительный бит информации — цвет (красный или чёрный), и выполняются следующие пять свойств:">
+    <meta itemprop="datePublished" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="wordCount" content="2744">
+    <title>12.6. Красно-чёрные деревья (основы) :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/basics\/binary_trees\/red_black_trees\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/basics/binary_trees/red_black_trees/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#свойства-красно-чёрного-дерева">Свойства красно-чёрного дерева</a></li>
+    <li><a href="#оценка-высоты">Оценка высоты</a></li>
+    <li><a href="#структура-узла">Структура узла</a></li>
+    <li><a href="#вращения">Вращения</a></li>
+    <li><a href="#вставка">Вставка</a>
+      <ul>
+        <li><a href="#случаи-восстановления-после-вставки">Случаи восстановления после вставки</a></li>
+      </ul>
+    </li>
+    <li><a href="#удаление">Удаление</a>
+      <ul>
+        <li><a href="#случаи-восстановления-после-удаления">Случаи восстановления после удаления</a></li>
+      </ul>
+    </li>
+    <li><a href="#сложность-операций">Сложность операций</a></li>
+    <li><a href="#сравнение-авл-и-красно-чёрных-деревьев">Сравнение АВЛ и красно-чёрных деревьев</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/binary_trees/index.html"><span itemprop="name">12. Бинарные деревья и деревья поиска</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">12.6. Красно-чёрные деревья (основы)</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/binary_trees/red_black_trees.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/binary_trees/avl_trees/index.html" title="12.5. АВЛ-деревья (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/binary_trees/b_trees/index.html" title="12.7. Б-деревья (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable basics" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="126-красно-чёрные-деревья-основы">12.6. Красно-чёрные деревья (основы)</h1>
+
+<p>Красно-чёрное дерево (Red-Black Tree, RB-tree) — это самобалансирующееся двоичное дерево поиска, которое обеспечивает логарифмическую высоту с меньшим количеством вращений, чем <a href="/basics/binary_trees/avl_trees/index.html">АВЛ-дерево</a>. Как и АВЛ-дерево, оно основано на <a href="/basics/binary_trees/bst_operations/index.html">базовых операциях BST</a>.</p>
+<h2 id="свойства-красно-чёрного-дерева">Свойства красно-чёрного дерева<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Красно-чёрное дерево</strong> — это двоичное дерево поиска, в котором каждая вершина имеет дополнительный бит информации — цвет (красный или чёрный), и выполняются следующие пять свойств:</p>
+  </div>
+</details>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства красно-чёрного дерева
+  </summary>
+  <div class="box-content">
+<ol>
+<li><strong>Каждая вершина либо красная, либо чёрная.</strong></li>
+<li><strong>Корень дерева — чёрный.</strong></li>
+<li><strong>Все листья (NIL-вершины) — чёрные.</strong></li>
+<li><strong>Если вершина красная, то оба её ребёнка — чёрные.</strong> (Не может быть двух красных вершин подряд на пути от корня к листу.)</li>
+<li><strong>Все пути от любой вершины до листьев (NIL-вершин) содержат одинаковое количество чёрных вершин.</strong> Это число называется <strong>чёрной высотой</strong> вершины.</li>
+</ol>
+  </div>
+</details>
+<pre class="mermaid actionbar-wrapper align-center ">graph TD
+    N7((7)) --&gt; N3((3))
+    N7 --&gt; N18((18))
+    N3 --&gt; N2((2))
+    N3 --&gt; N5((5))
+    N18 --&gt; N11((11))
+    N18 --&gt; N22((22))
+    N11 ~~~ N_1((&#34; &#34;))
+    N11 --&gt; N14((14))
+    N22 --&gt; N17((17))
+    N22 --&gt; N27((27))
+
+    style N7 fill:#333,stroke:#333,color:#fff
+    style N3 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style N18 fill:#333,stroke:#333,color:#fff
+    style N2 fill:#333,stroke:#333,color:#fff
+    style N5 fill:#333,stroke:#333,color:#fff
+    style N11 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style N22 fill:#333,stroke:#333,color:#fff
+    style N14 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style N17 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style N27 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style N_1 fill:none,stroke:none</pre>
+<p>Свойства данного дерева:</p>
+<ul>
+<li>Корень 7 — чёрный ✓</li>
+<li>Нет двух красных подряд ✓</li>
+<li>Чёрная высота от любого узла до листьев одинакова ✓</li>
+</ul>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Чёрная высота</strong> вершины $v$, обозначаемая $bh(v)$, — это количество чёрных вершин на любом пути от $v$ до листа (не считая саму $v$).</p>
+  </div>
+</details>
+<h2 id="оценка-высоты">Оценка высоты<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>Красно-чёрное дерево с $n$ внутренними вершинами имеет высоту не более $2\log_2(n+1)$.
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p><strong>Лемма:</strong> Поддерево красно-чёрного дерева с чёрной высотой $bh$ содержит не менее $2^{bh} - 1$ внутренних вершин.</p>
+<p><em>Доказательство леммы по индукции по $bh$:</em></p>
+<ul>
+<li>База: $bh = 0$. Поддерево пустое, $2^0 - 1 = 0$ вершин. Верно.</li>
+<li>Переход: пусть для $bh$ утверждение верно. Рассмотрим вершину с чёрной высотой $bh + 1$. Её дети имеют чёрную высоту $bh$ (если ребёнок чёрный) или $bh$ (если ребёнок красный, то его дети — чёрные с высотой $bh$). В обоих случаях каждый ребёнок содержит не менее $2^{bh} - 1$ вершин. Итого: $(2^{bh} - 1) + (2^{bh} - 1) + 1 = 2^{bh+1} - 1$.</li>
+</ul>
+<p><strong>Доказательство теоремы:</strong>
+Пусть $h$ — высота дерева. По свойству 4, на любом пути от корня до листа не менее половины вершин — чёрные (так как красная вершина не может иметь красного родителя). Значит:</p>
+$$
+bh(\text{root}) \geqslant \frac{h}{2}
+$$<p>По лемме:</p>
+$$
+n \geqslant 2^{bh(\text{root})} - 1 \geqslant 2^{h/2} - 1
+$$<p>Откуда:</p>
+$$
+h \leqslant 2\log_2(n+1)
+$$
+  </div>
+</details></p>
+  </div>
+</details>
+
+<details open class="box cstyle notices corollar">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Следствие
+  </summary>
+  <div class="box-content">
+<p>Все операции в красно-чёрном дереве работают за $O(\log n)$.</p>
+  </div>
+</details>
+<h2 id="структура-узла">Структура узла<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="tab-panel" data-tab-group="R-tabs-ca7a9e6359d3612c1697bd0bdcb02bf4">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-7fe30603febc74af415d37e05119adee" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-ca7a9e6359d3612c1697bd0bdcb02bf4','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-afbc6dc445ba57efe0fbc36936b449d4" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-ca7a9e6359d3612c1697bd0bdcb02bf4','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-7fe30603febc74af415d37e05119adee"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Color</span>:
+</span></span><span style="display:flex;"><span>    RED <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    BLACK <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RBNode</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, key, color<span style="color:#f92672">=</span>Color<span style="color:#f92672">.</span>RED):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>key <span style="color:#f92672">=</span> key
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> color
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RBTree</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>NIL <span style="color:#f92672">=</span> RBNode(<span style="color:#66d9ef">None</span>, Color<span style="color:#f92672">.</span>BLACK)  <span style="color:#75715e"># Сторожевой узел</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>NIL</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-afbc6dc445ba57efe0fbc36936b449d4"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Color</span> { RED, BLACK };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">RBNode</span> {
+</span></span><span style="display:flex;"><span>    T key;
+</span></span><span style="display:flex;"><span>    Color color;
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">*</span> left;
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">*</span> right;
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">*</span> parent;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    RBNode(T k, Color c <span style="color:#f92672">=</span> RED) <span style="color:#f92672">:</span> key(k), color(c), left(<span style="color:#66d9ef">nullptr</span>), right(<span style="color:#66d9ef">nullptr</span>), parent(<span style="color:#66d9ef">nullptr</span>) {}
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RBTree</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> NIL;  <span style="color:#75715e">// Сторожевой узел
+</span></span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> root;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    RBTree() {
+</span></span><span style="display:flex;"><span>        NIL <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(T{}, BLACK);
+</span></span><span style="display:flex;"><span>        NIL<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> NIL<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> NIL<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> NIL;
+</span></span><span style="display:flex;"><span>        root <span style="color:#f92672">=</span> NIL;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h2 id="вращения">Вращения<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Вращения в красно-чёрном дереве аналогичны вращениям в АВЛ-дереве, но нужно корректно обновлять цвета и родительские ссылки.</p>
+<div class="tab-panel" data-tab-group="R-tabs-26dca6238fff2e413bbb236b74d742e7">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-52a1db875e9eeb7185093233ea4030a5" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-26dca6238fff2e413bbb236b74d742e7','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-60ee980a0fe6e47e10f386b42933ab60" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-26dca6238fff2e413bbb236b74d742e7','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-52a1db875e9eeb7185093233ea4030a5"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">left_rotate</span>(self, x):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Левое вращение вокруг x&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> y<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> y<span style="color:#f92672">.</span>left <span style="color:#f92672">!=</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">.</span>left<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    y<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> x<span style="color:#f92672">.</span>parent <span style="color:#f92672">==</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> x <span style="color:#f92672">==</span> x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left:
+</span></span><span style="display:flex;"><span>        x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    y<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">right_rotate</span>(self, y):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Правое вращение вокруг y&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> y<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>    y<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> x<span style="color:#f92672">.</span>right <span style="color:#f92672">!=</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        x<span style="color:#f92672">.</span>right<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> y<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> y<span style="color:#f92672">.</span>parent <span style="color:#f92672">==</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> y <span style="color:#f92672">==</span> y<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>right:
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>    y<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> x</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-60ee980a0fe6e47e10f386b42933ab60"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">leftRotate</span>(RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> x) {
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> y <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> y<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (y<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">!=</span> NIL) {
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    y<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (x<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> NIL) {
+</span></span><span style="display:flex;"><span>        root <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">==</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left) {
+</span></span><span style="display:flex;"><span>        x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    y<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">rightRotate</span>(RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> y) {
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> x <span style="color:#f92672">=</span> y<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>    y<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (x<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">!=</span> NIL) {
+</span></span><span style="display:flex;"><span>        x<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> y<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (y<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> NIL) {
+</span></span><span style="display:flex;"><span>        root <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (y <span style="color:#f92672">==</span> y<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right) {
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>    y<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> x;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h2 id="вставка">Вставка<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Вставка состоит из двух этапов:</p>
+<ol>
+<li>Обычная вставка как в BST (новый узел — красный)</li>
+<li>Восстановление свойств красно-чёрного дерева</li>
+</ol>
+<div class="tab-panel" data-tab-group="R-tabs-befac3eb1d7e907ade96ea6dba7cf730">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-0d6771aa05f47df6948e413b99ce7f20" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-befac3eb1d7e907ade96ea6dba7cf730','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-777997fd9a03157c4c156d2f96c6dc35" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-befac3eb1d7e907ade96ea6dba7cf730','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-0d6771aa05f47df6948e413b99ce7f20"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert</span>(self, key):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Вставка ключа в красно-чёрное дерево&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    node <span style="color:#f92672">=</span> RBNode(key)
+</span></span><span style="display:flex;"><span>    node<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>NIL
+</span></span><span style="display:flex;"><span>    node<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>NIL
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    parent <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>NIL
+</span></span><span style="display:flex;"><span>    current <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>root
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Поиск места для вставки</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> current <span style="color:#f92672">!=</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        parent <span style="color:#f92672">=</span> current
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> node<span style="color:#f92672">.</span>key <span style="color:#f92672">&lt;</span> current<span style="color:#f92672">.</span>key:
+</span></span><span style="display:flex;"><span>            current <span style="color:#f92672">=</span> current<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            current <span style="color:#f92672">=</span> current<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    node<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> parent
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> parent <span style="color:#f92672">==</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> node
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> node<span style="color:#f92672">.</span>key <span style="color:#f92672">&lt;</span> parent<span style="color:#f92672">.</span>key:
+</span></span><span style="display:flex;"><span>        parent<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> node
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        parent<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> node
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Восстановление свойств</span>
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>insert_fixup(node)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert_fixup</span>(self, node):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Восстановление свойств после вставки&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>RED:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> node<span style="color:#f92672">.</span>parent <span style="color:#f92672">==</span> node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left:
+</span></span><span style="display:flex;"><span>            uncle <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> uncle<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>RED:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Случай 1: дядя красный</span>
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                uncle<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>RED
+</span></span><span style="display:flex;"><span>                node <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> node <span style="color:#f92672">==</span> node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>right:
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># Случай 2: дядя чёрный, узел — правый ребёнок</span>
+</span></span><span style="display:flex;"><span>                    node <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>left_rotate(node)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Случай 3: дядя чёрный, узел — левый ребёнок</span>
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>RED
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>right_rotate(node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Симметричные случаи для правого поддерева</span>
+</span></span><span style="display:flex;"><span>            uncle <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> uncle<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>RED:
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                uncle<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>RED
+</span></span><span style="display:flex;"><span>                node <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> node <span style="color:#f92672">==</span> node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left:
+</span></span><span style="display:flex;"><span>                    node <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>right_rotate(node)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>RED
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>left_rotate(node<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>parent)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>root<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-777997fd9a03157c4c156d2f96c6dc35"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">79
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> key) {
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> node <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(key);
+</span></span><span style="display:flex;"><span>    node<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> NIL;
+</span></span><span style="display:flex;"><span>    node<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> NIL;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> parent <span style="color:#f92672">=</span> NIL;
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> current <span style="color:#f92672">=</span> root;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Поиск места для вставки
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (current <span style="color:#f92672">!=</span> NIL) {
+</span></span><span style="display:flex;"><span>        parent <span style="color:#f92672">=</span> current;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>key <span style="color:#f92672">&lt;</span> current<span style="color:#f92672">-&gt;</span>key) {
+</span></span><span style="display:flex;"><span>            current <span style="color:#f92672">=</span> current<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            current <span style="color:#f92672">=</span> current<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    node<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> parent;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (parent <span style="color:#f92672">==</span> NIL) {
+</span></span><span style="display:flex;"><span>        root <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>key <span style="color:#f92672">&lt;</span> parent<span style="color:#f92672">-&gt;</span>key) {
+</span></span><span style="display:flex;"><span>        parent<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        parent<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Восстановление свойств
+</span></span></span><span style="display:flex;"><span>    insertFixup(node);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insertFixup</span>(RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> node) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> RED) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left) {
+</span></span><span style="display:flex;"><span>            RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> uncle <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (uncle<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> RED) {
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Случай 1: дядя красный
+</span></span></span><span style="display:flex;"><span>                node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                uncle<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>                node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (node <span style="color:#f92672">==</span> node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right) {
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e">// Случай 2: дядя чёрный, узел — правый ребёнок
+</span></span></span><span style="display:flex;"><span>                    node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>                    leftRotate(node);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e">// Случай 3: дядя чёрный, узел — левый ребёнок
+</span></span></span><span style="display:flex;"><span>                node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>                rightRotate(node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Симметричные случаи
+</span></span></span><span style="display:flex;"><span>            RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> uncle <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (uncle<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> RED) {
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                uncle<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>                node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (node <span style="color:#f92672">==</span> node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left) {
+</span></span><span style="display:flex;"><span>                    node <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>                    rightRotate(node);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>                leftRotate(node<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>parent);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    root<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 id="случаи-восстановления-после-вставки">Случаи восстановления после вставки<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><strong>Случай 1:</strong> Дядя красный. Перекрашиваем родителя, дядю и дедушку.</p>
+<pre class="mermaid actionbar-wrapper align-center ">graph TD
+    subgraph &#34;После&#34;
+    G2((G)) --&gt; P2((P))
+    G2 --&gt; U2((U))
+    P2 --&gt; N2((N))
+    P2 ~~~ X2((&#34; &#34;))
+    style G2 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style P2 fill:#333,stroke:#333,color:#fff
+    style U2 fill:#333,stroke:#333,color:#fff
+    style N2 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style X2 fill:none,stroke:none
+    end
+    subgraph &#34;До&#34;
+    G1((G)) --&gt; P1((P))
+    G1 --&gt; U1((U))
+    P1 --&gt; N1((N))
+    P1 ~~~ Y1((&#34; &#34;))
+    style G1 fill:#333,stroke:#333,color:#fff
+    style P1 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style U1 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style N1 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style Y1 fill:none,stroke:none
+    end</pre>
+<p><strong>Случай 2:</strong> Дядя чёрный, узел — &ldquo;внутренний&rdquo; ребёнок. Поворот вокруг родителя (сводим к случаю 3).</p>
+<pre class="mermaid actionbar-wrapper align-center ">graph TD
+    subgraph &#34;После поворота&#34;
+    G4((G)) --&gt; N4((N))
+    G4 --&gt; U4((U))
+    N4 --&gt; P4((P))
+    N4 ~~~ Z4((&#34; &#34;))
+    style G4 fill:#333,stroke:#333,color:#fff
+    style N4 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style P4 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style U4 fill:#333,stroke:#333,color:#fff
+    style Z4 fill:none,stroke:none
+    end
+    subgraph &#34;До&#34;
+    G3((G)) --&gt; P3((P))
+    G3 --&gt; U3((U))
+    P3 ~~~ Z3((&#34; &#34;))
+    P3 --&gt; N3((N))
+    style G3 fill:#333,stroke:#333,color:#fff
+    style P3 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style N3 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style U3 fill:#333,stroke:#333,color:#fff
+    style Z3 fill:none,stroke:none
+    end</pre>
+<p><strong>Случай 3:</strong> Дядя чёрный, узел — &ldquo;внешний&rdquo; ребёнок. Поворот вокруг дедушки + перекраска.</p>
+<pre class="mermaid actionbar-wrapper align-center ">graph TD
+    subgraph &#34;После поворота&#34;
+    P6((P)) --&gt; N6((N))
+    P6 --&gt; G6((G))
+    G6 ~~~ Z6((&#34; &#34;))
+    G6 --&gt; U6((U))
+    style P6 fill:#333,stroke:#333,color:#fff
+    style N6 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style G6 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style U6 fill:#333,stroke:#333,color:#fff
+    style Z6 fill:none,stroke:none
+    end
+    subgraph &#34;До&#34;
+    G5((G)) --&gt; P5((P))
+    G5 --&gt; U5((U))
+    P5 --&gt; N5((N))
+    P5 ~~~ Z5((&#34; &#34;))
+    style G5 fill:#333,stroke:#333,color:#fff
+    style P5 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style N5 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style U5 fill:#333,stroke:#333,color:#fff
+    style Z5 fill:none,stroke:none
+    end</pre>
+<h2 id="удаление">Удаление<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Удаление в красно-чёрном дереве сложнее вставки и требует до трёх вращений.</p>
+<h3 id="случаи-восстановления-после-удаления">Случаи восстановления после удаления<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>При удалении чёрного узла нарушается свойство 5 (равенство чёрных высот). Узел $x$, заменивший удалённый, несёт «дополнительную чёрную единицу». Восстановление рассматривает 4 случая (для $x$ — левого ребёнка; правые симметричны):</p>
+<ul>
+<li><strong>Случай 1:</strong> Брат $w$ красный. Перекрашиваем $w$ в чёрный, родителя в красный, делаем левый поворот. Сводим к случаям 2–4.</li>
+<li><strong>Случай 2:</strong> Брат $w$ чёрный, оба его ребёнка чёрные. Перекрашиваем $w$ в красный, передаём «лишнюю чёрную единицу» вверх к родителю.</li>
+<li><strong>Случай 3:</strong> Брат $w$ чёрный, левый ребёнок красный, правый чёрный. Правый поворот вокруг $w$, перекраска. Сводим к случаю 4.</li>
+<li><strong>Случай 4:</strong> Брат $w$ чёрный, правый ребёнок красный. Левый поворот вокруг родителя, перекраска. Дерево восстановлено.</li>
+</ul>
+<div class="tab-panel" data-tab-group="R-tabs-f81a873b0904a32e51fcfb48a01596db">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-a51fc88e22548a1d38d9f719b14e0878" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-f81a873b0904a32e51fcfb48a01596db','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-2063ba2ebe20b4f837cae9c1a3a97844" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-f81a873b0904a32e51fcfb48a01596db','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-a51fc88e22548a1d38d9f719b14e0878"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">delete</span>(self, key):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Удаление ключа из красно-чёрного дерева&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    node <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>search(key)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> node <span style="color:#f92672">==</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># y — узел, который будет удалён или перемещён</span>
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> node
+</span></span><span style="display:flex;"><span>    y_original_color <span style="color:#f92672">=</span> y<span style="color:#f92672">.</span>color
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> node<span style="color:#f92672">.</span>left <span style="color:#f92672">==</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>transplant(node, node<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> node<span style="color:#f92672">.</span>right <span style="color:#f92672">==</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>transplant(node, node<span style="color:#f92672">.</span>left)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>minimum(node<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>        y_original_color <span style="color:#f92672">=</span> y<span style="color:#f92672">.</span>color
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> y<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> y<span style="color:#f92672">.</span>parent <span style="color:#f92672">==</span> node:
+</span></span><span style="display:flex;"><span>            x<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>transplant(y, y<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>            y<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>            y<span style="color:#f92672">.</span>right<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>transplant(node, y)
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">.</span>left<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>color
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> y_original_color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>BLACK:
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>delete_fixup(x)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">transplant</span>(self, u, v):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Замена поддерева u поддеревом v&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> u<span style="color:#f92672">.</span>parent <span style="color:#f92672">==</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> u <span style="color:#f92672">==</span> u<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left:
+</span></span><span style="display:flex;"><span>        u<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        u<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> v
+</span></span><span style="display:flex;"><span>    v<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> u<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">minimum</span>(self, node):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> node<span style="color:#f92672">.</span>left <span style="color:#f92672">!=</span> self<span style="color:#f92672">.</span>NIL:
+</span></span><span style="display:flex;"><span>        node <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> node
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">delete_fixup</span>(self, x):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Восстановление свойств после удаления&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> x <span style="color:#f92672">!=</span> self<span style="color:#f92672">.</span>root <span style="color:#f92672">and</span> x<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>BLACK:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> x <span style="color:#f92672">==</span> x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left:
+</span></span><span style="display:flex;"><span>            sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> sibling<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>RED:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Случай 1: брат красный</span>
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>RED
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>left_rotate(x<span style="color:#f92672">.</span>parent)
+</span></span><span style="display:flex;"><span>                sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> sibling<span style="color:#f92672">.</span>left<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>BLACK <span style="color:#f92672">and</span> sibling<span style="color:#f92672">.</span>right<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>BLACK:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Случай 2: брат чёрный, оба ребёнка чёрные</span>
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>RED
+</span></span><span style="display:flex;"><span>                x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> sibling<span style="color:#f92672">.</span>right<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>BLACK:
+</span></span><span style="display:flex;"><span>                    <span style="color:#75715e"># Случай 3: брат чёрный, левый ребёнок красный</span>
+</span></span><span style="display:flex;"><span>                    sibling<span style="color:#f92672">.</span>left<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                    sibling<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>RED
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>right_rotate(sibling)
+</span></span><span style="display:flex;"><span>                    sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Случай 4: брат чёрный, правый ребёнок красный</span>
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">.</span>right<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>left_rotate(x<span style="color:#f92672">.</span>parent)
+</span></span><span style="display:flex;"><span>                x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>root
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Симметричные случаи для правого поддерева</span>
+</span></span><span style="display:flex;"><span>            sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> sibling<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>RED:
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>RED
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>right_rotate(x<span style="color:#f92672">.</span>parent)
+</span></span><span style="display:flex;"><span>                sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> sibling<span style="color:#f92672">.</span>right<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>BLACK <span style="color:#f92672">and</span> sibling<span style="color:#f92672">.</span>left<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>BLACK:
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>RED
+</span></span><span style="display:flex;"><span>                x <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> sibling<span style="color:#f92672">.</span>left<span style="color:#f92672">.</span>color <span style="color:#f92672">==</span> Color<span style="color:#f92672">.</span>BLACK:
+</span></span><span style="display:flex;"><span>                    sibling<span style="color:#f92672">.</span>right<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                    sibling<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>RED
+</span></span><span style="display:flex;"><span>                    self<span style="color:#f92672">.</span>left_rotate(sibling)
+</span></span><span style="display:flex;"><span>                    sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">.</span>parent<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">.</span>left<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK
+</span></span><span style="display:flex;"><span>                self<span style="color:#f92672">.</span>right_rotate(x<span style="color:#f92672">.</span>parent)
+</span></span><span style="display:flex;"><span>                x <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>root
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> Color<span style="color:#f92672">.</span>BLACK</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-2063ba2ebe20b4f837cae9c1a3a97844"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">  9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 67
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 68
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 69
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 70
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 71
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 72
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 73
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 74
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 75
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 76
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 77
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 78
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 79
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 80
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 81
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 82
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 83
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 84
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 85
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 86
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 87
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 88
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 89
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 90
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 91
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 92
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 93
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 94
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 95
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 96
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 97
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 98
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 99
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">100
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">101
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">102
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">103
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">104
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">105
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">106
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">107
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">108
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">109
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">110
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">111
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">112
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">113
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove</span>(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> key) {
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> node <span style="color:#f92672">=</span> search(key);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (node <span style="color:#f92672">==</span> NIL) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> y <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>    RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> x;
+</span></span><span style="display:flex;"><span>    Color yOriginalColor <span style="color:#f92672">=</span> y<span style="color:#f92672">-&gt;</span>color;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">==</span> NIL) {
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>        transplant(node, node<span style="color:#f92672">-&gt;</span>right);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (node<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">==</span> NIL) {
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>        transplant(node, node<span style="color:#f92672">-&gt;</span>left);
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        y <span style="color:#f92672">=</span> minimum(node<span style="color:#f92672">-&gt;</span>right);
+</span></span><span style="display:flex;"><span>        yOriginalColor <span style="color:#f92672">=</span> y<span style="color:#f92672">-&gt;</span>color;
+</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">=</span> y<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (y<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> node) {
+</span></span><span style="display:flex;"><span>            x<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            transplant(y, y<span style="color:#f92672">-&gt;</span>right);
+</span></span><span style="display:flex;"><span>            y<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>            y<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        transplant(node, y);
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> y;
+</span></span><span style="display:flex;"><span>        y<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> node<span style="color:#f92672">-&gt;</span>color;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (yOriginalColor <span style="color:#f92672">==</span> BLACK) {
+</span></span><span style="display:flex;"><span>        deleteFixup(x);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">delete</span> node;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">transplant</span>(RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> u, RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> v) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (u<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">==</span> NIL) {
+</span></span><span style="display:flex;"><span>        root <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (u <span style="color:#f92672">==</span> u<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left) {
+</span></span><span style="display:flex;"><span>        u<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        u<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> v;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    v<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> u<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteFixup</span>(RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (x <span style="color:#f92672">!=</span> root <span style="color:#f92672">&amp;&amp;</span> x<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> BLACK) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">==</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left) {
+</span></span><span style="display:flex;"><span>            RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (sibling<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> RED) {
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>                leftRotate(x<span style="color:#f92672">-&gt;</span>parent);
+</span></span><span style="display:flex;"><span>                sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (sibling<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> BLACK <span style="color:#f92672">&amp;&amp;</span> sibling<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> BLACK) {
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>                x <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (sibling<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> BLACK) {
+</span></span><span style="display:flex;"><span>                    sibling<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                    sibling<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>                    rightRotate(sibling);
+</span></span><span style="display:flex;"><span>                    sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>right;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color;
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                leftRotate(x<span style="color:#f92672">-&gt;</span>parent);
+</span></span><span style="display:flex;"><span>                x <span style="color:#f92672">=</span> root;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// Симметричные случаи
+</span></span></span><span style="display:flex;"><span>            RBNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (sibling<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> RED) {
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>                rightRotate(x<span style="color:#f92672">-&gt;</span>parent);
+</span></span><span style="display:flex;"><span>                sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (sibling<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> BLACK <span style="color:#f92672">&amp;&amp;</span> sibling<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> BLACK) {
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>                x <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent;
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (sibling<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">==</span> BLACK) {
+</span></span><span style="display:flex;"><span>                    sibling<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                    sibling<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span>                    leftRotate(sibling);
+</span></span><span style="display:flex;"><span>                    sibling <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>left;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color;
+</span></span><span style="display:flex;"><span>                x<span style="color:#f92672">-&gt;</span>parent<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                sibling<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>                rightRotate(x<span style="color:#f92672">-&gt;</span>parent);
+</span></span><span style="display:flex;"><span>                x <span style="color:#f92672">=</span> root;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    x<span style="color:#f92672">-&gt;</span>color <span style="color:#f92672">=</span> BLACK;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h2 id="сложность-операций">Сложность операций<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Сложность операций в красно-чёрном дереве:</p>
+  </div>
+</details>
+<table>
+  <thead>
+      <tr>
+          <th>Операция</th>
+          <th>Время</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Поиск</td>
+          <td>$O(\log n)$</td>
+      </tr>
+      <tr>
+          <td>Минимум/Максимум</td>
+          <td>$O(\log n)$</td>
+      </tr>
+      <tr>
+          <td>Вставка</td>
+          <td>$O(\log n)$</td>
+      </tr>
+      <tr>
+          <td>Удаление</td>
+          <td>$O(\log n)$</td>
+      </tr>
+      <tr>
+          <td>Вращений при вставке</td>
+          <td>≤ 2</td>
+      </tr>
+      <tr>
+          <td>Вращений при удалении</td>
+          <td>≤ 3</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="сравнение-авл-и-красно-чёрных-деревьев">Сравнение АВЛ и красно-чёрных деревьев<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Критерий</th>
+          <th>АВЛ-дерево</th>
+          <th>Красно-чёрное дерево</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Высота</td>
+          <td>$\leq 1.44 \log_2 n$</td>
+          <td>$\leq 2 \log_2 n$</td>
+      </tr>
+      <tr>
+          <td>Поиск</td>
+          <td>Быстрее (меньшая высота)</td>
+          <td>Медленнее</td>
+      </tr>
+      <tr>
+          <td>Вставка</td>
+          <td>Больше вращений</td>
+          <td>Меньше вращений</td>
+      </tr>
+      <tr>
+          <td>Удаление</td>
+          <td>Больше вращений</td>
+          <td>Меньше вращений</td>
+      </tr>
+      <tr>
+          <td>Дополнительная память</td>
+          <td>Высота (int)</td>
+          <td>Цвет (1 бит)</td>
+      </tr>
+  </tbody>
+</table>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<ul>
+<li><strong>АВЛ-дерево</strong> предпочтительнее, когда преобладают операции поиска.</li>
+<li><strong>Красно-чёрное дерево</strong> предпочтительнее, когда много вставок и удалений.</li>
+</ul>
+  </div>
+</details>
+<p>Красно-чёрные деревья используются в стандартных библиотеках C++ (<code>std::map</code>, <code>std::set</code>) и Java (<code>TreeMap</code>, <code>TreeSet</code>).</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 2 апр. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
+            <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
+            <li class="" data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/binary_trees/binary_tree_basics/index.html"><a class="padding" href="/basics/binary_trees/binary_tree_basics/index.html">12.1. Бинарные деревья: определения и свойства</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/tree_traversals/index.html"><a class="padding" href="/basics/binary_trees/tree_traversals/index.html">12.2. Обходы деревьев</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/bst_operations/index.html"><a class="padding" href="/basics/binary_trees/bst_operations/index.html">12.3. Двоичное дерево поиска: операции</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/bst_complexity/index.html"><a class="padding" href="/basics/binary_trees/bst_complexity/index.html">12.4. BST: анализ сложности</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/avl_trees/index.html"><a class="padding" href="/basics/binary_trees/avl_trees/index.html">12.5. АВЛ-деревья</a></li>
+            <li class="active " data-nav-id="/basics/binary_trees/red_black_trees/index.html"><a class="padding" href="/basics/binary_trees/red_black_trees/index.html">12.6. Красно-чёрные деревья (основы)</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/b_trees/index.html"><a class="padding" href="/basics/binary_trees/b_trees/index.html">12.7. Б-деревья</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/segment_trees/index.html"><a class="padding" href="/basics/binary_trees/segment_trees/index.html">12.8. Деревья отрезков (основы)</a></li></ul></li></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/js-yaml/js-yaml.min.js" defer></script>
+    <script src="/js/d3/d3-color.min.js" defer></script>
+    <script src="/js/d3/d3-dispatch.min.js" defer></script>
+    <script src="/js/d3/d3-drag.min.js" defer></script>
+    <script src="/js/d3/d3-ease.min.js" defer></script>
+    <script src="/js/d3/d3-interpolate.min.js" defer></script>
+    <script src="/js/d3/d3-selection.min.js" defer></script>
+    <script src="/js/d3/d3-timer.min.js" defer></script>
+    <script src="/js/d3/d3-transition.min.js" defer></script>
+    <script src="/js/d3/d3-zoom.min.js" defer></script>
+    <script src="/js/mermaid/mermaid.min.js" defer></script>
+    <script>
+      window.relearn.themeUseMermaid = JSON.parse("{}");
+    </script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

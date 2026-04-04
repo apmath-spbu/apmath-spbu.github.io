@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Деревья являются одной из важнейших структур данных в информатике. Они естественным образом возникают при решении множества задач: от представления иерархической информации (файловые системы, оргструктуры) до организации эффективного поиска и сортировки данных.
+В этом разделе мы изучим:
+Бинарные деревья — базовую структуру, где каждый узел имеет не более двух детей Обходы деревьев — систематические способы посещения всех узлов Двоичные деревья поиска (BST) — деревья, поддерживающие эффективный поиск, вставку и удаление Сбалансированные деревья — АВЛ-деревья и красно-чёрные деревья, гарантирующие логарифмическую высоту Б-деревья — деревья для работы с внешней памятью Деревья отрезков — структуру для эффективных запросов на отрезках Определение Дерево — это связный ациклический граф. Связность означает, что из любой вершины можно добраться в любую другую; ацикличность — отсутствие циклов.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Бинарные деревья и деревья поиска :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Деревья являются одной из важнейших структур данных в информатике. Они естественным образом возникают при решении множества задач: от представления иерархической информации (файловые системы, оргструктуры) до организации эффективного поиска и сортировки данных.
+В этом разделе мы изучим:
+Бинарные деревья — базовую структуру, где каждый узел имеет не более двух детей Обходы деревьев — систематические способы посещения всех узлов Двоичные деревья поиска (BST) — деревья, поддерживающие эффективный поиск, вставку и удаление Сбалансированные деревья — АВЛ-деревья и красно-чёрные деревья, гарантирующие логарифмическую высоту Б-деревья — деревья для работы с внешней памятью Деревья отрезков — структуру для эффективных запросов на отрезках Определение Дерево — это связный ациклический граф. Связность означает, что из любой вершины можно добраться в любую другую; ацикличность — отсутствие циклов.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/binary_trees/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Бинарные деревья и деревья поиска :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Деревья являются одной из важнейших структур данных в информатике. Они естественным образом возникают при решении множества задач: от представления иерархической информации (файловые системы, оргструктуры) до организации эффективного поиска и сортировки данных.
+В этом разделе мы изучим:
+Бинарные деревья — базовую структуру, где каждый узел имеет не более двух детей Обходы деревьев — систематические способы посещения всех узлов Двоичные деревья поиска (BST) — деревья, поддерживающие эффективный поиск, вставку и удаление Сбалансированные деревья — АВЛ-деревья и красно-чёрные деревья, гарантирующие логарифмическую высоту Б-деревья — деревья для работы с внешней памятью Деревья отрезков — структуру для эффективных запросов на отрезках Определение Дерево — это связный ациклический граф. Связность означает, что из любой вершины можно добраться в любую другую; ацикличность — отсутствие циклов.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="website">
+    <meta itemprop="name" content="Бинарные деревья и деревья поиска :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Деревья являются одной из важнейших структур данных в информатике. Они естественным образом возникают при решении множества задач: от представления иерархической информации (файловые системы, оргструктуры) до организации эффективного поиска и сортировки данных.
+В этом разделе мы изучим:
+Бинарные деревья — базовую структуру, где каждый узел имеет не более двух детей Обходы деревьев — систематические способы посещения всех узлов Двоичные деревья поиска (BST) — деревья, поддерживающие эффективный поиск, вставку и удаление Сбалансированные деревья — АВЛ-деревья и красно-чёрные деревья, гарантирующие логарифмическую высоту Б-деревья — деревья для работы с внешней памятью Деревья отрезков — структуру для эффективных запросов на отрезках Определение Дерево — это связный ациклический граф. Связность означает, что из любой вершины можно добраться в любую другую; ацикличность — отсутствие циклов.">
+    <meta itemprop="datePublished" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="wordCount" content="189">
+    <title>Бинарные деревья и деревья поиска :: Краткий курс по основам программирования</title>
+    <link href="/basics/binary_trees/index.xml" rel="alternate" type="application/rss+xml" title="Бинарные деревья и деревья поиска :: Краткий курс по основам программирования">
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/basics\/binary_trees\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/basics/binary_trees/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper"> 
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">12. Бинарные деревья и деревья поиска</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/binary_trees/_index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/numerical_algos_cryptography/index.html" title="11. Криптография (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/binary_trees/binary_tree_basics/index.html" title="12.1. Бинарные деревья: определения и свойства (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable basics" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="бинарные-деревья-и-деревья-поиска">Бинарные деревья и деревья поиска</h1>
+
+<p>Деревья являются одной из важнейших структур данных в информатике. Они естественным образом возникают при решении множества задач: от представления иерархической информации (файловые системы, оргструктуры) до организации эффективного поиска и сортировки данных.</p>
+<p>В этом разделе мы изучим:</p>
+<ul>
+<li><a href="/basics/binary_trees/binary_tree_basics/index.html"><strong>Бинарные деревья</strong></a> — базовую структуру, где каждый узел имеет не более двух детей</li>
+<li><a href="/basics/binary_trees/tree_traversals/index.html"><strong>Обходы деревьев</strong></a> — систематические способы посещения всех узлов</li>
+<li><a href="/basics/binary_trees/bst_operations/index.html"><strong>Двоичные деревья поиска (BST)</strong></a> — деревья, поддерживающие эффективный поиск, вставку и удаление</li>
+<li><a href="/basics/binary_trees/avl_trees/index.html"><strong>Сбалансированные деревья</strong></a> — АВЛ-деревья и <a href="/basics/binary_trees/red_black_trees/index.html">красно-чёрные деревья</a>, гарантирующие логарифмическую высоту</li>
+<li><a href="/basics/binary_trees/b_trees/index.html"><strong>Б-деревья</strong></a> — деревья для работы с внешней памятью</li>
+<li><a href="/basics/binary_trees/segment_trees/index.html"><strong>Деревья отрезков</strong></a> — структуру для эффективных запросов на отрезках</li>
+</ul>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Дерево</strong> — это связный ациклический граф. Связность означает, что из любой вершины можно добраться в любую другую; ацикличность — отсутствие циклов.</p>
+  </div>
+</details>
+<p>Деревья обладают важными свойствами:</p>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<ol>
+<li>В дереве с $n$ вершинами ровно $n-1$ рёбер.</li>
+<li>Между любыми двумя вершинами дерева существует единственный путь.</li>
+<li>При удалении любого ребра дерево становится несвязным.</li>
+<li>При добавлении любого ребра в дереве появляется ровно один цикл.</li>
+</ol>
+  </div>
+</details>
+<ul>
+<li><a href="/basics/binary_trees/binary_tree_basics/index.html">12.1. Бинарные деревья: определения и свойства</a></li>
+<li><a href="/basics/binary_trees/tree_traversals/index.html">12.2. Обходы деревьев</a></li>
+<li><a href="/basics/binary_trees/bst_operations/index.html">12.3. Двоичное дерево поиска: операции</a></li>
+<li><a href="/basics/binary_trees/bst_complexity/index.html">12.4. BST: анализ сложности</a></li>
+<li><a href="/basics/binary_trees/avl_trees/index.html">12.5. АВЛ-деревья</a></li>
+<li><a href="/basics/binary_trees/red_black_trees/index.html">12.6. Красно-чёрные деревья (основы)</a></li>
+<li><a href="/basics/binary_trees/b_trees/index.html">12.7. Б-деревья</a></li>
+<li><a href="/basics/binary_trees/segment_trees/index.html">12.8. Деревья отрезков (основы)</a>
+{class=&ldquo;children children-type-tree children-sort-&rdquo;}</li>
+</ul>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 2 апр. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
+            <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
+            <li class="" data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
+            <li class="active parent alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/binary_trees/binary_tree_basics/index.html"><a class="padding" href="/basics/binary_trees/binary_tree_basics/index.html">12.1. Бинарные деревья: определения и свойства</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/tree_traversals/index.html"><a class="padding" href="/basics/binary_trees/tree_traversals/index.html">12.2. Обходы деревьев</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/bst_operations/index.html"><a class="padding" href="/basics/binary_trees/bst_operations/index.html">12.3. Двоичное дерево поиска: операции</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/bst_complexity/index.html"><a class="padding" href="/basics/binary_trees/bst_complexity/index.html">12.4. BST: анализ сложности</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/avl_trees/index.html"><a class="padding" href="/basics/binary_trees/avl_trees/index.html">12.5. АВЛ-деревья</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/red_black_trees/index.html"><a class="padding" href="/basics/binary_trees/red_black_trees/index.html">12.6. Красно-чёрные деревья (основы)</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/b_trees/index.html"><a class="padding" href="/basics/binary_trees/b_trees/index.html">12.7. Б-деревья</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/segment_trees/index.html"><a class="padding" href="/basics/binary_trees/segment_trees/index.html">12.8. Деревья отрезков (основы)</a></li></ul></li></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

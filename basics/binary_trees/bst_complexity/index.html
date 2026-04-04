@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Высота BST Высота BST критически влияет на эффективность всех операций. В зависимости от порядка вставки ключей, высота может варьироваться от логарифмической до линейной. Для гарантированной логарифмической высоты используются АВЛ-деревья и красно-чёрные деревья.
+Худший случай Теорема В худшем случае высота BST с $n$ вершинами равна $n - 1$. Доказательство Худший случай достигается, когда ключи вставляются в возрастающем или убывающем порядке. Тогда каждый новый узел становится правым (или левым) ребёнком предыдущего, и дерево превращается в вырожденное — по сути, в связный список.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="12.4. BST: анализ сложности :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Высота BST Высота BST критически влияет на эффективность всех операций. В зависимости от порядка вставки ключей, высота может варьироваться от логарифмической до линейной. Для гарантированной логарифмической высоты используются АВЛ-деревья и красно-чёрные деревья.
+Худший случай Теорема В худшем случае высота BST с $n$ вершинами равна $n - 1$. Доказательство Худший случай достигается, когда ключи вставляются в возрастающем или убывающем порядке. Тогда каждый новый узел становится правым (или левым) ребёнком предыдущего, и дерево превращается в вырожденное — по сути, в связный список.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/binary_trees/bst_complexity/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="12.4. BST: анализ сложности :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Высота BST Высота BST критически влияет на эффективность всех операций. В зависимости от порядка вставки ключей, высота может варьироваться от логарифмической до линейной. Для гарантированной логарифмической высоты используются АВЛ-деревья и красно-чёрные деревья.
+Худший случай Теорема В худшем случае высота BST с $n$ вершинами равна $n - 1$. Доказательство Худший случай достигается, когда ключи вставляются в возрастающем или убывающем порядке. Тогда каждый новый узел становится правым (или левым) ребёнком предыдущего, и дерево превращается в вырожденное — по сути, в связный список.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
+    <meta property="article:published_time" content="2026-04-02T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="name" content="12.4. BST: анализ сложности :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Высота BST Высота BST критически влияет на эффективность всех операций. В зависимости от порядка вставки ключей, высота может варьироваться от логарифмической до линейной. Для гарантированной логарифмической высоты используются АВЛ-деревья и красно-чёрные деревья.
+Худший случай Теорема В худшем случае высота BST с $n$ вершинами равна $n - 1$. Доказательство Худший случай достигается, когда ключи вставляются в возрастающем или убывающем порядке. Тогда каждый новый узел становится правым (или левым) ребёнком предыдущего, и дерево превращается в вырожденное — по сути, в связный список.">
+    <meta itemprop="datePublished" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-02T09:30:00+03:00">
+    <meta itemprop="wordCount" content="1148">
+    <title>12.4. BST: анализ сложности :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/basics\/binary_trees\/bst_complexity\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/basics/binary_trees/bst_complexity/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#высота-bst">Высота BST</a>
+      <ul>
+        <li><a href="#худший-случай">Худший случай</a></li>
+        <li><a href="#лучший-случай">Лучший случай</a></li>
+        <li><a href="#средний-случай">Средний случай</a></li>
+      </ul>
+    </li>
+    <li><a href="#сложность-операций">Сложность операций</a></li>
+    <li><a href="#рандомизированное-bst">Рандомизированное BST</a>
+      <ul>
+        <li><a href="#идея">Идея</a></li>
+      </ul>
+    </li>
+    <li><a href="#сравнение-с-другими-структурами-данных">Сравнение с другими структурами данных</a>
+      <ul>
+        <li><a href="#сравнение-с-хеш-таблицей">Сравнение с хеш-таблицей</a></li>
+        <li><a href="#сравнение-с-отсортированным-массивом">Сравнение с отсортированным массивом</a></li>
+      </ul>
+    </li>
+    <li><a href="#выбор-структуры-данных">Выбор структуры данных</a></li>
+    <li><a href="#резюме">Резюме</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/binary_trees/index.html"><span itemprop="name">12. Бинарные деревья и деревья поиска</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">12.4. BST: анализ сложности</span><meta itemprop="position" content="4"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/binary_trees/bst_complexity.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/binary_trees/bst_operations/index.html" title="12.3. Двоичное дерево поиска: операции (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/binary_trees/avl_trees/index.html" title="12.5. АВЛ-деревья (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable basics" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="124-bst-анализ-сложности">12.4. BST: анализ сложности</h1>
+
+<h2 id="высота-bst">Высота BST<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Высота BST критически влияет на эффективность всех <a href="/basics/binary_trees/bst_operations/index.html">операций</a>. В зависимости от порядка вставки ключей, высота может варьироваться от логарифмической до линейной. Для гарантированной логарифмической высоты используются <a href="/basics/binary_trees/avl_trees/index.html">АВЛ-деревья</a> и <a href="/basics/binary_trees/red_black_trees/index.html">красно-чёрные деревья</a>.</p>
+<h3 id="худший-случай">Худший случай<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>В худшем случае высота BST с $n$ вершинами равна $n - 1$.
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Худший случай достигается, когда ключи вставляются в возрастающем или убывающем порядке. Тогда каждый новый узел становится правым (или левым) ребёнком предыдущего, и дерево превращается в вырожденное — по сути, в связный список.</p>
+<p>Пример: вставка ключей 1, 2, 3, 4, 5 даёт дерево:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>1
+ \
+  2
+   \
+    3
+     \
+      4
+       \
+        5</code></pre></div>
+<p>Высота такого дерева равна $n - 1 = 4$.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+<p>В вырожденном дереве все операции (поиск, вставка, удаление) работают за $\Theta(n)$.</p>
+<h3 id="лучший-случай">Лучший случай<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>В лучшем случае высота BST с $n$ вершинами равна $\lfloor \log_2 n \rfloor$.
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Лучший случай достигается, когда дерево является полным и сбалансированным. Если ключи вставляются в порядке, который даёт полное бинарное дерево (например, медиана, затем медианы левой и правой половин и т.д.), то высота будет минимальной.</p>
+<p>Для полного бинарного дерева с $n$ вершинами высота равна $\lfloor \log_2 n \rfloor$.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+<h3 id="средний-случай">Средний случай<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>Математическое ожидание высоты случайного BST (при случайном порядке вставки $n$ ключей) есть $O(\log n)$.
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Пусть $X_n$ — высота случайного BST, построенного вставкой $n$ ключей в случайном порядке (все перестановки равновероятны).</p>
+<p>Точная оценка (Reed, 2003):</p>
+$$
+\mathbb{E}[X_n] = \alpha \ln n - \beta \ln\ln n + O(1)
+$$<p>где $\alpha \approx 4.311$ и $\beta \approx 1.954$.</p>
+<p>Грубо: $\mathbb{E}[X_n] \approx 4.311 \ln n \approx 2.99 \log_2 n$, что примерно в 3 раза больше идеальной высоты $\log_2 n$.</p>
+<p>Интуитивное объяснение: при случайном порядке вставки каждый новый ключ с равной вероятностью попадает в левое или правое поддерево, что приводит к примерно сбалансированному дереву. Однако дерево не идеально сбалансировано — отсюда множитель $\approx 3$.</p>
+  </div>
+</details></p>
+  </div>
+</details>
+<h2 id="сложность-операций">Сложность операций<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Сложность основных операций BST:</p>
+  </div>
+</details>
+<table>
+  <thead>
+      <tr>
+          <th>Операция</th>
+          <th>Лучший случай</th>
+          <th>Средний случай</th>
+          <th>Худший случай</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Поиск</td>
+          <td>$O(\log n)$</td>
+          <td>$O(\log n)$</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Минимум/Максимум</td>
+          <td>$O(\log n)$</td>
+          <td>$O(\log n)$</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Последователь/Предшественник</td>
+          <td>$O(\log n)$</td>
+          <td>$O(\log n)$</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Вставка</td>
+          <td>$O(\log n)$</td>
+          <td>$O(\log n)$</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Удаление</td>
+          <td>$O(\log n)$</td>
+          <td>$O(\log n)$</td>
+          <td>$O(n)$</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="рандомизированное-bst">Рандомизированное BST<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Чтобы гарантировать логарифмическую сложность в среднем, можно использовать рандомизированный подход.</p>
+<h3 id="идея">Идея<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Вместо того чтобы вставлять ключи в заданном порядке, можно рандомизировать структуру дерева:</p>
+<ol>
+<li>
+<p><strong>Случайная вставка</strong>: при вставке ключа $x$ в дерево размера $n$, с вероятностью $\frac{1}{n+1}$ делаем $x$ новым корнем, иначе рекурсивно вставляем в левое или правое поддерево.</p>
+</li>
+<li>
+<p><strong>Случайное удаление</strong>: при удалении узла с двумя детьми, выбор между заменой на предшественника или последователя делается случайно.</p>
+</li>
+</ol>
+<div class="tab-panel" data-tab-group="R-tabs-2c5f3ae0156d651cf4ecf2f6f2edc2e4">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-cf177956cbd2709db75d1ced81245d48" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-2c5f3ae0156d651cf4ecf2f6f2edc2e4','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-2e4d2d5eaa77bafe403a5d3fa29bdaa3" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-2c5f3ae0156d651cf4ecf2f6f2edc2e4','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-cf177956cbd2709db75d1ced81245d48"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RandomizedBST</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>size <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert_at_root</span>(self, key):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Вставка ключа как нового корня&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Разбиваем дерево на left и right</span>
+</span></span><span style="display:flex;"><span>        left, right <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_split(self<span style="color:#f92672">.</span>root, key)
+</span></span><span style="display:flex;"><span>        new_node <span style="color:#f92672">=</span> BSTNode(key)
+</span></span><span style="display:flex;"><span>        new_node<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> left
+</span></span><span style="display:flex;"><span>        new_node<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> right
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> left:
+</span></span><span style="display:flex;"><span>            left<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> new_node
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> right:
+</span></span><span style="display:flex;"><span>            right<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> new_node
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> new_node
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">_split</span>(self, node, key):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Разбиение дерева по ключу&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> node <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>, <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> key <span style="color:#f92672">&lt;</span> node<span style="color:#f92672">.</span>key:
+</span></span><span style="display:flex;"><span>            left, right <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_split(node<span style="color:#f92672">.</span>left, key)
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> right
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> right:
+</span></span><span style="display:flex;"><span>                right<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> node
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> left, node
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            left, right <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>_split(node<span style="color:#f92672">.</span>right, key)
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> left
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> left:
+</span></span><span style="display:flex;"><span>                left<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> node
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> node, right
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">insert</span>(self, key):
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;&#34;&#34;Рандомизированная вставка&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>root <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> BSTNode(key)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>size <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># С вероятностью 1/(size+1) вставляем в корень</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> random<span style="color:#f92672">.</span>random() <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1.0</span> <span style="color:#f92672">/</span> (self<span style="color:#f92672">.</span>size <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>insert_at_root(key)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> key <span style="color:#f92672">&lt;</span> self<span style="color:#f92672">.</span>root<span style="color:#f92672">.</span>key:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Рекурсивно вставляем в левое поддерево</span>
+</span></span><span style="display:flex;"><span>            old_root <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>root
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>root<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>insert(key)
+</span></span><span style="display:flex;"><span>            old_root<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>root
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> old_root
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Рекурсивно вставляем в правое поддерево</span>
+</span></span><span style="display:flex;"><span>            old_root <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>root
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>root<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>insert(key)
+</span></span><span style="display:flex;"><span>            old_root<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>root
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>root <span style="color:#f92672">=</span> old_root
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>size <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-2e4d2d5eaa77bafe403a5d3fa29bdaa3"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">49
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">50
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">51
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">52
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">53
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">54
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">55
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">56
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">57
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">58
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">59
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">60
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">61
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">62
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">63
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">64
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">65
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">66
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">67
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;random&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdlib&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typename</span> T<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RandomizedBST</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> root;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> size;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span>BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span>, BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*&gt;</span> split(BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> node, <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> key) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (node <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {<span style="color:#66d9ef">nullptr</span>, <span style="color:#66d9ef">nullptr</span>};
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (key <span style="color:#f92672">&lt;</span> node<span style="color:#f92672">-&gt;</span>key) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">auto</span> [left, right] <span style="color:#f92672">=</span> split(node<span style="color:#f92672">-&gt;</span>left, key);
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> right;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (right) right<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {left, node};
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">auto</span> [left, right] <span style="color:#f92672">=</span> split(node<span style="color:#f92672">-&gt;</span>right, key);
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> left;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (left) left<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> {node, right};
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> insertAtRoot(BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> node, <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> key) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">auto</span> [left, right] <span style="color:#f92672">=</span> split(node, key);
+</span></span><span style="display:flex;"><span>        BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> newNode <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(key);
+</span></span><span style="display:flex;"><span>        newNode<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> left;
+</span></span><span style="display:flex;"><span>        newNode<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> right;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (left) left<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> newNode;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (right) right<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> newNode;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> newNode;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    RandomizedBST() <span style="color:#f92672">:</span> root(<span style="color:#66d9ef">nullptr</span>), size(<span style="color:#ae81ff">0</span>) {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> insert(BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;*</span> node, <span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> key) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (node <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>) {
+</span></span><span style="display:flex;"><span>            size<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> BSTNode<span style="color:#f92672">&lt;</span>T<span style="color:#f92672">&gt;</span>(key);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// С вероятностью 1/(size+1) вставляем в корень
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (rand() <span style="color:#f92672">%</span> (size <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) {
+</span></span><span style="display:flex;"><span>            size<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">insertAtRoot</span>(node, key);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (key <span style="color:#f92672">&lt;</span> node<span style="color:#f92672">-&gt;</span>key) {
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">-&gt;</span>left <span style="color:#f92672">=</span> insert(node<span style="color:#f92672">-&gt;</span>left, key);
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">-&gt;</span>left<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">-&gt;</span>right <span style="color:#f92672">=</span> insert(node<span style="color:#f92672">-&gt;</span>right, key);
+</span></span><span style="display:flex;"><span>            node<span style="color:#f92672">-&gt;</span>right<span style="color:#f92672">-&gt;</span>parent <span style="color:#f92672">=</span> node;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> node;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(<span style="color:#66d9ef">const</span> T<span style="color:#f92672">&amp;</span> key) {
+</span></span><span style="display:flex;"><span>        root <span style="color:#f92672">=</span> insert(root, key);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>В рандомизированном BST математическое ожидание высоты есть $O(\log n)$, а все операции работают в среднем за $O(\log n)$.</p>
+  </div>
+</details>
+<h2 id="сравнение-с-другими-структурами-данных">Сравнение с другими структурами данных<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="сравнение-с-хеш-таблицей">Сравнение с хеш-таблицей<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Критерий</th>
+          <th>BST</th>
+          <th>Хеш-таблица</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Поиск</td>
+          <td>$O(\log n)$ среднее</td>
+          <td>$O(1)$ среднее</td>
+      </tr>
+      <tr>
+          <td>Вставка</td>
+          <td>$O(\log n)$ среднее</td>
+          <td>$O(1)$ среднее</td>
+      </tr>
+      <tr>
+          <td>Удаление</td>
+          <td>$O(\log n)$ среднее</td>
+          <td>$O(1)$ среднее</td>
+      </tr>
+      <tr>
+          <td>Минимум/Максимум</td>
+          <td>$O(\log n)$</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Последователь/Предшественник</td>
+          <td>$O(\log n)$</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Упорядоченный обход</td>
+          <td>$O(n)$</td>
+          <td>$O(n \log n)$</td>
+      </tr>
+      <tr>
+          <td>Гарантии в худшем случае</td>
+          <td>Нет (если не сбалансировано)</td>
+          <td>Нет</td>
+      </tr>
+  </tbody>
+</table>
+<p>BST предпочтительнее, когда:</p>
+<ul>
+<li>Нужен упорядоченный обход</li>
+<li>Нужно находить минимум/максимум</li>
+<li>Нужны операции поиска следующего/предыдущего элемента</li>
+<li>Ключи сложно хешировать</li>
+</ul>
+<h3 id="сравнение-с-отсортированным-массивом">Сравнение с отсортированным массивом<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Критерий</th>
+          <th>BST</th>
+          <th>Отсортированный массив</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Поиск</td>
+          <td>$O(\log n)$</td>
+          <td>$O(\log n)$ бинарный поиск</td>
+      </tr>
+      <tr>
+          <td>Вставка</td>
+          <td>$O(\log n)$ среднее</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Удаление</td>
+          <td>$O(\log n)$ среднее</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Минимум/Максимум</td>
+          <td>$O(\log n)$ или $O(1)$ с кэшированием</td>
+          <td>$O(1)$</td>
+      </tr>
+      <tr>
+          <td>Память</td>
+          <td>$O(n)$ с указателями</td>
+          <td>$O(n)$</td>
+      </tr>
+      <tr>
+          <td>Кэш-локальность</td>
+          <td>Низкая</td>
+          <td>Высокая</td>
+      </tr>
+  </tbody>
+</table>
+<p>Отсортированный массив предпочтительнее, когда:</p>
+<ul>
+<li>Данные статические (редко меняются)</li>
+<li>Важна кэш-локальность</li>
+<li>Нужен минимальный расход памяти</li>
+</ul>
+<h2 id="выбор-структуры-данных">Выбор структуры данных<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>                    Нужен упорядоченный обход?
+                           /           \
+                         Да             Нет
+                          |               |
+                     Нужны быстрые     Нужен O(1) поиск?
+                     вставки/удаления?      /       \
+                        /      \           Да        Нет
+                      Да        Нет        |          |
+                       |          |    Хеш-таблица  Массив
+                   Сбаланси-  Отсорти-
+                   рованное   рованный
+                      BST      массив</code></pre></div>
+<h2 id="резюме">Резюме<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p><strong>Преимущества BST:</strong></p>
+<ul>
+<li>Поддержка упорядоченных операций</li>
+<li>Простая реализация</li>
+<li>Гибкость в выборе типа ключей</li>
+</ul>
+<p><strong>Недостатки BST:</strong></p>
+<ul>
+<li>Нет гарантий в худшем случае без балансировки</li>
+<li>Высокая константа из-за указателей</li>
+<li>Плохая кэш-локальность</li>
+</ul>
+  </div>
+</details>
+<p>Чтобы гарантировать логарифмическую сложность в худшем случае, используются <strong>сбалансированные деревья поиска</strong>: АВЛ-деревья, красно-чёрные деревья и другие, которые будут рассмотрены в следующих разделах.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 2 апр. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
+            <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
+            <li class="" data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/binary_trees/binary_tree_basics/index.html"><a class="padding" href="/basics/binary_trees/binary_tree_basics/index.html">12.1. Бинарные деревья: определения и свойства</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/tree_traversals/index.html"><a class="padding" href="/basics/binary_trees/tree_traversals/index.html">12.2. Обходы деревьев</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/bst_operations/index.html"><a class="padding" href="/basics/binary_trees/bst_operations/index.html">12.3. Двоичное дерево поиска: операции</a></li>
+            <li class="active " data-nav-id="/basics/binary_trees/bst_complexity/index.html"><a class="padding" href="/basics/binary_trees/bst_complexity/index.html">12.4. BST: анализ сложности</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/avl_trees/index.html"><a class="padding" href="/basics/binary_trees/avl_trees/index.html">12.5. АВЛ-деревья</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/red_black_trees/index.html"><a class="padding" href="/basics/binary_trees/red_black_trees/index.html">12.6. Красно-чёрные деревья (основы)</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/b_trees/index.html"><a class="padding" href="/basics/binary_trees/b_trees/index.html">12.7. Б-деревья</a></li>
+            <li class="" data-nav-id="/basics/binary_trees/segment_trees/index.html"><a class="padding" href="/basics/binary_trees/segment_trees/index.html">12.8. Деревья отрезков (основы)</a></li></ul></li></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>
