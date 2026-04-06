@@ -25,7 +25,7 @@
 Свойства красно-чёрного дерева Определение Красно-чёрное дерево — это двоичное дерево поиска, в котором каждая вершина имеет дополнительный бит информации — цвет (красный или чёрный), и выполняются следующие пять свойств:">
     <meta itemprop="datePublished" content="2026-04-02T09:30:00+03:00">
     <meta itemprop="dateModified" content="2026-04-02T09:30:00+03:00">
-    <meta itemprop="wordCount" content="2744">
+    <meta itemprop="wordCount" content="2758">
     <title>12.6. Красно-чёрные деревья (основы) :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
@@ -223,10 +223,10 @@
 
     style N7 fill:#333,stroke:#333,color:#fff
     style N3 fill:#E74C3C,stroke:#C0392B,color:#fff
-    style N18 fill:#333,stroke:#333,color:#fff
+    style N18 fill:#E74C3C,stroke:#C0392B,color:#fff
     style N2 fill:#333,stroke:#333,color:#fff
     style N5 fill:#333,stroke:#333,color:#fff
-    style N11 fill:#E74C3C,stroke:#C0392B,color:#fff
+    style N11 fill:#333,stroke:#333,color:#fff
     style N22 fill:#333,stroke:#333,color:#fff
     style N14 fill:#E74C3C,stroke:#C0392B,color:#fff
     style N17 fill:#E74C3C,stroke:#C0392B,color:#fff
@@ -235,8 +235,8 @@
 <p>Свойства данного дерева:</p>
 <ul>
 <li>Корень 7 — чёрный ✓</li>
-<li>Нет двух красных подряд ✓</li>
-<li>Чёрная высота от любого узла до листьев одинакова ✓</li>
+<li>Нет двух красных подряд ✓ (красные 3, 18, 14, 17, 27 имеют чёрных родителей)</li>
+<li>Чёрная высота от корня до листьев: все пути содержат ровно 2 чёрных узла ✓</li>
 </ul>
 
 <details open class="box cstyle notices def">
@@ -297,29 +297,29 @@ $$
   </div>
 </details>
 <h2 id="структура-узла">Структура узла<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<div class="tab-panel" data-tab-group="R-tabs-7a2d3f354f630b95e821c7a341b88b11">
+<div class="tab-panel" data-tab-group="R-tabs-bdf7d847c7c4a97d5bbe6ae3a55078b5">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-de12d0343f624dfd39330dcd30ba875c" aria-expanded="true"
+      aria-controls="R-tab-id-586e485cf63f31322eea8aec28711533" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-7a2d3f354f630b95e821c7a341b88b11','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-bdf7d847c7c4a97d5bbe6ae3a55078b5','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-4276f612b178bffe9891f2ba994597d1" aria-expanded="false"
+      aria-controls="R-tab-id-e85931510c8654acd49082bbaa626d4d" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-7a2d3f354f630b95e821c7a341b88b11','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-bdf7d847c7c4a97d5bbe6ae3a55078b5','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-de12d0343f624dfd39330dcd30ba875c"
+      id="R-tab-id-586e485cf63f31322eea8aec28711533"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -368,7 +368,7 @@ $$
       </div>
     </div>
     <div
-      id="R-tab-id-4276f612b178bffe9891f2ba994597d1"
+      id="R-tab-id-e85931510c8654acd49082bbaa626d4d"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -436,29 +436,29 @@ $$
 </div>
 <h2 id="вращения">Вращения<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Вращения в красно-чёрном дереве аналогичны вращениям в АВЛ-дереве, но нужно корректно обновлять цвета и родительские ссылки.</p>
-<div class="tab-panel" data-tab-group="R-tabs-81fc1081cfbc624f2ab2524723682754">
+<div class="tab-panel" data-tab-group="R-tabs-32cd8cd50ac875b409fca1be80704833">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-bf35777b9cce791d517bb8739a62f658" aria-expanded="true"
+      aria-controls="R-tab-id-edf0f29c3ce871cfdf2eb68ef6d9a8d3" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-81fc1081cfbc624f2ab2524723682754','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-32cd8cd50ac875b409fca1be80704833','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-9c37cbaf325c5760f17cb922dd001955" aria-expanded="false"
+      aria-controls="R-tab-id-bd7beab75fc882f4f8aac36fb26ff258" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-81fc1081cfbc624f2ab2524723682754','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-32cd8cd50ac875b409fca1be80704833','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-bf35777b9cce791d517bb8739a62f658"
+      id="R-tab-id-edf0f29c3ce871cfdf2eb68ef6d9a8d3"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -551,7 +551,7 @@ $$
       </div>
     </div>
     <div
-      id="R-tab-id-9c37cbaf325c5760f17cb922dd001955"
+      id="R-tab-id-bd7beab75fc882f4f8aac36fb26ff258"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -657,29 +657,29 @@ $$
 <li>Обычная вставка как в BST (новый узел — красный)</li>
 <li>Восстановление свойств красно-чёрного дерева</li>
 </ol>
-<div class="tab-panel" data-tab-group="R-tabs-a3db91f9b05159f180652a50d6b1b3b9">
+<div class="tab-panel" data-tab-group="R-tabs-b1f57fb6e6769adff3728fcda89d533f">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-90579196580d5699d1dd854f9a401023" aria-expanded="true"
+      aria-controls="R-tab-id-2cdb5deead685926f8e1c993303bbb84" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-a3db91f9b05159f180652a50d6b1b3b9','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-b1f57fb6e6769adff3728fcda89d533f','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-332bfa5e5e899362997b9e0e32b0bc59" aria-expanded="false"
+      aria-controls="R-tab-id-e18e141a2b77de7f7bcf2fbe1583bc3b" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-a3db91f9b05159f180652a50d6b1b3b9','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-b1f57fb6e6769adff3728fcda89d533f','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-90579196580d5699d1dd854f9a401023"
+      id="R-tab-id-2cdb5deead685926f8e1c993303bbb84"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -834,7 +834,7 @@ $$
       </div>
     </div>
     <div
-      id="R-tab-id-332bfa5e5e899362997b9e0e32b0bc59"
+      id="R-tab-id-e18e141a2b77de7f7bcf2fbe1583bc3b"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1089,29 +1089,29 @@ $$
 <li><strong>Случай 3:</strong> Брат $w$ чёрный, левый ребёнок красный, правый чёрный. Правый поворот вокруг $w$, перекраска. Сводим к случаю 4.</li>
 <li><strong>Случай 4:</strong> Брат $w$ чёрный, правый ребёнок красный. Левый поворот вокруг родителя, перекраска. Дерево восстановлено.</li>
 </ul>
-<div class="tab-panel" data-tab-group="R-tabs-bafeecd34ec0af2060657ae5b404aafd">
+<div class="tab-panel" data-tab-group="R-tabs-83c3e45013e3a3460a0113b2c8ed0da1">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-ffe4540a9488ca3a1faf360aad85ea61" aria-expanded="true"
+      aria-controls="R-tab-id-79450d8fea4635f97526c9a8fe8be751" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-bafeecd34ec0af2060657ae5b404aafd','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-83c3e45013e3a3460a0113b2c8ed0da1','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-2195daa06a0ab8d9a13bf43a02ce659d" aria-expanded="false"
+      aria-controls="R-tab-id-91b478dfed51d4e9ea948fa5ef380e2b" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-bafeecd34ec0af2060657ae5b404aafd','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-83c3e45013e3a3460a0113b2c8ed0da1','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-ffe4540a9488ca3a1faf360aad85ea61"
+      id="R-tab-id-79450d8fea4635f97526c9a8fe8be751"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1348,7 +1348,7 @@ $$
       </div>
     </div>
     <div
-      id="R-tab-id-2195daa06a0ab8d9a13bf43a02ce659d"
+      id="R-tab-id-91b478dfed51d4e9ea948fa5ef380e2b"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
