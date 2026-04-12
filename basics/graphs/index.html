@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.
+В этом разделе мы изучим:
+Определения и способы хранения — вершины, рёбра, матрица смежности и списки смежности Поиск в глубину (DFS) — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT Кратчайшие пути — BFS, Дейкстра, A*, Беллман-Форд, Флойд Определение Граф $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В ориентированном графе ребро — упорядоченная пара $(u, v)$; в неориентированном — неупорядоченная $\{u, v\}$.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.
+В этом разделе мы изучим:
+Определения и способы хранения — вершины, рёбра, матрица смежности и списки смежности Поиск в глубину (DFS) — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT Кратчайшие пути — BFS, Дейкстра, A*, Беллман-Форд, Флойд Определение Граф $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В ориентированном графе ребро — упорядоченная пара $(u, v)$; в неориентированном — неупорядоченная $\{u, v\}$.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/graphs/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.
+В этом разделе мы изучим:
+Определения и способы хранения — вершины, рёбра, матрица смежности и списки смежности Поиск в глубину (DFS) — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT Кратчайшие пути — BFS, Дейкстра, A*, Беллман-Форд, Флойд Определение Граф $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В ориентированном графе ребро — упорядоченная пара $(u, v)$; в неориентированном — неупорядоченная $\{u, v\}$.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="website">
+    <meta itemprop="name" content="13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.
+В этом разделе мы изучим:
+Определения и способы хранения — вершины, рёбра, матрица смежности и списки смежности Поиск в глубину (DFS) — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT Кратчайшие пути — BFS, Дейкстра, A*, Беллман-Форд, Флойд Определение Граф $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В ориентированном графе ребро — упорядоченная пара $(u, v)$; в неориентированном — неупорядоченная $\{u, v\}$.">
+    <meta itemprop="datePublished" content="2026-04-12T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-12T09:30:00+03:00">
+    <meta itemprop="wordCount" content="221">
+    <title>13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования</title>
+    <link href="/basics/graphs/index.xml" rel="alternate" type="application/rss+xml" title="13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования">
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/basics\/graphs\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/basics/graphs/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#сводка-алгоритмов">Сводка алгоритмов</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">13. Графы</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/graphs/_index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/binary_trees/segment_trees/index.html" title="12.8. Деревья отрезков (основы) (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/graphs/graph_definition/index.html" title="13.1. Графы. Определения и способы хранения (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable basics" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="13-графы-определения-обходы-и-кратчайшие-пути">13. Графы: определения, обходы и кратчайшие пути</h1>
+
+<p>Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.</p>
+<p>В этом разделе мы изучим:</p>
+<ul>
+<li><a href="/basics/graphs/graph_definition/index.html"><strong>Определения и способы хранения</strong></a> — вершины, рёбра, матрица смежности и списки смежности</li>
+<li><a href="/basics/graphs/graph_depth_search/index.html"><strong>Поиск в глубину (DFS)</strong></a> — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT</li>
+<li><a href="/basics/graphs/graph_shortest_path_algos/index.html"><strong>Кратчайшие пути</strong></a> — BFS, Дейкстра, A*, Беллман-Форд, Флойд</li>
+</ul>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Граф</strong> $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В <strong>ориентированном</strong> графе ребро — упорядоченная пара $(u, v)$; в <strong>неориентированном</strong> — неупорядоченная $\{u, v\}$.</p>
+  </div>
+</details>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Основные свойства графов:</p>
+<ol>
+<li>$\sum_{v \in V} \deg(v) = 2|E|$ (для неориентированных графов).</li>
+<li>Связный граф с $n$ вершинами содержит не менее $n - 1$ рёбер.</li>
+<li>Дерево — связный граф без циклов — имеет ровно $n - 1$ рёбер.</li>
+<li>Планарный граф: $|E| \leqslant 3|V| - 6$ (теорема Эйлера).</li>
+</ol>
+  </div>
+</details>
+<h3 id="сводка-алгоритмов">Сводка алгоритмов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Алгоритм</th>
+          <th>Задача</th>
+          <th>Время</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>DFS</td>
+          <td>Обход, компоненты</td>
+          <td>$O(V + E)$</td>
+      </tr>
+      <tr>
+          <td>Топологическая сортировка</td>
+          <td>Порядок в DAG</td>
+          <td>$O(V + E)$</td>
+      </tr>
+      <tr>
+          <td>Косарайю (SCC)</td>
+          <td>Сильная связность</td>
+          <td>$O(V + E)$</td>
+      </tr>
+      <tr>
+          <td>Мосты / точки сочленения</td>
+          <td>Двусвязность</td>
+          <td>$O(V + E)$</td>
+      </tr>
+      <tr>
+          <td>BFS</td>
+          <td>Кратчайшие пути (невзв.)</td>
+          <td>$O(V + E)$</td>
+      </tr>
+      <tr>
+          <td>Дейкстра</td>
+          <td>Кратчайшие пути ($w \geqslant 0$)</td>
+          <td>$O((V+E) \log V)$</td>
+      </tr>
+      <tr>
+          <td>Беллман-Форд</td>
+          <td>Кратчайшие пути (любые $w$)</td>
+          <td>$O(VE)$</td>
+      </tr>
+      <tr>
+          <td>Флойд</td>
+          <td>Все пары</td>
+          <td>$O(V^3)$</td>
+      </tr>
+  </tbody>
+</table>
+<ul>
+<li><a href="/basics/graphs/graph_definition/index.html">13.1. Графы. Определения и способы хранения</a></li>
+<li><a href="/basics/graphs/graph_depth_search/index.html">13.2. Графы. Поиск в глубину</a></li>
+<li><a href="/basics/graphs/graph_shortest_path_algos/index.html">13.3. Графы. Алгоритмы поиска кратчайших путей</a>
+{class=&ldquo;children children-type-tree children-sort-&rdquo;}</li>
+</ul>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 12 апр. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/basics/recurrence_relation/index.html"><a class="padding" href="/basics/recurrence_relation/index.html">3. Рекурентные соотношения</a></li>
+            <li class="" data-nav-id="/basics/basic_data_structures/index.html"><a class="padding" href="/basics/basic_data_structures/index.html">4. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/basics/binary_search/index.html"><a class="padding" href="/basics/binary_search/index.html">5. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/basics/sorts/index.html"><a class="padding" href="/basics/sorts/index.html">6. Сортировки</a></li>
+            <li class="" data-nav-id="/basics/heap/index.html"><a class="padding" href="/basics/heap/index.html">7. Двоичная куча</a></li>
+            <li class="" data-nav-id="/basics/hashing/index.html"><a class="padding" href="/basics/hashing/index.html">8. Хеширование</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_arithmetic_comparison/index.html"><a class="padding" href="/basics/numerical_algos_arithmetic_comparison/index.html">9. Арифметика сравнений</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
+            <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
+            <li class="alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu"></ul></li>
+            <li class="active parent alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/graphs/graph_definition/index.html"><a class="padding" href="/basics/graphs/graph_definition/index.html">13.1. Графы. Определения и способы хранения</a></li>
+            <li class="" data-nav-id="/basics/graphs/graph_depth_search/index.html"><a class="padding" href="/basics/graphs/graph_depth_search/index.html">13.2. Графы. Поиск в глубину</a></li>
+            <li class="" data-nav-id="/basics/graphs/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graphs/graph_shortest_path_algos/index.html">13.3. Графы. Алгоритмы поиска кратчайших путей</a></li></ul></li></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

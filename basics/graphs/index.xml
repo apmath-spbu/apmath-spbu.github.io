@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования</title>
+    <link>https://apmath-spbu.github.io/basics/graphs/index.html</link>
+    <description>Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.&#xA;В этом разделе мы изучим:&#xA;Определения и способы хранения — вершины, рёбра, матрица смежности и списки смежности Поиск в глубину (DFS) — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT Кратчайшие пути — BFS, Дейкстра, A*, Беллман-Форд, Флойд Определение Граф $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В ориентированном графе ребро — упорядоченная пара $(u, v)$; в неориентированном — неупорядоченная $\{u, v\}$.</description>
+    <generator>Hugo</generator>
+    <language>ru-ru</language>
+    <lastBuildDate>Sun, 12 Apr 2026 09:30:00 +0300</lastBuildDate>
+    <atom:link href="https://apmath-spbu.github.io/basics/graphs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>13.1. Графы. Определения и способы хранения</title>
+      <link>https://apmath-spbu.github.io/basics/graphs/graph_definition/index.html</link>
+      <pubDate>Sun, 12 Apr 2026 09:30:00 +0300</pubDate>
+      <guid>https://apmath-spbu.github.io/basics/graphs/graph_definition/index.html</guid>
+      <description>Определения Граф задаётся множеством вершин $V$ и множеством рёбер $E$, соединяющих пары вершин (в английском языке граф - graph, вершина - vertex или node, ребро - edge).&#xA;В ориентированном (directed graph, digraph) графе каждое ребро имеет направление, то есть является упорядоченной парой вершин (может быть ребро из вершины $a$ в вершину $b$, но не быть ребра из $b$ в $a$ ). В неориентированном (undirected) графе рёбра направлений не имеют, то есть являются неупорядоченными парами (считаем, что ребро, ведущее из $a$ в $b$, ведёт и из $b$ в $a$ тоже).</description>
+    </item>
+    <item>
+      <title>13.2. Графы. Поиск в глубину</title>
+      <link>https://apmath-spbu.github.io/basics/graphs/graph_depth_search/index.html</link>
+      <pubDate>Sun, 12 Apr 2026 09:30:00 +0300</pubDate>
+      <guid>https://apmath-spbu.github.io/basics/graphs/graph_depth_search/index.html</guid>
+      <description>Большая часть рассуждений применима как к ориентированным, так и к неориентированным графам (если не сказано обратное); допускаются кратные рёбра и петли (если не сказано обратное). Предполагается хранение графа списками смежности.&#xA;Обход вершин, достижимых из данной Поиск в глубину (depth-first search, DFS) по вершине $w \in V$ находит множество вершин, достижимых из неё, то есть таких, в которые можно попасть, сделав несколько переходов по рёбрам, начиная из вершины $w$.</description>
+    </item>
+    <item>
+      <title>13.3. Графы. Алгоритмы поиска кратчайших путей</title>
+      <link>https://apmath-spbu.github.io/basics/graphs/graph_shortest_path_algos/index.html</link>
+      <pubDate>Sun, 12 Apr 2026 09:30:00 +0300</pubDate>
+      <guid>https://apmath-spbu.github.io/basics/graphs/graph_shortest_path_algos/index.html</guid>
+      <description>Во взвешенном графе (weighted graph) каждое ребро имеет вес (weight) $w_{e}$. В зависимости от задачи, веса могут быть как целыми, так и вещественными; иногда допускаются отрицательные веса.&#xA;Длина (length) пути во взвешенном графе - это сумма весов рёбер на пути. Можно считать, что все рёбра в невзвешенном графе имеют вес, равный единице. Тогда длина пути в невзвешенном графе - это просто количество рёбер в этом пути. Кратчайший путь (shortest path) между двумя вершинами - это путь минимальной длины между этими вершинами (путь с минимальным числом рёбер в невзвешенном случае). Расстояние (distance) между вершинами - длина кратчайшего пути между ними. Если пути между вершинами нет, расстояние считается бесконечным.</description>
+    </item>
+  </channel>
+</rss>
