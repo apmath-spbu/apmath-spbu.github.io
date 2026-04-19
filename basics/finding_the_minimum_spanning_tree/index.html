@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="Остовное дерево (spanning tree), или остов, связного неориентированного графа - это остовный подграф этого графа, являющийся деревом, или, другими словами, связный остовный подграф без циклов. Вес $w(T)$ остова $T$ взвешенного графа - это сумма весов его рёбер.
-Пусть дан связный неориентированный граф с неотрицательными весами рёбер, и мы хотим выбрать подмножество рёбер как можно меньшего суммарного веса, с помощью которого можно было бы добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно из рёбер, не увеличив суммарный вес и не нарушив связности. Значит, мы хотим найти остовное дерево минимально возможного веса, или минимальное остовное дерево (minimum spanning tree).">
+    <meta name="description" content="Определение Остовное дерево (spanning tree), или остов, связного неориентированного графа $G=(V,E)$ — это связный остовный подграф без циклов (то есть дерево на всех вершинах $V$). Вес $w(T)$ остова $T$ взвешенного графа — это сумма весов его рёбер. Минимальное остовное дерево (minimum spanning tree, MST) — остов минимального суммарного веса.
+Пусть дан связный неориентированный граф с неотрицательными весами рёбер. Мы хотим выбрать подмножество рёбер минимального суммарного веса, с помощью которого можно добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно ребро, не увеличив суммарный вес и не нарушив связности. Значит, мы ищем именно минимальное остовное дерево.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Поиск минимального остовного дерева :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="Остовное дерево (spanning tree), или остов, связного неориентированного графа - это остовный подграф этого графа, являющийся деревом, или, другими словами, связный остовный подграф без циклов. Вес $w(T)$ остова $T$ взвешенного графа - это сумма весов его рёбер.
-Пусть дан связный неориентированный граф с неотрицательными весами рёбер, и мы хотим выбрать подмножество рёбер как можно меньшего суммарного веса, с помощью которого можно было бы добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно из рёбер, не увеличив суммарный вес и не нарушив связности. Значит, мы хотим найти остовное дерево минимально возможного веса, или минимальное остовное дерево (minimum spanning tree).">
-    <meta property="og:url" content="http://localhost:1313/basics/finding_the_minimum_spanning_tree/index.html">
+    <meta name="twitter:title" content="15. Поиск минимального остовного дерева :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Определение Остовное дерево (spanning tree), или остов, связного неориентированного графа $G=(V,E)$ — это связный остовный подграф без циклов (то есть дерево на всех вершинах $V$). Вес $w(T)$ остова $T$ взвешенного графа — это сумма весов его рёбер. Минимальное остовное дерево (minimum spanning tree, MST) — остов минимального суммарного веса.
+Пусть дан связный неориентированный граф с неотрицательными весами рёбер. Мы хотим выбрать подмножество рёбер минимального суммарного веса, с помощью которого можно добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно ребро, не увеличив суммарный вес и не нарушив связности. Значит, мы ищем именно минимальное остовное дерево.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/finding_the_minimum_spanning_tree/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
-    <meta property="og:title" content="Поиск минимального остовного дерева :: Краткий курс по основам программирования">
-    <meta property="og:description" content="Остовное дерево (spanning tree), или остов, связного неориентированного графа - это остовный подграф этого графа, являющийся деревом, или, другими словами, связный остовный подграф без циклов. Вес $w(T)$ остова $T$ взвешенного графа - это сумма весов его рёбер.
-Пусть дан связный неориентированный граф с неотрицательными весами рёбер, и мы хотим выбрать подмножество рёбер как можно меньшего суммарного веса, с помощью которого можно было бы добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно из рёбер, не увеличив суммарный вес и не нарушив связности. Значит, мы хотим найти остовное дерево минимально возможного веса, или минимальное остовное дерево (minimum spanning tree).">
+    <meta property="og:title" content="15. Поиск минимального остовного дерева :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Определение Остовное дерево (spanning tree), или остов, связного неориентированного графа $G=(V,E)$ — это связный остовный подграф без циклов (то есть дерево на всех вершинах $V$). Вес $w(T)$ остова $T$ взвешенного графа — это сумма весов его рёбер. Минимальное остовное дерево (minimum spanning tree, MST) — остов минимального суммарного веса.
+Пусть дан связный неориентированный граф с неотрицательными весами рёбер. Мы хотим выбрать подмножество рёбер минимального суммарного веса, с помощью которого можно добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно ребро, не увеличив суммарный вес и не нарушив связности. Значит, мы ищем именно минимальное остовное дерево.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
-    <meta property="article:published_time" content="2025-04-20T13:55:32+03:00">
-    <meta property="article:modified_time" content="2025-04-20T13:55:32+03:00">
-    <meta itemprop="name" content="Поиск минимального остовного дерева :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="Остовное дерево (spanning tree), или остов, связного неориентированного графа - это остовный подграф этого графа, являющийся деревом, или, другими словами, связный остовный подграф без циклов. Вес $w(T)$ остова $T$ взвешенного графа - это сумма весов его рёбер.
-Пусть дан связный неориентированный граф с неотрицательными весами рёбер, и мы хотим выбрать подмножество рёбер как можно меньшего суммарного веса, с помощью которого можно было бы добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно из рёбер, не увеличив суммарный вес и не нарушив связности. Значит, мы хотим найти остовное дерево минимально возможного веса, или минимальное остовное дерево (minimum spanning tree).">
-    <meta itemprop="datePublished" content="2025-04-20T13:55:32+03:00">
-    <meta itemprop="dateModified" content="2025-04-20T13:55:32+03:00">
-    <meta itemprop="wordCount" content="2837">
-    <title>Поиск минимального остовного дерева :: Краткий курс по основам программирования</title>
+    <meta property="article:published_time" content="2026-04-19T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-19T09:30:00+03:00">
+    <meta itemprop="name" content="15. Поиск минимального остовного дерева :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Определение Остовное дерево (spanning tree), или остов, связного неориентированного графа $G=(V,E)$ — это связный остовный подграф без циклов (то есть дерево на всех вершинах $V$). Вес $w(T)$ остова $T$ взвешенного графа — это сумма весов его рёбер. Минимальное остовное дерево (minimum spanning tree, MST) — остов минимального суммарного веса.
+Пусть дан связный неориентированный граф с неотрицательными весами рёбер. Мы хотим выбрать подмножество рёбер минимального суммарного веса, с помощью которого можно добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно ребро, не увеличив суммарный вес и не нарушив связности. Значит, мы ищем именно минимальное остовное дерево.">
+    <meta itemprop="datePublished" content="2026-04-19T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-19T09:30:00+03:00">
+    <meta itemprop="wordCount" content="2783">
+    <title>15. Поиск минимального остовного дерева :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
     <script src="/js/search-lunr.min.js" defer></script>
@@ -54,7 +54,7 @@
       window.relearn.path='\/basics\/finding_the_minimum_spanning_tree\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
-      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
       window.relearn.disableInlineCopyToClipboard=false;
       window.relearn.enableBlockCodeWrap=true;
       // translations
@@ -126,6 +126,11 @@
                 <div class="topbar-content-wrapper">
 <nav class="TableOfContents">
   <ul>
+    <li>
+      <ul>
+        <li><a href="#сводка-алгоритмов">Сводка алгоритмов</a></li>
+      </ul>
+    </li>
     <li><a href="#лемма-о-разрезе">Лемма о разрезе</a></li>
     <li><a href="#алгоритм-прима">Алгоритм Прима</a></li>
     <li><a href="#алгоритм-краскала">Алгоритм Краскала</a></li>
@@ -145,17 +150,17 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">16. Поиск минимального остовного дерева</span><meta itemprop="position" content="3"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">15. Минимальное остовное дерево</span><meta itemprop="position" content="3"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/finding_the_minimum_spanning_tree.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/greedy_algorithms/index.html" title="15. Жадные алгоритмы (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/greedy_algorithms/index.html" title="14. Жадные алгоритмы (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/index.html" title="Динамическое программирование (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle"><span><i class="fa-fw fas fa-chevron-right"></i></span></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -176,13 +181,68 @@
   <header class="headline">
   </header>
 
-<h1 id="поиск-минимального-остовного-дерева">Поиск минимального остовного дерева</h1>
+<h1 id="15-поиск-минимального-остовного-дерева">15. Поиск минимального остовного дерева</h1>
 
-<p><em>Остовное дерево</em> (<em>spanning tree</em>), или остов, связного неориентированного графа - это остовный подграф этого графа, являющийся деревом, или, другими словами, связный остовный подграф без циклов. Вес $w(T)$ остова $T$ взвешенного графа - это сумма весов его рёбер.</p>
-<p>Пусть дан связный неориентированный граф с неотрицательными весами рёбер, и мы хотим выбрать подмножество рёбер как можно меньшего суммарного веса, с помощью которого можно было бы добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно из рёбер, не увеличив суммарный вес и не нарушив связности. Значит, мы хотим найти остовное дерево минимально возможного веса, или <em>минимальное остовное дерево</em> (<em>minimum spanning tree</em>).</p>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Остовное дерево</strong> (<em>spanning tree</em>), или остов, связного неориентированного <a href="/basics/graphs/graph_definition/index.html">графа</a> $G=(V,E)$ — это связный остовный подграф без циклов (то есть дерево на всех вершинах $V$). <strong>Вес</strong> $w(T)$ остова $T$ взвешенного графа — это сумма весов его рёбер. <strong>Минимальное остовное дерево</strong> (<em>minimum spanning tree, MST</em>) — остов минимального суммарного веса.</p>
+  </div>
+</details>
+<p>Пусть дан связный неориентированный граф с неотрицательными весами рёбер. Мы хотим выбрать подмножество рёбер минимального суммарного веса, с помощью которого можно добраться из любой вершины в любую. Если в подмножестве рёбер есть цикл, из него всегда можно выкинуть одно ребро, не увеличив суммарный вес и не нарушив связности. Значит, мы ищем именно минимальное остовное дерево.</p>
+<h3 id="сводка-алгоритмов">Сводка алгоритмов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Алгоритм</th>
+          <th>Структура данных</th>
+          <th>Время работы</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Прима (наивный)</td>
+          <td>Массив</td>
+          <td>$O(V^2 + E)$</td>
+      </tr>
+      <tr>
+          <td>Прима</td>
+          <td>Двоичная куча</td>
+          <td>$O((V+E)\log V)$</td>
+      </tr>
+      <tr>
+          <td>Прима</td>
+          <td>Фибоначчиева куча</td>
+          <td>$O(V \log V + E)$</td>
+      </tr>
+      <tr>
+          <td>Краскала + DSU (списки)</td>
+          <td>DSU на списках</td>
+          <td>$O(E \log V)$</td>
+      </tr>
+      <tr>
+          <td>Краскала + DSU (деревья)</td>
+          <td>DSU с эвристиками</td>
+          <td>$O(E \log V + E \cdot \alpha(V))$</td>
+      </tr>
+  </tbody>
+</table>
 <h2 id="лемма-о-разрезе">Лемма о разрезе<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Поставленную задачу мы научимся решать жадно сразу двумя способами. В основе обоих алгоритмов лежит одна и та же лемма.</p>
-<p><em>Разрез</em> (<em>cut</em>) $(A, B)$ графа $G=(V, E)$ - это произвольное разбиение множества вершин графа на два непересекающихся множества: $A \cup B=V, A \cap B=\emptyset$. Будем говорить, что ребро $e$ проходит через разрез $(A, B)$, если оно соединяет вершину из $A$ с вершиной из $B$.</p>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Разрез</strong> (<em>cut</em>) $(A, B)$ графа $G=(V, E)$ — это разбиение множества вершин на два непустых непересекающихся множества: $A \cup B=V$, $A \cap B=\emptyset$. Ребро $e$ <strong>проходит через разрез</strong> $(A, B)$, если оно соединяет вершину из $A$ с вершиной из $B$.</p>
+  </div>
+</details>
 
 <details open class="box cstyle notices lemma">
   <summary class="box-label" tabindex="-1">
@@ -190,7 +250,7 @@
     Лемма о разрезе
   </summary>
   <div class="box-content">
-<p>Пусть множество рёбер $F \subset E$ входит в некоторый минимальный остов графа $G=(V, E)$. Пусть $(A, B)$ - разрез $G$, причём ни одно ребро из $F$ не проходит через разрез $(A, B)$. Пусть $e$ - ребро с наименьшим весом из всех, проходящих через разрез $(A, B)$. Тогда $F \cup\{e\}$ входит в некоторый минимальный остов графа $G$.</p>
+<p>Пусть множество рёбер $F \subset E$ входит в некоторый минимальный остов графа $G=(V, E)$. Пусть $(A, B)$ — разрез $G$, причём ни одно ребро из $F$ не проходит через этот разрез. Пусть $e$ — ребро с наименьшим весом из всех, проходящих через разрез $(A, B)$. Тогда $F \cup\{e\}$ входит в некоторый минимальный остов графа $G$.</p>
 
 <details open class="box cstyle notices prove expand">
   <summary class="box-label">
@@ -199,66 +259,45 @@
     Доказательство
   </summary>
   <div class="box-content">
-<p>Пусть $T=\left(V, E^{\prime}\right)$ - минимальный остов, содержащий $F$. Если $e$ тоже лежит в $T$, то доказывать нечего. Иначе рассмотрим граф $T^{\prime}=\left(V, E^{\prime} \cup\{e\}\right)$. В $T^{\prime}$ найдётся цикл, проходящий через ребро $e$, на этом цикле найдётся ещё хотя бы одно проходящее через разрез $(A, B)$ ребро $e^{\prime}$. При этом $w_{e} \leqslant w_{e^{\prime}}$. Тогда $T^{\prime \prime}=\left(V, E^{\prime} \cup\{e\} \backslash\left\{e^{\prime}\right\}\right)$ - остов, при этом $w\left(T^{\prime \prime}\right) \leqslant w(T), T^{\prime \prime}$ содержит $F \cup\{e\}$.</p>
+<p>Пусть $T=\left(V, E^{\prime}\right)$ — минимальный остов, содержащий $F$. Если $e$ тоже лежит в $T$, то доказывать нечего. Иначе рассмотрим граф $T^{\prime}=\left(V, E^{\prime} \cup\{e\}\right)$. В $T^{\prime}$ найдётся цикл, проходящий через ребро $e$; на этом цикле найдётся ещё хотя бы одно проходящее через разрез $(A, B)$ ребро $e^{\prime}$. При этом $w_{e} \leqslant w_{e^{\prime}}$. Тогда $T^{\prime \prime}=\left(V, E^{\prime} \cup\{e\} \backslash\left\{e^{\prime}\right\}\right)$ — остов, при этом $w\left(T^{\prime \prime}\right) \leqslant w(T)$, и $T^{\prime \prime}$ содержит $F \cup\{e\}$.</p>
   </div>
 </details>
   </div>
 </details>
 <h2 id="алгоритм-прима">Алгоритм Прима<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p>Алгоритм Прима (Jarnik, 30; Prim, 57; Dijkstra, 59) постепенно расширяет множество вершин $A$ и множество рёбер $F$, образующих дерево на $A$. Вначале $A$ состоит из одной любой вершины, $F$ пусто. На каждом шаге алгоритм находит ребро $e=(u, v)$ минимального веса, ведущее из $A$ в $V \backslash A$. Конец этого ребра $v \in V \backslash A$ алгоритм добавляет в $A$, а само ребро $e-$ к множеству $F$. При этом $F \cup\{e\}$ образует дерево на $A \cup\{v\}$.</p>
-<p>По лемме о разрезе для множества рёбер $F$ и разреза ( $A, V \backslash A$ ) если $F$ входило в какой-то минимальный остов, то и $F \cup\{e\}$ тоже входит в какой-то минимальный остов. Когда $A=V$, рёбра $F$ образуют остовное дерево всего графа $G$, при этом $F$ входит в какое-то минимальное остовное дерево. Значит, минимальное остовное дерево состоит ровно из рёбер множества $F$.</p>
-<p>Для того, чтобы быстро находить вершину $v$ и вес ребра $w_{e}$, для каждой вершины $u \in V$ алгоритм поддерживает вес минимального ребра, ведущего из $A$ в $u$ :</p>
+<p>Алгоритм Прима (Jarník, 1930; Prim, 1957; Dijkstra, 1959) постепенно расширяет множество вершин $A$ и множество рёбер $F$, образующих дерево на $A$. Вначале $A$ состоит из одной любой вершины, $F$ пусто. На каждом шаге алгоритм находит ребро $e=(u, v)$ минимального веса, ведущее из $A$ в $V \backslash A$. Конец этого ребра $v \in V \backslash A$ добавляется в $A$, а само ребро $e$ — к множеству $F$.</p>
+<p>По лемме о разрезе для разреза $(A, V \backslash A)$: если $F$ входило в какой-то минимальный остов, то и $F \cup\{e\}$ тоже входит в какой-то минимальный остов. Когда $A=V$, рёбра $F$ образуют минимальное остовное дерево.</p>
+<p>Для того чтобы быстро находить очередное ребро, для каждой вершины $u \in V \setminus A$ поддерживается:
+</p>
 $$
-d_{u}=\min \left\{w_{f}: f: a \rightarrow u, a \in A\right\} .
-$$<p>Тогда на очередном шаге $v$ - это вершина из $V \backslash A$ с минимальным значением $d_{v}$, а само $d_{v}$ - вес ребра $e$. Для перехода к следующему шагу нужно обновить значения $d_{u}$ весами рёбер, исходящих из $v$.</p>
-<p>Получается алгоритм, практически идентичный алгоритму Дейкстры (меняются лишь приоритеты вершин). Соответственно, в зависимости от реализации, можно получить оценки времени работы $O\left(V^{2}+E\right), O((V+E) \log V)(O(V \log V+E)$ при использовании фибоначчиевой кучи).</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> d(n) <span style="color:#75715e"># в графе n вершин</span>
-</span></span><span style="display:flex;"><span>fill(d, inf)
-</span></span><span style="display:flex;"><span>d[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> v <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>    q <span style="color:#f92672">&lt;--</span> (v, d[v]) <span style="color:#75715e"># кладём в очередь вершину v с приоритетом d[v]</span>
-</span></span><span style="display:flex;"><span>int W <span style="color:#f92672">=</span> O <span style="color:#75715e"># сюда запишем вес минимального остова</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>    v <span style="color:#f92672">&lt;--</span> q <span style="color:#75715e"># достаём из очереди вершину с минимальным приоритетом</span>
-</span></span><span style="display:flex;"><span>    W <span style="color:#f92672">+=</span> d[v]
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u, w <span style="color:#f92672">in</span> es[v]:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> d[u] <span style="color:#f92672">&gt;</span> w:
-</span></span><span style="display:flex;"><span>            d[u] <span style="color:#f92672">=</span> w
-</span></span><span style="display:flex;"><span>            q<span style="color:#f92672">.</span>decreaseKey(u, d[u]) <span style="color:#75715e"># уменьшаем значение приоритета u до d[u]</span></span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>Если нужно восстановить не только вес минимального остова, но и множество входящих в него рёбер, нужно для каждой вершины $u$ дополнительно запоминать, весу какого ребра равняется $d_{u}$.</p>
-<h2 id="алгоритм-краскала">Алгоритм Краскала<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p>Алгоритм Kраскала (Kruskal, 56) действует тоже жадно, но по-другому: он начинает с пустого множества $F$, рассматривает рёбра в порядке возрастания веса и добавляет очередное ребро $e$ в $F$, если при этом в $F$ не появится цикла.</p>
-<p>В любой момент времени рёбра $F$ образуют лес, и, поскольку граф связен, в конце алгоритма $F$ будет образовывать остовное дерево. Из леммы о разрезе снова следует, что в любой момент времени $F$ входит в какой-то минимальный остов (на этот раз нужно в качестве разреза взять ( $A, V \backslash A$ ), где $A$ - компонента связности одного из концов ребра $e$ в графе, образованном рёбрами $F$ ).</p>
-<p>Для реализации алгоритма Краскала нам не хватает ещё одной детали: нужно научиться быстро понимать, образуется ли цикл при добавлении ребра $e$ к множеству $F$. Цикл образуется тогда и только тогда, когда концы ребра $e$ находятся в одной компоненте связности графа, образованного рёбрами $F$. Таким образом, наша ближайшая цель научиться быстро проверять, находятся ли две вершины в одной компоненте связности (а также быстро объединять две компоненты связности в одну).</p>
-<h2 id="система-непересекающихся-множеств">Система непересекающихся множеств<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p><em>Система непересекающихся множеств</em> (<em>disjoint set union, DSU</em>) - структура данных, позволяющая поддерживать разбиение $n$ элементов на непересекающиеся множества, а именно:</p>
-<ul>
-<li>выдавать по элементу идентификатор множества, в котором лежит этот элемент;</li>
-<li>объединять два множества в одно.</li>
-</ul>
-<p>Будем считать, что элементы пронумерованы числами от 0 до $n-1$. Необходимо реализовать две функции: get (a) - функцию, возвращающую идентификатор множества, где лежит $a$ (в частности, с помощью этой функции можно проверять, лежат ли два элемента в одном множестве); а также join( $\mathrm{a}, \mathrm{b}$ ) - функцию, объединяющую множества, в которых лежат элементы $a$ и $b$. Пусть в случае, когда $a$ и $b$ лежат в одном множестве, функция join(a,b) ничего не делает.</p>
-<p>Также будем считать, что после инициализации структуры каждое множество состоит из одного элемента и get(i) = i (если в решаемой задаче это не так, можно после инициализации объединить элементы в нужные множества с помощью функции join).</p>
-<h3 id="реализация-связными-списками">Реализация связными списками<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Будем поддерживать $i d[i]$ - номер множества, в котором лежит элемент $i$, а для множества с номером $i$ будем поддерживать список его элементов elems $[i]$. Единственная хитрость: при объединении множеств сохраним для объединённого множеств идентификатор большего множества из объединяемых, тогда нужно поменять значения $i d$ лишь у элементов меньшего множества. Объединение списков же осуществляется за $O(1)$ (достаточно соединить ссылками конец одного списка и начало другого).</p>
+d_{u}=\min \left\{w_f : f = (a, u),\; a \in A\right\}.
+$$<p>Тогда на очередном шаге $v$ — это вершина из $V \backslash A$ с минимальным $d_{v}$. Для перехода к следующему шагу обновляем $d_{u}$ весами рёбер, исходящих из $v$. Алгоритм практически идентичен <a href="/basics/graphs/graph_shortest_path_algos/index.html">алгоритму Дейкстры</a>; соответственно, оценки времени работы аналогичны: $O\left(V^{2}+E\right)$ или $O((V+E) \log V)$.</p>
+<div class="tab-panel" data-tab-group="R-tabs-2eace6e266e041b14b79b5cf01622b7f">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-31153f054c70a855fd43bb89b6d57ad6" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-2eace6e266e041b14b79b5cf01622b7f','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-4efe58d4e79c71cdc0484e9bf5a8e013" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-2eace6e266e041b14b79b5cf01622b7f','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-31153f054c70a855fd43bb89b6d57ad6"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -276,26 +315,298 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>init(n):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>        id[i] <span style="color:#f92672">=</span> i
-</span></span><span style="display:flex;"><span>        elems[i] <span style="color:#f92672">=</span> {i}
-</span></span><span style="display:flex;"><span>get(i):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> id[i]
-</span></span><span style="display:flex;"><span>join(a, b):
-</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> id[a], b <span style="color:#f92672">=</span> id[b]
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> heapq
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">prim</span>(graph: list[list[tuple[int, int]]], n: int) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    graph[v] = [(w, u), ...] — список смежности взвешенного графа.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Возвращает вес минимального остова.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    INF <span style="color:#f92672">=</span> float(<span style="color:#e6db74">&#39;inf&#39;</span>)
+</span></span><span style="display:flex;"><span>    d <span style="color:#f92672">=</span> [INF] <span style="color:#f92672">*</span> n
+</span></span><span style="display:flex;"><span>    in_mst <span style="color:#f92672">=</span> [<span style="color:#66d9ef">False</span>] <span style="color:#f92672">*</span> n
+</span></span><span style="display:flex;"><span>    d[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    heap <span style="color:#f92672">=</span> [(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)]  <span style="color:#75715e"># (d[v], v)</span>
+</span></span><span style="display:flex;"><span>    W <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> heap:
+</span></span><span style="display:flex;"><span>        dv, v <span style="color:#f92672">=</span> heapq<span style="color:#f92672">.</span>heappop(heap)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> in_mst[v]:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>        in_mst[v] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>        W <span style="color:#f92672">+=</span> d[v]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> w, u <span style="color:#f92672">in</span> graph[v]:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> d[u] <span style="color:#f92672">&gt;</span> w:
+</span></span><span style="display:flex;"><span>                d[u] <span style="color:#f92672">=</span> w
+</span></span><span style="display:flex;"><span>                heapq<span style="color:#f92672">.</span>heappush(heap, (d[u], u))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> W</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-4efe58d4e79c71cdc0484e9bf5a8e013"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;queue&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;climits&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// graph[v] = {(w, u), ...} — список смежности взвешенного графа
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Возвращает вес минимального остова
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">prim</span>(vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span>pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>,<span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&gt;&amp;</span> g, <span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> d(n, INT_MAX);
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> inMST(n, false);
+</span></span><span style="display:flex;"><span>    d[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">using</span> P <span style="color:#f92672">=</span> pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>;  <span style="color:#75715e">// (d[v], v)
+</span></span></span><span style="display:flex;"><span>    priority_queue<span style="color:#f92672">&lt;</span>P, vector<span style="color:#f92672">&lt;</span>P<span style="color:#f92672">&gt;</span>, greater<span style="color:#f92672">&lt;</span>P<span style="color:#f92672">&gt;&gt;</span> pq;
+</span></span><span style="display:flex;"><span>    pq.push({<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>});
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> W <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>pq.empty()) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">auto</span> [dv, v] <span style="color:#f92672">=</span> pq.top(); pq.pop();
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (inMST[v]) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>        inMST[v] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>        W <span style="color:#f92672">+=</span> d[v];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> [w, u] <span style="color:#f92672">:</span> g[v]) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (d[u] <span style="color:#f92672">&gt;</span> w) {
+</span></span><span style="display:flex;"><span>                d[u] <span style="color:#f92672">=</span> w;
+</span></span><span style="display:flex;"><span>                pq.push({d[u], u});
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> W;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Если нужно восстановить не только вес минимального остова, но и множество входящих в него рёбер, нужно для каждой вершины $u$ дополнительно запоминать, весу какого ребра равняется $d_u$.</p>
+  </div>
+</details>
+<h2 id="алгоритм-краскала">Алгоритм Краскала<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Алгоритм Краскала (Kruskal, 1956) действует тоже жадно, но по-другому: он начинает с пустого множества $F$, рассматривает рёбра в порядке возрастания веса и добавляет очередное ребро $e$ в $F$, если при этом в $F$ не появится цикла.</p>
+<p>В любой момент времени рёбра $F$ образуют лес; поскольку граф связен, в конце алгоритма $F$ образует остовное дерево. Из леммы о разрезе следует, что в любой момент времени $F$ входит в какой-то минимальный остов (в качестве разреза берётся $(A, V \backslash A)$, где $A$ — компонента связности одного из концов ребра $e$ в лесу $F$).</p>
+<p>Для реализации нужно быстро проверять, образует ли добавление ребра $e$ цикл, то есть находятся ли оба конца $e$ в одной компоненте связности леса $F$. Для этого используется структура данных DSU.</p>
+<h2 id="система-непересекающихся-множеств">Система непересекающихся множеств<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Система непересекающихся множеств</strong> (<em>disjoint set union, DSU</em>) — структура данных, поддерживающая разбиение $n$ элементов на непересекающиеся множества и операции:</p>
+<ul>
+<li><strong>get(a)</strong> — идентификатор множества, содержащего $a$;</li>
+<li><strong>join(a, b)</strong> — объединение множеств, содержащих $a$ и $b$.</li>
+</ul>
+  </div>
+</details>
+<p>Будем считать, что элементы пронумерованы числами от $0$ до $n-1$. После инициализации каждое множество состоит из одного элемента и <code>get(i) = i</code>.</p>
+<h3 id="реализация-связными-списками">Реализация связными списками<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Будем поддерживать $\mathit{id}[i]$ — номер множества, содержащего элемент $i$, а для множества с номером $i$ — список его элементов $\mathit{elems}[i]$. При объединении сохраняем идентификатор большего множества: тогда нужно менять $\mathit{id}$ лишь у элементов меньшего множества. Объединение списков осуществляется за $O(1)$.</p>
+<div class="tab-panel" data-tab-group="R-tabs-f2deafb37878fb8cf2d2133db1e44a41">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-a7b977477f549fe583a346ecb7108ab5" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-f2deafb37878fb8cf2d2133db1e44a41','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-2768301f78e9f466143119f99479a8e1" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-f2deafb37878fb8cf2d2133db1e44a41','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-a7b977477f549fe583a346ecb7108ab5"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>id_: list[int] <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>elems: list[list[int]] <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init</span>(n: int):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> id_, elems
+</span></span><span style="display:flex;"><span>    id_ <span style="color:#f92672">=</span> list(range(n))
+</span></span><span style="display:flex;"><span>    elems <span style="color:#f92672">=</span> [[i] <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get</span>(i: int) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> id_[i]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">join</span>(a: int, b: int):
+</span></span><span style="display:flex;"><span>    a, b <span style="color:#f92672">=</span> id_[a], id_[b]
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> a <span style="color:#f92672">==</span> b:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(elems[a]) <span style="color:#f92672">&lt;</span> len(elems[b]):
-</span></span><span style="display:flex;"><span>        swap (a, b)
+</span></span><span style="display:flex;"><span>        a, b <span style="color:#f92672">=</span> b, a
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> elems[b]:
-</span></span><span style="display:flex;"><span>        id[x] <span style="color:#f92672">=</span> a
-</span></span><span style="display:flex;"><span>    elems[a] <span style="color:#f92672">=</span> concatenate(elems[a], elems[b])</span></span></code></pre></td></tr></table>
+</span></span><span style="display:flex;"><span>        id_[x] <span style="color:#f92672">=</span> a
+</span></span><span style="display:flex;"><span>    elems[a]<span style="color:#f92672">.</span>extend(elems[b])
+</span></span><span style="display:flex;"><span>    elems[b]<span style="color:#f92672">.</span>clear()</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>При такой реализации функция get работает за $O(1)$.</p>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-2768301f78e9f466143119f99479a8e1"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;list&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> id_;
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> elems;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(<span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    id_.resize(n);
+</span></span><span style="display:flex;"><span>    elems.resize(n);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        id_[i] <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        elems[i] <span style="color:#f92672">=</span> {i};
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">get</span>(<span style="color:#66d9ef">int</span> i) { <span style="color:#66d9ef">return</span> id_[i]; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">join</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> id_[a]; b <span style="color:#f92672">=</span> id_[b];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> b) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (elems[a].size() <span style="color:#f92672">&lt;</span> elems[b].size()) swap(a, b);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> x : elems[b]) id_[x] <span style="color:#f92672">=</span> a;
+</span></span><span style="display:flex;"><span>    elems[a].splice(elems[a].end(), elems[b]);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>При такой реализации функция <code>get</code> работает за $O(1)$.</p>
 
 <details open class="box cstyle notices offer">
   <summary class="box-label" tabindex="-1">
@@ -303,7 +614,7 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
     Предложение
   </summary>
   <div class="box-content">
-<p>Суммарное время работы $m$ вызовов јоіп есть $O(m+n \log n)$.</p>
+<p>Суммарное время работы $m$ вызовов <code>join</code> есть $O(m + n \log n)$.</p>
 
 <details open class="box cstyle notices prove expand">
   <summary class="box-label">
@@ -312,17 +623,52 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
     Доказательство
   </summary>
   <div class="box-content">
-<p>Время работы одного вызова јоin пропорционально $O(1+x)$, где $x-$ число элементов, у которых поменялось значение $i d$. Заметим, что когда у элемента меняется значение $i d$, размер множества, в котором он находится, увеличивается хотя бы два раза. Значит значение $i d$ каждого элемента поменяется не более $\log _{2} n$ раз.</p>
+<p>Время работы одного вызова <code>join</code> пропорционально $O(1+x)$, где $x$ — число элементов, у которых поменялось значение $\mathit{id}$. Заметим, что когда у элемента меняется значение $\mathit{id}$, размер множества, в котором он находится, увеличивается хотя бы в два раза. Значит, значение $\mathit{id}$ каждого элемента поменяется не более $\log_2 n$ раз.</p>
   </div>
 </details>
   </div>
 </details>
-<p>Заметим, что такая реализация DSU уже позволяет реализовать алгоритм Краскала за время $O(E \log E+E+E \log V)=O(E \log V)$ : первое слагаемое - сортировка рёбер по весу - мажорирует время работы последующих шагов.</p>
-<p>✍️ $O(E \log E)=O(E \log V)$, так как $E \leqslant V^{2}$, если в графе нет кратных рёбер (а если они есть, от них можно предварительно избавиться, оставив лишь самое лёгкое ребро между каждой парой вершин).</p>
-<p>Тем не менее, мы изучим ещё одну реализацию DSU, которая даёт лучшую амортизированную оценку времени работы операций, чем реализация связными списками, и ничуть не сложнее с точки зрения технической реализации.</p>
+<p>Заметим, что такая реализация DSU уже позволяет реализовать алгоритм Краскала за время $O(E \log E + E + E \log V) = O(E \log V)$: первое слагаемое — сортировка рёбер по весу — мажорирует время работы последующих шагов.</p>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>$O(E \log E)=O(E \log V)$, так как $E \leqslant V^{2}$, если в графе нет кратных рёбер (а если они есть, от них можно предварительно избавиться, оставив лишь самое лёгкое ребро между каждой парой вершин).</p>
+  </div>
+</details>
+<p>Тем не менее, мы изучим ещё одну реализацию DSU, которая даёт лучшую амортизированную оценку времени работы операций.</p>
 <h3 id="реализация-деревьями">Реализация деревьями<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Каждое множество будем хранить в виде подвешенного дерева, вершины которого - это элементы множества. Для каждого элемента $v$ будем хранить ссылку $p[v]$ на родителя в его дереве-множестве; условимся, что для корня дерева ссылка на родителя ведёт на сам корень: $p[v]=v$. В качестве идентификатора множества удобно использовать корень дерева.</p>
-<p>Теперь функция get (v) - это просто подъём в корень дерева, где лежит $v$, а функцию join(a, b) можно реализовать, например, подвесив корень одного дерева ребёнком к корню другого.</p>
+<p>Каждое множество будем хранить в виде подвешенного дерева. Для каждого элемента $v$ хранится ссылка $p[v]$ на родителя; для корня $p[v]=v$. Идентификатор множества — корень дерева.</p>
+<p>Функция <code>get(v)</code> — подъём в корень; <code>join(a, b)</code> — подвешивание корня одного дерева к корню другого.</p>
+<div class="tab-panel" data-tab-group="R-tabs-238b9935751430e4ab68209eab88323d">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-6dc068b41da4bb223165550d5800224d" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-238b9935751430e4ab68209eab88323d','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-c64f6ad008b876bfa51810968f8dadb8" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-238b9935751430e4ab68209eab88323d','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-6dc068b41da4bb223165550d5800224d"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -337,25 +683,37 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>init(n):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>        p[i] <span style="color:#f92672">=</span> i
-</span></span><span style="display:flex;"><span>get(v):
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>p: list[int] <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init</span>(n: int):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> p
+</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> list(range(n))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get</span>(v: int) <span style="color:#f92672">-&gt;</span> int:
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> p[v] <span style="color:#f92672">==</span> v:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> v
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> get(p[v])
-</span></span><span style="display:flex;"><span>join(a, b):
-</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> get(a), b <span style="color:#f92672">=</span> get(b)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">join</span>(a: int, b: int):
+</span></span><span style="display:flex;"><span>    a, b <span style="color:#f92672">=</span> get(a), get(b)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> a <span style="color:#f92672">==</span> b:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
 </span></span><span style="display:flex;"><span>    p[a] <span style="color:#f92672">=</span> b</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>Время работы join - это $O(1)$ плюс время работы двух запусков get. K сожалению, время работы get пока в худшем случае оценивается как $\Theta(n)$, так как высота дерева может равняться его размеру. Для улучшения оценки на время работы get применяются следующие две эвристики.</p>
-<h3 id="ранговая-эвристика">Ранговая эвристика<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>При объединении деревьев логично подвешивать более низкое дерево к более высокому, тогда высота будет расти медленнее. Для каждой вершины $v$ будем дополнительно хранить ещё одно значение: ранг $r k[v]$, равный высоте поддерева вершины $v$. Вначале $r k[v]=0$ для всех вершин, а при объединении деревьев будем подвешивать корень с меньшим рангом ребёнком к корню с большим рангом. При равенстве рангов неважно, какой корень к какому подвешивать, но надо увеличить ранг корня получившегося дерева на единицу.</p>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-c64f6ad008b876bfa51810968f8dadb8"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -370,21 +728,165 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>init(n):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>        p[i] <span style="color:#f92672">=</span> i, rk[i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>join(a, b):
-</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> get(a), b <span style="color:#f92672">=</span> get(b)
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;numeric&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> p;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(<span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    p.resize(n);
+</span></span><span style="display:flex;"><span>    iota(p.begin(), p.end(), <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">get</span>(<span style="color:#66d9ef">int</span> v) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (p[v] <span style="color:#f92672">==</span> v) <span style="color:#66d9ef">return</span> v;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> get(p[v]);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">join</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> get(a); b <span style="color:#f92672">=</span> get(b);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> b) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    p[a] <span style="color:#f92672">=</span> b;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Время работы <code>join</code> — это $O(1)$ плюс время работы двух запусков <code>get</code>. В худшем случае высота дерева равна его размеру, и <code>get</code> работает за $\Theta(n)$. Для улучшения применяются две эвристики.</p>
+<h3 id="ранговая-эвристика">Ранговая эвристика<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>При объединении деревьев логично подвешивать более низкое дерево к более высокому. Для каждой вершины $v$ хранится ранг $\mathit{rk}[v]$ — высота поддерева вершины $v$. При равенстве рангов ранг корня нового дерева увеличивается на единицу.</p>
+<div class="tab-panel" data-tab-group="R-tabs-73d77e4eb6602ac7a48037c26d0514f5">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-d43ec298d15de71d3ab1f0b903100d11" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-73d77e4eb6602ac7a48037c26d0514f5','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-fa4b0aa12d5f36a2767d925828eed539" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-73d77e4eb6602ac7a48037c26d0514f5','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-d43ec298d15de71d3ab1f0b903100d11"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>p: list[int] <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>rk: list[int] <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">init</span>(n: int):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> p, rk
+</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> list(range(n))
+</span></span><span style="display:flex;"><span>    rk <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> n
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># get(v) — без изменений</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">join</span>(a: int, b: int):
+</span></span><span style="display:flex;"><span>    a, b <span style="color:#f92672">=</span> get(a), get(b)
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> a <span style="color:#f92672">==</span> b:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> rk[a] <span style="color:#f92672">&gt;</span> rk[b]:
-</span></span><span style="display:flex;"><span>        swap (a, b)
+</span></span><span style="display:flex;"><span>        a, b <span style="color:#f92672">=</span> b, a
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> rk[a] <span style="color:#f92672">==</span> rk[b]:
 </span></span><span style="display:flex;"><span>        rk[b] <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>    p[a] <span style="color:#f92672">=</span> b</span></span></code></pre></td></tr></table>
 </div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-fa4b0aa12d5f36a2767d925828eed539"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> p, rk;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">init</span>(<span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    p.resize(n); rk.assign(n, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    iota(p.begin(), p.end(), <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// get(v) — без изменений
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">join</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> get(a); b <span style="color:#f92672">=</span> get(b);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (a <span style="color:#f92672">==</span> b) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (rk[a] <span style="color:#f92672">&gt;</span> rk[b]) swap(a, b);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (rk[a] <span style="color:#f92672">==</span> rk[b]) rk[b]<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>    p[a] <span style="color:#f92672">=</span> b;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <details open class="box cstyle notices offer">
@@ -395,7 +897,7 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
   <div class="box-content">
 <p>Для рангов вершин выполняются следующие свойства:</p>
 <ol>
-<li>если $v \neq p[v]$, то $r k[v] < r k[p[v]]$;</li>
+<li>если $v \neq p[v]$, то $\mathit{rk}[v] < \mathit{rk}[p[v]]$;</li>
 <li>вершина ранга $k$ имеет поддерево размера хотя бы $2^{k}$;</li>
 <li>количество вершин ранга $k$ не превосходит $n / 2^{k}$.</li>
 </ol>
@@ -407,16 +909,42 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
     Доказательство
   </summary>
   <div class="box-content">
-<p>Первое свойство следует из того, что ранг - это высота поддерева вершины.</p>
+<p>Первое свойство следует из того, что ранг — это высота поддерева вершины.</p>
 <p>Заметим, что вершина ранга $k$ может появиться только при объединении двух деревьев с корнями ранга $k-1$. Отсюда по индукции следует второе свойство.</p>
 <p>Третье свойство следует из того, что разные вершины ранга $k$ не могут иметь общих потомков.</p>
   </div>
 </details>
   </div>
 </details>
-<p>Из третьего свойства, в частности, следует, что ранг любой вершины не превосходит $\log _{2} n$. Значит, высота любого дерева не превосходит $\log _{2} n$, и время работы функции get теперь оценивается как $O(\log n)$.</p>
+<p>Из третьего свойства следует, что ранг любой вершины не превосходит $\log_2 n$. Значит, высота любого дерева не превосходит $\log_2 n$, и <code>get</code> работает за $O(\log n)$.</p>
 <h3 id="эвристика-сжатия-путей">Эвристика сжатия путей<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Другая идея: когда функция get(v) проходит путь к корню дерева $v$ и находит его, можно переподвесить $v$ напрямую к корню, чтобы при следующем запуске не проходить этот путь заново; структура дерева изменится, но само множество, соответствующее дереву, при этом останется прежним, поэтому такая операция корректна.</p>
+<p>Когда <code>get(v)</code> находит корень, можно переподвесить $v$ напрямую к корню — при следующем запросе путь будет короче.</p>
+<div class="tab-panel" data-tab-group="R-tabs-6c2d2e28d29c6fbec976faf82c59f8fb">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-3be71298be3e4488926cfdb600af3859" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-6c2d2e28d29c6fbec976faf82c59f8fb','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-fc49c9984f9fe863a25264ce3a4f60bd" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-6c2d2e28d29c6fbec976faf82c59f8fb','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-3be71298be3e4488926cfdb600af3859"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -426,14 +954,39 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>get(v):
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get</span>(v: int) <span style="color:#f92672">-&gt;</span> int:
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> p[v] <span style="color:#f92672">==</span> v:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> v
 </span></span><span style="display:flex;"><span>    p[v] <span style="color:#f92672">=</span> get(p[v])
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p[v]</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>Если использовать эвристику сжатия путей без ранговой эвристики, то тоже можно получить оценку времени работы get $O(\log n)$, но уже амортизированную.</p>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-fc49c9984f9fe863a25264ce3a4f60bd"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">get</span>(<span style="color:#66d9ef">int</span> v) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (p[v] <span style="color:#f92672">==</span> v) <span style="color:#66d9ef">return</span> v;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p[v] <span style="color:#f92672">=</span> get(p[v]);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Если использовать эвристику сжатия путей без ранговой эвристики, то тоже можно получить оценку времени работы <code>get</code> $O(\log n)$, но уже амортизированную.</p>
 
 <details open class="box cstyle notices offer">
   <summary class="box-label" tabindex="-1">
@@ -441,7 +994,7 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
     Предложение
   </summary>
   <div class="box-content">
-<p>При использовании эвристики сжатия путей без ранговой эвристики $m$ запросов get имеют суммарное время работы $O(m+(m+n) \log n)$.</p>
+<p>При использовании эвристики сжатия путей без ранговой эвристики $m$ запросов <code>get</code> имеют суммарное время работы $O(m + (m+n)\log n)$.</p>
 
 <details open class="box cstyle notices prove expand">
   <summary class="box-label">
@@ -450,16 +1003,16 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
     Доказательство
   </summary>
   <div class="box-content">
-<p>Пусть $s z(v)$ - размер поддерева $v$. Назовём ребро из $v$ в $p[v]$ лёгким, если $s z(v) \leqslant s z(p[v]) / 2$, и тяжёлым иначе.</p>
-<p>Заметим, что при выполнении get проход по каждому лёгкому ребру хотя бы удваивает размер текущего поддерева. Значит, каждый запрос get пройдёт не более чем по $\log _{2} n$ лёгким рёбрам, а суммарно проходов по лёгким рёбрам будет не более $m \log _{2} n$.</p>
-<p>Теперь заметим, что если ребро из $v$ в $w=p[v]$ тяжёлое, и при этом $w$ не корень, то после прохода по такому ребру в запросе get размер поддерева $w$ уменьшится хотя бы в два раза. При этом у вершины, не являющейся корнем, размер поддерева может только уменьшаться. Значит, за всё время работы мы суммарно пройдём по тяжёлым рёбрам, не ведущим в корень, не более $n \log _{2} n$ раз - не более чем $\log _{2} n$ раз для каждой вершины $w$.</p>
-<p>Осталось учесть тяжёлые рёбра, ведущие в корень; на каждый запрос get приходится не более одного такого ребра, суммарно их не более $m$.</p>
+<p>Пусть $\mathit{sz}(v)$ — размер поддерева $v$. Назовём ребро из $v$ в $p[v]$ лёгким, если $\mathit{sz}(v) \leqslant \mathit{sz}(p[v]) / 2$, и тяжёлым иначе.</p>
+<p>При выполнении <code>get</code> проход по каждому лёгкому ребру хотя бы удваивает размер текущего поддерева. Значит, каждый запрос <code>get</code> пройдёт не более $\log_2 n$ лёгких рёбер, а суммарно проходов по лёгким рёбрам будет не более $m \log_2 n$.</p>
+<p>Теперь заметим, что если ребро из $v$ в $w=p[v]$ тяжёлое, и при этом $w$ не корень, то после прохода по такому ребру в запросе <code>get</code> размер поддерева $w$ уменьшится хотя бы в два раза. При этом у вершины, не являющейся корнем, размер поддерева может только уменьшаться. Значит, за всё время работы мы суммарно пройдём по тяжёлым рёбрам, не ведущим в корень, не более $n \log_2 n$ раз.</p>
+<p>Осталось учесть тяжёлые рёбра, ведущие в корень; на каждый запрос <code>get</code> приходится не более одного такого ребра, суммарно их не более $m$.</p>
   </div>
 </details>
   </div>
 </details>
 <h3 id="совместное-использование-эвристик">Совместное использование эвристик<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Что будет, если использовать обе эвристики одновременно? Заметим, что в этом случае ранг уже не всегда равен высоте поддерева вершины. Тем не менее, большая часть свойств остаётся верной.</p>
+<p>При использовании обеих эвристик ранг уже не всегда равен высоте поддерева вершины. Тем не менее, большая часть свойств остаётся верной.</p>
 
 <details open class="box cstyle notices offer">
   <summary class="box-label" tabindex="-1">
@@ -467,12 +1020,7 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
     Предложение
   </summary>
   <div class="box-content">
-<p>Для рангов вершин выполняются следующие свойства:</p>
-<ol>
-<li>если $v \neq p[v]$, то $r k[v] < r k[p[v]]$;</li>
-<li>корневая вершина ранга $k$ имеет поддерево размера хотя бы $2^{k}$;</li>
-<li>количество вершин ранга $k$ не превосходит $n / 2^{k}$.</li>
-</ol>
+<p>При совместном использовании эвристик для рангов выполняются те же свойства 1–3, что и при использовании только ранговой эвристики.</p>
 
 <details open class="box cstyle notices prove expand">
   <summary class="box-label">
@@ -481,9 +1029,9 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
     Доказательство
   </summary>
   <div class="box-content">
-<p>Первое свойство выполняется сразу после јоin, в котором $v$ перестала быть корнем, а при переподвешивании $v$ в get разность между рангами только увеличивается.</p>
-<p>Как и раньше, вершина ранга $k$ может появиться только при объединении двух деревьев с корнями ранга $k-1$. Отсюда по индукции следует второе свойство (но только для корневых вершин: важно, что пока вершина остаётся корнем своего дерева, размер её поддерева не уменьшается).</p>
-<p>Третье свойство теперь тоже нужно доказывать аккуратнее: любая вершина ранга $k$ была корневой, когда получила этот ранг. В этот момент в её поддереве было хотя бы $2^{k}$ вершин, при этом ни до, ни после этого эти вершины не могли оказаться в поддереве другой вершины ранга $k$ : до этого они находились в деревьях ранга $k-1$, а после этого любой новый корень дерева, где они находятся, будет иметь ранг строго больше $k$. Значит, каждой вершине ранга $k$ соответствует множество из $2^{k}$ вершин, и эти множества не пересекаются для разных вершин ранга $k$.</p>
+<p>Первое свойство выполняется сразу после <code>join</code>, в котором $v$ перестала быть корнем, а при переподвешивании $v$ в <code>get</code> разность между рангами только увеличивается.</p>
+<p>Как и раньше, вершина ранга $k$ может появиться только при объединении двух деревьев с корнями ранга $k-1$. Отсюда по индукции следует второе свойство (но только для корневых вершин).</p>
+<p>Третье свойство: любая вершина ранга $k$ была корневой, когда получила этот ранг. В этот момент в её поддереве было хотя бы $2^{k}$ вершин, при этом ни до, ни после этого эти вершины не могли оказаться в поддереве другой вершины ранга $k$. Значит, каждой вершине ранга $k$ соответствует множество из $2^{k}$ вершин, и эти множества не пересекаются.</p>
   </div>
 </details>
   </div>
@@ -495,13 +1043,12 @@ $$<p>Тогда на очередном шаге $v$ - это вершина и�
     Определение
   </summary>
   <div class="box-content">
-<p>Итерированный логарифм $n$ по основанию $a$</p>
-$$
-\log _{a}^{*} n= \begin{cases}0, & \text { если } n \leqslant 1, \\ 1+\log _{a}^{*}\left(\log _{a} n\right), & \text { если } n>1 .\end{cases}
-$$
+<p><strong>Итерированный логарифм</strong> $n$ по основанию $a$:
+</p>
+$$\log_a^* n = \begin{cases}0, & \text{если } n \leqslant 1, \\ 1 + \log_a^*(\log_a n), & \text{если } n > 1.\end{cases}$$<p>
+На практике можно считать, что $\log_2^* n \leqslant 5$, так как даже $\log_2^*(2^{65536}) = 5$.</p>
   </div>
 </details>
-<p>✍️ На практике можно считать, что если $n$ - число элементов, то $\log _{2}^{*} n \leqslant 5$, так как даже $\log _{2}^{*}\left(2^{65536}\right)=5$.</p>
 
 <details open class="box cstyle notices theorem">
   <summary class="box-label" tabindex="-1">
@@ -509,7 +1056,7 @@ $$
     Теорема
   </summary>
   <div class="box-content">
-<p>При использовании обеих эвристик суммарное время работы $m$ запросов get есть $O\left(m+n \log _{2}^{*} n\right)$.
+<p>При использовании обеих эвристик суммарное время работы $m$ запросов <code>get</code> есть $O(m + n \log_2^* n)$.</p>
 
 <details open class="box cstyle notices prove expand">
   <summary class="box-label">
@@ -518,50 +1065,159 @@ $$
     Доказательство
   </summary>
   <div class="box-content">
-<p>Ранг любой вершины в любой момент лежит в отрезке $\left[0, \log _{2} n\right]$. Покроем этот отрезок непересекающимися отрезками вида $\left[k+1,2^{k}\right]$ (а также отрезком $[0,0]$ ):</p>
-$$
-\{0\},\{1\},\{2\},\{3,4\},\left\{5,6, \ldots, 2^{4}=16\right\},\left\{17,18, \ldots, 2^{16}=65536\right\}, \ldots
-$$<p>Всего таких отрезков будет не более $\log _{2}^{*} n+1$. Пронумеруем эти отрезки.
-Назовём крутостью $c_{v}$ ребра из $v$ в $p[v]$ разность номеров отрезков, в которые попадают $r k[p[v]]$ и $r k[v]$. Так, крутость ребра из вершины ранга 5 в вершину ранга 13 равна нулю; крутость ребра из вершины ранга 4 в вершину ранга 65538 равна трём. Крутость любого ребра не превосходит $\log _{2}^{*} n$. Поскольку разность рангов родителя вершины и самой вершины в ходе алгоритма может только возрастать, крутость ребра из вершины в её родителя тоже может только возрастать.</p>
-<p>Время работы $i$-го запроса get пропорционально числу пройденных по пути к корню рёбер. Поделим эти рёбра на несколько типов: отдельно посчитаем ребро, ведущее в корень дерева, и ближайшее к корню ребро положительной крутости (возможно, эти два ребра совпадают). Пусть помимо этих рёбер на пути было ещё $a_{i}$ рёбер положительной крутости (назовём их $a$-рёбрами) и $b_{i}$ рёбер нулевой крутости (назовём их $b$-рёбрами). Тогда при выполнении $i$-го запроса get было посещено не более $2+a_{i}+b_{i}$ рёбер.</p>
-<p>Пусть ребро из $v$ в $p[v]$ - одно из $a$-рёбер. Поскольку на пути в корень было ещё хотя бы одно ребро положительной крутости, крутость $c_{v}$ после переподвешивания вершины $v$ строго возрастёт. Значит, из каждой вершины $v$ мы могли подняться по $a$-ребру за всё время работы не более $\log _{2}^{*} n$ раз, то есть $\sum_{i} a_{i} \leqslant n \log _{2}^{*} n$.</p>
-<p>Теперь пусть ребро из $v$ в $p[v]$ - одно из $b$-рёбер. После переподвешивания $v$ разность рангов $r k[p[v]]-r k[v]$ возросла хотя бы на единицу. Пусть $r k[v]$ находится в отрезке $\left[k+1,2^{k}\right]$, тогда подъёмов из вершины $v$ по $b$-ребру было не более $2^{k}$ за всё время работы (после $2^{k}$ подъёмов $r k[p[v]]$ уже точно будет находиться в следующем отрезке, то есть ребро в родителя будет иметь положительную крутость). Заметим, что вершин с рангом в отрезке $\left[k+1,2^{k}\right]$ всего не более</p>
-$$
-\frac{n}{2^{k+1}}+\frac{n}{2^{k+2}}+\cdots \leqslant \frac{n}{2^{k}}
-$$<p>значит, проходов по $b$-рёбрам из вершин с рангом в отрезке $\left[k+1,2^{k}\right]$ за всё время было не более $2^{k} \cdot n / 2^{k}=n$. Тогда всего проходов по $b$-рёбрам было не более $n \log _{2}^{*} n$.</p>
-<p>Итак, суммарное время работы $m$ запросов get есть</p>
-$$
-O\left(\sum_{i=1}^{m} 2+a_{i}+b_{i}\right)=O\left(2 m+n \log _{2}^{*} n+n \log _{2}^{*} n\right)=O\left(m+n \log _{2}^{*} n\right)
-$$
-  </div>
-</details></p>
+<p>Ранг любой вершины в любой момент лежит в отрезке $[0, \log_2 n]$. Покроем этот отрезок непересекающимися отрезками вида $[k+1, 2^k]$ (а также $[0, 0]$):
+</p>
+$$\{0\},\{1\},\{2\},\{3,4\},\{5,\ldots,16\},\{17,\ldots,65536\},\ldots$$<p>
+Всего таких отрезков будет не более $\log_2^* n + 1$.</p>
+<p>Назовём <em>крутостью</em> $c_v$ ребра из $v$ в $p[v]$ разность номеров отрезков, в которые попадают $\mathit{rk}[p[v]]$ и $\mathit{rk}[v]$. Крутость любого ребра не превосходит $\log_2^* n$; крутость ребра из вершины в её родителя может только возрастать.</p>
+<p>Время работы $i$-го запроса <code>get</code> пропорционально числу пройденных рёбер. Из числа не ведущих в корень рёбер выделим $a$-рёбра (положительная крутость, не ближайшее к корню) и $b$-рёбра (нулевая крутость). Посещено не более $2 + a_i + b_i$ рёбер.</p>
+<p>Из $a$-ребра из $v$: после переподвешивания $c_v$ строго возрастёт. Значит, каждую вершину $v$ мы поднимали по $a$-ребру не более $\log_2^* n$ раз; итого $\sum_i a_i \leqslant n \log_2^* n$.</p>
+<p>Из $b$-ребра из $v$ с рангом в $[k+1, 2^k]$: после переподвешивания $\mathit{rk}[p[v]]$ увеличивается. Подъёмов из $v$ по $b$-ребру не более $2^k$ за всё время. Вершин с рангом в $[k+1, 2^k]$ не более $n / 2^k$, значит проходов по $b$-рёбрам из таких вершин не более $2^k \cdot n/2^k = n$. Суммарно по всем отрезкам: $\sum_i b_i \leqslant n \log_2^* n$.</p>
+<p>Итого: $O\!\left(\sum_i (2 + a_i + b_i)\right) = O(m + n \log_2^* n)$.</p>
   </div>
 </details>
-<p>✍️ Можно показать, что суммарное время работы $m$ запросов get не превосходит $O(m \cdot \alpha(n))$, где $\alpha(n)$ - обратная функция Аккермана, растущая ещё медленнее, чем итерированный логарифм.</p>
+  </div>
+</details>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Можно показать, что суммарное время работы $m$ запросов <code>get</code> не превосходит $O(m \cdot \alpha(n))$, где $\alpha(n)$ — обратная функция Аккермана, растущая ещё медленнее, чем итерированный логарифм.</p>
+  </div>
+</details>
 <h3 id="возвращаясь-к-алгоритму-краскала">Возвращаясь к алгоритму Краскала<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="tab-panel" data-tab-group="R-tabs-6e6fc6127e39f846b51a63f2d2229f0b">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-b966e2867bbed2ae58c4a696395792ef" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-6e6fc6127e39f846b51a63f2d2229f0b','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-b51627b4f2143c2736f1677628250a0c" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-6e6fc6127e39f846b51a63f2d2229f0b','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-b966e2867bbed2ae58c4a696395792ef"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>sort(es) <span style="color:#75715e"># сортируем рёбра по возрастанию веса</span>
-</span></span><span style="display:flex;"><span>init(n) <span style="color:#75715e"># инициализируем DSU</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> e <span style="color:#f92672">in</span> es: <span style="color:#75715e"># ребро из e.а в e.b веса e.w</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> get(e<span style="color:#f92672">.</span>a) <span style="color:#f92672">!=</span> get(e<span style="color:#f92672">.</span>b):
-</span></span><span style="display:flex;"><span>        join(e<span style="color:#f92672">.</span>a, e<span style="color:#f92672">.</span>b)
-</span></span><span style="display:flex;"><span>        mst<span style="color:#f92672">.</span>push_back(e)<span style="color:#75715e"># добавляем ребро к ответу</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">kruskal</span>(edges: list[tuple[int, int, int]], n: int) <span style="color:#f92672">-&gt;</span> list[tuple[int, int, int]]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    edges: список рёбер (a, b, w)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    n: число вершин
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Возвращает рёбра минимального остова.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    edges<span style="color:#f92672">.</span>sort(key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> e: e[<span style="color:#ae81ff">2</span>])  <span style="color:#75715e"># сортируем по весу</span>
+</span></span><span style="display:flex;"><span>    init(n)
+</span></span><span style="display:flex;"><span>    mst <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> a, b, w <span style="color:#f92672">in</span> edges:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> get(a) <span style="color:#f92672">!=</span> get(b):
+</span></span><span style="display:flex;"><span>            join(a, b)
+</span></span><span style="display:flex;"><span>            mst<span style="color:#f92672">.</span>append((a, b, w))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> mst</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>При использовании обеих эвристик получаем время работы $O\left(E \log V+E+V \log _{2}^{*} V\right)$ (или $O(E \log V+E \cdot \alpha(V))$ ). В случае, когда рёбра уже даны в порядке возрастания веса, либо когда из-за особенностей задачи рёбра можно отсортировать быстрее, чем за $O(E \log V)$, реализация DSU деревьями позволяет улучшить эффективность алгоритма.</p>
-<p>✍️ Помимо изученных нами алгоритмов, известен рандомизированный алгоритм поиска минимального остова с линейным математическим ожиданием временем работы (Karger, Klein, Tarjan, 1995), а также алгоритм с временем работы $O(E \cdot \alpha(E, V))$ (Chazelle, 2000), где $\alpha$ - двупараметрическая версия обратной функции Аккермана (которая тоже растёт очень медленно).</p>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-b51627b4f2143c2736f1677628250a0c"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Edge</span> { <span style="color:#66d9ef">int</span> a, b, w; };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>Edge<span style="color:#f92672">&gt;</span> kruskal(vector<span style="color:#f92672">&lt;</span>Edge<span style="color:#f92672">&gt;&amp;</span> edges, <span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    sort(edges.begin(), edges.end(),
+</span></span><span style="display:flex;"><span>         [](<span style="color:#66d9ef">const</span> Edge<span style="color:#f92672">&amp;</span> x, <span style="color:#66d9ef">const</span> Edge<span style="color:#f92672">&amp;</span> y){ <span style="color:#66d9ef">return</span> x.w <span style="color:#f92672">&lt;</span> y.w; });
+</span></span><span style="display:flex;"><span>    init(n);
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span>Edge<span style="color:#f92672">&gt;</span> mst;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> e : edges) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (get(e.a) <span style="color:#f92672">!=</span> get(e.b)) {
+</span></span><span style="display:flex;"><span>            join(e.a, e.b);
+</span></span><span style="display:flex;"><span>            mst.push_back(e);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> mst;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>При использовании обеих эвристик получаем время работы $O(E \log V + E \cdot \alpha(V))$. В случае, когда рёбра уже отсортированы по весу, реализация DSU деревьями позволяет улучшить эффективность алгоритма.</p>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Помимо изученных нами алгоритмов, известен рандомизированный алгоритм поиска минимального остова с линейным ожидаемым временем работы (Karger, Klein, Tarjan, 1995), а также алгоритм с временем работы $O(E \cdot \alpha(E, V))$ (Chazelle, 2000), где $\alpha$ — двупараметрическая версия обратной функции Аккермана.</p>
+  </div>
+</details>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 20 апр. 2025 г.
+              <i class='fa-fw fas fa-calendar'></i> 19 апр. 2026 г.
   </footer>
 </article>
         </div>
@@ -617,12 +1273,9 @@ $$
             <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu"></ul></li>
-            <li class="" data-nav-id="/basics/graph_definition/index.html"><a class="padding" href="/basics/graph_definition/index.html">12. Графы. Определения и способы хранения</a></li>
-            <li class="" data-nav-id="/basics/graph_depth_search/index.html"><a class="padding" href="/basics/graph_depth_search/index.html">13. Графы. Поиск в глубину</a></li>
-            <li class="" data-nav-id="/basics/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graph_shortest_path_algos/index.html">14. Графы. Алгоритмы поиска кратчайших путей</a></li>
-            <li class="" data-nav-id="/basics/greedy_algorithms/index.html"><a class="padding" href="/basics/greedy_algorithms/index.html">15. Жадные алгоритмы</a></li>
-            <li class="active " data-nav-id="/basics/finding_the_minimum_spanning_tree/index.html"><a class="padding" href="/basics/finding_the_minimum_spanning_tree/index.html">16. Поиск минимального остовного дерева</a></li>
-            <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">17. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/basics/greedy_algorithms/index.html"><a class="padding" href="/basics/greedy_algorithms/index.html">14. Жадные алгоритмы</a></li>
+            <li class="active " data-nav-id="/basics/finding_the_minimum_spanning_tree/index.html"><a class="padding" href="/basics/finding_the_minimum_spanning_tree/index.html">15. Минимальное остовное дерево</a></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
