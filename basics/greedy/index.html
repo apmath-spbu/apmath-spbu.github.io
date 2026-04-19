@@ -3,32 +3,32 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.
+    <meta name="description" content="Жадные алгоритмы — один из фундаментальных методов алгоритмического проектирования. В отличие от динамического программирования, они не рассматривают все возможные комбинации, а принимают решения локально, шаг за шагом.
 В этом разделе мы изучим:
-Определения и способы хранения — вершины, рёбра, матрица смежности и списки смежности Поиск в глубину (DFS) — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT Кратчайшие пути — BFS, Дейкстра, A*, Беллман-Форд, Флойд Определение Граф $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В ориентированном графе ребро — упорядоченная пара $(u, v)$; в неориентированном — неупорядоченная $\{u, v\}$.">
+Алгоритм Хаффмана и оптимальное кэширование — два классических примера жадных алгоритмов с доказательством оптимальности через обменный аргумент Минимальное остовное дерево — алгоритмы Прима и Краскала, лемма о разрезе, структура данных DSU Определение Жадный алгоритм (greedy algorithm) — алгоритм, который на каждом шаге принимает локально оптимальное решение, не возвращаясь к уже сделанному выбору. Жадность корректна, когда локальные оптимумы ведут к глобальному оптимуму.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.
+    <meta name="twitter:title" content="14. Жадные алгоритмы: сжатие, кэширование, остовные деревья :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Жадные алгоритмы — один из фундаментальных методов алгоритмического проектирования. В отличие от динамического программирования, они не рассматривают все возможные комбинации, а принимают решения локально, шаг за шагом.
 В этом разделе мы изучим:
-Определения и способы хранения — вершины, рёбра, матрица смежности и списки смежности Поиск в глубину (DFS) — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT Кратчайшие пути — BFS, Дейкстра, A*, Беллман-Форд, Флойд Определение Граф $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В ориентированном графе ребро — упорядоченная пара $(u, v)$; в неориентированном — неупорядоченная $\{u, v\}$.">
-    <meta property="og:url" content="https://apmath-spbu.github.io/basics/graphs/index.html">
+Алгоритм Хаффмана и оптимальное кэширование — два классических примера жадных алгоритмов с доказательством оптимальности через обменный аргумент Минимальное остовное дерево — алгоритмы Прима и Краскала, лемма о разрезе, структура данных DSU Определение Жадный алгоритм (greedy algorithm) — алгоритм, который на каждом шаге принимает локально оптимальное решение, не возвращаясь к уже сделанному выбору. Жадность корректна, когда локальные оптимумы ведут к глобальному оптимуму.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/greedy/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
-    <meta property="og:title" content="13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования">
-    <meta property="og:description" content="Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.
+    <meta property="og:title" content="14. Жадные алгоритмы: сжатие, кэширование, остовные деревья :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Жадные алгоритмы — один из фундаментальных методов алгоритмического проектирования. В отличие от динамического программирования, они не рассматривают все возможные комбинации, а принимают решения локально, шаг за шагом.
 В этом разделе мы изучим:
-Определения и способы хранения — вершины, рёбра, матрица смежности и списки смежности Поиск в глубину (DFS) — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT Кратчайшие пути — BFS, Дейкстра, A*, Беллман-Форд, Флойд Определение Граф $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В ориентированном графе ребро — упорядоченная пара $(u, v)$; в неориентированном — неупорядоченная $\{u, v\}$.">
+Алгоритм Хаффмана и оптимальное кэширование — два классических примера жадных алгоритмов с доказательством оптимальности через обменный аргумент Минимальное остовное дерево — алгоритмы Прима и Краскала, лемма о разрезе, структура данных DSU Определение Жадный алгоритм (greedy algorithm) — алгоритм, который на каждом шаге принимает локально оптимальное решение, не возвращаясь к уже сделанному выбору. Жадность корректна, когда локальные оптимумы ведут к глобальному оптимуму.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="website">
-    <meta itemprop="name" content="13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.
+    <meta itemprop="name" content="14. Жадные алгоритмы: сжатие, кэширование, остовные деревья :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Жадные алгоритмы — один из фундаментальных методов алгоритмического проектирования. В отличие от динамического программирования, они не рассматривают все возможные комбинации, а принимают решения локально, шаг за шагом.
 В этом разделе мы изучим:
-Определения и способы хранения — вершины, рёбра, матрица смежности и списки смежности Поиск в глубину (DFS) — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT Кратчайшие пути — BFS, Дейкстра, A*, Беллман-Форд, Флойд Определение Граф $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В ориентированном графе ребро — упорядоченная пара $(u, v)$; в неориентированном — неупорядоченная $\{u, v\}$.">
-    <meta itemprop="datePublished" content="2026-04-12T09:30:00+03:00">
-    <meta itemprop="dateModified" content="2026-04-12T09:30:00+03:00">
-    <meta itemprop="wordCount" content="221">
-    <title>13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования</title>
-    <link href="/basics/graphs/index.xml" rel="alternate" type="application/rss+xml" title="13. Графы: определения, обходы и кратчайшие пути :: Краткий курс по основам программирования">
+Алгоритм Хаффмана и оптимальное кэширование — два классических примера жадных алгоритмов с доказательством оптимальности через обменный аргумент Минимальное остовное дерево — алгоритмы Прима и Краскала, лемма о разрезе, структура данных DSU Определение Жадный алгоритм (greedy algorithm) — алгоритм, который на каждом шаге принимает локально оптимальное решение, не возвращаясь к уже сделанному выбору. Жадность корректна, когда локальные оптимумы ведут к глобальному оптимуму.">
+    <meta itemprop="datePublished" content="2026-04-19T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-19T09:30:00+03:00">
+    <meta itemprop="wordCount" content="224">
+    <title>14. Жадные алгоритмы: сжатие, кэширование, остовные деревья :: Краткий курс по основам программирования</title>
+    <link href="/basics/greedy/index.xml" rel="alternate" type="application/rss+xml" title="14. Жадные алгоритмы: сжатие, кэширование, остовные деревья :: Краткий курс по основам программирования">
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
     <script src="/js/search-lunr.min.js" defer></script>
@@ -53,7 +53,7 @@
       window.relearn = window.relearn || {};
       // configuration
       window.relearn.min = `.min`;
-      window.relearn.path='\/basics\/graphs\/index.html';
+      window.relearn.path='\/basics\/greedy\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
       window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
@@ -112,7 +112,7 @@
 </script> 
 
   </head>
-  <body class="mobile-support html" data-origin="/basics/graphs/index.html">
+  <body class="mobile-support html" data-origin="/basics/greedy/index.html">
     <div id="R-body" class="default-animation">
       <div id="R-body-overlay"></div>
       <nav id="R-topbar" class="default-animation">
@@ -139,17 +139,17 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">13. Графы</span><meta itemprop="position" content="3"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">14. Жадные алгоритмы</span><meta itemprop="position" content="3"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/graphs/_index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/greedy/_index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/binary_trees/segment_trees/index.html" title="12.8. Деревья отрезков (основы) (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/graphs/graph_shortest_path_algos/index.html" title="13.3. Графы. Алгоритмы поиска кратчайших путей (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/graphs/graph_definition/index.html" title="13.1. Графы. Определения и способы хранения (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/greedy/huffman_caching/index.html" title="14.1. Алгоритм Хаффмана и оптимальное кэширование (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -170,20 +170,13 @@
   <header class="headline">
   </header>
 
-<h1 id="13-графы-определения-обходы-и-кратчайшие-пути">13. Графы: определения, обходы и кратчайшие пути</h1>
+<h1 id="14-жадные-алгоритмы-сжатие-кэширование-остовные-деревья">14. Жадные алгоритмы: сжатие, кэширование, остовные деревья</h1>
 
-<figure >
-    <audio controls preload="metadata">
-    <source src="/static/audio/basics/13-%d0%9b%d0%be%d0%b3%d0%b8%d0%ba%d0%b0_%d0%b3%d1%80%d0%b0%d1%84%d0%be%d0%b2_%d0%be%d1%82_%d0%bf%d0%be%d0%b8%d1%81%d0%ba%d0%b0_%d0%b4%d0%be_%d0%bd%d0%b0%d0%b2%d0%b8%d0%b3%d0%b0%d1%86%d0%b8%d0%b8.m4a" type="audio/mpeg">
-    
-    </audio>
-</figure>
-<p>Графы — одна из наиболее универсальных структур данных. Они моделируют транспортные сети, социальные связи, зависимости между задачами, структуру интернета и многие другие объекты.</p>
+<p>Жадные алгоритмы — один из фундаментальных методов алгоритмического проектирования. В отличие от динамического программирования, они не рассматривают все возможные комбинации, а принимают решения локально, шаг за шагом.</p>
 <p>В этом разделе мы изучим:</p>
 <ul>
-<li><a href="/basics/graphs/graph_definition/index.html"><strong>Определения и способы хранения</strong></a> — вершины, рёбра, матрица смежности и списки смежности</li>
-<li><a href="/basics/graphs/graph_depth_search/index.html"><strong>Поиск в глубину (DFS)</strong></a> — обход, компоненты связности, дерево DFS, топологическая сортировка, SCC, мосты, точки сочленения, 2-SAT</li>
-<li><a href="/basics/graphs/graph_shortest_path_algos/index.html"><strong>Кратчайшие пути</strong></a> — BFS, Дейкстра, A*, Беллман-Форд, Флойд</li>
+<li><a href="/basics/greedy/huffman_caching/index.html"><strong>Алгоритм Хаффмана и оптимальное кэширование</strong></a> — два классических примера жадных алгоритмов с доказательством оптимальности через обменный аргумент</li>
+<li><a href="/basics/greedy/minimum_spanning_tree/index.html"><strong>Минимальное остовное дерево</strong></a> — алгоритмы Прима и Краскала, лемма о разрезе, структура данных DSU</li>
 </ul>
 
 <details open class="box cstyle notices def">
@@ -192,7 +185,7 @@
     Определение
   </summary>
   <div class="box-content">
-<p><strong>Граф</strong> $G = (V, E)$ задаётся множеством вершин $V$ и множеством рёбер $E$. В <strong>ориентированном</strong> графе ребро — упорядоченная пара $(u, v)$; в <strong>неориентированном</strong> — неупорядоченная $\{u, v\}$.</p>
+<p><strong>Жадный алгоритм</strong> (<em>greedy algorithm</em>) — алгоритм, который на каждом шаге принимает локально оптимальное решение, не возвращаясь к уже сделанному выбору. Жадность корректна, когда локальные оптимумы ведут к глобальному оптимуму.</p>
   </div>
 </details>
 
@@ -202,76 +195,61 @@
     Свойства
   </summary>
   <div class="box-content">
-<p>Основные свойства графов:</p>
+<p><strong>Обменный аргумент</strong> (<em>exchange argument</em>) — стандартная техника доказательства корректности жадных алгоритмов:</p>
 <ol>
-<li>$\sum_{v \in V} \deg(v) = 2|E|$ (для неориентированных графов).</li>
-<li>Связный граф с $n$ вершинами содержит не менее $n - 1$ рёбер.</li>
-<li>Дерево — связный граф без циклов — имеет ровно $n - 1$ рёбер.</li>
-<li>Планарный граф: $|E| \leqslant 3|V| - 6$ (теорема Эйлера).</li>
+<li>Предположим, что существует оптимальное решение, отличающееся от жадного.</li>
+<li>Найдём первое место, где они расходятся, и «обменяем» выбор оптимального решения на жадный.</li>
+<li>Покажем, что после обмена решение не стало хуже.</li>
+<li>Повторяя обмены, превратим оптимальное решение в жадное — значит, жадное тоже оптимально.</li>
 </ol>
   </div>
 </details>
+<p>Все четыре алгоритма раздела следуют именно этой схеме.</p>
 <h3 id="сводка-алгоритмов">Сводка алгоритмов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <table>
   <thead>
       <tr>
           <th>Алгоритм</th>
           <th>Задача</th>
-          <th>Время</th>
+          <th>Жадный выбор</th>
+          <th>Время работы</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td>DFS</td>
-          <td>Обход, компоненты</td>
-          <td>$O(V + E)$</td>
+          <td>Хаффман</td>
+          <td>Оптимальное префиксное кодирование</td>
+          <td>Слияние двух редчайших символов</td>
+          <td>$O(\lvert\Sigma\rvert \log \lvert\Sigma\rvert)$</td>
       </tr>
       <tr>
-          <td>Топологическая сортировка</td>
-          <td>Порядок в DAG</td>
-          <td>$O(V + E)$</td>
+          <td>Белади</td>
+          <td>Минимум кэш-промахов</td>
+          <td>Вытеснение элемента с наибольшим временем до следующего запроса</td>
+          <td>$O(m \log k)$</td>
       </tr>
       <tr>
-          <td>Косарайю (SCC)</td>
-          <td>Сильная связность</td>
-          <td>$O(V + E)$</td>
+          <td>Прима</td>
+          <td>Минимальный остов</td>
+          <td>Минимальное ребро через разрез $(A, V \setminus A)$</td>
+          <td>$O((V+E)\log V)$</td>
       </tr>
       <tr>
-          <td>Мосты / точки сочленения</td>
-          <td>Двусвязность</td>
-          <td>$O(V + E)$</td>
-      </tr>
-      <tr>
-          <td>BFS</td>
-          <td>Кратчайшие пути (невзв.)</td>
-          <td>$O(V + E)$</td>
-      </tr>
-      <tr>
-          <td>Дейкстра</td>
-          <td>Кратчайшие пути ($w \geqslant 0$)</td>
-          <td>$O((V+E) \log V)$</td>
-      </tr>
-      <tr>
-          <td>Беллман-Форд</td>
-          <td>Кратчайшие пути (любые $w$)</td>
-          <td>$O(VE)$</td>
-      </tr>
-      <tr>
-          <td>Флойд</td>
-          <td>Все пары</td>
-          <td>$O(V^3)$</td>
+          <td>Краскала</td>
+          <td>Минимальный остов</td>
+          <td>Минимальное ребро, не образующее цикла</td>
+          <td>$O(E \log V)$</td>
       </tr>
   </tbody>
 </table>
 <ul>
-<li><a href="/basics/graphs/graph_definition/index.html">13.1. Графы. Определения и способы хранения</a></li>
-<li><a href="/basics/graphs/graph_depth_search/index.html">13.2. Графы. Поиск в глубину</a></li>
-<li><a href="/basics/graphs/graph_shortest_path_algos/index.html">13.3. Графы. Алгоритмы поиска кратчайших путей</a>
+<li><a href="/basics/greedy/huffman_caching/index.html">14.1. Алгоритм Хаффмана и оптимальное кэширование</a></li>
+<li><a href="/basics/greedy/minimum_spanning_tree/index.html">14.2. Минимальное остовное дерево</a>
 {class=&ldquo;children children-type-tree children-sort-&rdquo;}</li>
 </ul>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 12 апр. 2026 г.
+              <i class='fa-fw fas fa-calendar'></i> 19 апр. 2026 г.
   </footer>
 </article>
         </div>
@@ -327,11 +305,10 @@
             <li class="" data-nav-id="/basics/numerical_algos_prime_test_and_factorization/index.html"><a class="padding" href="/basics/numerical_algos_prime_test_and_factorization/index.html">10. Проверка на простоту и факторизация</a></li>
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu"></ul></li>
-            <li class="active parent alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu">
-            <li class="" data-nav-id="/basics/graphs/graph_definition/index.html"><a class="padding" href="/basics/graphs/graph_definition/index.html">13.1. Графы. Определения и способы хранения</a></li>
-            <li class="" data-nav-id="/basics/graphs/graph_depth_search/index.html"><a class="padding" href="/basics/graphs/graph_depth_search/index.html">13.2. Графы. Поиск в глубину</a></li>
-            <li class="" data-nav-id="/basics/graphs/graph_shortest_path_algos/index.html"><a class="padding" href="/basics/graphs/graph_shortest_path_algos/index.html">13.3. Графы. Алгоритмы поиска кратчайших путей</a></li></ul></li>
-            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li></ul></li>
+            <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
+            <li class="active parent alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/greedy/huffman_caching/index.html"><a class="padding" href="/basics/greedy/huffman_caching/index.html">14.1. Алгоритм Хаффмана и оптимальное кэширование</a></li>
+            <li class="" data-nav-id="/basics/greedy/minimum_spanning_tree/index.html"><a class="padding" href="/basics/greedy/minimum_spanning_tree/index.html">14.2. Минимальное остовное дерево</a></li></ul></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">

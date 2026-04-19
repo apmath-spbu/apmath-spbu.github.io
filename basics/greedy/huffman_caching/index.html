@@ -1,36 +1,32 @@
 <!DOCTYPE html>
 <html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="Определение Жадный алгоритм (greedy algorithm) — алгоритм, который на каждом шаге принимает локально оптимальное решение, не возвращаясь к уже сделанному выбору. Ключевая задача при анализе жадных алгоритмов — доказать, что последовательность локальных оптимумов приводит к глобальному оптимуму.
-В этом разделе рассматриваются два классических жадных алгоритма: алгоритм Хаффмана для оптимального сжатия текста и алгоритм Белади для оптимального управления кэшем.
-Алгоритм Хаффмана Алгоритм Хаффмана (Huffman, 1952) — один из самых известных алгоритмов сжатия текста. Пусть дан текст, состоящий из символов алфавита $\Sigma$, который мы хотим закодировать как можно более короткой последовательностью бит.">
+    <meta name="description" content="Алгоритм Хаффмана Алгоритм Хаффмана (Huffman, 1952) — один из самых известных алгоритмов сжатия текста. Пусть дан текст, состоящий из символов алфавита $\Sigma$, который мы хотим закодировать как можно более короткой последовательностью бит.
+Префиксные коды Самый простой способ — кодировать каждый символ уникальной последовательностью из $k$ бит (будем называть такую последовательность кодовым словом (codeword)), где $2^{k} \geqslant|\Sigma|$ (чтобы такое кодирование вообще было возможно). Такой способ не всегда эффективен: например, пусть $\Sigma=\{a, b, c, d\}$, текст имеет длину 10000, но большая часть символов текста равна $a$ (скажем, $a$ встречается в тексте 7000 раз, а остальные символы по 1000 раз). Тогда вышеописанный способ кодирования потребует $20000$ бит. Если же кодовое слово символа $a$ будет равно $0$, символа $b$ — $10$, $c$ — $110$, $d$ — $111$, то суммарно потребуется лишь $7000 \cdot 1&#43;1000 \cdot 2&#43;1000 \cdot 3&#43;1000 \cdot 3=15000$ бит.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="14. Жадные алгоритмы :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="Определение Жадный алгоритм (greedy algorithm) — алгоритм, который на каждом шаге принимает локально оптимальное решение, не возвращаясь к уже сделанному выбору. Ключевая задача при анализе жадных алгоритмов — доказать, что последовательность локальных оптимумов приводит к глобальному оптимуму.
-В этом разделе рассматриваются два классических жадных алгоритма: алгоритм Хаффмана для оптимального сжатия текста и алгоритм Белади для оптимального управления кэшем.
-Алгоритм Хаффмана Алгоритм Хаффмана (Huffman, 1952) — один из самых известных алгоритмов сжатия текста. Пусть дан текст, состоящий из символов алфавита $\Sigma$, который мы хотим закодировать как можно более короткой последовательностью бит.">
-    <meta property="og:url" content="http://localhost:1313/basics/greedy_algorithms/index.html">
+    <meta name="twitter:title" content="14.1. Алгоритм Хаффмана и оптимальное кэширование :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Алгоритм Хаффмана Алгоритм Хаффмана (Huffman, 1952) — один из самых известных алгоритмов сжатия текста. Пусть дан текст, состоящий из символов алфавита $\Sigma$, который мы хотим закодировать как можно более короткой последовательностью бит.
+Префиксные коды Самый простой способ — кодировать каждый символ уникальной последовательностью из $k$ бит (будем называть такую последовательность кодовым словом (codeword)), где $2^{k} \geqslant|\Sigma|$ (чтобы такое кодирование вообще было возможно). Такой способ не всегда эффективен: например, пусть $\Sigma=\{a, b, c, d\}$, текст имеет длину 10000, но большая часть символов текста равна $a$ (скажем, $a$ встречается в тексте 7000 раз, а остальные символы по 1000 раз). Тогда вышеописанный способ кодирования потребует $20000$ бит. Если же кодовое слово символа $a$ будет равно $0$, символа $b$ — $10$, $c$ — $110$, $d$ — $111$, то суммарно потребуется лишь $7000 \cdot 1&#43;1000 \cdot 2&#43;1000 \cdot 3&#43;1000 \cdot 3=15000$ бит.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/basics/greedy/huffman_caching/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
-    <meta property="og:title" content="14. Жадные алгоритмы :: Краткий курс по основам программирования">
-    <meta property="og:description" content="Определение Жадный алгоритм (greedy algorithm) — алгоритм, который на каждом шаге принимает локально оптимальное решение, не возвращаясь к уже сделанному выбору. Ключевая задача при анализе жадных алгоритмов — доказать, что последовательность локальных оптимумов приводит к глобальному оптимуму.
-В этом разделе рассматриваются два классических жадных алгоритма: алгоритм Хаффмана для оптимального сжатия текста и алгоритм Белади для оптимального управления кэшем.
-Алгоритм Хаффмана Алгоритм Хаффмана (Huffman, 1952) — один из самых известных алгоритмов сжатия текста. Пусть дан текст, состоящий из символов алфавита $\Sigma$, который мы хотим закодировать как можно более короткой последовательностью бит.">
+    <meta property="og:title" content="14.1. Алгоритм Хаффмана и оптимальное кэширование :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Алгоритм Хаффмана Алгоритм Хаффмана (Huffman, 1952) — один из самых известных алгоритмов сжатия текста. Пусть дан текст, состоящий из символов алфавита $\Sigma$, который мы хотим закодировать как можно более короткой последовательностью бит.
+Префиксные коды Самый простой способ — кодировать каждый символ уникальной последовательностью из $k$ бит (будем называть такую последовательность кодовым словом (codeword)), где $2^{k} \geqslant|\Sigma|$ (чтобы такое кодирование вообще было возможно). Такой способ не всегда эффективен: например, пусть $\Sigma=\{a, b, c, d\}$, текст имеет длину 10000, но большая часть символов текста равна $a$ (скажем, $a$ встречается в тексте 7000 раз, а остальные символы по 1000 раз). Тогда вышеописанный способ кодирования потребует $20000$ бит. Если же кодовое слово символа $a$ будет равно $0$, символа $b$ — $10$, $c$ — $110$, $d$ — $111$, то суммарно потребуется лишь $7000 \cdot 1&#43;1000 \cdot 2&#43;1000 \cdot 3&#43;1000 \cdot 3=15000$ бит.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
     <meta property="article:published_time" content="2026-04-19T09:30:00+03:00">
     <meta property="article:modified_time" content="2026-04-19T09:30:00+03:00">
-    <meta itemprop="name" content="14. Жадные алгоритмы :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="Определение Жадный алгоритм (greedy algorithm) — алгоритм, который на каждом шаге принимает локально оптимальное решение, не возвращаясь к уже сделанному выбору. Ключевая задача при анализе жадных алгоритмов — доказать, что последовательность локальных оптимумов приводит к глобальному оптимуму.
-В этом разделе рассматриваются два классических жадных алгоритма: алгоритм Хаффмана для оптимального сжатия текста и алгоритм Белади для оптимального управления кэшем.
-Алгоритм Хаффмана Алгоритм Хаффмана (Huffman, 1952) — один из самых известных алгоритмов сжатия текста. Пусть дан текст, состоящий из символов алфавита $\Sigma$, который мы хотим закодировать как можно более короткой последовательностью бит.">
+    <meta itemprop="name" content="14.1. Алгоритм Хаффмана и оптимальное кэширование :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Алгоритм Хаффмана Алгоритм Хаффмана (Huffman, 1952) — один из самых известных алгоритмов сжатия текста. Пусть дан текст, состоящий из символов алфавита $\Sigma$, который мы хотим закодировать как можно более короткой последовательностью бит.
+Префиксные коды Самый простой способ — кодировать каждый символ уникальной последовательностью из $k$ бит (будем называть такую последовательность кодовым словом (codeword)), где $2^{k} \geqslant|\Sigma|$ (чтобы такое кодирование вообще было возможно). Такой способ не всегда эффективен: например, пусть $\Sigma=\{a, b, c, d\}$, текст имеет длину 10000, но большая часть символов текста равна $a$ (скажем, $a$ встречается в тексте 7000 раз, а остальные символы по 1000 раз). Тогда вышеописанный способ кодирования потребует $20000$ бит. Если же кодовое слово символа $a$ будет равно $0$, символа $b$ — $10$, $c$ — $110$, $d$ — $111$, то суммарно потребуется лишь $7000 \cdot 1&#43;1000 \cdot 2&#43;1000 \cdot 3&#43;1000 \cdot 3=15000$ бит.">
     <meta itemprop="datePublished" content="2026-04-19T09:30:00+03:00">
     <meta itemprop="dateModified" content="2026-04-19T09:30:00+03:00">
-    <meta itemprop="wordCount" content="1960">
-    <title>14. Жадные алгоритмы :: Краткий курс по основам программирования</title>
+    <meta itemprop="wordCount" content="1902">
+    <title>14.1. Алгоритм Хаффмана и оптимальное кэширование :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
     <script src="/js/search-lunr.min.js" defer></script>
@@ -55,10 +51,10 @@
       window.relearn = window.relearn || {};
       // configuration
       window.relearn.min = `.min`;
-      window.relearn.path='\/basics\/greedy_algorithms\/index.html';
-      window.relearn.relBasePath='..\/..';
-      window.relearn.relBaseUri='..\/..';
-      window.relearn.absBaseUri='http:\/\/localhost:1313';
+      window.relearn.path='\/basics\/greedy\/huffman_caching\/index.html';
+      window.relearn.relBasePath='..\/..\/..';
+      window.relearn.relBaseUri='..\/..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
       window.relearn.disableInlineCopyToClipboard=false;
       window.relearn.enableBlockCodeWrap=true;
       // translations
@@ -114,7 +110,7 @@
 </script> 
 
   </head>
-  <body class="mobile-support html" data-origin="/basics/greedy_algorithms/index.html">
+  <body class="mobile-support html" data-origin="/basics/greedy/huffman_caching/index.html">
     <div id="R-body" class="default-animation">
       <div id="R-body-overlay"></div>
       <nav id="R-topbar" class="default-animation">
@@ -150,17 +146,17 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">14. Жадные алгоритмы</span><meta itemprop="position" content="3"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/greedy/index.html"><span itemprop="name">14. Жадные алгоритмы</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">14.1. Алгоритм Хаффмана и оптимальное кэширование</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/greedy_algorithms.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/greedy/huffman_caching.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/greedy/minimum_spanning_tree/index.html" title="14.2. Минимальное остовное дерево (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/greedy/index.html" title="14. Жадные алгоритмы: сжатие, кэширование, остовные деревья (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/finding_the_minimum_spanning_tree/index.html" title="15. Поиск минимального остовного дерева (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/greedy/minimum_spanning_tree/index.html" title="14.2. Минимальное остовное дерево (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -181,19 +177,8 @@
   <header class="headline">
   </header>
 
-<h1 id="14-жадные-алгоритмы">14. Жадные алгоритмы</h1>
+<h1 id="141-алгоритм-хаффмана-и-оптимальное-кэширование">14.1. Алгоритм Хаффмана и оптимальное кэширование</h1>
 
-
-<details open class="box cstyle notices def">
-  <summary class="box-label" tabindex="-1">
-    <i class="fa-fw fas fa-rainbow"></i> 
-    Определение
-  </summary>
-  <div class="box-content">
-<p><strong>Жадный алгоритм</strong> (<em>greedy algorithm</em>) — алгоритм, который на каждом шаге принимает локально оптимальное решение, не возвращаясь к уже сделанному выбору. Ключевая задача при анализе жадных алгоритмов — доказать, что последовательность локальных оптимумов приводит к глобальному оптимуму.</p>
-  </div>
-</details>
-<p>В этом разделе рассматриваются два классических жадных алгоритма: алгоритм Хаффмана для оптимального сжатия текста и алгоритм Белади для оптимального управления кэшем.</p>
 <h2 id="алгоритм-хаффмана">Алгоритм Хаффмана<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Алгоритм Хаффмана (Huffman, 1952) — один из самых известных алгоритмов сжатия текста. Пусть дан текст, состоящий из символов алфавита $\Sigma$, который мы хотим закодировать как можно более короткой последовательностью бит.</p>
 <h3 id="префиксные-коды">Префиксные коды<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
@@ -268,29 +253,29 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
 <p>Будем применять эти рассуждения рекурсивно, и получать тексты, в которых всё меньше и меньше различных символов. В конце концов мы получим текст, в котором встречается всего два различных символа. Оптимальный префиксный код для такого текста кодирует каждый символ одним битом.</p>
 <h3 id="реализация">Реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Будем хранить символы в <a href="/basics/basic_data_structures/index.html">очереди с приоритетами</a>: приоритет символа равен его частоте. Пока в очереди больше одного символа, будем доставать из очереди два символа $a, b$ с минимальными приоритетами $\operatorname{cnt}_{a}, \operatorname{cnt}_{b}$, и складывать в очередь новый символ $c$ с приоритетом $\operatorname{cnt}_{c}=\operatorname{cnt}_{a}+\operatorname{cnt}_{b}$. В этот момент будем подвешивать вершины, соответствующие символам $a$ и $b$, детьми к вершине, соответствующей символу $c$. В конце в очереди останется только один символ; вершина, соответствующая этому символу, будет корнем дерева оптимального префиксного кода. Получаем время работы $O(|\Sigma| \log |\Sigma|)$ (если считать, что частоты символов уже предподсчитаны).</p>
-<div class="tab-panel" data-tab-group="R-tabs-4bec979bd4eda9477a9029fdb5b5bce6">
+<div class="tab-panel" data-tab-group="R-tabs-5ed4f4bf447837ebb52eeb7baf8ed4e7">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-5b45465d9896c9484d9b25556f09e657" aria-expanded="true"
+      aria-controls="R-tab-id-4e9e772ad368f3714f47f2836200252d" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-4bec979bd4eda9477a9029fdb5b5bce6','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-5ed4f4bf447837ebb52eeb7baf8ed4e7','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-f4383b400851eceba8676645ce8ae4aa" aria-expanded="false"
+      aria-controls="R-tab-id-3957f92551771153d272cacc93a1c242" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-4bec979bd4eda9477a9029fdb5b5bce6','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-5ed4f4bf447837ebb52eeb7baf8ed4e7','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-5b45465d9896c9484d9b25556f09e657"
+      id="R-tab-id-4e9e772ad368f3714f47f2836200252d"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -357,7 +342,7 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
       </div>
     </div>
     <div
-      id="R-tab-id-f4383b400851eceba8676645ce8ae4aa"
+      id="R-tab-id-3957f92551771153d272cacc93a1c242"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -489,29 +474,29 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
 </details>
 <h3 id="реализация-1">Реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Для реализации алгоритма Белади нужно знать будущее: для каждого элемента $d_i$ необходимо заранее предподсчитать следующий индекс его использования. Это делает алгоритм неприменимым на практике, но полезным как теоретический эталон для сравнения.</p>
-<div class="tab-panel" data-tab-group="R-tabs-63a8870a7426d1496abf391d136362d5">
+<div class="tab-panel" data-tab-group="R-tabs-cb53d4573d4fbe1a2f5adcc90d44b7c8">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-f105faae46fb7b920a0faf07e553c022" aria-expanded="true"
+      aria-controls="R-tab-id-3802b3f6b82f20ace63cc59621dcac21" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-63a8870a7426d1496abf391d136362d5','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-cb53d4573d4fbe1a2f5adcc90d44b7c8','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-0ecbe68e74a47e5657249be2ccca2e1e" aria-expanded="false"
+      aria-controls="R-tab-id-7bf3b5c49a3cb2aab142df258c143f29" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-63a8870a7426d1496abf391d136362d5','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-cb53d4573d4fbe1a2f5adcc90d44b7c8','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-f105faae46fb7b920a0faf07e553c022"
+      id="R-tab-id-3802b3f6b82f20ace63cc59621dcac21"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -586,7 +571,7 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
       </div>
     </div>
     <div
-      id="R-tab-id-0ecbe68e74a47e5657249be2ccca2e1e"
+      id="R-tab-id-7bf3b5c49a3cb2aab142df258c143f29"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -743,10 +728,9 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
-            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li>
-            <li class="active " data-nav-id="/basics/greedy_algorithms/index.html"><a class="padding" href="/basics/greedy_algorithms/index.html">14. Жадные алгоритмы</a></li>
-            <li class="" data-nav-id="/basics/finding_the_minimum_spanning_tree/index.html"><a class="padding" href="/basics/finding_the_minimum_spanning_tree/index.html">15. Минимальное остовное дерево</a></li>
-            <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">17. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu">
+            <li class="active " data-nav-id="/basics/greedy/huffman_caching/index.html"><a class="padding" href="/basics/greedy/huffman_caching/index.html">14.1. Алгоритм Хаффмана и оптимальное кэширование</a></li>
+            <li class="" data-nav-id="/basics/greedy/minimum_spanning_tree/index.html"><a class="padding" href="/basics/greedy/minimum_spanning_tree/index.html">14.2. Минимальное остовное дерево</a></li></ul></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
