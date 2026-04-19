@@ -180,29 +180,29 @@
 <p>Теперь можно рекурсивно повторить те же рассуждения - посмотреть на середину нового подоотрезка массива, и либо в середине найдётся $x$, либо мы поймём, в какой половине нового подотрезка нужно его искать. Будем повторять эти действия, пока не найдём $x$, либо не дойдём до подотрезка нулевой длины. Поскольку на каждом шаге длина отрезка уменьшается вдвое, это произойдёт через $O(\log n)$ шагов.</p>
 <p>Также можно оценить время работы нашего алгоритма с помощью <a href="/basics/recurrence_relation/index.html">основной теоремы о рекуррентных соотношениях</a>: время работы алгоритма в худшем случае (когда $x$ так и не нашёлся, либо нашёлся в самом конце) удовлетворяет рекуррентному соотношению $T(n)=T\left(\frac{n}{2}\right)+\Theta(1)$. Это соответствует $a=1, b=2, c=0$ в формулировке теоремы. $c=0=\log _{2} 1=\log _{b} a$, тогда по теореме время работы алгоритма в худшем случае есть $\Theta(\log n)$.</p>
 <p>Примерная реализация алгоритма двоичного поиска:
-<div class="tab-panel" data-tab-group="R-tabs-4e91914052cabd08b63e5a7f2352dd5d">
+<div class="tab-panel" data-tab-group="R-tabs-8f68c9c68b09c631af5ad8106c6e23da">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-b6ad418d41fbb8a9224bd05b7cc5bee5" aria-expanded="true"
+      aria-controls="R-tab-id-37ca5c0fb48405fbf3a456710ed89c36" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-4e91914052cabd08b63e5a7f2352dd5d','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-8f68c9c68b09c631af5ad8106c6e23da','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-fc651b31e7d4854fd1e578d3b2cf07a0" aria-expanded="false"
+      aria-controls="R-tab-id-13dfb6199f19d9cb02be8aa8856a00a2" aria-expanded="false"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-4e91914052cabd08b63e5a7f2352dd5d','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-8f68c9c68b09c631af5ad8106c6e23da','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-b6ad418d41fbb8a9224bd05b7cc5bee5"
+      id="R-tab-id-37ca5c0fb48405fbf3a456710ed89c36"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -253,7 +253,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-fc651b31e7d4854fd1e578d3b2cf07a0"
+      id="R-tab-id-13dfb6199f19d9cb02be8aa8856a00a2"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -309,29 +309,29 @@
 <p>Будем снова поддерживать границы $l$ и $r$, но уже со следующим условием: пусть в любой момент времени выполняется $a[l]< x$ и $a[r] \geqslant x$. Удобно мысленно добавить к массиву фиктивные элементы $a[-1]=-\infty$ и $a[n]=\infty$, тогда не нужно отдельно обрабатывать случаи, когда все элементы меньше $x$, или все элементы больше или равны $x$.</p>
 <p>Сам алгоритм становится только проще: смотрим на середину отрезка $(l, r)$, и, в зависимости от значения элемента массива с этим индексом, сдвигаем $l$ или $r$ так, чтобы требуемые от них условия не нарушились. Когда $l$ и $r$ указывают на соседние элементы (то есть $l=r-1$ ), всё ещё верно, что $a[l] < x, a[r] \geqslant x$. Тогда если $a[r]=x$, то $r$ индекс левого вхождения $x$, иначе $x$ в массиве не встречается.</p>
 <p>Примерная реализация:
-<div class="tab-panel" data-tab-group="R-tabs-ed6dc8d84bbc798c18a7680f0e4885cc">
+<div class="tab-panel" data-tab-group="R-tabs-764d3a0a5cfcf4ed312eb19bcba381eb">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-5baeeb2e0e5022107322069b30fe5803" aria-expanded="true"
+      aria-controls="R-tab-id-dab5ca2773334bc70ecfca4f72de0fff" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-ed6dc8d84bbc798c18a7680f0e4885cc','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-764d3a0a5cfcf4ed312eb19bcba381eb','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-ec05b1117f4f81aaaa4aa6115a7e579e" aria-expanded="false"
+      aria-controls="R-tab-id-50d615444979107f07329d41963c4158" aria-expanded="false"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-ed6dc8d84bbc798c18a7680f0e4885cc','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-764d3a0a5cfcf4ed312eb19bcba381eb','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-5baeeb2e0e5022107322069b30fe5803"
+      id="R-tab-id-dab5ca2773334bc70ecfca4f72de0fff"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -390,7 +390,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-ec05b1117f4f81aaaa4aa6115a7e579e"
+      id="R-tab-id-50d615444979107f07329d41963c4158"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -458,21 +458,21 @@
 </div></p>
 <p>Правое вхождение ищется примерно так же: нужно требовать от границ поиска $a[l] \leqslant x$ и $a[r]>x$, тогда в конце $l$ - правое вхождение, если $a[l]=x$, иначе $x$ в массиве не встречается. Заметим, что в реализации самого поиска нужно поправить всего одну строчку: a [m] &lt; x заменить на $\mathrm{a}[\mathrm{m}]$ &lt;= x .</p>
 <p>В C++ есть встроенные функции <a href="https://en.cppreference.com/w/cpp/algorithm/lower_bound.html" rel="external">std::lower_bound</a> и <a href="https://en.cppreference.com/w/cpp/algorithm/upper_bound.html" rel="external">std::upper_bound</a>. Первая возвращает итератор, указывающий на первый элемент, больше или равный $x$, вторая на первый элемент, строго больший $x$. Пример использования:</p>
-<div class="tab-panel" data-tab-group="R-tabs-31d9aba8799b866e25065ebf76a97bad">
+<div class="tab-panel" data-tab-group="R-tabs-04ba92f9277f971725c13a33517b8c48">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-554b4252c02a3ad35e2f23ea7e1432ee" aria-expanded="true"
+      aria-controls="R-tab-id-225449960d9d9fedbd9e3051e367351b" aria-expanded="true"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-31d9aba8799b866e25065ebf76a97bad','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-04ba92f9277f971725c13a33517b8c48','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-554b4252c02a3ad35e2f23ea7e1432ee"
+      id="R-tab-id-225449960d9d9fedbd9e3051e367351b"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -515,29 +515,29 @@
 <p>Поскольку $f$ принимает вещественные значения, мы не всегда можем найти значение такого $x$ абсолютно точно. Тем не менее, мы можем найти такое $x$ с погрешностью $\varepsilon$ : найдём такое $x$, что существует $x^{\prime}$ такое, что $f\left(x^{\prime}\right)=0,\left|x-x^{\prime}\right|<\varepsilon$.</p>
 <p>Алгоритм практически не меняется: начинаем с границ $l=L, r=R$, на каждом шаге сдвигаем одну из границ в зависимости от значения $f\left(\frac{l+r}{2}\right)$. Единственное отличие: мы завершаем алгоритм в тот момент, когда $r-l<\varepsilon$. Поскольку в этот момент всё ещё $f(l)<0, f(r) \geqslant 0$, а функция $f$ непрерывна, на отрезке $[l, r]$ найдётся $x^{\prime}$ такое, что $f\left(x^{\prime}\right)=0$. Поскольку длина отрезка меньше $\varepsilon$, любая из границ $l, r$ подойдёт в качестве ответа. Время работы алгоритма (при условии, что значение $f$ вычисляется за $O(1)$ ) $O\left(\log \left(\frac{R-L}{\varepsilon}\right)\right)$.</p>
 <p>Если вычисления проводятся при помощи стандартных вещественнозначных типов данных (например, double в C++), то из-за накопления погрешности при пересчёте границ условие $r-l<\varepsilon$ может никогда не выполниться. Чтобы избежать этого, вместо while напишем цикл, делающий столько итераций, сколько нужно, чтобы условие точно выполнилось. Пример реализации:
-<div class="tab-panel" data-tab-group="R-tabs-769391024d5c1b6d65b0624cdae30d1e">
+<div class="tab-panel" data-tab-group="R-tabs-0f0e3a349e923fa8224741c2b0f0e9e2">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-1d5dde5101dcb5fb15e50c90856ffd0e" aria-expanded="true"
+      aria-controls="R-tab-id-6a15f8c8ce21cb62616fc12e56a20d96" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-769391024d5c1b6d65b0624cdae30d1e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-0f0e3a349e923fa8224741c2b0f0e9e2','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-dfa0a30fcef33802ad4752feeaf0cd44" aria-expanded="false"
+      aria-controls="R-tab-id-060618dda29dcd3492b9d0bf110a569d" aria-expanded="false"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-769391024d5c1b6d65b0624cdae30d1e','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-0f0e3a349e923fa8224741c2b0f0e9e2','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-1d5dde5101dcb5fb15e50c90856ffd0e"
+      id="R-tab-id-6a15f8c8ce21cb62616fc12e56a20d96"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -572,7 +572,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-dfa0a30fcef33802ad4752feeaf0cd44"
+      id="R-tab-id-060618dda29dcd3492b9d0bf110a569d"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -625,29 +625,29 @@
 <h3 id="метод-двух-указателей">Метод двух указателей<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Иногда много двоичных поисков на одних и тех же данных можно соптимизировать с помощью так называемого метода двух указателей. Сделаем это на примере следующей задачи: дан массив $a$ длины $n$, состоящий из неотрицательных целых чисел. Нужно найти максимальный по длине подотрезок массива, сумма на котором не превосходит $M$.</p>
 <p>Удобнее работать не с отрезками, а с полуинтервалами: паре $l, r$ будем сопоставлять полуинтервал $a[l, r)$, то есть элементы массива с индексами $l, l+1, \ldots, r-1$ (это практически всегда позволяет писать меньше плюс-минус единиц в индексах массивов, что делает код короче). Самое простое решение - перебрать все возможные полуинтервалы:
-<div class="tab-panel" data-tab-group="R-tabs-4d411a5a7a6c85d315153f9f61a3d5d5">
+<div class="tab-panel" data-tab-group="R-tabs-73c20ea5125a545bbebd84d8f426ae79">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-3cf5d433a0fd3085520c6f55bf5c44e1" aria-expanded="true"
+      aria-controls="R-tab-id-67885f588028dfb73802e874d1b779a8" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-4d411a5a7a6c85d315153f9f61a3d5d5','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-73c20ea5125a545bbebd84d8f426ae79','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-76feb1ee905fde29c4788af64085d4e8" aria-expanded="false"
+      aria-controls="R-tab-id-cee7d18cdbc7ed6020f541154d4039af" aria-expanded="false"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-4d411a5a7a6c85d315153f9f61a3d5d5','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-73c20ea5125a545bbebd84d8f426ae79','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-3cf5d433a0fd3085520c6f55bf5c44e1"
+      id="R-tab-id-67885f588028dfb73802e874d1b779a8"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -698,7 +698,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-76feb1ee905fde29c4788af64085d4e8"
+      id="R-tab-id-cee7d18cdbc7ed6020f541154d4039af"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -782,29 +782,29 @@
 </div></p>
 <p>Получилось решение за $\Theta\left(n^{2}\right)$. Заметим, что при фиксированной левой границе сумма на полуинтервале не уменьшается при увеличении правой границы. Значит сколькото первых правых границ подойдут, а все последующие уже не подойдут. При этом нас интересует максимальная подходящая правая граница. Её можно найти двоичным поиском, таким образом соптимизировав решение до $\Theta(n \log n)$ :</p>
 <p>✍️ Для того, чтобы быстро находить сумму на произвольном полуинтервале, заранее предподсчитаем префиксные суммы - массив $p$ такой, что $p[i]=\sum_{j=0}^{i-1} a_{j}$. Тогда сумма на полуинтервале $a[l, r)$ равна $\sum_{i=l}^{r-1} a_{i}=p[r]-p[l]$.
-<div class="tab-panel" data-tab-group="R-tabs-5fcf83f2844ba84dfb201adc18713234">
+<div class="tab-panel" data-tab-group="R-tabs-d3652d2e93916ed9f891acf918add6a9">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-fe403f0f7901c467b6db862840a40981" aria-expanded="true"
+      aria-controls="R-tab-id-68030ab890ebca378373a8b4ea487023" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-5fcf83f2844ba84dfb201adc18713234','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-d3652d2e93916ed9f891acf918add6a9','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-73408ea9782cfe43ebfc4da7e5d39175" aria-expanded="false"
+      aria-controls="R-tab-id-9a33dff33b14d2a53acebcdc173735e3" aria-expanded="false"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-5fcf83f2844ba84dfb201adc18713234','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-d3652d2e93916ed9f891acf918add6a9','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-fe403f0f7901c467b6db862840a40981"
+      id="R-tab-id-68030ab890ebca378373a8b4ea487023"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -877,7 +877,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-73408ea9782cfe43ebfc4da7e5d39175"
+      id="R-tab-id-9a33dff33b14d2a53acebcdc173735e3"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -967,29 +967,29 @@
   </div>
 </div></p>
 <p>Перейдём теперь собственно к методу двух указателей. Пусть $r$ - максимальная подходящая правая граница для левой границы $l-1$. Тогда $M \geqslant \sum_{i=l-1}^{r-1} a_{i} \geqslant \sum_{i=l}^{r-1} a_{i}$, то есть граница $r$ подойдёт и для $l$. Будем вместо двоичного поиска искать границу $r$ так же, как и в самой первой версии алгоритма: просто перебирая все границы подряд. Но начнём перебор не с $l+1$, а с правой границы, найденной на предыдущем шаге. Поскольку теперь правая граница только увеличивается в ходе алгоритма, суммарно за всё время выполнения алгоритма она сдвинется не более, чем $n$ раз. Тогда общее время работы алгоритма $-\Theta(n)$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-fc44329df29219d3d659876f20291120">
+<div class="tab-panel" data-tab-group="R-tabs-e4ee4b5d412b73d04fc279746ea030fb">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-d7e1cfe7e55ee13c14e897806ca434d4" aria-expanded="true"
+      aria-controls="R-tab-id-8eb526249e2354212bd4585da436018a" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-fc44329df29219d3d659876f20291120','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-e4ee4b5d412b73d04fc279746ea030fb','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-de70b0705767db82ae61e50f1d657eec" aria-expanded="false"
+      aria-controls="R-tab-id-526f033d00f70653c9d4793281a300c9" aria-expanded="false"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-fc44329df29219d3d659876f20291120','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-e4ee4b5d412b73d04fc279746ea030fb','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-d7e1cfe7e55ee13c14e897806ca434d4"
+      id="R-tab-id-8eb526249e2354212bd4585da436018a"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1054,7 +1054,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-de70b0705767db82ae61e50f1d657eec"
+      id="R-tab-id-526f033d00f70653c9d4793281a300c9"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
