@@ -3,38 +3,30 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="Множество вершин в графе независимо (independent), если никакая пара вершин в нём не соединена ребром.
-Дано дерево, каждая вершина $v$ которого имеет вес $w_{v}$. Необходимо найти независимое множество максимального суммарного веса.
-✍️ Невзвешенная версия этой задачи (все веса равны единице) решается жадным алгоритмом.
-Динамическое программирование по поддеревьям Выберем любую вершину $r$ в качестве корня дерева. Теперь каждой вершине дерева $v$ соответствует подзадача поиска независимого множества максимального веса в поддереве этой вершины; обозначим искомое множество за $I_{v}$. Как выразить решение подзадачи для вершины $v$ через подзадачи попроще? Если сама вершина $v$ не входит в $I_{v}$, то $I_{v}$ объединение $I_{u}$ по всем $u$ - детям $v$. Если же $v$ входит в $I_{v}$, то никто из детей $v$ в $I_{v}$ входить не может. В этом случае $I_{v}$ - объединение $I_{u}$ по всем $u$ - “внукам” $v$ - детям детей $v$.">
+    <meta name="description" content="Определение Независимое множество (independent set) графа — множество вершин, никакие две из которых не соединены ребром. Задача о максимальном независимом множестве (maximum weight independent set): дано дерево, каждая вершина $v$ которого имеет вес $w_v$; найти независимое множество максимального суммарного веса.
+Свойства На общем графе задача о максимальном независимом множестве NP-трудна. На деревьях она решается за линейное время динамическим программированием по поддеревьям.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Независимое множество максимального веса в дереве :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="Множество вершин в графе независимо (independent), если никакая пара вершин в нём не соединена ребром.
-Дано дерево, каждая вершина $v$ которого имеет вес $w_{v}$. Необходимо найти независимое множество максимального суммарного веса.
-✍️ Невзвешенная версия этой задачи (все веса равны единице) решается жадным алгоритмом.
-Динамическое программирование по поддеревьям Выберем любую вершину $r$ в качестве корня дерева. Теперь каждой вершине дерева $v$ соответствует подзадача поиска независимого множества максимального веса в поддереве этой вершины; обозначим искомое множество за $I_{v}$. Как выразить решение подзадачи для вершины $v$ через подзадачи попроще? Если сама вершина $v$ не входит в $I_{v}$, то $I_{v}$ объединение $I_{u}$ по всем $u$ - детям $v$. Если же $v$ входит в $I_{v}$, то никто из детей $v$ в $I_{v}$ входить не может. В этом случае $I_{v}$ - объединение $I_{u}$ по всем $u$ - “внукам” $v$ - детям детей $v$.">
+    <meta name="twitter:title" content="15.7. Независимое множество максимального веса в дереве :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Определение Независимое множество (independent set) графа — множество вершин, никакие две из которых не соединены ребром. Задача о максимальном независимом множестве (maximum weight independent set): дано дерево, каждая вершина $v$ которого имеет вес $w_v$; найти независимое множество максимального суммарного веса.
+Свойства На общем графе задача о максимальном независимом множестве NP-трудна. На деревьях она решается за линейное время динамическим программированием по поддеревьям.">
     <meta property="og:url" content="https://apmath-spbu.github.io/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
-    <meta property="og:title" content="Независимое множество максимального веса в дереве :: Краткий курс по основам программирования">
-    <meta property="og:description" content="Множество вершин в графе независимо (independent), если никакая пара вершин в нём не соединена ребром.
-Дано дерево, каждая вершина $v$ которого имеет вес $w_{v}$. Необходимо найти независимое множество максимального суммарного веса.
-✍️ Невзвешенная версия этой задачи (все веса равны единице) решается жадным алгоритмом.
-Динамическое программирование по поддеревьям Выберем любую вершину $r$ в качестве корня дерева. Теперь каждой вершине дерева $v$ соответствует подзадача поиска независимого множества максимального веса в поддереве этой вершины; обозначим искомое множество за $I_{v}$. Как выразить решение подзадачи для вершины $v$ через подзадачи попроще? Если сама вершина $v$ не входит в $I_{v}$, то $I_{v}$ объединение $I_{u}$ по всем $u$ - детям $v$. Если же $v$ входит в $I_{v}$, то никто из детей $v$ в $I_{v}$ входить не может. В этом случае $I_{v}$ - объединение $I_{u}$ по всем $u$ - “внукам” $v$ - детям детей $v$.">
+    <meta property="og:title" content="15.7. Независимое множество максимального веса в дереве :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Определение Независимое множество (independent set) графа — множество вершин, никакие две из которых не соединены ребром. Задача о максимальном независимом множестве (maximum weight independent set): дано дерево, каждая вершина $v$ которого имеет вес $w_v$; найти независимое множество максимального суммарного веса.
+Свойства На общем графе задача о максимальном независимом множестве NP-трудна. На деревьях она решается за линейное время динамическим программированием по поддеревьям.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
-    <meta property="article:published_time" content="2025-04-24T17:19:09+03:00">
-    <meta property="article:modified_time" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="name" content="Независимое множество максимального веса в дереве :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="Множество вершин в графе независимо (independent), если никакая пара вершин в нём не соединена ребром.
-Дано дерево, каждая вершина $v$ которого имеет вес $w_{v}$. Необходимо найти независимое множество максимального суммарного веса.
-✍️ Невзвешенная версия этой задачи (все веса равны единице) решается жадным алгоритмом.
-Динамическое программирование по поддеревьям Выберем любую вершину $r$ в качестве корня дерева. Теперь каждой вершине дерева $v$ соответствует подзадача поиска независимого множества максимального веса в поддереве этой вершины; обозначим искомое множество за $I_{v}$. Как выразить решение подзадачи для вершины $v$ через подзадачи попроще? Если сама вершина $v$ не входит в $I_{v}$, то $I_{v}$ объединение $I_{u}$ по всем $u$ - детям $v$. Если же $v$ входит в $I_{v}$, то никто из детей $v$ в $I_{v}$ входить не может. В этом случае $I_{v}$ - объединение $I_{u}$ по всем $u$ - “внукам” $v$ - детям детей $v$.">
-    <meta itemprop="datePublished" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="dateModified" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="wordCount" content="300">
-    <title>Независимое множество максимального веса в дереве :: Краткий курс по основам программирования</title>
+    <meta property="article:published_time" content="2026-04-25T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="name" content="15.7. Независимое множество максимального веса в дереве :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Определение Независимое множество (independent set) графа — множество вершин, никакие две из которых не соединены ребром. Задача о максимальном независимом множестве (maximum weight independent set): дано дерево, каждая вершина $v$ которого имеет вес $w_v$; найти независимое множество максимального суммарного веса.
+Свойства На общем графе задача о максимальном независимом множестве NP-трудна. На деревьях она решается за линейное время динамическим программированием по поддеревьям.">
+    <meta itemprop="datePublished" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="wordCount" content="538">
+    <title>15.7. Независимое множество максимального веса в дереве :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
     <script src="/js/search-lunr.min.js" defer></script>
@@ -137,6 +129,7 @@
     <li>
       <ul>
         <li><a href="#динамическое-программирование-по-поддеревьям">Динамическое программирование по поддеревьям</a></li>
+        <li><a href="#восстановление-ответа">Восстановление ответа</a></li>
       </ul>
     </li>
   </ul>
@@ -145,17 +138,17 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">17. Динамическое программирование</span><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">🌳🏆 Независимое множество максимального веса в дереве</span><meta itemprop="position" content="4"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/dynamic_programming/index.html"><span itemprop="name">15. Динамическое программирование</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">15.7. Независимое множество в дереве</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/matrices_multiplication/index.html" title="Произведение матриц (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/matrices_multiplication/index.html" title="15.6. Оптимальный порядок перемножения матриц (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/travelling_salesman_problem/index.html" title="Задача коммивояжёра (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/travelling_salesman_problem/index.html" title="15.8. Задача коммивояжёра и DP по подмножествам (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -176,48 +169,67 @@
   <header class="headline">
   </header>
 
-<h1 id="независимое-множество-максимального-веса-в-дереве">Независимое множество максимального веса в дереве</h1>
+<h1 id="157-независимое-множество-максимального-веса-в-дереве">15.7. Независимое множество максимального веса в дереве</h1>
 
-<p>Множество вершин в графе <em>независимо</em> (<em>independent</em>), если никакая пара вершин в нём не соединена ребром.</p>
-<p>Дано дерево, каждая вершина $v$ которого имеет вес $w_{v}$. Необходимо найти независимое множество максимального суммарного веса.</p>
-<p>✍️ Невзвешенная версия этой задачи (все веса равны единице) решается жадным алгоритмом.</p>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Независимое множество</strong> (<em>independent set</em>) графа — множество вершин, никакие две из которых не соединены ребром. <strong>Задача о максимальном независимом множестве</strong> (<em>maximum weight independent set</em>): дано дерево, каждая вершина $v$ которого имеет вес $w_v$; найти независимое множество максимального суммарного веса.</p>
+  </div>
+</details>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>На общем графе задача о максимальном независимом множестве NP-трудна. На деревьях она решается за линейное время динамическим программированием по поддеревьям.</p>
+  </div>
+</details>
+<p>✍️ Невзвешенная версия (все веса равны единице) решается жадным алгоритмом.</p>
 <h3 id="динамическое-программирование-по-поддеревьям">Динамическое программирование по поддеревьям<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Выберем любую вершину $r$ в качестве корня дерева. Теперь каждой вершине дерева $v$ соответствует подзадача поиска независимого множества максимального веса в поддереве этой вершины; обозначим искомое множество за $I_{v}$. Как выразить решение подзадачи для вершины $v$ через подзадачи попроще? Если сама вершина $v$ не входит в $I_{v}$, то $I_{v}$ объединение $I_{u}$ по всем $u$ - детям $v$. Если же $v$ входит в $I_{v}$, то никто из детей $v$ в $I_{v}$ входить не может. В этом случае $I_{v}$ - объединение $I_{u}$ по всем $u$ - &ldquo;внукам&rdquo; $v$ - детям детей $v$.</p>
-<p>Пусть</p>
+<p>Выберем любую вершину $r$ в качестве корня дерева. Каждой вершине $v$ соответствует подзадача поиска независимого множества максимального веса в поддереве $v$; обозначим искомое множество за $I_v$. Как выразить решение для $v$ через подзадачи попроще?</p>
+<ul>
+<li>Если $v$ <strong>не входит</strong> в $I_v$: $I_v$ = объединение $I_u$ по всем детям $u$ вершины $v$.</li>
+<li>Если $v$ <strong>входит</strong> в $I_v$: никто из детей $v$ в $I_v$ входить не может. Тогда $I_v = \{v\}$ плюс объединение $I_u$ по всем «внукам» (детям детей) $v$.</li>
+</ul>
+<p>Пусть $I[v] = \sum_{u \in I_v} w_u$ и $J[v] = \sum_{u\text{ — ребёнок }v} I[u]$.</p>
+<p>Тогда:
+</p>
 $$
-I[v]=\sum_{u \in I_{v}} w_{u}
-$$<p>Удобно также ввести вспомогательную величину</p>
-$$
-J[v]=\sum_{u-\text { ребёнок } v} I[u] .
-$$<p>Из рассуждений выше получаем</p>
-$$
-I[v]=\max \left(J[v], w_{v}+\sum_{u-\text { ребёнок } v} J[u]\right) .
-$$<p>Теперь все значения $I$, $J$ легко вычислить, запустив поиск в глубину из $r$. Получаем решение за $O(V+E)$.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>dfs(v, parent):
-</span></span><span style="display:flex;"><span>    I[v] <span style="color:#f92672">=</span> w[v], J[v] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> to[v]:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> u <span style="color:#f92672">==</span> parent:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
-</span></span><span style="display:flex;"><span>        dfs(u, v)
-</span></span><span style="display:flex;"><span>        I[v] <span style="color:#f92672">+=</span> J[u], J[v] <span style="color:#f92672">+=</span> I[u]
-</span></span><span style="display:flex;"><span>    I[v] <span style="color:#f92672">=</span> max(I[v], J[v])
-</span></span><span style="display:flex;"><span>dfs(<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#75715e"># r = 0</span></span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>Восстановление ответа</p>
+I[v] = \max\!\left(J[v],\; w_v + \sum_{u\text{ — ребёнок }v} J[u]\right).
+$$<p>Все значения $I$, $J$ легко вычислить одним запуском <a href="/basics/graphs/graph_depth_search/index.html">DFS</a> из $r$. Получаем решение за $O(V+E)$.</p>
+<div class="tab-panel" data-tab-group="R-tabs-fe21dc3bbf61f08986758b5122c9854b">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-adf48e50c1372061b41e1490ea3abc55" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-fe21dc3bbf61f08986758b5122c9854b','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-20229d24a9940237af8aa43eed8f06c3" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-fe21dc3bbf61f08986758b5122c9854b','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-adf48e50c1372061b41e1490ea3abc55"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -231,24 +243,213 @@ $$<p>Теперь все значения $I$, $J$ легко вычислить
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#75715e"># skip = True, если вершина v точно не входит в ответ</span>
-</span></span><span style="display:flex;"><span>restoreSet(v, parent, skip):
-</span></span><span style="display:flex;"><span>    childSkip <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">not</span> skip) <span style="color:#f92672">and</span> I[v] <span style="color:#f92672">&gt;</span> J[v]: <span style="color:#75715e"># v входит в ответ</span>
-</span></span><span style="display:flex;"><span>        res<span style="color:#f92672">.</span>push_back(v)
-</span></span><span style="display:flex;"><span>        childSkip <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span> <span style="color:#75715e"># дети v в ответ не входят</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> to[v]:
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">max_weight_independent_set</span>(n: int, w: list[int],
+</span></span><span style="display:flex;"><span>                                adj: list[list[int]]) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    n — число вершин, w[v] — вес вершины v.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    adj[v] — список соседей. Корень = 0.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Возвращает максимальный вес независимого множества.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    I <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> n
+</span></span><span style="display:flex;"><span>    J <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> n
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dfs</span>(v: int, parent: int):
+</span></span><span style="display:flex;"><span>        I[v] <span style="color:#f92672">=</span> w[v]
+</span></span><span style="display:flex;"><span>        J[v] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> adj[v]:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> u <span style="color:#f92672">==</span> parent:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            dfs(u, v)
+</span></span><span style="display:flex;"><span>            I[v] <span style="color:#f92672">+=</span> J[u]
+</span></span><span style="display:flex;"><span>            J[v] <span style="color:#f92672">+=</span> I[u]
+</span></span><span style="display:flex;"><span>        I[v] <span style="color:#f92672">=</span> max(I[v], J[v])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    dfs(<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> I[<span style="color:#ae81ff">0</span>]</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-20229d24a9940237af8aa43eed8f06c3"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;functional&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">maxWeightIS</span>(<span style="color:#66d9ef">int</span> n, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> w, vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> adj) {
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> I(n), J(n);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    function<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">void</span>(<span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">int</span>)<span style="color:#f92672">&gt;</span> dfs <span style="color:#f92672">=</span> [<span style="color:#f92672">&amp;</span>](<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> par) {
+</span></span><span style="display:flex;"><span>        I[v] <span style="color:#f92672">=</span> w[v]; J[v] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> u : adj[v]) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (u <span style="color:#f92672">==</span> par) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>            dfs(u, v);
+</span></span><span style="display:flex;"><span>            I[v] <span style="color:#f92672">+=</span> J[u];
+</span></span><span style="display:flex;"><span>            J[v] <span style="color:#f92672">+=</span> I[u];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        I[v] <span style="color:#f92672">=</span> max(I[v], J[v]);
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    dfs(<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> I[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 id="восстановление-ответа">Восстановление ответа<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="tab-panel" data-tab-group="R-tabs-6eb73f41ea76c16fa311fa1f5cc9dc98">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-c2ca7b0ecc85863e50100ab11bb410ae" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-6eb73f41ea76c16fa311fa1f5cc9dc98','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-049ef22f8fa5cf0dd9dfb6ef83f2887c" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-6eb73f41ea76c16fa311fa1f5cc9dc98','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-c2ca7b0ecc85863e50100ab11bb410ae"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">restore_is</span>(v: int, parent: int, skip: bool,
+</span></span><span style="display:flex;"><span>               I: list[int], J: list[int],
+</span></span><span style="display:flex;"><span>               adj: list[list[int]], result: list[int]):
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    skip=True означает, что вершина v точно не входит в ответ.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    child_skip <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> skip <span style="color:#f92672">and</span> I[v] <span style="color:#f92672">&gt;</span> J[v]:  <span style="color:#75715e"># v входит в ответ</span>
+</span></span><span style="display:flex;"><span>        result<span style="color:#f92672">.</span>append(v)
+</span></span><span style="display:flex;"><span>        child_skip <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>  <span style="color:#75715e"># дети v в ответ не входят</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> adj[v]:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> u <span style="color:#f92672">==</span> parent:
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
-</span></span><span style="display:flex;"><span>        restoreSet(u, v, childSkip)
-</span></span><span style="display:flex;"><span>restoreSet(<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#66d9ef">False</span>)</span></span></code></pre></td></tr></table>
+</span></span><span style="display:flex;"><span>        restore_is(u, v, child_skip, I, J, adj, result)</span></span></code></pre></td></tr></table>
 </div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-049ef22f8fa5cf0dd9dfb6ef83f2887c"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">restoreIS</span>(<span style="color:#66d9ef">int</span> v, <span style="color:#66d9ef">int</span> par, <span style="color:#66d9ef">bool</span> skip,
+</span></span><span style="display:flex;"><span>               vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> I, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> J,
+</span></span><span style="display:flex;"><span>               vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> adj, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> result) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> childSkip <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>skip <span style="color:#f92672">&amp;&amp;</span> I[v] <span style="color:#f92672">&gt;</span> J[v]) {
+</span></span><span style="display:flex;"><span>        result.push_back(v);
+</span></span><span style="display:flex;"><span>        childSkip <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> u : adj[v]) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (u <span style="color:#f92672">==</span> par) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>        restoreIS(u, v, childSkip, I, J, adj, result);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
 </div>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 24 апр. 2025 г.
+              <i class='fa-fw fas fa-calendar'></i> 25 апр. 2026 г.
   </footer>
 </article>
         </div>
@@ -305,7 +506,18 @@ $$<p>Теперь все значения $I$, $J$ легко вычислить
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
-            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li></ul></li>
+            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_common_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_common_subsequence/index.html">15.1. Наибольшая общая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/levenshtein_distance/index.html"><a class="padding" href="/basics/dynamic_programming/levenshtein_distance/index.html">15.2. Расстояние Левенштейна</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/hirschbergs_algorithm/index.html"><a class="padding" href="/basics/dynamic_programming/hirschbergs_algorithm/index.html">15.3. Алгоритм Хиршберга</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_increasing_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_increasing_subsequence/index.html">15.4. Наибольшая возрастающая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/knapsack_problem/index.html"><a class="padding" href="/basics/dynamic_programming/knapsack_problem/index.html">15.5. Задача о рюкзаке</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/matrices_multiplication/index.html"><a class="padding" href="/basics/dynamic_programming/matrices_multiplication/index.html">15.6. Произведение матриц</a></li>
+            <li class="active " data-nav-id="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html"><a class="padding" href="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html">15.7. Независимое множество в дереве</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/travelling_salesman_problem/index.html"><a class="padding" href="/basics/dynamic_programming/travelling_salesman_problem/index.html">15.8. Задача коммивояжёра</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/generate_number_by_object/index.html"><a class="padding" href="/basics/dynamic_programming/generate_number_by_object/index.html">15.9. Генерация номера по объекту</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html"><a class="padding" href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">15.10. Рекуррентные соотношения</a></li></ul></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">

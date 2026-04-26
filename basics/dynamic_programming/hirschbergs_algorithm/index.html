@@ -3,30 +3,30 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="В предыдущих двух алгоритмах мы имели альтернативу: либо мы умеем восстанавливать ответ, либо можем себе позволить использовать $O(\min (m, n))$ дополнительной памяти. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min (m, n)&#43;$ $\log (\max (m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.
-Для определённости будем решать задачу о поиске НОП. В очередной раз применим метод “разделяй и властвуй”: отдельно решим задачу для последовательностей $a_{1}, \ldots, a_{n / 2}$ и $b_{1}, \ldots, b_{m}$, и для последовательностей $a_{n}, \ldots, a_{n / 2&#43;1}$ и $b_{m}, \ldots, b_{1}$. И ту, и другую задачу решим, используя $O(m)$ дополнительной памяти.">
+    <meta name="description" content="В предыдущих двух алгоритмах (НОП и расстояние Левенштейна) мы имели альтернативу: либо умеем восстанавливать ответ (используя $O(nm)$ памяти), либо можем позволить себе $O(\min(m, n))$ дополнительной памяти, но теряем возможность восстановления. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min(m, n) &#43; \log(\max(m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.
+Теорема Алгоритм Хиршберга вычисляет НОП двух последовательностей длин $n$ и $m$ за время $O(nm)$, используя $O(m &#43; \log n)$ дополнительной памяти.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Алгоритм Хиршберга :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="В предыдущих двух алгоритмах мы имели альтернативу: либо мы умеем восстанавливать ответ, либо можем себе позволить использовать $O(\min (m, n))$ дополнительной памяти. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min (m, n)&#43;$ $\log (\max (m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.
-Для определённости будем решать задачу о поиске НОП. В очередной раз применим метод “разделяй и властвуй”: отдельно решим задачу для последовательностей $a_{1}, \ldots, a_{n / 2}$ и $b_{1}, \ldots, b_{m}$, и для последовательностей $a_{n}, \ldots, a_{n / 2&#43;1}$ и $b_{m}, \ldots, b_{1}$. И ту, и другую задачу решим, используя $O(m)$ дополнительной памяти.">
+    <meta name="twitter:title" content="15.3. Алгоритм Хиршберга :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="В предыдущих двух алгоритмах (НОП и расстояние Левенштейна) мы имели альтернативу: либо умеем восстанавливать ответ (используя $O(nm)$ памяти), либо можем позволить себе $O(\min(m, n))$ дополнительной памяти, но теряем возможность восстановления. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min(m, n) &#43; \log(\max(m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.
+Теорема Алгоритм Хиршберга вычисляет НОП двух последовательностей длин $n$ и $m$ за время $O(nm)$, используя $O(m &#43; \log n)$ дополнительной памяти.">
     <meta property="og:url" content="https://apmath-spbu.github.io/basics/dynamic_programming/hirschbergs_algorithm/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
-    <meta property="og:title" content="Алгоритм Хиршберга :: Краткий курс по основам программирования">
-    <meta property="og:description" content="В предыдущих двух алгоритмах мы имели альтернативу: либо мы умеем восстанавливать ответ, либо можем себе позволить использовать $O(\min (m, n))$ дополнительной памяти. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min (m, n)&#43;$ $\log (\max (m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.
-Для определённости будем решать задачу о поиске НОП. В очередной раз применим метод “разделяй и властвуй”: отдельно решим задачу для последовательностей $a_{1}, \ldots, a_{n / 2}$ и $b_{1}, \ldots, b_{m}$, и для последовательностей $a_{n}, \ldots, a_{n / 2&#43;1}$ и $b_{m}, \ldots, b_{1}$. И ту, и другую задачу решим, используя $O(m)$ дополнительной памяти.">
+    <meta property="og:title" content="15.3. Алгоритм Хиршберга :: Краткий курс по основам программирования">
+    <meta property="og:description" content="В предыдущих двух алгоритмах (НОП и расстояние Левенштейна) мы имели альтернативу: либо умеем восстанавливать ответ (используя $O(nm)$ памяти), либо можем позволить себе $O(\min(m, n))$ дополнительной памяти, но теряем возможность восстановления. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min(m, n) &#43; \log(\max(m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.
+Теорема Алгоритм Хиршберга вычисляет НОП двух последовательностей длин $n$ и $m$ за время $O(nm)$, используя $O(m &#43; \log n)$ дополнительной памяти.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
-    <meta property="article:published_time" content="2025-04-24T16:21:19+03:00">
-    <meta property="article:modified_time" content="2025-04-24T16:21:19+03:00">
-    <meta itemprop="name" content="Алгоритм Хиршберга :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="В предыдущих двух алгоритмах мы имели альтернативу: либо мы умеем восстанавливать ответ, либо можем себе позволить использовать $O(\min (m, n))$ дополнительной памяти. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min (m, n)&#43;$ $\log (\max (m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.
-Для определённости будем решать задачу о поиске НОП. В очередной раз применим метод “разделяй и властвуй”: отдельно решим задачу для последовательностей $a_{1}, \ldots, a_{n / 2}$ и $b_{1}, \ldots, b_{m}$, и для последовательностей $a_{n}, \ldots, a_{n / 2&#43;1}$ и $b_{m}, \ldots, b_{1}$. И ту, и другую задачу решим, используя $O(m)$ дополнительной памяти.">
-    <meta itemprop="datePublished" content="2025-04-24T16:21:19+03:00">
-    <meta itemprop="dateModified" content="2025-04-24T16:21:19+03:00">
-    <meta itemprop="wordCount" content="550">
-    <title>Алгоритм Хиршберга :: Краткий курс по основам программирования</title>
+    <meta property="article:published_time" content="2026-04-25T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="name" content="15.3. Алгоритм Хиршберга :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="В предыдущих двух алгоритмах (НОП и расстояние Левенштейна) мы имели альтернативу: либо умеем восстанавливать ответ (используя $O(nm)$ памяти), либо можем позволить себе $O(\min(m, n))$ дополнительной памяти, но теряем возможность восстановления. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min(m, n) &#43; \log(\max(m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.
+Теорема Алгоритм Хиршберга вычисляет НОП двух последовательностей длин $n$ и $m$ за время $O(nm)$, используя $O(m &#43; \log n)$ дополнительной памяти.">
+    <meta itemprop="datePublished" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="wordCount" content="968">
+    <title>15.3. Алгоритм Хиршберга :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
     <script src="/js/search-lunr.min.js" defer></script>
@@ -137,17 +137,17 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">17. Динамическое программирование</span><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Алгоритм Хиршберга</span><meta itemprop="position" content="4"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/dynamic_programming/index.html"><span itemprop="name">15. Динамическое программирование</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">15.3. Алгоритм Хиршберга</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/dynamic_programming/hirschbergs_algorithm.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/levenshtein_distance/index.html" title="Расстояние Левенштейна (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/levenshtein_distance/index.html" title="15.2. Расстояние Левенштейна (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/longest_increasing_subsequence/index.html" title="Наибольшая возрастающая подпоследовательность (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/longest_increasing_subsequence/index.html" title="15.4. Наибольшая возрастающая подпоследовательность (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -168,46 +168,60 @@
   <header class="headline">
   </header>
 
-<h1 id="алгоритм-хиршберга">Алгоритм Хиршберга</h1>
+<h1 id="153-алгоритм-хиршберга">15.3. Алгоритм Хиршберга</h1>
 
-<p>В предыдущих двух алгоритмах мы имели альтернативу: либо мы умеем восстанавливать ответ, либо можем себе позволить использовать $O(\min (m, n))$ дополнительной памяти. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min (m, n)+$ $\log (\max (m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.</p>
-<p>Для определённости будем решать задачу о поиске НОП. В очередной раз применим метод &ldquo;разделяй и властвуй&rdquo;: отдельно решим задачу для последовательностей $a_{1}, \ldots, a_{n / 2}$ и $b_{1}, \ldots, b_{m}$, и для последовательностей $a_{n}, \ldots, a_{n / 2+1}$ и $b_{m}, \ldots, b_{1}$. И ту, и другую задачу решим, используя $O(m)$ дополнительной памяти.</p>
-<p>Пусть в результате $l[j]$ - длина НОП $a_{1}, \ldots, a_{n / 2}$ и $b_{1}, \ldots, b_{j} ; r[j]$ - длина НОП $a_{n}, \ldots, a_{n / 2+1}$ и $b_{m}, \ldots, b_{m+1-j}$. Тогда длина НОП $a_{1}, \ldots, a_{n}$ и $b_{1}, \ldots, b_{m}$ - это максимум $l[j]+r[m-j]$ по $0 \leqslant j \leqslant m$.</p>
-<p>Пусть максимальное значение достигается на $j_{\max }$. Сделаем рекурсивные запуски алгоритма от $a_{1}, \ldots, a_{n / 2}$ и $b_{1}, \ldots, b_{j_{\max }}$ и от $a_{n / 2+1}, \ldots, a_{n}$ и $b_{j_{\max }+1}, \ldots, b_{m}$, чтобы восстановить половинки ответа.</p>
-<p>Глубина рекурсии составит $O(\log n)$, каждый рекурсивный запуск может переиспользовать одни и те же $O(m)$ дополнительной памяти, значит, всего понадобится $O(m+\log n)$ дополнительной памяти.</p>
-<p>Осталось понять, почему оценка времени работы по-прежнему равна $O(m n)$. Посмотрим на все рекурсивные вызовы на глубине $k$. Во всех них первая последовательность имеет длину $O\left(n / 2^{k}\right)$, а сумма длин вторых последовательностей по всем вызовам на глубине $k$ равна $m$. Значит, суммарное время работы рекурсивных вызовов на глубине $k$ равно $O\left(m n / 2^{k}\right)$. Тогда суммарное время работы всех вызовов есть</p>
-$$
-\sum_{k} O\left(m n / 2^{k}\right)=O(m n)
-$$<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>hirschberg(a, b):
-</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(a), m <span style="color:#f92672">=</span> len(b)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">or</span> m <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># если одна из последовательностей имеет длину не больше 1,</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># решим задачу обычным алгоритмом</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> naiveLCS(a, b)
-</span></span><span style="display:flex;"><span>    l<span style="color:#f92672">=</span> getLCS (a[<span style="color:#ae81ff">0</span>, n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>), b)
-</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">=</span> getLCS(reverse(a[n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>, n)), reverse(b))
-</span></span><span style="display:flex;"><span>    j <span style="color:#f92672">=</span> argmax (l[j] <span style="color:#f92672">+</span> r[m <span style="color:#f92672">-</span> j], j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>m)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> hirschberg(a[<span style="color:#ae81ff">0</span>, n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>), b[<span style="color:#ae81ff">0</span>, j))
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">+</span> hirschberg(a[n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>, n), b[j, m))</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<h3 id="альтернативный-способ">Альтернативный способ<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Другой способ, работающий по тем же причинам: будем действовать, как обычно при восстановлении ответа, но запоминать будем не предыдущее состояние, а состояние на оптимальном пути от начального с $i=n / 2$.</p>
+<p>В предыдущих двух алгоритмах (<a href="/basics/dynamic_programming/longest_common_subsequence/index.html">НОП</a> и <a href="/basics/dynamic_programming/levenshtein_distance/index.html">расстояние Левенштейна</a>) мы имели альтернативу: либо умеем восстанавливать ответ (используя $O(nm)$ памяти), либо можем позволить себе $O(\min(m, n))$ дополнительной памяти, но теряем возможность восстановления. Алгоритм Хиршберга позволяет восстанавливать ответ, используя $O(\min(m, n) + \log(\max(m, n)))$ дополнительной памяти. Идея алгоритма применима не только в этих двух, но и во многих других задачах.</p>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Теорема
+  </summary>
+  <div class="box-content">
+<p>Алгоритм Хиршберга вычисляет НОП двух последовательностей длин $n$ и $m$ за время $O(nm)$, используя $O(m + \log n)$ дополнительной памяти.</p>
+  </div>
+</details>
+<p>Для определённости будем решать задачу о поиске НОП. Применим метод «разделяй и властвуй»: отдельно решим задачу для последовательностей $a_{1}, \ldots, a_{n/2}$ и $b_{1}, \ldots, b_{m}$, и для последовательностей $a_{n}, \ldots, a_{n/2+1}$ и $b_{m}, \ldots, b_{1}$. И ту, и другую задачу решим, используя $O(m)$ дополнительной памяти.</p>
+<p>Пусть в результате $l[j]$ — длина НОП $a_{1}, \ldots, a_{n/2}$ и $b_{1}, \ldots, b_{j}$; $r[j]$ — длина НОП $a_{n}, \ldots, a_{n/2+1}$ и $b_{m}, \ldots, b_{m+1-j}$. Тогда длина НОП $a_{1}, \ldots, a_{n}$ и $b_{1}, \ldots, b_{m}$ — это максимум $l[j]+r[m-j]$ по $0 \leqslant j \leqslant m$.</p>
+<p>Пусть максимальное значение достигается на $j_{\max}$. Сделаем рекурсивные запуски алгоритма от $a_{1}, \ldots, a_{n/2}$ и $b_{1}, \ldots, b_{j_{\max}}$ и от $a_{n/2+1}, \ldots, a_{n}$ и $b_{j_{\max}+1}, \ldots, b_{m}$, чтобы восстановить половинки ответа.</p>
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p>Глубина рекурсии составит $O(\log n)$, каждый рекурсивный запуск может переиспользовать одни и те же $O(m)$ дополнительной памяти, значит, всего понадобится $O(m + \log n)$ дополнительной памяти.</p>
+<p>Осталось понять, почему оценка времени работы по-прежнему равна $O(mn)$. Посмотрим на все рекурсивные вызовы на глубине $k$. Во всех них первая последовательность имеет длину $O(n/2^k)$, а сумма длин вторых последовательностей по всем вызовам на глубине $k$ равна $m$. Значит, суммарное время работы рекурсивных вызовов на глубине $k$ равно $O(mn/2^k)$. Тогда суммарное время работы всех вызовов есть $\sum_{k} O(mn/2^k) = O(mn)$.</p>
+  </div>
+</details>
+<div class="tab-panel" data-tab-group="R-tabs-b151685f4091e2a050bff528978f6579">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-d54d55034eb8ab19e8a15172e732e78b" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-b151685f4091e2a050bff528978f6579','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-7c17356eb45fec903f95e90ec3c6650a" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-b151685f4091e2a050bff528978f6579','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-d54d55034eb8ab19e8a15172e732e78b"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -232,35 +246,270 @@ $$<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="colo
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>int l[<span style="color:#ae81ff">2</span>][m <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span>int mid[<span style="color:#ae81ff">2</span>][m <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span>relax(i, j, newL, newMid):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> l[i, j] <span style="color:#f92672">&lt;</span> newL:
-</span></span><span style="display:flex;"><span>        l[i, j] <span style="color:#f92672">=</span> newL, mid[i, j] <span style="color:#f92672">=</span> newMid
-</span></span><span style="display:flex;"><span>hirschberg(a, b):
-</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(a), m <span style="color:#f92672">=</span> len(b)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">or</span> m <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> naiveLCS(a, b)
-</span></span><span style="display:flex;"><span>    fill(l, <span style="color:#ae81ff">0</span>), fill(mid, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>n:
-</span></span><span style="display:flex;"><span>        cur <span style="color:#f92672">=</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>, prev <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> cur
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>m:
-</span></span><span style="display:flex;"><span>            relax(cur, j, l[prev, j], mid[prev, j])
-</span></span><span style="display:flex;"><span>            relax(cur, j, l[cur, j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>], mid[cur, j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>])
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> a[i] <span style="color:#f92672">==</span> b[j]:
-</span></span><span style="display:flex;"><span>                relax(cur, j, l[prev, j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, mid[prev, j <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>])
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>:
-</span></span><span style="display:flex;"><span>                mid[cur, j] <span style="color:#f92672">=</span> j
-</span></span><span style="display:flex;"><span>    j <span style="color:#f92672">=</span> mid[n, m]
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> hirschberg(a[<span style="color:#ae81ff">0</span>, n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>), b[<span style="color:#ae81ff">0</span>, j))
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">+</span> hirschberg(a[n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>, n), b[j, m))</span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_lcs_row</span>(a: list, b: list) <span style="color:#f92672">-&gt;</span> list[int]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Возвращает последнюю строку таблицы НОП за O(m) памяти.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    m <span style="color:#f92672">=</span> len(b)
+</span></span><span style="display:flex;"><span>    l <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (m <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>)]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i, ai <span style="color:#f92672">in</span> enumerate(a, <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        cur, prev <span style="color:#f92672">=</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, m <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            l[cur][j] <span style="color:#f92672">=</span> max(l[prev][j], l[cur][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> ai <span style="color:#f92672">==</span> b[j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]:
+</span></span><span style="display:flex;"><span>                l[cur][j] <span style="color:#f92672">=</span> max(l[cur][j], l[prev][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> l[len(a) <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hirschberg</span>(a: list, b: list) <span style="color:#f92672">-&gt;</span> list:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Возвращает НОП списков a и b, используя O(m + log n) памяти.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    n, m <span style="color:#f92672">=</span> len(a), len(b)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> [a[<span style="color:#ae81ff">0</span>]] <span style="color:#66d9ef">if</span> a[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">in</span> b <span style="color:#66d9ef">else</span> []
+</span></span><span style="display:flex;"><span>    mid <span style="color:#f92672">=</span> n <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    l <span style="color:#f92672">=</span> get_lcs_row(a[:mid], b)
+</span></span><span style="display:flex;"><span>    r <span style="color:#f92672">=</span> get_lcs_row(a[mid:][::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>], b[::<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>    j_max <span style="color:#f92672">=</span> max(range(m <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>), key<span style="color:#f92672">=</span><span style="color:#66d9ef">lambda</span> j: l[j] <span style="color:#f92672">+</span> r[m <span style="color:#f92672">-</span> j])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> hirschberg(a[:mid], b[:j_max]) <span style="color:#f92672">+</span> hirschberg(a[mid:], b[j_max:])</span></span></code></pre></td></tr></table>
 </div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-7c17356eb45fec903f95e90ec3c6650a"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">38
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">39
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">40
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">41
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">42
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">43
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">44
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">45
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">46
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">47
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">48
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;numeric&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> getLCSRow(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> b) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> a.size(), m <span style="color:#f92672">=</span> b.size();
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> l(<span style="color:#ae81ff">2</span>, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(m <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> n; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> cur <span style="color:#f92672">=</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>, prev <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> cur;
+</span></span><span style="display:flex;"><span>        fill(l[cur].begin(), l[cur].end(), <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;=</span> m; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            l[cur][j] <span style="color:#f92672">=</span> max(l[prev][j], l[cur][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (a[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> b[j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>                l[cur][j] <span style="color:#f92672">=</span> max(l[cur][j], l[prev][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> l[n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> hirschberg(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> a, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> b) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> a.size(), m <span style="color:#f92672">=</span> b.size();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> {};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> x : b) <span style="color:#66d9ef">if</span> (x <span style="color:#f92672">==</span> a[<span style="color:#ae81ff">0</span>]) <span style="color:#66d9ef">return</span> {a[<span style="color:#ae81ff">0</span>]};
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {};
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> mid <span style="color:#f92672">=</span> n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> aL(a.begin(), a.begin() <span style="color:#f92672">+</span> mid);
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> aR(a.begin() <span style="color:#f92672">+</span> mid, a.end());
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> bRev(b.rbegin(), b.rend());
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> aRRev(aR.rbegin(), aR.rend());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> l <span style="color:#f92672">=</span> getLCSRow(aL, b);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> r <span style="color:#f92672">=</span> getLCSRow(aRRev, bRev);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> jMax <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">&lt;=</span> m; j<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (l[j] <span style="color:#f92672">+</span> r[m<span style="color:#f92672">-</span>j] <span style="color:#f92672">&gt;</span> l[jMax] <span style="color:#f92672">+</span> r[m<span style="color:#f92672">-</span>jMax])
+</span></span><span style="display:flex;"><span>            jMax <span style="color:#f92672">=</span> j;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> bL(b.begin(), b.begin() <span style="color:#f92672">+</span> jMax);
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> bR(b.begin() <span style="color:#f92672">+</span> jMax, b.end());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> left  <span style="color:#f92672">=</span> hirschberg(aL, bL);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> right <span style="color:#f92672">=</span> hirschberg(aR, bR);
+</span></span><span style="display:flex;"><span>    left.insert(left.end(), right.begin(), right.end());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> left;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 id="альтернативный-способ">Альтернативный способ<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Другой способ, работающий по тем же причинам: будем действовать как обычно при восстановлении ответа, но запоминать будем не предыдущее состояние, а состояние на оптимальном пути от начального с $i = n/2$.</p>
+<div class="tab-panel" data-tab-group="R-tabs-f5d86239442b9a70d6bd873ffee35d5c">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-4ecc7677e3582318080f1c9256f66c77" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-f5d86239442b9a70d6bd873ffee35d5c','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-9eb7bac9615619966e4ef52528f9808a" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-f5d86239442b9a70d6bd873ffee35d5c','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-4ecc7677e3582318080f1c9256f66c77"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hirschberg_alt</span>(a: list, b: list) <span style="color:#f92672">-&gt;</span> list:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Альтернативная реализация алгоритма Хиршберга.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    n, m <span style="color:#f92672">=</span> len(a), len(b)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> [a[<span style="color:#ae81ff">0</span>]] <span style="color:#66d9ef">if</span> a[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">in</span> b <span style="color:#66d9ef">else</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    mid <span style="color:#f92672">=</span> n <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># l[cur][j] = длина НОП; mid_j[j] = позиция в b на половине пути</span>
+</span></span><span style="display:flex;"><span>    INF <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    l <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (m <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>)]
+</span></span><span style="display:flex;"><span>    mid_j <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (m <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        cur, prev <span style="color:#f92672">=</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(m <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            l[cur][j] <span style="color:#f92672">=</span> l[prev][j]
+</span></span><span style="display:flex;"><span>            mid_j[cur][j] <span style="color:#f92672">=</span> mid_j[prev][j]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> j <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> l[cur][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&gt;</span> l[cur][j]:
+</span></span><span style="display:flex;"><span>                l[cur][j] <span style="color:#f92672">=</span> l[cur][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>                mid_j[cur][j] <span style="color:#f92672">=</span> mid_j[cur][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> j <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> a[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> b[j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">and</span> l[prev][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&gt;</span> l[cur][j]:
+</span></span><span style="display:flex;"><span>                l[cur][j] <span style="color:#f92672">=</span> l[prev][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                mid_j[cur][j] <span style="color:#f92672">=</span> mid_j[prev][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> mid:
+</span></span><span style="display:flex;"><span>                mid_j[cur][j] <span style="color:#f92672">=</span> j
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    j_max <span style="color:#f92672">=</span> mid_j[n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span>][m]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> hirschberg(a[:mid], b[:j_max]) <span style="color:#f92672">+</span> hirschberg(a[mid:], b[j_max:])</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-9eb7bac9615619966e4ef52528f9808a"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Альтернативная реализация через запоминание mid-позиции
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Основная идея: при i == n/2 запомнить текущую позицию j как mid_j
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// (реализация аналогична основной версии, см. выше)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
 </div>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 24 апр. 2025 г.
+              <i class='fa-fw fas fa-calendar'></i> 25 апр. 2026 г.
   </footer>
 </article>
         </div>
@@ -317,7 +566,18 @@ $$<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="colo
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
-            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li></ul></li>
+            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_common_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_common_subsequence/index.html">15.1. Наибольшая общая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/levenshtein_distance/index.html"><a class="padding" href="/basics/dynamic_programming/levenshtein_distance/index.html">15.2. Расстояние Левенштейна</a></li>
+            <li class="active " data-nav-id="/basics/dynamic_programming/hirschbergs_algorithm/index.html"><a class="padding" href="/basics/dynamic_programming/hirschbergs_algorithm/index.html">15.3. Алгоритм Хиршберга</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_increasing_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_increasing_subsequence/index.html">15.4. Наибольшая возрастающая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/knapsack_problem/index.html"><a class="padding" href="/basics/dynamic_programming/knapsack_problem/index.html">15.5. Задача о рюкзаке</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/matrices_multiplication/index.html"><a class="padding" href="/basics/dynamic_programming/matrices_multiplication/index.html">15.6. Произведение матриц</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html"><a class="padding" href="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html">15.7. Независимое множество в дереве</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/travelling_salesman_problem/index.html"><a class="padding" href="/basics/dynamic_programming/travelling_salesman_problem/index.html">15.8. Задача коммивояжёра</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/generate_number_by_object/index.html"><a class="padding" href="/basics/dynamic_programming/generate_number_by_object/index.html">15.9. Генерация номера по объекту</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html"><a class="padding" href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">15.10. Рекуррентные соотношения</a></li></ul></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">

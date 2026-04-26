@@ -3,26 +3,30 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="Пусть мы хотим вычислить произведение $n$ матриц $A_{1} \times \cdots \times A_{n}$; матрица $A_{i}$ имеет размер $m_{i-1} \times m_{i}$. Сами умножения мы будем производить, пользуясь определением произведения матриц, то есть на вычисление произведения матриц размеров $m \times n$ и $n \times p$ мы потратим $O(m n p)$ действий. Однако мы вольны выбирать порядок, в котором будем производить умножения (то есть расставлять скобки в выражении выше). Хочется минимизировать суммарное количество действий, которые придётся сделать, чтобы вычислить произведение всех матриц.">
+    <meta name="description" content="Определение Задача об оптимальном порядке перемножения матриц (matrix chain multiplication): дано $n$ матриц $A_1 \times \cdots \times A_n$, где $A_i$ имеет размер $m_{i-1} \times m_i$. Матрицы умножаются по определению: произведение матриц $m \times n$ и $n \times p$ требует $O(mnp)$ действий. Требуется выбрать порядок умножений (расстановку скобок), минимизирующий суммарное число действий.
+Пусть, например, мы перемножаем матрицы размеров $100 \times 10$, $10 \times 20$ и $20 \times 2$. Порядок $(A_1 \times A_2) \times A_3$ требует $100 \cdot 10 \cdot 20 &#43; 100 \cdot 20 \cdot 2 = 24000$ действий, а порядок $A_1 \times (A_2 \times A_3)$ — лишь $10 \cdot 20 \cdot 2 &#43; 100 \cdot 10 \cdot 2 = 2400$.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Произведение матриц :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="Пусть мы хотим вычислить произведение $n$ матриц $A_{1} \times \cdots \times A_{n}$; матрица $A_{i}$ имеет размер $m_{i-1} \times m_{i}$. Сами умножения мы будем производить, пользуясь определением произведения матриц, то есть на вычисление произведения матриц размеров $m \times n$ и $n \times p$ мы потратим $O(m n p)$ действий. Однако мы вольны выбирать порядок, в котором будем производить умножения (то есть расставлять скобки в выражении выше). Хочется минимизировать суммарное количество действий, которые придётся сделать, чтобы вычислить произведение всех матриц.">
+    <meta name="twitter:title" content="15.6. Оптимальный порядок перемножения матриц :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Определение Задача об оптимальном порядке перемножения матриц (matrix chain multiplication): дано $n$ матриц $A_1 \times \cdots \times A_n$, где $A_i$ имеет размер $m_{i-1} \times m_i$. Матрицы умножаются по определению: произведение матриц $m \times n$ и $n \times p$ требует $O(mnp)$ действий. Требуется выбрать порядок умножений (расстановку скобок), минимизирующий суммарное число действий.
+Пусть, например, мы перемножаем матрицы размеров $100 \times 10$, $10 \times 20$ и $20 \times 2$. Порядок $(A_1 \times A_2) \times A_3$ требует $100 \cdot 10 \cdot 20 &#43; 100 \cdot 20 \cdot 2 = 24000$ действий, а порядок $A_1 \times (A_2 \times A_3)$ — лишь $10 \cdot 20 \cdot 2 &#43; 100 \cdot 10 \cdot 2 = 2400$.">
     <meta property="og:url" content="https://apmath-spbu.github.io/basics/dynamic_programming/matrices_multiplication/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
-    <meta property="og:title" content="Произведение матриц :: Краткий курс по основам программирования">
-    <meta property="og:description" content="Пусть мы хотим вычислить произведение $n$ матриц $A_{1} \times \cdots \times A_{n}$; матрица $A_{i}$ имеет размер $m_{i-1} \times m_{i}$. Сами умножения мы будем производить, пользуясь определением произведения матриц, то есть на вычисление произведения матриц размеров $m \times n$ и $n \times p$ мы потратим $O(m n p)$ действий. Однако мы вольны выбирать порядок, в котором будем производить умножения (то есть расставлять скобки в выражении выше). Хочется минимизировать суммарное количество действий, которые придётся сделать, чтобы вычислить произведение всех матриц.">
+    <meta property="og:title" content="15.6. Оптимальный порядок перемножения матриц :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Определение Задача об оптимальном порядке перемножения матриц (matrix chain multiplication): дано $n$ матриц $A_1 \times \cdots \times A_n$, где $A_i$ имеет размер $m_{i-1} \times m_i$. Матрицы умножаются по определению: произведение матриц $m \times n$ и $n \times p$ требует $O(mnp)$ действий. Требуется выбрать порядок умножений (расстановку скобок), минимизирующий суммарное число действий.
+Пусть, например, мы перемножаем матрицы размеров $100 \times 10$, $10 \times 20$ и $20 \times 2$. Порядок $(A_1 \times A_2) \times A_3$ требует $100 \cdot 10 \cdot 20 &#43; 100 \cdot 20 \cdot 2 = 24000$ действий, а порядок $A_1 \times (A_2 \times A_3)$ — лишь $10 \cdot 20 \cdot 2 &#43; 100 \cdot 10 \cdot 2 = 2400$.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
-    <meta property="article:published_time" content="2025-04-24T17:19:09+03:00">
-    <meta property="article:modified_time" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="name" content="Произведение матриц :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="Пусть мы хотим вычислить произведение $n$ матриц $A_{1} \times \cdots \times A_{n}$; матрица $A_{i}$ имеет размер $m_{i-1} \times m_{i}$. Сами умножения мы будем производить, пользуясь определением произведения матриц, то есть на вычисление произведения матриц размеров $m \times n$ и $n \times p$ мы потратим $O(m n p)$ действий. Однако мы вольны выбирать порядок, в котором будем производить умножения (то есть расставлять скобки в выражении выше). Хочется минимизировать суммарное количество действий, которые придётся сделать, чтобы вычислить произведение всех матриц.">
-    <meta itemprop="datePublished" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="dateModified" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="wordCount" content="407">
-    <title>Произведение матриц :: Краткий курс по основам программирования</title>
+    <meta property="article:published_time" content="2026-04-25T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="name" content="15.6. Оптимальный порядок перемножения матриц :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Определение Задача об оптимальном порядке перемножения матриц (matrix chain multiplication): дано $n$ матриц $A_1 \times \cdots \times A_n$, где $A_i$ имеет размер $m_{i-1} \times m_i$. Матрицы умножаются по определению: произведение матриц $m \times n$ и $n \times p$ требует $O(mnp)$ действий. Требуется выбрать порядок умножений (расстановку скобок), минимизирующий суммарное число действий.
+Пусть, например, мы перемножаем матрицы размеров $100 \times 10$, $10 \times 20$ и $20 \times 2$. Порядок $(A_1 \times A_2) \times A_3$ требует $100 \cdot 10 \cdot 20 &#43; 100 \cdot 20 \cdot 2 = 24000$ действий, а порядок $A_1 \times (A_2 \times A_3)$ — лишь $10 \cdot 20 \cdot 2 &#43; 100 \cdot 10 \cdot 2 = 2400$.">
+    <meta itemprop="datePublished" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="wordCount" content="586">
+    <title>15.6. Оптимальный порядок перемножения матриц :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
     <script src="/js/search-lunr.min.js" defer></script>
@@ -133,17 +137,17 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">17. Динамическое программирование</span><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">⬜✖️⬜ Произведение матриц</span><meta itemprop="position" content="4"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/dynamic_programming/index.html"><span itemprop="name">15. Динамическое программирование</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">15.6. Произведение матриц</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/dynamic_programming/matrices_multiplication.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/knapsack_problem/index.html" title="Задача о рюкзаке (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/knapsack_problem/index.html" title="15.5. Задача о рюкзаке (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html" title="Независимое множество максимального веса в дереве (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html" title="15.7. Независимое множество максимального веса в дереве (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -164,46 +168,186 @@
   <header class="headline">
   </header>
 
-<h1 id="произведение-матриц">Произведение матриц</h1>
+<h1 id="156-оптимальный-порядок-перемножения-матриц">15.6. Оптимальный порядок перемножения матриц</h1>
 
-<p>Пусть мы хотим вычислить произведение $n$ матриц $A_{1} \times \cdots \times A_{n}$; матрица $A_{i}$ имеет размер $m_{i-1} \times m_{i}$. Сами умножения мы будем производить, пользуясь определением произведения матриц, то есть на вычисление произведения матриц размеров $m \times n$ и $n \times p$ мы потратим $O(m n p)$ действий. Однако мы вольны выбирать порядок, в котором будем производить умножения (то есть расставлять скобки в выражении выше). Хочется минимизировать суммарное количество действий, которые придётся сделать, чтобы вычислить произведение всех матриц.</p>
-<p>Пусть, например, мы перемножаем матрицы размеров $100 \times 10$, $10 \times 20$ и $20 \times 2$. Если производить вычисления в порядке $\left(A_{1} \times A_{2}\right) \times A_{3}$, то понадобится совершить $100 \cdot 10 \cdot 20+100 \cdot 20 \cdot 2=24000$ действий; если же использовать порядок $A_{1} \times\left(A_{2} \times A_{3}\right)$, понадобится всего $10 \cdot 20 \cdot 2+100 \cdot 10 \cdot 2=2400$ действий.</p>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Задача об оптимальном порядке перемножения матриц</strong> (<em>matrix chain multiplication</em>): дано $n$ матриц $A_1 \times \cdots \times A_n$, где $A_i$ имеет размер $m_{i-1} \times m_i$. Матрицы умножаются по определению: произведение матриц $m \times n$ и $n \times p$ требует $O(mnp)$ действий. Требуется выбрать порядок умножений (расстановку скобок), минимизирующий суммарное число действий.</p>
+  </div>
+</details>
+<p>Пусть, например, мы перемножаем матрицы размеров $100 \times 10$, $10 \times 20$ и $20 \times 2$. Порядок $(A_1 \times A_2) \times A_3$ требует $100 \cdot 10 \cdot 20 + 100 \cdot 20 \cdot 2 = 24000$ действий, а порядок $A_1 \times (A_2 \times A_3)$ — лишь $10 \cdot 20 \cdot 2 + 100 \cdot 10 \cdot 2 = 2400$.</p>
 <h3 id="динамическое-программирование-по-подотрезкам">Динамическое программирование по подотрезкам<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Как решить эту задачу методом динамического программирования? Попробуем свести задачу к подзадачам попроще. Посмотрим на последнюю операцию умножения, которую мы проведём: мы перемножим матрицы $A_{1} \times \cdots \times A_{j}$ и $A_{j+1} \times \cdots \times A_{n}$ для некоторого $j$. Операции, которые мы сделали до этого, соответствуют оптимальному вычислению этих двух матриц: получились две независимых подзадачи.</p>
-<p>Таким образом, состояния на этот раз соотвествуют не только префиксам (как во многих рассмотренных ранее задачах), но и суффиксам последовательности, соответствующей текущей задаче. Если же мы попытаемся свести задачу для префикса или суффикса к подзадачам попроще, то нам понадобится решать подзадачи уже для подотрезков последовательности, соответствующей исходной задаче.</p>
-<p>Итак, на этот раз состояния соответствуют подотрезкам исходной задачи. Пусть $c[l, r]$ минимальное количество операций, необходимое для вычисления $A_{l} \times \cdots \times A_{r}$. Начальные состояния: $c[i, i]=0$. Для того, чтобы выписать переходы, переберём, какую пару матриц мы будем умножать в самом конце:</p>
+<p>Посмотрим на последнюю операцию умножения: мы перемножим $A_1 \times \cdots \times A_j$ и $A_{j+1} \times \cdots \times A_n$ для некоторого $j$. Операции до этого соответствуют оптимальному вычислению этих двух матриц — получаются две независимые подзадачи для <strong>подотрезков</strong> исходной последовательности.</p>
+<p>Пусть $c[l, r]$ — минимальное количество операций, необходимое для вычисления $A_l \times \cdots \times A_r$. Начальные состояния: $c[i, i] = 0$. Переход — перебор последней пары умножаемых матриц:
+</p>
 $$
-c[l, r]=\min _{l \leqslant i < r}(c[l, i]+c[i+1, r]+m[l-1] \cdot m[i] \cdot m[r]) .
-$$<p>Один из порядков, соответствующий топологической сортировке на графе состояний &mdash; рассматривать состояния в порядке увеличения длины подотрезка.</p>
-<p>Получилось решение с временем работы $O\left(n^{3}\right)$, использующее $O\left(n^{2}\right)$ дополнительной памяти. Восстановление ответа делается стандартными методами.</p>
-<p>✍️ Эту задачу умеют решать за $O(n \log n)$ (Hu, Shing, 1984).</p>
+c[l, r] = \min_{l \leqslant i < r} \bigl(c[l, i] + c[i+1, r] + m_{l-1} \cdot m_i \cdot m_r\bigr).
+$$<p>Состояния рассматриваем в порядке увеличения длины подотрезка. Получаем решение за $O(n^3)$, $O(n^2)$ дополнительной памяти.</p>
+<div class="tab-panel" data-tab-group="R-tabs-ef2d1ec4fbb3f9e6ce25b84190b4f757">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-a7780b6983b95831aed741361d6e594c" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-ef2d1ec4fbb3f9e6ce25b84190b4f757','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-645971ebe1e75da854d39916c6138188" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-ef2d1ec4fbb3f9e6ce25b84190b4f757','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-a7780b6983b95831aed741361d6e594c"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fill(c, inf)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>n:
-</span></span><span style="display:flex;"><span>    c[i, i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>n:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> s):
-</span></span><span style="display:flex;"><span>        r <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> s <span style="color:#75715e"># подзадача [l, r]</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> l<span style="color:#f92672">..</span>(r <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>            c[l, r] <span style="color:#f92672">=</span> min(c[l, r],
-</span></span><span style="display:flex;"><span>                c[l, i] <span style="color:#f92672">+</span> c[i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,r] <span style="color:#f92672">+</span> m[l <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> m[i] <span style="color:#f92672">*</span> m[r])</span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">matrix_chain</span>(m: list[int]) <span style="color:#f92672">-&gt;</span> tuple[list[list[int]], list[list[int]]]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    m[i] — размеры: матрица A_i имеет размер m[i-1] x m[i].
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Возвращает (c, split), где c[l][r] — минимум операций,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    split[l][r] — оптимальная точка разбиения.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(m) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    INF <span style="color:#f92672">=</span> float(<span style="color:#e6db74">&#39;inf&#39;</span>)
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> [[INF] <span style="color:#f92672">*</span> (n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>    split <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        c[i][i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> s <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n):          <span style="color:#75715e"># длина подотрезка</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> l <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">-</span> s <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            r <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> s
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(l, r):
+</span></span><span style="display:flex;"><span>                cost <span style="color:#f92672">=</span> c[l][i] <span style="color:#f92672">+</span> c[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][r] <span style="color:#f92672">+</span> m[l<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> m[i] <span style="color:#f92672">*</span> m[r]
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> cost <span style="color:#f92672">&lt;</span> c[l][r]:
+</span></span><span style="display:flex;"><span>                    c[l][r] <span style="color:#f92672">=</span> cost
+</span></span><span style="display:flex;"><span>                    split[l][r] <span style="color:#f92672">=</span> i
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> c, split</span></span></code></pre></td></tr></table>
 </div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-645971ebe1e75da854d39916c6138188"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;climits&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// m[i] — размеры: A_i имеет размер m[i-1] x m[i]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Возвращает (c, split): c[l][r] = минимум операций,
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// split[l][r] = оптимальная точка разбиения
+</span></span></span><span style="display:flex;"><span>pair<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&gt;</span>, vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&gt;</span>
+</span></span><span style="display:flex;"><span>matrixChain(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> m) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> m.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&gt;</span> c(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span>(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, LLONG_MAX));
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> sp(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> n; i<span style="color:#f92672">++</span>) c[i][i] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; s <span style="color:#f92672">&lt;</span> n; s<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; l <span style="color:#f92672">+</span> s <span style="color:#f92672">&lt;=</span> n; l<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> s;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> l; i <span style="color:#f92672">&lt;</span> r; i<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> cost <span style="color:#f92672">=</span> c[l][i] <span style="color:#f92672">+</span> c[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>][r]
+</span></span><span style="display:flex;"><span>                               <span style="color:#f92672">+</span> (<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span>)m[l<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">*</span> m[i] <span style="color:#f92672">*</span> m[r];
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (cost <span style="color:#f92672">&lt;</span> c[l][r]) {
+</span></span><span style="display:flex;"><span>                    c[l][r] <span style="color:#f92672">=</span> cost;
+</span></span><span style="display:flex;"><span>                    sp[l][r] <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {c, sp};
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Восстановление ответа (оптимального порядка скобок) делается стандартными методами по массиву <code>split</code>. Эту задачу умеют решать за $O(n \log n)$ (Hu, Shing, 1984). Тот же подход «DP по подотрезкам» применяется в задачах об <a href="/basics/binary_trees/bst_operations/index.html">оптимальном двоичном дереве поиска</a> и разборе контекстно-свободных грамматик. Задача тесно связана с <a href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">возведением матрицы в степень</a>.</p>
+  </div>
+</details>
+
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 24 апр. 2025 г.
+              <i class='fa-fw fas fa-calendar'></i> 25 апр. 2026 г.
   </footer>
 </article>
         </div>
@@ -260,7 +404,18 @@ $$<p>Один из порядков, соответствующий тополо
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
-            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li></ul></li>
+            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_common_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_common_subsequence/index.html">15.1. Наибольшая общая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/levenshtein_distance/index.html"><a class="padding" href="/basics/dynamic_programming/levenshtein_distance/index.html">15.2. Расстояние Левенштейна</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/hirschbergs_algorithm/index.html"><a class="padding" href="/basics/dynamic_programming/hirschbergs_algorithm/index.html">15.3. Алгоритм Хиршберга</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_increasing_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_increasing_subsequence/index.html">15.4. Наибольшая возрастающая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/knapsack_problem/index.html"><a class="padding" href="/basics/dynamic_programming/knapsack_problem/index.html">15.5. Задача о рюкзаке</a></li>
+            <li class="active " data-nav-id="/basics/dynamic_programming/matrices_multiplication/index.html"><a class="padding" href="/basics/dynamic_programming/matrices_multiplication/index.html">15.6. Произведение матриц</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html"><a class="padding" href="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html">15.7. Независимое множество в дереве</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/travelling_salesman_problem/index.html"><a class="padding" href="/basics/dynamic_programming/travelling_salesman_problem/index.html">15.8. Задача коммивояжёра</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/generate_number_by_object/index.html"><a class="padding" href="/basics/dynamic_programming/generate_number_by_object/index.html">15.9. Генерация номера по объекту</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html"><a class="padding" href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">15.10. Рекуррентные соотношения</a></li></ul></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">

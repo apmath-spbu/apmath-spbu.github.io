@@ -3,34 +3,34 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в списке всех возможных объектов (списке всех перестановок фиксированной длины), упорядоченном лексикографически; или, наоборот, генерировать объект по его номеру.
+    <meta name="description" content="Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в лексикографически упорядоченном списке всех объектов того же типа; или, наоборот, генерировать объект по его номеру.
 Это бывает полезно, если хочется закодировать объект как можно меньшим количеством бит, а также если хочется использовать объект в качестве индекса массива (например, если при применении метода динамического программирования состояние описывается комбинаторным объектом).
-Номер по перестановке Как вычислить номер перестановки $p_{1}, \ldots, p_{n}$ чисел $1, \ldots, n$ в списке всех перестановок длины $n$, упорядоченных лексикографически? Например, у нас есть упорядоченный лексикографически список перестановок длины 3:">
+Определение Факторадическая система счисления: номер перестановки $p_1, \ldots, p_n$ в лексикографическом порядке — это сумма $\sum_{k=1}^{n} c_k \cdot (n-k)!$, где $c_k$ — количество элементов $p_{k&#43;1}, \ldots, p_n$, меньших $p_k$. Всего перестановок длины $n$ ровно $n!$.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Генерация номера по объекту и объекта по номеру :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в списке всех возможных объектов (списке всех перестановок фиксированной длины), упорядоченном лексикографически; или, наоборот, генерировать объект по его номеру.
+    <meta name="twitter:title" content="15.9. Генерация номера по объекту и объекта по номеру :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в лексикографически упорядоченном списке всех объектов того же типа; или, наоборот, генерировать объект по его номеру.
 Это бывает полезно, если хочется закодировать объект как можно меньшим количеством бит, а также если хочется использовать объект в качестве индекса массива (например, если при применении метода динамического программирования состояние описывается комбинаторным объектом).
-Номер по перестановке Как вычислить номер перестановки $p_{1}, \ldots, p_{n}$ чисел $1, \ldots, n$ в списке всех перестановок длины $n$, упорядоченных лексикографически? Например, у нас есть упорядоченный лексикографически список перестановок длины 3:">
+Определение Факторадическая система счисления: номер перестановки $p_1, \ldots, p_n$ в лексикографическом порядке — это сумма $\sum_{k=1}^{n} c_k \cdot (n-k)!$, где $c_k$ — количество элементов $p_{k&#43;1}, \ldots, p_n$, меньших $p_k$. Всего перестановок длины $n$ ровно $n!$.">
     <meta property="og:url" content="https://apmath-spbu.github.io/basics/dynamic_programming/generate_number_by_object/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
-    <meta property="og:title" content="Генерация номера по объекту и объекта по номеру :: Краткий курс по основам программирования">
-    <meta property="og:description" content="Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в списке всех возможных объектов (списке всех перестановок фиксированной длины), упорядоченном лексикографически; или, наоборот, генерировать объект по его номеру.
+    <meta property="og:title" content="15.9. Генерация номера по объекту и объекта по номеру :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в лексикографически упорядоченном списке всех объектов того же типа; или, наоборот, генерировать объект по его номеру.
 Это бывает полезно, если хочется закодировать объект как можно меньшим количеством бит, а также если хочется использовать объект в качестве индекса массива (например, если при применении метода динамического программирования состояние описывается комбинаторным объектом).
-Номер по перестановке Как вычислить номер перестановки $p_{1}, \ldots, p_{n}$ чисел $1, \ldots, n$ в списке всех перестановок длины $n$, упорядоченных лексикографически? Например, у нас есть упорядоченный лексикографически список перестановок длины 3:">
+Определение Факторадическая система счисления: номер перестановки $p_1, \ldots, p_n$ в лексикографическом порядке — это сумма $\sum_{k=1}^{n} c_k \cdot (n-k)!$, где $c_k$ — количество элементов $p_{k&#43;1}, \ldots, p_n$, меньших $p_k$. Всего перестановок длины $n$ ровно $n!$.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
-    <meta property="article:published_time" content="2025-04-24T17:19:09+03:00">
-    <meta property="article:modified_time" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="name" content="Генерация номера по объекту и объекта по номеру :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в списке всех возможных объектов (списке всех перестановок фиксированной длины), упорядоченном лексикографически; или, наоборот, генерировать объект по его номеру.
+    <meta property="article:published_time" content="2026-04-25T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="name" content="15.9. Генерация номера по объекту и объекта по номеру :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в лексикографически упорядоченном списке всех объектов того же типа; или, наоборот, генерировать объект по его номеру.
 Это бывает полезно, если хочется закодировать объект как можно меньшим количеством бит, а также если хочется использовать объект в качестве индекса массива (например, если при применении метода динамического программирования состояние описывается комбинаторным объектом).
-Номер по перестановке Как вычислить номер перестановки $p_{1}, \ldots, p_{n}$ чисел $1, \ldots, n$ в списке всех перестановок длины $n$, упорядоченных лексикографически? Например, у нас есть упорядоченный лексикографически список перестановок длины 3:">
-    <meta itemprop="datePublished" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="dateModified" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="wordCount" content="881">
-    <title>Генерация номера по объекту и объекта по номеру :: Краткий курс по основам программирования</title>
+Определение Факторадическая система счисления: номер перестановки $p_1, \ldots, p_n$ в лексикографическом порядке — это сумма $\sum_{k=1}^{n} c_k \cdot (n-k)!$, где $c_k$ — количество элементов $p_{k&#43;1}, \ldots, p_n$, меньших $p_k$. Всего перестановок длины $n$ ровно $n!$.">
+    <meta itemprop="datePublished" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="wordCount" content="1429">
+    <title>15.9. Генерация номера по объекту и объекта по номеру :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
     <script src="/js/search-lunr.min.js" defer></script>
@@ -130,32 +130,28 @@
                 <div class="topbar-content-wrapper">
 <nav class="TableOfContents">
   <ul>
-    <li>
-      <ul>
-        <li><a href="#номер-по-перестановке">Номер по перестановке</a></li>
-        <li><a href="#правильные-скобочные-последовательности">Правильные скобочные последовательности</a></li>
-        <li><a href="#номер-по-псп">Номер по ПСП</a></li>
-        <li><a href="#перестановка-по-номеру">Перестановка по номеру</a></li>
-        <li><a href="#псп-по-номеру">ПСП по номеру</a></li>
-      </ul>
-    </li>
+    <li><a href="#номер-по-перестановке">Номер по перестановке</a></li>
+    <li><a href="#правильные-скобочные-последовательности">Правильные скобочные последовательности</a></li>
+    <li><a href="#номер-по-псп">Номер по ПСП</a></li>
+    <li><a href="#перестановка-по-номеру">Перестановка по номеру</a></li>
+    <li><a href="#псп-по-номеру">ПСП по номеру</a></li>
   </ul>
 </nav>
                 </div>
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">17. Динамическое программирование</span><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">🔢🔄 Генерация номера по объекту и объекта по номеру</span><meta itemprop="position" content="4"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/dynamic_programming/index.html"><span itemprop="name">15. Динамическое программирование</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">15.9. Генерация номера по объекту</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/dynamic_programming/generate_number_by_object.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/travelling_salesman_problem/index.html" title="Задача коммивояжёра (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/travelling_salesman_problem/index.html" title="15.8. Задача коммивояжёра и DP по подмножествам (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle"><span><i class="fa-fw fas fa-chevron-right"></i></span></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html" title="15.10. Решение рекуррентных соотношений возведением матрицы в степень (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -176,11 +172,21 @@
   <header class="headline">
   </header>
 
-<h1 id="генерация-номера-по-объекту-и-объекта-по-номеру">Генерация номера по объекту и объекта по номеру</h1>
+<h1 id="159-генерация-номера-по-объекту-и-объекта-по-номеру">15.9. Генерация номера по объекту и объекта по номеру</h1>
 
-<p>Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в списке всех возможных объектов (списке всех перестановок фиксированной длины), упорядоченном лексикографически; или, наоборот, генерировать объект по его номеру.</p>
+<p>Научимся сопоставлять комбинаторному объекту (например, перестановке) его номер в лексикографически упорядоченном списке всех объектов того же типа; или, наоборот, генерировать объект по его номеру.</p>
 <p>Это бывает полезно, если хочется закодировать объект как можно меньшим количеством бит, а также если хочется использовать объект в качестве индекса массива (например, если при применении метода динамического программирования состояние описывается комбинаторным объектом).</p>
-<h3 id="номер-по-перестановке">Номер по перестановке<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Факторадическая система счисления</strong>: номер перестановки $p_1, \ldots, p_n$ в лексикографическом порядке — это сумма $\sum_{k=1}^{n} c_k \cdot (n-k)!$, где $c_k$ — количество элементов $p_{k+1}, \ldots, p_n$, меньших $p_k$. Всего перестановок длины $n$ ровно $n!$.</p>
+  </div>
+</details>
+<h2 id="номер-по-перестановке">Номер по перестановке<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Как вычислить номер перестановки $p_{1}, \ldots, p_{n}$ чисел $1, \ldots, n$ в списке всех перестановок длины $n$, упорядоченных лексикографически? Например, у нас есть упорядоченный лексикографически список перестановок длины 3:</p>
 $$
 \begin{array}{|l|l|}
@@ -192,8 +198,34 @@ $$
 \hline 5 & 3,2,1 \\
 \hline
 \end{array}
-$$<p>Номер перестановки $p$ &mdash; это количество перестановок, лексикографически меньших $p$. Пусть $q$ &mdash; одна из таких перестановок. Тогда $q_{1}=p_{1}, \ldots, q_{k-1}=p_{k-1}, x=q_{k} < p_{k}$ для некоторого $k$. При этом для фиксированных $k, x < p_{k}$ существует ( $n-k$ )! различных перестановок $q$, удовлетворяющих условиям выше (так как оставшиеся $n-k$ чисел могут идти в любом порядке).</p>
-<p>Получаем следующий алгоритм: переберём $k$ &mdash; позицию самого левого несовпадения $q$ и $p$, переберём $x < p_{k}$ &mdash; значение $q_{k}$, и просуммируем количество перестановок $q$ по всем таким $k, x$.</p>
+$$<p>Номер перестановки $p$ — это количество перестановок, лексикографически меньших $p$. Пусть $q$ — одна из таких перестановок. Тогда $q_1 = p_1, \ldots, q_{k-1} = p_{k-1}$, $x = q_k < p_k$ для некоторого $k$. При этом для фиксированных $k$, $x < p_k$ существует $(n-k)!$ различных перестановок $q$ (оставшиеся $n-k$ чисел могут идти в любом порядке).</p>
+<p>Алгоритм: переберём $k$ — позицию самого левого несовпадения $q$ и $p$, переберём $x < p_k$ — значение $q_k$, просуммируем количество перестановок $q$ по всем таким $k, x$.</p>
+<div class="tab-panel" data-tab-group="R-tabs-32520012acd8c7b8ba77666e2edcab9e">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-2a6f2240d73dd287a1694f5f907ea61d" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-32520012acd8c7b8ba77666e2edcab9e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-60cc40142735c452e25ef42a73f0b8f1" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-32520012acd8c7b8ba77666e2edcab9e','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-2a6f2240d73dd287a1694f5f907ea61d"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -206,39 +238,37 @@ $$<p>Номер перестановки $p$ &mdash; это количество
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>getNum(p, n):
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">perm_to_num</span>(p: list[int], factorial: list[int]) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    p — перестановка чисел 1..n (0-индексированная: p[0]..p[n-1]).
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    factorial[k] = k!
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Возвращает лексикографический номер перестановки.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(p)
+</span></span><span style="display:flex;"><span>    used <span style="color:#f92672">=</span> [<span style="color:#66d9ef">False</span>] <span style="color:#f92672">*</span> (n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
 </span></span><span style="display:flex;"><span>    num <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>    fill(used, <span style="color:#66d9ef">False</span>) <span style="color:#75715e"># список элементов p[1..k)</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>n:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>(p[k] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> used[x]:
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
-</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">+=</span> factorial[n <span style="color:#f92672">-</span> k]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, p[k]):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> used[x]:
+</span></span><span style="display:flex;"><span>                num <span style="color:#f92672">+=</span> factorial[n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> k]
 </span></span><span style="display:flex;"><span>        used[p[k]] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> num</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>Тот же метод (перебрать позицию и значение первого несовпадения, просуммировать по ним количество способов &ldquo;закончить&rdquo; объект) работает и со многими другими комбинаторными объектами. Разберём ещё один пример - поиск номера правильной скобочной последовательности.</p>
-<h3 id="правильные-скобочные-последовательности">Правильные скобочные последовательности<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p><em>Скобочная последовательность</em> - это любая последовательность символов ‘(&rsquo; (открывающая скобка) и &lsquo;)&rsquo; (закрывающая скобка).</p>
-<p><em>Балансом</em> скобочной последовательности будем называть разность количества открывающих и закрывающих скобок в ней.</p>
-<p><em>Правильная скобочная последовательность</em> (ПСП) - это такая скобочная последовательность из $2 n$ символов, что баланс любого её префикса неотрицателен, а баланс всей последовательности равен нулю. Например, ниже представлен упорядоченный лексикографически список ПСП длины 8:</p>
-$$
-\begin{array}{|c|c|c|c|}
-\hline 0 & ((()))) & 7 & (())(()) \\
-\hline 1 & ((()())) & 8 & (())()() \\
-\hline 2 & ((())()) & 9 & ()((())) \\
-\hline 3 & ((()))() & 10 & ()(()()) \\
-\hline 4 & (()(())) & 11 & ()(())() \\
-\hline 5 & (()()()) & 12 & ()()(()) \\
-\hline 6 & (()())() & 13 & ()()()() \\
-\hline
-\end{array}
-$$<h3 id="номер-по-псп">Номер по ПСП<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Будем искать номер ПСП а длины $2 n$ тем же методом: пусть $b$ лексикографически меньше $a$, причём $b_{1}=a_{1}, \ldots, b_{k-1}=a_{k-1}$; &lsquo;(&rsquo; $\left.=b_{k} < a_{k}={ }^{\prime}\right)^{\prime}$. Сколько существует таких ПСП $b$ ?</p>
-<p>Поскольку баланс каждого префикса $b$ неотрицателен, баланс каждого суффикса $b$ неположителен. Тогда, если перевернуть суффикс $b_{k+1}, \ldots, b_{2 n}$ и заменить открывающие скобки на закрывающие, а закрывающие - на открывающие, то получится скобочная последовательность длины $2 n-k$, баланс любого префикса которой неотрицателен, а баланс её целиком совпадает с балансом последовательности $b_{1}, \ldots, b_{k}$. Предподсчитаем количество таких последовательностей для каждой длины и каждого значения баланса динамическим программированием (переход - перебор типа последней скобки).</p>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-60cc40142735c452e25ef42a73f0b8f1"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -259,27 +289,80 @@ $$<h3 id="номер-по-псп">Номер по ПСП<span class="btn cstyle 
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fill(cnt, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> MAXN):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>l:
-</span></span><span style="display:flex;"><span>        cnt[l, b] <span style="color:#f92672">=</span> cnt[l <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, b <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#75715e"># закрывающая скобка</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> b <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
-</span></span><span style="display:flex;"><span>            cnt[l, b] <span style="color:#f92672">+=</span> cnt[l <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, b <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>] <span style="color:#75715e"># открывающая скобка</span>
-</span></span><span style="display:flex;"><span>getNum(a, n):
-</span></span><span style="display:flex;"><span>    num <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e"># баланс</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> n):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> a[k] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;)&#39;</span>:
-</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">+=</span> cnt[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> n <span style="color:#f92672">-</span> k, b <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span>            b <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>            b <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> num</span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// p — перестановка 1..n, factorial[k] = k!
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">permToNum</span>(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> p, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&amp;</span> factorial) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> p.size();
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> used(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, false);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; k <span style="color:#f92672">&lt;</span> n; k<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; x <span style="color:#f92672">&lt;</span> p[k]; x<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>used[x])
+</span></span><span style="display:flex;"><span>                num <span style="color:#f92672">+=</span> factorial[n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> k];
+</span></span><span style="display:flex;"><span>        used[p[k]] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> num;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="перестановка-по-номеру">Перестановка по номеру<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Вернёмся к перестановкам и решим обратную задачу: пусть нужно найти перестановку, имеющую заданный номер num в списке лексикографически упорядоченных перестановок длины $n$.</p>
-<p>Для любого $x$ от 1 до $n$ существует ( $n-1$ )! перестановок, начинающихся с $x$. Тогда первый символ искомой перестановки - минимальное $x$ такое, что $x \cdot(n-1)!>n u m$. Остаётся найти перестановку с номером $n u m-x \cdot(n-1)$ ! в списке перестановок, начинающихся с $x$. Для этого будем повторять те же рассуждения, но для следующих символов (второго, третьего, и так далее; надо не забыть, что один символ не может встретиться в перестановке несколько раз).</p>
+      </div>
+    </div>
+  </div>
+</div>
+<h2 id="правильные-скобочные-последовательности">Правильные скобочные последовательности<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Правильная скобочная последовательность</strong> (ПСП) из $2n$ символов — это последовательность скобок <code>(</code> и <code>)</code>, в которой баланс (разность числа открывающих и закрывающих) любого префикса неотрицателен, а баланс всей последовательности равен нулю. Всего ПСП длины $2n$ ровно $C_n = \frac{1}{n+1}\binom{2n}{n}$ (числа Каталана).</p>
+  </div>
+</details>
+<p>Ниже представлен лексикографически упорядоченный список ПСП длины 8:</p>
+$$
+\begin{array}{|c|c|c|c|}
+\hline 0 & (((()))) & 7 & (())(()) \\
+\hline 1 & ((()())) & 8 & (())()() \\
+\hline 2 & ((())()) & 9 & ()((())) \\
+\hline 3 & ((()))() & 10 & ()(()()) \\
+\hline 4 & (()(())) & 11 & ()(())() \\
+\hline 5 & (()()()) & 12 & ()()(()) \\
+\hline 6 & (()())() & 13 & ()()()() \\
+\hline
+\end{array}
+$$<h2 id="номер-по-псп">Номер по ПСП<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Будем искать номер ПСП $a$ длины $2n$ тем же методом: пусть $b$ лексикографически меньше $a$, причём $b_1 = a_1, \ldots, b_{k-1} = a_{k-1}$; <code>(</code> $= b_k < a_k =$ <code>)</code>. Сколько существует таких ПСП $b$?</p>
+<p>Поскольку баланс каждого префикса $b$ неотрицателен, баланс каждого суффикса $b$ неположителен. Тогда, если перевернуть суффикс $b_{k+1}, \ldots, b_{2n}$ и заменить скобки на противоположные, получится скобочная последовательность длины $2n - k$, баланс любого префикса которой неотрицателен, а баланс её целиком совпадает с балансом $b_1, \ldots, b_k$. Предподсчитаем количество таких последовательностей для каждой длины и каждого значения баланса динамическим программированием.</p>
+<div class="tab-panel" data-tab-group="R-tabs-3521f61bae8f3b7fdc5d6147bb4bbbf7">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-007a1d32295d71570557a624245554e8" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-3521f61bae8f3b7fdc5d6147bb4bbbf7','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-17ece8979bd3f363730ab96ee3425dc9" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-3521f61bae8f3b7fdc5d6147bb4bbbf7','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-007a1d32295d71570557a624245554e8"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -294,25 +377,59 @@ $$<h3 id="номер-по-псп">Номер по ПСП<span class="btn cstyle 
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>getPermutation(num, n):
-</span></span><span style="display:flex;"><span>    fill(used, <span style="color:#66d9ef">False</span>)
-</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span>int<span style="color:#f92672">&gt;</span> p
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>n:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>n:
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> used[x]:
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> num <span style="color:#f92672">&lt;</span> factorial[n <span style="color:#f92672">-</span> k]:
-</span></span><span style="display:flex;"><span>                p<span style="color:#f92672">.</span>push_back(x), used[x] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
-</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">-=</span> factorial[n <span style="color:#f92672">-</span> k]
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p</span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">build_cnt</span>(maxn: int) <span style="color:#f92672">-&gt;</span> list[list[int]]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    cnt[l][b] = число скобочных последовательностей длины l и баланса b,
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    у которых все префиксы имеют неотрицательный баланс.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    cnt <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (maxn <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> maxn <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>    cnt[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> l <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> maxn <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> b <span style="color:#f92672">in</span> range(l <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            cnt[l][b] <span style="color:#f92672">=</span> cnt[l<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][b<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">if</span> b <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;=</span> l <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>  <span style="color:#75715e"># &#39;)&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> b <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>                cnt[l][b] <span style="color:#f92672">+=</span> cnt[l<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][b<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]                  <span style="color:#75715e"># &#39;(&#39;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> cnt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">psp_to_num</span>(a: str, cnt: list[list[int]]) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Возвращает лексикографический номер ПСП a.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(a) <span style="color:#f92672">//</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    num <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    balance <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k, ch <span style="color:#f92672">in</span> enumerate(a):
+</span></span><span style="display:flex;"><span>        remaining <span style="color:#f92672">=</span> len(a) <span style="color:#f92672">-</span> k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ch <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;)&#39;</span>:
+</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">+=</span> cnt[remaining][balance <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>            balance <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            balance <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> num</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>Тот же метод опять работает и со многими другими комбинаторными объектами. В качестве примера вернёмся к ПСП.</p>
-<h3 id="псп-по-номеру">ПСП по номеру<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Будем ставить на очередную позицию открывающую скобку, если номер ПСП меньше количества способов закончить ПСП после постановки этой скобки; иначе будем ставить закрывающую скобку и уменьшать номер на количество &ldquo;пропущенных&rdquo; ПСП (тех, в которых на этой позиции стоит открывающая скобка).</p>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-17ece8979bd3f363730ab96ee3425dc9"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -325,23 +442,314 @@ $$<h3 id="номер-по-псп">Номер по ПСП<span class="btn cstyle 
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>getCBS(num, n):
-</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span>char<span style="color:#f92672">&gt;</span> a
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> n):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> num <span style="color:#f92672">&lt;</span> cnt[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> n <span style="color:#f92672">-</span> k, b <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]:
-</span></span><span style="display:flex;"><span>            a<span style="color:#f92672">.</span>push_back(<span style="color:#e6db74">&#39;(&#39;</span>), b <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
-</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">-=</span> cnt[<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> n <span style="color:#f92672">-</span> k, b <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span>            a<span style="color:#f92672">.</span>push_back(<span style="color:#e6db74">&#39;)&#39;</span>), b <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a</span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// cnt[l][b] = число допустимых скобочных последовательностей длины l и баланса b
+</span></span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&gt;</span> buildCnt(<span style="color:#66d9ef">int</span> maxN) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> sz <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> maxN <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&gt;</span> cnt(sz, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span>(sz <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>));
+</span></span><span style="display:flex;"><span>    cnt[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; l <span style="color:#f92672">&lt;</span> sz; l<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; b <span style="color:#f92672">&lt;=</span> l; b<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (b <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;=</span> l) cnt[l][b] <span style="color:#f92672">+=</span> cnt[l<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][b<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>];  <span style="color:#75715e">// &#39;)&#39;
+</span></span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (b <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>)      cnt[l][b] <span style="color:#f92672">+=</span> cnt[l<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][b<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>];   <span style="color:#75715e">// &#39;(&#39;
+</span></span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> cnt;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">pspToNum</span>(<span style="color:#66d9ef">const</span> string<span style="color:#f92672">&amp;</span> a, vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&gt;&amp;</span> cnt) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> a.size();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> num <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> balance <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; k <span style="color:#f92672">&lt;</span> m; k<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> remaining <span style="color:#f92672">=</span> m <span style="color:#f92672">-</span> k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (a[k] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;)&#39;</span>) {
+</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">+=</span> cnt[remaining][balance <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>            balance<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            balance<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> num;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
 </div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h2 id="перестановка-по-номеру">Перестановка по номеру<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Вернёмся к перестановкам и решим обратную задачу: найти перестановку с заданным номером <code>num</code>.</p>
+<p>Для любого $x$ от 1 до $n$ существует $(n-1)!$ перестановок, начинающихся с $x$. Тогда первый символ искомой перестановки — минимальное $x$ такое, что накопленное число не превышает <code>num</code>. Далее повторяем те же рассуждения для следующих позиций.</p>
+<div class="tab-panel" data-tab-group="R-tabs-1729ff96faea16d7ce7af672b0232c6d">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-83444c8b64ea87d66b3da31ea41b3ca5" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-1729ff96faea16d7ce7af672b0232c6d','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-7e8784a1de0fb507e45dab7d58d54607" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-1729ff96faea16d7ce7af672b0232c6d','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-83444c8b64ea87d66b3da31ea41b3ca5"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">num_to_perm</span>(num: int, n: int, factorial: list[int]) <span style="color:#f92672">-&gt;</span> list[int]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Возвращает перестановку 1..n с лексикографическим номером num.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    used <span style="color:#f92672">=</span> [<span style="color:#66d9ef">False</span>] <span style="color:#f92672">*</span> (n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    p <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> x <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> used[x]:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> num <span style="color:#f92672">&lt;</span> factorial[n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> k]:
+</span></span><span style="display:flex;"><span>                p<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>                used[x] <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">-=</span> factorial[n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> k]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-7e8784a1de0fb507e45dab7d58d54607"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> numToPerm(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> num, <span style="color:#66d9ef">int</span> n, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&amp;</span> factorial) {
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> used(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, false);
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> p;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; k <span style="color:#f92672">&lt;</span> n; k<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; x <span style="color:#f92672">&lt;=</span> n; x<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (used[x]) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (num <span style="color:#f92672">&lt;</span> factorial[n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> k]) {
+</span></span><span style="display:flex;"><span>                p.push_back(x);
+</span></span><span style="display:flex;"><span>                used[x] <span style="color:#f92672">=</span> true;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">-=</span> factorial[n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> k];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> p;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h2 id="псп-по-номеру">ПСП по номеру<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Будем ставить на очередную позицию открывающую скобку, если номер ПСП меньше количества способов закончить ПСП после постановки этой скобки; иначе ставим закрывающую скобку и уменьшаем номер на количество «пропущенных» ПСП.</p>
+<div class="tab-panel" data-tab-group="R-tabs-df8c1eb057bae5a2efa41910fc99ad48">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-fb9e1cf5448e5195cb88ac2860d77da2" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-df8c1eb057bae5a2efa41910fc99ad48','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-928b99662875e9287f87aea7e84e0cc4" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-df8c1eb057bae5a2efa41910fc99ad48','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-fb9e1cf5448e5195cb88ac2860d77da2"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">num_to_psp</span>(num: int, n: int,
+</span></span><span style="display:flex;"><span>               cnt: list[list[int]]) <span style="color:#f92672">-&gt;</span> str:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Возвращает ПСП длины 2n с лексикографическим номером num.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    result <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    balance <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> n):
+</span></span><span style="display:flex;"><span>        remaining <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> n <span style="color:#f92672">-</span> k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># сколько ПСП начинается с &#39;(&#39; на этой позиции?</span>
+</span></span><span style="display:flex;"><span>        ways_open <span style="color:#f92672">=</span> cnt[remaining][balance <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">if</span> balance <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;=</span> remaining <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> num <span style="color:#f92672">&lt;</span> ways_open:
+</span></span><span style="display:flex;"><span>            result<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;(&#39;</span>)
+</span></span><span style="display:flex;"><span>            balance <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">-=</span> ways_open
+</span></span><span style="display:flex;"><span>            result<span style="color:#f92672">.</span>append(<span style="color:#e6db74">&#39;)&#39;</span>)
+</span></span><span style="display:flex;"><span>            balance <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#39;&#39;</span><span style="color:#f92672">.</span>join(result)</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-928b99662875e9287f87aea7e84e0cc4"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>string <span style="color:#a6e22e">numToPSP</span>(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> num, <span style="color:#66d9ef">int</span> n,
+</span></span><span style="display:flex;"><span>                vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&gt;&amp;</span> cnt) {
+</span></span><span style="display:flex;"><span>    string result;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> balance <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; k <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> n; k<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> remaining <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> n <span style="color:#f92672">-</span> k <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> waysOpen <span style="color:#f92672">=</span> (balance <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;=</span> remaining)
+</span></span><span style="display:flex;"><span>                             <span style="color:#f92672">?</span> cnt[remaining][balance <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (num <span style="color:#f92672">&lt;</span> waysOpen) {
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#39;(&#39;</span>;
+</span></span><span style="display:flex;"><span>            balance<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            num <span style="color:#f92672">-=</span> waysOpen;
+</span></span><span style="display:flex;"><span>            result <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#39;)&#39;</span>;
+</span></span><span style="display:flex;"><span>            balance<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Тот же метод (перебрать позицию и значение первого несовпадения, просуммировать количество способов «закончить» объект) работает с любым комбинаторным объектом, для которого можно эффективно подсчитать количество объектов с фиксированным префиксом.</p>
+  </div>
+</details>
+
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 24 апр. 2025 г.
+              <i class='fa-fw fas fa-calendar'></i> 25 апр. 2026 г.
   </footer>
 </article>
         </div>
@@ -398,7 +806,18 @@ $$<h3 id="номер-по-псп">Номер по ПСП<span class="btn cstyle 
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
-            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li></ul></li>
+            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_common_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_common_subsequence/index.html">15.1. Наибольшая общая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/levenshtein_distance/index.html"><a class="padding" href="/basics/dynamic_programming/levenshtein_distance/index.html">15.2. Расстояние Левенштейна</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/hirschbergs_algorithm/index.html"><a class="padding" href="/basics/dynamic_programming/hirschbergs_algorithm/index.html">15.3. Алгоритм Хиршберга</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_increasing_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_increasing_subsequence/index.html">15.4. Наибольшая возрастающая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/knapsack_problem/index.html"><a class="padding" href="/basics/dynamic_programming/knapsack_problem/index.html">15.5. Задача о рюкзаке</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/matrices_multiplication/index.html"><a class="padding" href="/basics/dynamic_programming/matrices_multiplication/index.html">15.6. Произведение матриц</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html"><a class="padding" href="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html">15.7. Независимое множество в дереве</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/travelling_salesman_problem/index.html"><a class="padding" href="/basics/dynamic_programming/travelling_salesman_problem/index.html">15.8. Задача коммивояжёра</a></li>
+            <li class="active " data-nav-id="/basics/dynamic_programming/generate_number_by_object/index.html"><a class="padding" href="/basics/dynamic_programming/generate_number_by_object/index.html">15.9. Генерация номера по объекту</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html"><a class="padding" href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">15.10. Рекуррентные соотношения</a></li></ul></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">

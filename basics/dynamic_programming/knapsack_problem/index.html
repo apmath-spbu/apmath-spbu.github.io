@@ -3,30 +3,30 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="Есть рюкзак (knapsack) вместимости $W$, а также $n$ предметов веса $w_{1}, \ldots, w_{n}$ и стоимости $p_{1}, \ldots, p_{n}$. Необходимо поместить в рюкзак множество предметов как можно большей суммарной стоимости. Более формально, нужно найти такое подмножество предметов $A \subset\{1, \ldots, n\}$, что $\sum_{i \in A} w_{i} \leqslant W$, а значение $\sum_{i \in A} p_{i}$ максимально возможно.
-Существует много различных вариаций этой задачи. Можно, например, считать, что есть лишь одна копия каждого предмета (версия “без повторений”), а можно - что копий каждого предмета бесконечно много (версия “с повторениями”).">
+    <meta name="description" content="Определение Задача о рюкзаке (knapsack problem): есть рюкзак вместимости $W$ и $n$ предметов весов $w_1, \ldots, w_n$ и стоимостей $p_1, \ldots, p_n$. Найти подмножество предметов $A \subset \{1, \ldots, n\}$ максимальной суммарной стоимости, помещающееся в рюкзак: $\sum_{i \in A} w_i \leqslant W$.
+Существует много различных вариаций этой задачи. Можно считать, что есть лишь одна копия каждого предмета (версия «без повторений»), а можно — что копий каждого предмета бесконечно много (версия «с повторениями»).">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Задача о рюкзаке :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="Есть рюкзак (knapsack) вместимости $W$, а также $n$ предметов веса $w_{1}, \ldots, w_{n}$ и стоимости $p_{1}, \ldots, p_{n}$. Необходимо поместить в рюкзак множество предметов как можно большей суммарной стоимости. Более формально, нужно найти такое подмножество предметов $A \subset\{1, \ldots, n\}$, что $\sum_{i \in A} w_{i} \leqslant W$, а значение $\sum_{i \in A} p_{i}$ максимально возможно.
-Существует много различных вариаций этой задачи. Можно, например, считать, что есть лишь одна копия каждого предмета (версия “без повторений”), а можно - что копий каждого предмета бесконечно много (версия “с повторениями”).">
+    <meta name="twitter:title" content="15.5. Задача о рюкзаке :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Определение Задача о рюкзаке (knapsack problem): есть рюкзак вместимости $W$ и $n$ предметов весов $w_1, \ldots, w_n$ и стоимостей $p_1, \ldots, p_n$. Найти подмножество предметов $A \subset \{1, \ldots, n\}$ максимальной суммарной стоимости, помещающееся в рюкзак: $\sum_{i \in A} w_i \leqslant W$.
+Существует много различных вариаций этой задачи. Можно считать, что есть лишь одна копия каждого предмета (версия «без повторений»), а можно — что копий каждого предмета бесконечно много (версия «с повторениями»).">
     <meta property="og:url" content="https://apmath-spbu.github.io/basics/dynamic_programming/knapsack_problem/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
-    <meta property="og:title" content="Задача о рюкзаке :: Краткий курс по основам программирования">
-    <meta property="og:description" content="Есть рюкзак (knapsack) вместимости $W$, а также $n$ предметов веса $w_{1}, \ldots, w_{n}$ и стоимости $p_{1}, \ldots, p_{n}$. Необходимо поместить в рюкзак множество предметов как можно большей суммарной стоимости. Более формально, нужно найти такое подмножество предметов $A \subset\{1, \ldots, n\}$, что $\sum_{i \in A} w_{i} \leqslant W$, а значение $\sum_{i \in A} p_{i}$ максимально возможно.
-Существует много различных вариаций этой задачи. Можно, например, считать, что есть лишь одна копия каждого предмета (версия “без повторений”), а можно - что копий каждого предмета бесконечно много (версия “с повторениями”).">
+    <meta property="og:title" content="15.5. Задача о рюкзаке :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Определение Задача о рюкзаке (knapsack problem): есть рюкзак вместимости $W$ и $n$ предметов весов $w_1, \ldots, w_n$ и стоимостей $p_1, \ldots, p_n$. Найти подмножество предметов $A \subset \{1, \ldots, n\}$ максимальной суммарной стоимости, помещающееся в рюкзак: $\sum_{i \in A} w_i \leqslant W$.
+Существует много различных вариаций этой задачи. Можно считать, что есть лишь одна копия каждого предмета (версия «без повторений»), а можно — что копий каждого предмета бесконечно много (версия «с повторениями»).">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
-    <meta property="article:published_time" content="2025-04-24T17:19:09+03:00">
-    <meta property="article:modified_time" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="name" content="Задача о рюкзаке :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="Есть рюкзак (knapsack) вместимости $W$, а также $n$ предметов веса $w_{1}, \ldots, w_{n}$ и стоимости $p_{1}, \ldots, p_{n}$. Необходимо поместить в рюкзак множество предметов как можно большей суммарной стоимости. Более формально, нужно найти такое подмножество предметов $A \subset\{1, \ldots, n\}$, что $\sum_{i \in A} w_{i} \leqslant W$, а значение $\sum_{i \in A} p_{i}$ максимально возможно.
-Существует много различных вариаций этой задачи. Можно, например, считать, что есть лишь одна копия каждого предмета (версия “без повторений”), а можно - что копий каждого предмета бесконечно много (версия “с повторениями”).">
-    <meta itemprop="datePublished" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="dateModified" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="wordCount" content="459">
-    <title>Задача о рюкзаке :: Краткий курс по основам программирования</title>
+    <meta property="article:published_time" content="2026-04-25T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="name" content="15.5. Задача о рюкзаке :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Определение Задача о рюкзаке (knapsack problem): есть рюкзак вместимости $W$ и $n$ предметов весов $w_1, \ldots, w_n$ и стоимостей $p_1, \ldots, p_n$. Найти подмножество предметов $A \subset \{1, \ldots, n\}$ максимальной суммарной стоимости, помещающееся в рюкзак: $\sum_{i \in A} w_i \leqslant W$.
+Существует много различных вариаций этой задачи. Можно считать, что есть лишь одна копия каждого предмета (версия «без повторений»), а можно — что копий каждого предмета бесконечно много (версия «с повторениями»).">
+    <meta itemprop="datePublished" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="wordCount" content="677">
+    <title>15.5. Задача о рюкзаке :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
     <script src="/js/search-lunr.min.js" defer></script>
@@ -128,10 +128,9 @@
   <ul>
     <li>
       <ul>
-        <li><a href="#версия-с-повторениями">Версия &ldquo;с повторениями&rdquo;</a></li>
-        <li><a href="#версия-без-повторений">Версия &ldquo;без повторений&rdquo;</a></li>
+        <li><a href="#версия-с-повторениями">Версия «с повторениями»</a></li>
+        <li><a href="#версия-без-повторений">Версия «без повторений»</a></li>
         <li><a href="#оптимизация-памяти">Оптимизация памяти</a></li>
-        <li><a href="#восстановление-ответа">Восстановление ответа</a></li>
       </ul>
     </li>
   </ul>
@@ -140,17 +139,17 @@
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">17. Динамическое программирование</span><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">🎒 Задача о рюкзаке</span><meta itemprop="position" content="4"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/dynamic_programming/index.html"><span itemprop="name">15. Динамическое программирование</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">15.5. Задача о рюкзаке</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/dynamic_programming/knapsack_problem.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/longest_increasing_subsequence/index.html" title="Наибольшая возрастающая подпоследовательность (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/longest_increasing_subsequence/index.html" title="15.4. Наибольшая возрастающая подпоследовательность (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/matrices_multiplication/index.html" title="Произведение матриц (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/matrices_multiplication/index.html" title="15.6. Оптимальный порядок перемножения матриц (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -171,33 +170,52 @@
   <header class="headline">
   </header>
 
-<h1 id="задача-о-рюкзаке">Задача о рюкзаке</h1>
+<h1 id="155-задача-о-рюкзаке">15.5. Задача о рюкзаке</h1>
 
-<p>Есть рюкзак (knapsack) вместимости $W$, а также $n$ предметов веса $w_{1}, \ldots, w_{n}$ и стоимости $p_{1}, \ldots, p_{n}$. Необходимо поместить в рюкзак множество предметов как можно большей суммарной стоимости. Более формально, нужно найти такое подмножество предметов $A \subset\{1, \ldots, n\}$, что $\sum_{i \in A} w_{i} \leqslant W$, а значение $\sum_{i \in A} p_{i}$ максимально возможно.</p>
-<p>Существует много различных вариаций этой задачи. Можно, например, считать, что есть лишь одна копия каждого предмета (версия &ldquo;без повторений&rdquo;), а можно - что копий каждого предмета бесконечно много (версия &ldquo;с повторениями&rdquo;).</p>
-<h3 id="версия-с-повторениями">Версия &ldquo;с повторениями&rdquo;<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Пусть $k[j]$ - максимальная возможная суммарная стоимость, если рюкзак имеет вместимость $j$. Начальное состояние: $k[0]=0$. Переход заключается в выборе последнего взятого предмета:</p>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Задача о рюкзаке</strong> (<em>knapsack problem</em>): есть рюкзак вместимости $W$ и $n$ предметов весов $w_1, \ldots, w_n$ и стоимостей $p_1, \ldots, p_n$. Найти подмножество предметов $A \subset \{1, \ldots, n\}$ максимальной суммарной стоимости, помещающееся в рюкзак: $\sum_{i \in A} w_i \leqslant W$.</p>
+  </div>
+</details>
+<p>Существует много различных вариаций этой задачи. Можно считать, что есть лишь одна копия каждого предмета (версия «без повторений»), а можно — что копий каждого предмета бесконечно много (версия «с повторениями»).</p>
+<h3 id="версия-с-повторениями">Версия «с повторениями»<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Пусть $k[j]$ — максимальная возможная суммарная стоимость при вместимости рюкзака $j$. Начальное состояние: $k[0]=0$. Переход — выбор последнего взятого предмета:
+</p>
 $$
-k[j]=\max _{w_{i} \leqslant j}\left(k\left[j-w_{i}\right]+p_{i}\right)
-$$<p>(максимум по пустому множеству считаем равным нулю). Ответ на задачу $-\max _{0 \leqslant j \leqslant W} k[j]$. Получаем решение за $O(n W)$ с $O(W)$ дополнительной памяти. Восстановление ответа делается стандартными методами.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fill(k, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>W:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>n:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> w[i] <span style="color:#f92672">&lt;=</span> j:
-</span></span><span style="display:flex;"><span>            k[j] <span style="color:#f92672">=</span> max(k[j], k[j <span style="color:#f92672">-</span> w[i]] <span style="color:#f92672">+</span> p[i])</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<h3 id="версия-без-повторений">Версия &ldquo;без повторений&rdquo;<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Для того, чтобы не взять один предмет несколько раз, введём дополнительный параметр. Пусть $k[i, j]$ - максимальная возможная суммарная стоимость, если разрешается брать только предметы с номерами не больше $i$, а рюкзак имеет вместимость $j$. Начальные состояния: $k[0, j]=k[i, 0]=0$. Переход: либо $i$-й предмет входит в ответ (то есть $k[i, j]=k\left[i-1, j-w_{i}\right]$; этот вариант возможен только при $j \geqslant w_{i}$ ), либо не входит (то есть $k[i, j]=k[i-1, j])$. Получаем решение за $O(n W)$ с такой же оценкой используемой дополнительной памяти. .</p>
+k[j] = \max_{w_i \leqslant j}\bigl(k[j - w_i] + p_i\bigr).
+$$<p>
+Ответ на задачу: $\max_{0 \leqslant j \leqslant W} k[j]$. Получаем решение за $O(nW)$ с $O(W)$ дополнительной памяти.</p>
+<div class="tab-panel" data-tab-group="R-tabs-33e63bc184a2f58948a3ff9a45d7e9d9">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-4d0e00ed750dabe780bddffbb61e0ea5" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-33e63bc184a2f58948a3ff9a45d7e9d9','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-6c7ff165d5b5f78979551438002a777b" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-33e63bc184a2f58948a3ff9a45d7e9d9','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-4d0e00ed750dabe780bddffbb61e0ea5"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -206,28 +224,256 @@ $$<p>(максимум по пустому множеству считаем р�
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fill(k, <span style="color:#ae81ff">0</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>n:
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>W:
-</span></span><span style="display:flex;"><span>        k[i, j] <span style="color:#f92672">=</span> k[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, j]
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> w[i] <span style="color:#f92672">&lt;=</span> j:
-</span></span><span style="display:flex;"><span>            k[i, j] <span style="color:#f92672">=</span> max(k[i, j], k[i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, j <span style="color:#f92672">-</span> w[i]] <span style="color:#f92672">+</span> p[i])</span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">knapsack_unbounded</span>(W: int, weights: list[int], prices: list[int]) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Рюкзак с повторениями. Возвращает максимальную стоимость.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(weights)
+</span></span><span style="display:flex;"><span>    k <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (W <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(W <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> weights[i] <span style="color:#f92672">&lt;=</span> j:
+</span></span><span style="display:flex;"><span>                k[j] <span style="color:#f92672">=</span> max(k[j], k[j <span style="color:#f92672">-</span> weights[i]] <span style="color:#f92672">+</span> prices[i])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> k[W]</span></span></code></pre></td></tr></table>
 </div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-6c7ff165d5b5f78979551438002a777b"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Рюкзак с повторениями
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">knapsackUnbounded</span>(<span style="color:#66d9ef">int</span> W, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> w, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> p) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> w.size();
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> k(W <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;=</span> W; j<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (w[i] <span style="color:#f92672">&lt;=</span> j)
+</span></span><span style="display:flex;"><span>                k[j] <span style="color:#f92672">=</span> max(k[j], k[j <span style="color:#f92672">-</span> w[i]] <span style="color:#f92672">+</span> p[i]);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> k[W];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 id="версия-без-повторений">Версия «без повторений»<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Для того, чтобы не взять один предмет несколько раз, введём дополнительный параметр. Пусть $k[i, j]$ — максимальная возможная суммарная стоимость, если разрешается брать только предметы с номерами не больше $i$, а рюкзак имеет вместимость $j$. Начальные состояния: $k[0, j] = k[i, 0] = 0$. Переход: либо $i$-й предмет входит в ответ, либо нет.</p>
+<div class="tab-panel" data-tab-group="R-tabs-dcb211a1140b221f6cc37a2ff727ff23">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-5e82ef4eba7536d17ff8949d2f3f9137" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-dcb211a1140b221f6cc37a2ff727ff23','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-f8e4d2c72ee52201145746c6a3601311" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-dcb211a1140b221f6cc37a2ff727ff23','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-5e82ef4eba7536d17ff8949d2f3f9137"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">knapsack_01</span>(W: int, weights: list[int], prices: list[int]) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Рюкзак без повторений, O(nW) памяти.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(weights)
+</span></span><span style="display:flex;"><span>    k <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (W <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(W <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            k[i][j] <span style="color:#f92672">=</span> k[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> weights[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;=</span> j:
+</span></span><span style="display:flex;"><span>                k[i][j] <span style="color:#f92672">=</span> max(k[i][j], k[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j <span style="color:#f92672">-</span> weights[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]] <span style="color:#f92672">+</span> prices[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> k[n][W]</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-f8e4d2c72ee52201145746c6a3601311"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">knapsack01</span>(<span style="color:#66d9ef">int</span> W, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> w, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> p) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> w.size();
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> k(n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(W <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;=</span> n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;=</span> W; j<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            k[i][j] <span style="color:#f92672">=</span> k[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j];
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (w[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">&lt;=</span> j)
+</span></span><span style="display:flex;"><span>                k[i][j] <span style="color:#f92672">=</span> max(k[i][j], k[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j <span style="color:#f92672">-</span> w[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]] <span style="color:#f92672">+</span> p[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> k[n][W];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
 </div>
 <h3 id="оптимизация-памяти">Оптимизация памяти<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Заметим, что при вычислении $k[i, j]$ алгоритму могут понадобиться только значения $k[i-1, q]$ с $q \leqslant j$. Сделаем следующий трюк: будем вычислять значения $k[i, j]$ при фиксированном $i$ в порядке убывания $j$ (а не возрастания, как раньше). Тогда можно обойтись одномерным массивом: при обработке состояния $(i, j)$ в $k[0 . . j]$ будем хранить значения $k[i-1,0], \ldots, k[i-1, j]$, а в $k[j+1 . . W]$ - значения $k[i, j+1], \ldots, k[i, W]$. Получается, достаточно $O(W)$ дополнительной памяти. При этом получившийся код отличается от решения версии задачи &ldquo;с повторениями&rdquo; только порядком перебора значений $j$.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>fill(k, 0)
-for i = 1..n:
-    for j = W..O:
-        if w[i] &lt;= j:
-            k[j] = max(k[j], k[j - w[i]] + p[i])</code></pre></div>
-<h3 id="восстановление-ответа">Восстановление ответа<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>В версии с двумерным массивом восстановление ответа делается стандартными методами. В версии с одномерным массивом ответ просто так восстановить не удастся; зато можно применить идею алгоритма Хиршберга и восстановить ответ, используя $O(W+\log n)$ дополнительной памяти, и не ухудшив оценку времени работы.</p>
+<p>При вычислении $k[i, j]$ нужны только значения $k[i-1, q]$ с $q \leqslant j$. Если перебирать $j$ в порядке <strong>убывания</strong>, можно обойтись одномерным массивом: при обработке состояния $(i, j)$ в $k[0..j]$ хранятся значения $k[i-1, 0], \ldots, k[i-1, j]$, а в $k[j+1..W]$ — значения $k[i, j+1], \ldots, k[i, W]$.</p>
+<div class="tab-panel" data-tab-group="R-tabs-f64203866361e55ab099776b89ae4153">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-e98d7d39acb0f38dd8a9114077bd37d0" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-f64203866361e55ab099776b89ae4153','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-065fa98305a1110873582fd541846baa" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-f64203866361e55ab099776b89ae4153','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-e98d7d39acb0f38dd8a9114077bd37d0"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">knapsack_01_opt</span>(W: int, weights: list[int], prices: list[int]) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Рюкзак без повторений, O(W) памяти.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(weights)
+</span></span><span style="display:flex;"><span>    k <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (W <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(W, weights[i] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>):  <span style="color:#75715e"># убывание!</span>
+</span></span><span style="display:flex;"><span>            k[j] <span style="color:#f92672">=</span> max(k[j], k[j <span style="color:#f92672">-</span> weights[i]] <span style="color:#f92672">+</span> prices[i])
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> k[W]</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-065fa98305a1110873582fd541846baa"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">knapsack01Opt</span>(<span style="color:#66d9ef">int</span> W, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> w, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> p) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> w.size();
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> k(W <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> W; j <span style="color:#f92672">&gt;=</span> w[i]; j<span style="color:#f92672">--</span>)  <span style="color:#75715e">// убывание!
+</span></span></span><span style="display:flex;"><span>            k[j] <span style="color:#f92672">=</span> max(k[j], k[j <span style="color:#f92672">-</span> w[i]] <span style="color:#f92672">+</span> p[i]);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> k[W];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Задача о рюкзаке NP-трудна в общем виде (зависимость от $W$), но алгоритм DP работает за $O(nW)$ — это <strong>псевдополиномиальное</strong> время, так как $W$ экспоненциально по числу битов в его представлении. Восстановление ответа в версии с одномерным массивом невозможно напрямую; однако можно применить идею <a href="/basics/dynamic_programming/hirschbergs_algorithm/index.html">алгоритма Хиршберга</a> и восстановить ответ, используя $O(W + \log n)$ дополнительной памяти.</p>
+  </div>
+</details>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 24 апр. 2025 г.
+              <i class='fa-fw fas fa-calendar'></i> 25 апр. 2026 г.
   </footer>
 </article>
         </div>
@@ -284,7 +530,18 @@ for i = 1..n:
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
-            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li></ul></li>
+            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_common_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_common_subsequence/index.html">15.1. Наибольшая общая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/levenshtein_distance/index.html"><a class="padding" href="/basics/dynamic_programming/levenshtein_distance/index.html">15.2. Расстояние Левенштейна</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/hirschbergs_algorithm/index.html"><a class="padding" href="/basics/dynamic_programming/hirschbergs_algorithm/index.html">15.3. Алгоритм Хиршберга</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_increasing_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_increasing_subsequence/index.html">15.4. Наибольшая возрастающая подпоследовательность</a></li>
+            <li class="active " data-nav-id="/basics/dynamic_programming/knapsack_problem/index.html"><a class="padding" href="/basics/dynamic_programming/knapsack_problem/index.html">15.5. Задача о рюкзаке</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/matrices_multiplication/index.html"><a class="padding" href="/basics/dynamic_programming/matrices_multiplication/index.html">15.6. Произведение матриц</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html"><a class="padding" href="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html">15.7. Независимое множество в дереве</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/travelling_salesman_problem/index.html"><a class="padding" href="/basics/dynamic_programming/travelling_salesman_problem/index.html">15.8. Задача коммивояжёра</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/generate_number_by_object/index.html"><a class="padding" href="/basics/dynamic_programming/generate_number_by_object/index.html">15.9. Генерация номера по объекту</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html"><a class="padding" href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">15.10. Рекуррентные соотношения</a></li></ul></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">

@@ -3,30 +3,30 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="Коммивояжёр (travelling salesman) хочет посетить каждый из $n$ городов по одному разу и вернуться в свой родной город. Он знает расстояния между всеми парами городов. Какой порядок посещения городов оптимален?
-Более формально: дан полный (есть ребро между каждой парой вершин) взвешенный неориентированный граф на $n$ вершинах; необходимо найти гамильтонов цикл (цикл, проходящий по каждой вершине ровно один раз), имеющий минимально возможную длину. Расстояние между вершинами $u$ и $v$ будем обозначать как $d_{u, v}$.">
+    <meta name="description" content="Определение Задача коммивояжёра (travelling salesman problem, TSP): дан полный взвешенный граф на $n$ вершинах. Найти гамильтонов цикл (цикл, проходящий по каждой вершине ровно один раз) минимальной длины. Расстояние между вершинами $u$ и $v$ обозначим $d_{u,v}$.
+Свойства Задача коммивояжёра NP-трудна. Всего различных маршрутов $(n-1)!$, поэтому полный перебор возможен лишь при малых $n$. Динамическим программированием задачу можно решить за $O(2^n \cdot n^2)$, что значительно быстрее $O(n!)$, хотя по-прежнему экспоненциально.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Задача коммивояжёра :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="Коммивояжёр (travelling salesman) хочет посетить каждый из $n$ городов по одному разу и вернуться в свой родной город. Он знает расстояния между всеми парами городов. Какой порядок посещения городов оптимален?
-Более формально: дан полный (есть ребро между каждой парой вершин) взвешенный неориентированный граф на $n$ вершинах; необходимо найти гамильтонов цикл (цикл, проходящий по каждой вершине ровно один раз), имеющий минимально возможную длину. Расстояние между вершинами $u$ и $v$ будем обозначать как $d_{u, v}$.">
+    <meta name="twitter:title" content="15.8. Задача коммивояжёра и DP по подмножествам :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Определение Задача коммивояжёра (travelling salesman problem, TSP): дан полный взвешенный граф на $n$ вершинах. Найти гамильтонов цикл (цикл, проходящий по каждой вершине ровно один раз) минимальной длины. Расстояние между вершинами $u$ и $v$ обозначим $d_{u,v}$.
+Свойства Задача коммивояжёра NP-трудна. Всего различных маршрутов $(n-1)!$, поэтому полный перебор возможен лишь при малых $n$. Динамическим программированием задачу можно решить за $O(2^n \cdot n^2)$, что значительно быстрее $O(n!)$, хотя по-прежнему экспоненциально.">
     <meta property="og:url" content="https://apmath-spbu.github.io/basics/dynamic_programming/travelling_salesman_problem/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
-    <meta property="og:title" content="Задача коммивояжёра :: Краткий курс по основам программирования">
-    <meta property="og:description" content="Коммивояжёр (travelling salesman) хочет посетить каждый из $n$ городов по одному разу и вернуться в свой родной город. Он знает расстояния между всеми парами городов. Какой порядок посещения городов оптимален?
-Более формально: дан полный (есть ребро между каждой парой вершин) взвешенный неориентированный граф на $n$ вершинах; необходимо найти гамильтонов цикл (цикл, проходящий по каждой вершине ровно один раз), имеющий минимально возможную длину. Расстояние между вершинами $u$ и $v$ будем обозначать как $d_{u, v}$.">
+    <meta property="og:title" content="15.8. Задача коммивояжёра и DP по подмножествам :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Определение Задача коммивояжёра (travelling salesman problem, TSP): дан полный взвешенный граф на $n$ вершинах. Найти гамильтонов цикл (цикл, проходящий по каждой вершине ровно один раз) минимальной длины. Расстояние между вершинами $u$ и $v$ обозначим $d_{u,v}$.
+Свойства Задача коммивояжёра NP-трудна. Всего различных маршрутов $(n-1)!$, поэтому полный перебор возможен лишь при малых $n$. Динамическим программированием задачу можно решить за $O(2^n \cdot n^2)$, что значительно быстрее $O(n!)$, хотя по-прежнему экспоненциально.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год">
-    <meta property="article:published_time" content="2025-04-24T17:19:09+03:00">
-    <meta property="article:modified_time" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="name" content="Задача коммивояжёра :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="Коммивояжёр (travelling salesman) хочет посетить каждый из $n$ городов по одному разу и вернуться в свой родной город. Он знает расстояния между всеми парами городов. Какой порядок посещения городов оптимален?
-Более формально: дан полный (есть ребро между каждой парой вершин) взвешенный неориентированный граф на $n$ вершинах; необходимо найти гамильтонов цикл (цикл, проходящий по каждой вершине ровно один раз), имеющий минимально возможную длину. Расстояние между вершинами $u$ и $v$ будем обозначать как $d_{u, v}$.">
-    <meta itemprop="datePublished" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="dateModified" content="2025-04-24T17:19:09+03:00">
-    <meta itemprop="wordCount" content="1520">
-    <title>Задача коммивояжёра :: Краткий курс по основам программирования</title>
+    <meta property="article:published_time" content="2026-04-25T09:30:00+03:00">
+    <meta property="article:modified_time" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="name" content="15.8. Задача коммивояжёра и DP по подмножествам :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Определение Задача коммивояжёра (travelling salesman problem, TSP): дан полный взвешенный граф на $n$ вершинах. Найти гамильтонов цикл (цикл, проходящий по каждой вершине ровно один раз) минимальной длины. Расстояние между вершинами $u$ и $v$ обозначим $d_{u,v}$.
+Свойства Задача коммивояжёра NP-трудна. Всего различных маршрутов $(n-1)!$, поэтому полный перебор возможен лишь при малых $n$. Динамическим программированием задачу можно решить за $O(2^n \cdot n^2)$, что значительно быстрее $O(n!)$, хотя по-прежнему экспоненциально.">
+    <meta itemprop="datePublished" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="dateModified" content="2026-04-25T09:30:00+03:00">
+    <meta itemprop="wordCount" content="1237">
+    <title>15.8. Задача коммивояжёра и DP по подмножествам :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
     <script src="/js/search-lunr.min.js" defer></script>
@@ -126,32 +126,31 @@
                 <div class="topbar-content-wrapper">
 <nav class="TableOfContents">
   <ul>
-    <li>
+    <li><a href="#работа-с-множествами">Работа с множествами</a>
       <ul>
-        <li><a href="#работа-с-множествами">Работа с множествами</a></li>
-        <li><a href="#размер-подмножеств">Размер подмножеств</a></li>
-        <li><a href="#сумма-элементов-в-подмножестве">Сумма элементов в подмножестве</a></li>
-        <li><a href="#сумма-по-подмножествам">Сумма по подмножествам</a></li>
-        <li><a href="#реализация-решения-задачи-коммивояжёра">Реализация решения задачи коммивояжёра</a></li>
+        <li><a href="#размер-подмножества">Размер подмножества</a></li>
+        <li><a href="#сумма-элементов-подмножества">Сумма элементов подмножества</a></li>
+        <li><a href="#сумма-по-подмножествам-sos-dp">Сумма по подмножествам (SOS DP)</a></li>
       </ul>
     </li>
+    <li><a href="#реализация-задачи-коммивояжёра">Реализация задачи коммивояжёра</a></li>
   </ul>
 </nav>
                 </div>
               </div>
             </div>
           </div>
-          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">17. Динамическое программирование</span><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">🚗🌍 Задача коммивояжёра</span><meta itemprop="position" content="4"></li>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/index.html"><span itemprop="name">Основы программирования. Весна 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/basics/dynamic_programming/index.html"><span itemprop="name">15. Динамическое программирование</span></a><meta itemprop="position" content="3">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">15.8. Задача коммивояжёра</span><meta itemprop="position" content="4"></li>
           </ol>
           <div class="topbar-area topbar-area-end" data-area="end">
             <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/basics/dynamic_programming/travelling_salesman_problem.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html" title="Независимое множество максимального веса в дереве (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html" title="15.7. Независимое множество максимального веса в дереве (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/generate_number_by_object/index.html" title="Генерация номера по объекту и объекта по номеру (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/dynamic_programming/generate_number_by_object/index.html" title="15.9. Генерация номера по объекту и объекта по номеру (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -172,120 +171,74 @@
   <header class="headline">
   </header>
 
-<h1 id="задача-коммивояжёра">Задача коммивояжёра</h1>
+<h1 id="158-задача-коммивояжёра-и-dp-по-подмножествам">15.8. Задача коммивояжёра и DP по подмножествам</h1>
 
-<p>Коммивояжёр (travelling salesman) хочет посетить каждый из $n$ городов по одному разу и вернуться в свой родной город. Он знает расстояния между всеми парами городов. Какой порядок посещения городов оптимален?</p>
-<p>Более формально: дан полный (есть ребро между каждой парой вершин) взвешенный неориентированный граф на $n$ вершинах; необходимо найти гамильтонов цикл (цикл, проходящий по каждой вершине ровно один раз), имеющий минимально возможную длину. Расстояние между вершинами $u$ и $v$ будем обозначать как $d_{u, v}$.</p>
-<p>Всего различных маршрутов $(n-1)$ !, поэтому перебор их всех возможен лишь при небольших $n$. Динамическим программированием эту задачу можно решить за $O\left(2^{n} \cdot n^{2}\right)$, что уже значительно быстрее (хотя оценка времени всё ещё экспоненциальна).</p>
-<p>Естественная подзадача в данном случае - задача нахождения &ldquo;префикса&rdquo; маршрута (первых нескольких рёбер маршрута, начиная из родного города коммивояжёра; будем считать, что этот город имеет номер 0). Как можно закодировать начало маршрута? Для того, чтобы префикс маршрута можно было попытаться продлить (или, наоборот, рассмотреть префикс без последнего ребра), необходимо знать, какие вершины входят в префикс, а также какая из них является последней. Таким образом, состояние параметризуется парой $(A, v)$, где $A$ - подмножество вершин графа, содержащее вершину 0 , $v \in A$ - номер последней вершины в префиксе маршрута.</p>
-<p>Начальные состояния: $l[\{0\}, 0]=0 ; l[A, 0]=\infty$ при $|A|>1$. Для перехода нужно перебрать последнее ребро префикса маршрута: пусть $v \neq 0, v \in A$, тогда</p>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Определение
+  </summary>
+  <div class="box-content">
+<p><strong>Задача коммивояжёра</strong> (<em>travelling salesman problem, TSP</em>): дан полный взвешенный граф на $n$ вершинах. Найти <strong>гамильтонов цикл</strong> (цикл, проходящий по каждой вершине ровно один раз) минимальной длины. Расстояние между вершинами $u$ и $v$ обозначим $d_{u,v}$.</p>
+  </div>
+</details>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Задача коммивояжёра NP-трудна. Всего различных маршрутов $(n-1)!$, поэтому полный перебор возможен лишь при малых $n$. Динамическим программированием задачу можно решить за $O(2^n \cdot n^2)$, что значительно быстрее $O(n!)$, хотя по-прежнему экспоненциально.</p>
+  </div>
+</details>
+<p>Естественная подзадача — нахождение «префикса» маршрута (первых нескольких рёбер, начиная из вершины 0). Состояние параметризуется парой $(A, v)$, где $A$ — подмножество вершин, содержащее вершину 0, $v \in A$ — номер последней вершины в префиксе.</p>
+<p>Начальные состояния: $l[\{0\}, 0] = 0$; $l[A, 0] = \infty$ при $|A| > 1$. Переход — перебор последнего ребра:
+</p>
 $$
-l[A, v]=\min _{\substack{u \in A, u \neq v}}\left(l[A \backslash\{v\}, u]+d_{u, v}\right)
-$$<p>Для получения ответа на задачу нужно перебрать последнюю вершину маршрута: ответ равен</p>
-$$
-\min _{v>0}\left(l[A, v]+d_{v, 0}\right) .
-$$<p>Прежде, чем перейти к реализации, нужно научиться использовать множества в качестве индексов массива, а также быстро производить над множествами различные операции (например, удаление элемента из множества).</p>
-<h3 id="работа-с-множествами">Работа с множествами<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Пронумеруем все подмножества $n$-элементного множества $U=\{0, \ldots, n-1\} n$-битными числами: $A \subset U$ сопоставим $\operatorname{mask}(A)=\sum_{i \in A} 2^{i}$. Номер множества удобно использовать в качестве индекса массива; также с помощью битовых операций над числами можно быстро</p>
-<p>осуществлять различные операции над множествами с соответствующими номерами. Приведём несколько примеров:</p>
+l[A, v] = \min_{\substack{u \in A,\, u \neq v}} \bigl(l[A \setminus \{v\}, u] + d_{u,v}\bigr).
+$$<p>Ответ: $\min_{v > 0} \bigl(l[\text{all}, v] + d_{v,0}\bigr)$.</p>
+<p>Прежде чем перейти к реализации, рассмотрим технику работы с множествами как с числами (битовые маски).</p>
+<h2 id="работа-с-множествами">Работа с множествами<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Пронумеруем все подмножества $n$-элементного множества $U = \{0, \ldots, n-1\}$ числами от $0$ до $2^n - 1$: подмножеству $A$ сопоставим $\operatorname{mask}(A) = \sum_{i \in A} 2^i$. Основные операции:</p>
 <ul>
-<li>$\operatorname{mask}(A \cup B)=\operatorname{mask}(A) \mid \operatorname{mask}(B)$, где $\mid$ - битовое &ldquo;ИЛИ&rdquo;;</li>
-<li>$\operatorname{mask}(A \cap B)=\operatorname{mask}(A) \& \operatorname{mask}(B)$, где &amp; - битовое &ldquo;И&rdquo;;</li>
-<li>$\operatorname{mask}(A \oplus B)=\operatorname{mask}(A) \oplus \operatorname{mask}(B)$, где $\oplus$ слева - симметрическая разность множеств, а $\oplus$ справа - битовый &ldquo;XOR&rdquo;;</li>
-<li>$\operatorname{mask}(A \backslash B)=\operatorname{mask}(A) \& \sim \operatorname{mask}(B)$, где $\sim$ - битовое отрицание;</li>
-<li>$\operatorname{mask}(U)=(1 \ll n)-1$, где $\ll k$ - битовый сдвиг на $k$ бит влево;</li>
-<li>$\operatorname{mask}(\{k\})=1 \ll k$;</li>
-<li>$(\operatorname{mask}(A) \gg k) \& 1$ - выражение, равное единице тогда и только тогда, когда $k \in A$ (здесь $\gg k$ - битовый сдвиг на $k$ бит вправо).</li>
+<li>$\operatorname{mask}(A \cup B) = \operatorname{mask}(A) \mid \operatorname{mask}(B)$</li>
+<li>$\operatorname{mask}(A \cap B) = \operatorname{mask}(A) \mathbin{\&} \operatorname{mask}(B)$</li>
+<li>$\operatorname{mask}(A \setminus B) = \operatorname{mask}(A) \mathbin{\&} {\sim}\operatorname{mask}(B)$</li>
+<li>$\operatorname{mask}(U) = (1 \ll n) - 1$</li>
+<li>$\operatorname{mask}(\{k\}) = 1 \ll k$</li>
+<li>$k \in A \Leftrightarrow (\operatorname{mask}(A) \gg k) \mathbin{\&} 1 = 1$</li>
 </ul>
-<p>В C++ все битовые операторы, за исключением &ldquo;XOR&rdquo;, обозначаются теми же символами, что и выше; ^ - битовый &ldquo;XOR&rdquo; в C++. Заметим, что битовые операции над стандартными числовыми типами осуществляются за $O(1)$. Мы для простоты будем считать, что размер множества позволяет использовать стандартный тип данных для хранения номеров подмножеств, поэтому все приведённые выше выражения можно вычислить за $O(1)$.</p>
-<h3 id="размер-подмножеств">Размер подмножеств<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>В качестве простого примера вычислим размер каждого подмножества $A \subset U$. Размер множества совпадает с количеством ненулевых бит в его номере. Количество единичных бит в числе $x$ равняется сумме количества единичных бит в $\left\lfloor\frac{x}{2}\right\rfloor$ и значения младшего бита $x$.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>size[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e"># размер пустого множества равен 0</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>((<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>    size[mask] <span style="color:#f92672">=</span> size[mask <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> (mask <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>)</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>✍️ В компиляторе C++ GCC есть встроенная функция $\texttt{__builtin_popcount}(x)$, возвращающая число бит в числе $x$ типа $\texttt{int}$ (есть подобные функции и для других стандартных типов); она работает за $O(1)$, но значительно медленнее, чем, например, элементарные битовые операции.</p>
-<h3 id="сумма-элементов-в-подмножестве">Сумма элементов в подмножестве<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Пусть есть $n$ чисел $a_{0}, \ldots, a_{n-1}$; необходимо для каждого подмножества $A \subset\{0, \ldots, n-1\}$ вычислить $s(A)=\sum_{i \in A} a_{i}$. Можно вычислить каждую сумму по определению:</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>for mask = 0..((1 &lt;&lt; n) - 1):
-    s[mask] = 0
-    for i = 0..(n - 1):
-        if ((mask &gt;&gt; i) &amp; 1): # i лежит в множестве с номером mask
-            s[mask] += a[i]</code></pre></div>
-<p>Это потребует $O\left(2^{n} \cdot n\right)$ времени. Можно справиться быстрее с помощью простого динамического программирования: пусть $x \in A$ - какой-нибудь элемент $A$, тогда $s(A)=$ $s(A \backslash\{x\})+a_{x}$. При этом, поскольку мы вычисляем значения $s$ в порядке возрастания номеров множеств, а $\operatorname{mask}(A \backslash\{x\})<\operatorname{mask}(A), s(A \backslash\{x\})$ уже будет известно к моменту вычисления $s(A)$. В качестве $x$ удобно использовать максимальный элемент $A$ : такой элемент соответствует старшему биту $\operatorname{mask}(A)$, номер которого может только возрастать при возрастании номера. Получаем следующее решение за $O\left(2^{n}\right)$ :</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>s[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>((<span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;&lt;</span> n) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> mask <span style="color:#f92672">==</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> (x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)): <span style="color:#75715e"># номер старшего бита увеличился</span>
-</span></span><span style="display:flex;"><span>        x <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>    s[mask] <span style="color:#f92672">=</span> s[mask <span style="color:#f92672">-</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> x)] <span style="color:#f92672">+</span> a[x]</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<h3 id="сумма-по-подмножествам">Сумма по подмножествам<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p>Пусть теперь для каждого подмножества $A \subset\{0, \ldots, n-1\}$ дано число $f_{A}$, и требуется для каждого $A$ вычислить $s(A)=\sum_{B \subset A} f_{B}$.</p>
-<p>Можно для каждого $A$ перебрать все возможные $B$ и проверить, какие из них являются подмножествами $A$; получится решение за $O\left(2^{n} \cdot 2^{n}\right)=O\left(4^{n}\right)$.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> A <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>((<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>    g[A] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> B <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>((<span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;&lt;</span> n) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (A <span style="color:#f92672">&amp;</span> B) <span style="color:#f92672">==</span> B: <span style="color:#75715e"># B - подмножество A</span>
-</span></span><span style="display:flex;"><span>            g[A] <span style="color:#f92672">+=</span> f[B]</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>Можно действовать аккуратнее, и для фиксированного $A$ сразу перебирать только $B$, являющиеся подмножествами $A$. Будем перебирать подмножества $A$ в порядке уменьшения их номеров. Пусть $A=\left\{a_{0}, \ldots, a_{k-1}\right\}, a_{0}<\cdots < a_{k-1}$. Если мы мысленно сдвинем разряды $a_{0}, \ldots, a_{k-1}$ на позиции $0, \ldots, k-1$, то номера подмножеств $A$ перейдут в числа от 0 до $2^{k}-1$. Значит, мы хотим перебрать числа от 0 до $2^{k}-1$ в порядке убывания, только со сдвинутыми разрядами: нулевой разряд нужно сдвинуть в $a_{0}$-й,&hellip; $(k-1)$-й разряд &mdash; в $a_{k-1}$-й.</p>
-<p>Для того, чтобы по числу $i$ получить число $i-1$, нужно занулить младший единичный бит $i$, а во все биты младше его записать единицу. Значит, для того, чтобы получить по подмножеству $B \subset A$ следующее подмножество $A$ в порядке убывания номеров, нужно удалить из $B$ минимальный элемент $x \in B$ и добавить все элементы из $A \backslash B$, меньшие $x$. Это соответствует формуле $(\operatorname{mask}(B)-1) \& \operatorname{mask}(A)$.</p>
-<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
-<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
-</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> A <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>((<span style="color:#ae81ff">1</span><span style="color:#f92672">&lt;&lt;</span> n) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>    g[A] <span style="color:#f92672">=</span> f[<span style="color:#ae81ff">0</span>] <span style="color:#75715e"># учли пустое подмножество</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (B <span style="color:#f92672">=</span> A; B <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; B <span style="color:#f92672">=</span> (( B <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&amp;</span> A)): <span style="color:#75715e"># все непустые подмножества A</span>
-</span></span><span style="display:flex;"><span>        g[A] <span style="color:#f92672">+=</span> f[B]</span></span></code></pre></td></tr></table>
-</div>
-</div>
-<p>Время работы полученного решения пропорционально количеству пар $(A, B)$ таких, что $B \subset A$. Количество таких пар равняется $3^{n}$. Это можно понять следующим способом: множество $A$ размера $k$ имеет $2^{k}$ различных подмножеств, количество множеств размера $k$ равно $\binom{n}{k}$, значит, всего пар $(A, B)$</p>
-$$
-\sum_{k=0}^{n}\binom{n}{k} \cdot 2^{k}=\sum_{k=0}^{n}\binom{n}{k} \cdot 2^{k} \cdot 1^{n-k}=(2+1)^{n}=3^{n}
-$$<p>Альтернативный способ: если пара $(A, B)$ зафиксирована, то каждый элемент находится в одном из трёх состояний: лежит в $A$, лежит в $A \backslash B$ или же не лежит в $A$. Всего элементов $n$, значит, всего $3^{n}$ вариантов.</p>
-<p>Итак, мы получили решение за $O\left(3^{n}\right)$. Можно воспользоваться динамическим программированием и решить задачу ещё быстрее. Пусть</p>
-$$
-g[A, k]=\sum_{\substack{B \subset A, A \backslash B \subset\{0, \ldots, k-1\}}} f_{B}
-$$<p>Нас интересуют значения $g[A, n]=g(A)$. Начальные значения: $g[A, 0]=f_{A}$. Переход:</p>
-$$
-g[A, k+1]= \begin{cases}g[A, k], & \text { если } k \notin A, \\ g[A, k]+g[A \backslash\{k\}, k], & \text { если } k \in A .\end{cases}
-$$<p>Почему это так? $g[A, k+1]$ - сумма $f_{B}$ по подмножествам $B \subset A$, которые могут отличаться от $A$ только принадлежностью элементов $0, \ldots, k$. Если $k \notin A$, все такие $B$ отличаются от $A$ только принадлежностью $0, \ldots, k-1$, значит, $g[A, k+1]=g[A, k]$. Если же $k \in A$, то все такие $B$ делятся на две группы: те, которые содержат $k$, и те, которые не содержат. Сумма по первой группе равна $g[A, k]$. Все множества во второй группе являются подмножествами $A \backslash\{k\}$; сумма по второй группе равна $g[A \backslash\{k\}, k]$.</p>
-<p>Заметим, что при вычислении состояния $(A, k+1)$ нас интересуют только состояния $(A, k)$, и, возможно $(A \backslash\{k\}, k)$. Однако мы пользуемся значением $g[A \backslash\{k\}, k]$ только в случае, когда $g[A \backslash\{k\}, k]=g[A \backslash\{k\}, k+1]$. Значит, можно обойтись одномерным массивом вместо двумерного. Получаем решение за $O\left(2^{n} \cdot n\right)$, использующее $O\left(2^{n}\right)$ памяти.</p>
+<p>Все битовые операции осуществляются за $O(1)$.</p>
+<h3 id="размер-подмножества">Размер подмножества<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Количество единичных бит в числе $x$ равняется сумме единичных бит в $\lfloor x/2 \rfloor$ и значения младшего бита $x$.</p>
+<div class="tab-panel" data-tab-group="R-tabs-4330f4f4db23c30b1580f1084547145a">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-52d230b595f21ab0c327d562cc616581" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-4330f4f4db23c30b1580f1084547145a','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-013983241a5c06debb942a9b36bac12a" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-4330f4f4db23c30b1580f1084547145a','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-52d230b595f21ab0c327d562cc616581"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
@@ -296,15 +249,170 @@ $$<p>Почему это так? $g[A, k+1]$ - сумма $f_{B}$ по подм�
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>((<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>    g[mask] <span style="color:#f92672">=</span> f[mask]
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>((<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (mask <span style="color:#f92672">&gt;&gt;</span> k) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>:
-</span></span><span style="display:flex;"><span>            g[mask] <span style="color:#f92672">+=</span> g[mask <span style="color:#f92672">-</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> k)]</span></span></code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">compute_sizes</span>(n: int) <span style="color:#f92672">-&gt;</span> list[int]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;size[mask] = |A|, где mask = mask(A).&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    size <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> mask <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n):
+</span></span><span style="display:flex;"><span>        size[mask] <span style="color:#f92672">=</span> size[mask <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> (mask <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> size</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<h3 id="реализация-решения-задачи-коммивояжёра">Реализация решения задачи коммивояжёра<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-013983241a5c06debb942a9b36bac12a"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> computeSizes(<span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> sz(<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; mask <span style="color:#f92672">&lt;</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n); mask<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        sz[mask] <span style="color:#f92672">=</span> sz[mask <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> (mask <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sz;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// В GCC: __builtin_popcount(mask) делает то же за O(1)
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 id="сумма-элементов-подмножества">Сумма элементов подмножества<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="tab-panel" data-tab-group="R-tabs-98a8db1c8415ced50bbf5ccd03981127">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-e4e7dba491922aa28474ce845309b1ea" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-98a8db1c8415ced50bbf5ccd03981127','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-b584feb7b7c5b394a7862d1c7c429418" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-98a8db1c8415ced50bbf5ccd03981127','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-e4e7dba491922aa28474ce845309b1ea"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">subset_sums</span>(a: list[int]) <span style="color:#f92672">-&gt;</span> list[int]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;s[mask] = сумма a[i] для i in mask. За O(2^n).&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> len(a)
+</span></span><span style="display:flex;"><span>    s <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n)
+</span></span><span style="display:flex;"><span>    x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>  <span style="color:#75715e"># номер старшего бита текущего mask</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> mask <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> mask <span style="color:#f92672">==</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> (x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)):
+</span></span><span style="display:flex;"><span>            x <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        s[mask] <span style="color:#f92672">=</span> s[mask <span style="color:#f92672">-</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> x)] <span style="color:#f92672">+</span> a[x]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> s</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-b584feb7b7c5b394a7862d1c7c429418"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> subsetSums(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&amp;</span> a) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> a.size();
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> s(<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; mask <span style="color:#f92672">&lt;</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n); mask<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (mask <span style="color:#f92672">==</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> (x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>))) x<span style="color:#f92672">++</span>;
+</span></span><span style="display:flex;"><span>        s[mask] <span style="color:#f92672">=</span> s[mask <span style="color:#f92672">-</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> x)] <span style="color:#f92672">+</span> a[x];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> s;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<h3 id="сумма-по-подмножествам-sos-dp">Сумма по подмножествам (SOS DP)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Пусть для каждого подмножества $A$ дано число $f_A$; требуется для каждого $A$ вычислить $g(A) = \sum_{B \subseteq A} f_B$.</p>
+<p>Наивный перебор всех пар $(A, B)$ работает за $O(4^n)$. Перебор только подмножеств $A$ в порядке убывания — за $O(3^n)$ (так как количество пар $(A, B)$ с $B \subseteq A$ равно $3^n$). Оптимальное решение через DP:</p>
+<div class="tab-panel" data-tab-group="R-tabs-bb6a907dc6fa2bf25615af538405351f">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-62614a00be24dab9848a5146bfba93db" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-bb6a907dc6fa2bf25615af538405351f','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-8c56f80eb20c3a980c6717f9e45d1b63" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-bb6a907dc6fa2bf25615af538405351f','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-62614a00be24dab9848a5146bfba93db"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -321,28 +429,267 @@ $$<p>Почему это так? $g[A, k+1]$ - сумма $f_{B}$ по подм�
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
 </span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-py" data-lang="py"><span style="display:flex;"><span>fill(l, inf)
-</span></span><span style="display:flex;"><span>l[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#75715e"># 1 - номер множества 0</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># номера множеств, содержащих 0 - все нечётные числа</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; mask <span style="color:#f92672">&lt;</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n); mask <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> v <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>): <span style="color:#75715e"># перебираем последнюю вершину префикса марщрута</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> ((mask <span style="color:#f92672">&gt;&gt;</span> v) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>: <span style="color:#75715e"># v не лежит в префиксе</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> u <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>): <span style="color:#75715e"># перебираем второй конец последнего ребра</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> u <span style="color:#f92672">==</span> v <span style="color:#f92672">or</span> ((mask <span style="color:#f92672">&gt;&gt;</span> u) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sum_over_subsets</span>(f: list[int], n: int) <span style="color:#f92672">-&gt;</span> list[int]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Возвращает g[mask] = sum of f[B] for all B subset of mask.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Время O(2^n * n), память O(2^n).
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    g <span style="color:#f92672">=</span> list(f)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> k <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> mask <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (mask <span style="color:#f92672">&gt;&gt;</span> k) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                g[mask] <span style="color:#f92672">+=</span> g[mask <span style="color:#f92672">^</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> k)]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> g
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">sum_over_subsets_slow</span>(f: list[int], n: int) <span style="color:#f92672">-&gt;</span> list[int]:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;Перебор подмножеств за O(3^n).&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    g <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> A <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n):
+</span></span><span style="display:flex;"><span>        g[A] <span style="color:#f92672">=</span> f[<span style="color:#ae81ff">0</span>]  <span style="color:#75715e"># пустое подмножество</span>
+</span></span><span style="display:flex;"><span>        B <span style="color:#f92672">=</span> A
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> B <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            g[A] <span style="color:#f92672">+=</span> f[B]
+</span></span><span style="display:flex;"><span>            B <span style="color:#f92672">=</span> (B <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&amp;</span> A
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> g</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-8c56f80eb20c3a980c6717f9e45d1b63"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// SOS DP: O(2^n * n)
+</span></span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> sumOverSubsets(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&amp;</span> f, <span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> g(f);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; k <span style="color:#f92672">&lt;</span> n; k<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; mask <span style="color:#f92672">&lt;</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n); mask<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> ((mask <span style="color:#f92672">&gt;&gt;</span> k) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>                g[mask] <span style="color:#f92672">+=</span> g[mask <span style="color:#f92672">^</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> k)];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> g;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Перебор подмножеств: O(3^n)
+</span></span></span><span style="display:flex;"><span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> sumOverSubsetsSlow(vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;&amp;</span> f, <span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> g(<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> A <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; A <span style="color:#f92672">&lt;</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n); A<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>        g[A] <span style="color:#f92672">=</span> f[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> B <span style="color:#f92672">=</span> A; B <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; B <span style="color:#f92672">=</span> (B <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">&amp;</span> A)
+</span></span><span style="display:flex;"><span>            g[A] <span style="color:#f92672">+=</span> f[B];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> g;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<details open class="box cstyle notices props">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-chart-gantt"></i> 
+    Свойства
+  </summary>
+  <div class="box-content">
+<p>Количество пар $(A, B)$ с $B \subseteq A$ равно $3^n$: каждый из $n$ элементов либо не входит в $A$ ($\notin A$), либо входит в $A \setminus B$, либо входит в $B$. SOS DP улучшает это до $O(2^n \cdot n)$ за счёт «добавления» элементов по одному.</p>
+  </div>
+</details>
+<h2 id="реализация-задачи-коммивояжёра">Реализация задачи коммивояжёра<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="tab-panel" data-tab-group="R-tabs-1321f3a4ffe150c622b321c84ae717e5">
+  <div class="tab-nav">
+    <div class="tab-nav-title">&#8203;</div>
+    <button
+      aria-controls="R-tab-id-77d05337df167f7c67f1c66c94f2fbe1" aria-expanded="true"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
+      onclick="switchTab('R-tabs-1321f3a4ffe150c622b321c84ae717e5','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+    >
+      <span class="tab-nav-text">python</span>
+    </button>
+    <button
+      aria-controls="R-tab-id-dd12e2f706c73d6c6ed5689d467cb607" aria-expanded="false"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
+      onclick="switchTab('R-tabs-1321f3a4ffe150c622b321c84ae717e5','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+    >
+      <span class="tab-nav-text">c++</span>
+    </button>
+  </div>
+  <div class="tab-content-container">
+    <div
+      id="R-tab-id-77d05337df167f7c67f1c66c94f2fbe1"
+      data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
+      class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tsp</span>(n: int, d: list[list[int]]) <span style="color:#f92672">-&gt;</span> int:
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    n — число вершин, d[u][v] — расстояние.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    Вершина 0 — стартовая. Возвращает длину минимального гамильтонова цикла.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">    &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    INF <span style="color:#f92672">=</span> float(<span style="color:#e6db74">&#39;inf&#39;</span>)
+</span></span><span style="display:flex;"><span>    full <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># l[mask][v] = минимальная длина пути через вершины mask, заканчивающегося в v</span>
+</span></span><span style="display:flex;"><span>    l <span style="color:#f92672">=</span> [[INF] <span style="color:#f92672">*</span> n <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n)]
+</span></span><span style="display:flex;"><span>    l[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>  <span style="color:#75715e"># начинаем в вершине 0, mask = {0} = 1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> mask <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n, <span style="color:#ae81ff">2</span>):  <span style="color:#75715e"># только нечётные (содержат 0)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> v <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> (mask <span style="color:#f92672">&gt;&gt;</span> v) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>:
 </span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
-</span></span><span style="display:flex;"><span>            l[mask, v] <span style="color:#f92672">=</span> min(l[mask, v], l[mask <span style="color:#f92672">-</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> v), u] <span style="color:#f92672">+</span> d[u, v])
-</span></span><span style="display:flex;"><span>res <span style="color:#f92672">=</span> inf
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> v <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.</span><span style="color:#f92672">.</span>(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>):
-</span></span><span style="display:flex;"><span>    res <span style="color:#f92672">=</span> min(res, l[(<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, v] <span style="color:#f92672">+</span> d[v, <span style="color:#ae81ff">0</span>])</span></span></code></pre></td></tr></table>
+</span></span><span style="display:flex;"><span>            prev_mask <span style="color:#f92672">=</span> mask <span style="color:#f92672">^</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> v)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> u <span style="color:#f92672">in</span> range(n):
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> u <span style="color:#f92672">==</span> v <span style="color:#f92672">or</span> <span style="color:#f92672">not</span> (prev_mask <span style="color:#f92672">&gt;&gt;</span> u) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> l[prev_mask][u] <span style="color:#f92672">+</span> d[u][v] <span style="color:#f92672">&lt;</span> l[mask][v]:
+</span></span><span style="display:flex;"><span>                    l[mask][v] <span style="color:#f92672">=</span> l[prev_mask][u] <span style="color:#f92672">+</span> d[u][v]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> min(l[full][v] <span style="color:#f92672">+</span> d[v][<span style="color:#ae81ff">0</span>] <span style="color:#66d9ef">for</span> v <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n))</span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p>Восстановление ответа осуществляется стандартными методами.</p>
+      </div>
+    </div>
+    <div
+      id="R-tab-id-dd12e2f706c73d6c6ed5689d467cb607"
+      data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
+      class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
+      <div class="tab-content-text">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;vector&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;algorithm&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;climits&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">tsp</span>(<span style="color:#66d9ef">int</span> n, vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;&amp;</span> d) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> INF <span style="color:#f92672">=</span> INT_MAX <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> full <span style="color:#f92672">=</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// l[mask][v] = мин. длина пути через mask, заканчивающегося в v
+</span></span></span><span style="display:flex;"><span>    vector<span style="color:#f92672">&lt;</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&gt;</span> l(<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n, vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(n, INF));
+</span></span><span style="display:flex;"><span>    l[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> mask <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; mask <span style="color:#f92672">&lt;</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> n); mask <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>) {  <span style="color:#75715e">// нечётные
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> v <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; v <span style="color:#f92672">&lt;</span> n; v<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>((mask <span style="color:#f92672">&gt;&gt;</span> v) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>)) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> prevMask <span style="color:#f92672">=</span> mask <span style="color:#f92672">^</span> (<span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;&lt;</span> v);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> u <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; u <span style="color:#f92672">&lt;</span> n; u<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (u <span style="color:#f92672">==</span> v <span style="color:#f92672">||</span> <span style="color:#f92672">!</span>((prevMask <span style="color:#f92672">&gt;&gt;</span> u) <span style="color:#f92672">&amp;</span> <span style="color:#ae81ff">1</span>)) <span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> (l[prevMask][u] <span style="color:#f92672">!=</span> INF)
+</span></span><span style="display:flex;"><span>                    l[mask][v] <span style="color:#f92672">=</span> min(l[mask][v], l[prevMask][u] <span style="color:#f92672">+</span> d[u][v]);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> res <span style="color:#f92672">=</span> INF;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> v <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; v <span style="color:#f92672">&lt;</span> n; v<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (l[full][v] <span style="color:#f92672">!=</span> INF)
+</span></span><span style="display:flex;"><span>            res <span style="color:#f92672">=</span> min(res, l[full][v] <span style="color:#f92672">+</span> d[v][<span style="color:#ae81ff">0</span>]);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<p>Восстановление ответа осуществляется стандартными методами: для каждого состояния запоминаем, из какого состояния в него был сделан оптимальный переход.</p>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 24 апр. 2025 г.
+              <i class='fa-fw fas fa-calendar'></i> 25 апр. 2026 г.
   </footer>
 </article>
         </div>
@@ -399,7 +746,18 @@ $$<p>Почему это так? $g[A, k+1]$ - сумма $f_{B}$ по подм�
             <li class="" data-nav-id="/basics/numerical_algos_cryptography/index.html"><a class="padding" href="/basics/numerical_algos_cryptography/index.html">11. Криптография</a></li>
             <li class="alwaysopen " data-nav-id="/basics/binary_trees/index.html"><a class="padding default-animation" href="/basics/binary_trees/index.html">12. Бинарные деревья и деревья поиска</a><ul id="R-subsections-ad61d5248ca725e4d0c52651f2b373e3" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
-            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li></ul></li>
+            <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li>
+            <li class="parent alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu">
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_common_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_common_subsequence/index.html">15.1. Наибольшая общая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/levenshtein_distance/index.html"><a class="padding" href="/basics/dynamic_programming/levenshtein_distance/index.html">15.2. Расстояние Левенштейна</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/hirschbergs_algorithm/index.html"><a class="padding" href="/basics/dynamic_programming/hirschbergs_algorithm/index.html">15.3. Алгоритм Хиршберга</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/longest_increasing_subsequence/index.html"><a class="padding" href="/basics/dynamic_programming/longest_increasing_subsequence/index.html">15.4. Наибольшая возрастающая подпоследовательность</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/knapsack_problem/index.html"><a class="padding" href="/basics/dynamic_programming/knapsack_problem/index.html">15.5. Задача о рюкзаке</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/matrices_multiplication/index.html"><a class="padding" href="/basics/dynamic_programming/matrices_multiplication/index.html">15.6. Произведение матриц</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html"><a class="padding" href="/basics/dynamic_programming/independent_set_of_maximum_weight_in_tree/index.html">15.7. Независимое множество в дереве</a></li>
+            <li class="active " data-nav-id="/basics/dynamic_programming/travelling_salesman_problem/index.html"><a class="padding" href="/basics/dynamic_programming/travelling_salesman_problem/index.html">15.8. Задача коммивояжёра</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/generate_number_by_object/index.html"><a class="padding" href="/basics/dynamic_programming/generate_number_by_object/index.html">15.9. Генерация номера по объекту</a></li>
+            <li class="" data-nav-id="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html"><a class="padding" href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">15.10. Рекуррентные соотношения</a></li></ul></li></ul></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
