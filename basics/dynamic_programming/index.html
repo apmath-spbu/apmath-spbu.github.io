@@ -177,6 +177,12 @@
 
 <h1 id="15-динамическое-программирование">15. Динамическое программирование</h1>
 
+<figure >
+    <audio controls preload="metadata">
+    <source src="/static/audio/basics/15-%d0%9f%d0%be%d1%87%d0%b5%d0%bc%d1%83_%d0%ba%d0%be%d0%bc%d0%bf%d1%8c%d1%8e%d1%82%d0%b5%d1%80_%d0%bd%d0%b5_%d1%80%d0%b5%d1%88%d0%b0%d0%b5%d1%82_%d0%b7%d0%b0%d0%b4%d0%b0%d1%87%d1%83_%d0%b4%d0%b2%d0%b0%d0%b6%d0%b4%d1%8b.m4a" type="audio/mpeg">
+    
+    </audio>
+</figure>
 <p>Динамическое программирование — один из наиболее мощных методов алгоритмического проектирования, позволяющий решать задачи, в которых наивный полный перебор работает экспоненциально долго.</p>
 
 <details open class="box cstyle notices def">
@@ -212,29 +218,29 @@
 $$
 \operatorname{dist}[v]=\min \left\{\operatorname{dist}[u]+w_{e}: e=(u, v) \in E\right\}
 $$<p>Будем перебирать вершины в порядке топологической сортировки. Тогда все значения $\operatorname{dist}$, встречающиеся в выражении справа, к моменту рассмотрения вершины $v$ уже будут найдены.</p>
-<div class="tab-panel" data-tab-group="R-tabs-f01439ecef6ad3b9717600ff99768139">
+<div class="tab-panel" data-tab-group="R-tabs-623f73a9a66f069418146497c282e6be">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-87801846b11384cf49b2312221fa1991" aria-expanded="true"
+      aria-controls="R-tab-id-f948a800514623acf190ea5ca2cecb77" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-f01439ecef6ad3b9717600ff99768139','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-623f73a9a66f069418146497c282e6be','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-3881922d07670f5c1b91ab6b2e8f652a" aria-expanded="false"
+      aria-controls="R-tab-id-7a2308571beb77374e158b32f2ff2371" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-f01439ecef6ad3b9717600ff99768139','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-623f73a9a66f069418146497c282e6be','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-87801846b11384cf49b2312221fa1991"
+      id="R-tab-id-f948a800514623acf190ea5ca2cecb77"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -279,7 +285,7 @@ $$<p>Будем перебирать вершины в порядке топол
       </div>
     </div>
     <div
-      id="R-tab-id-3881922d07670f5c1b91ab6b2e8f652a"
+      id="R-tab-id-7a2308571beb77374e158b32f2ff2371"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -339,29 +345,29 @@ $$<p>Будем перебирать вершины в порядке топол
 <p>На самом деле мы уже встречались с методом динамического программирования: полиномиальный алгоритм вычисления чисел Фибоначчи, <a href="/basics/graphs/graph_shortest_path_algos/index.html">алгоритмы Флойда и Беллмана-Форда</a>, решето Эратосфена — все эти алгоритмы можно интерпретировать как динамическое программирование.</p>
 <h2 id="способ-вычисления-переходов">Способ вычисления переходов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Во многих задачах переходы можно вычислять двумя способами: «вперёд» и «назад». Так, при поиске кратчайшего пути в ациклическом ориентированном графе вместо того, чтобы смотреть «назад» на входящие в вершину рёбра и пересчитывать текущее состояние через предыдущие, мы могли бы смотреть «вперёд» на исходящие из вершины рёбра и пересчитывать следующие состояния через текущее.</p>
-<div class="tab-panel" data-tab-group="R-tabs-3c535b5b29a15a0cdbe5498f99edee0f">
+<div class="tab-panel" data-tab-group="R-tabs-1343d59c62b19b6b6eafd7770890352f">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-d7c93b15b07d99c42533a506395deb4c" aria-expanded="true"
+      aria-controls="R-tab-id-e042dfcb7f2bfcf79d64436b1f757077" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-3c535b5b29a15a0cdbe5498f99edee0f','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-1343d59c62b19b6b6eafd7770890352f','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-9349684a7f76ed218f6270f48f5195a4" aria-expanded="false"
+      aria-controls="R-tab-id-829090cacc2505fbfe8b97d29f760b80" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-3c535b5b29a15a0cdbe5498f99edee0f','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-1343d59c62b19b6b6eafd7770890352f','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-d7c93b15b07d99c42533a506395deb4c"
+      id="R-tab-id-e042dfcb7f2bfcf79d64436b1f757077"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -398,7 +404,7 @@ $$<p>Будем перебирать вершины в порядке топол
       </div>
     </div>
     <div
-      id="R-tab-id-9349684a7f76ed218f6270f48f5195a4"
+      id="R-tab-id-829090cacc2505fbfe8b97d29f760b80"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -449,29 +455,29 @@ $$<p>Для того, чтобы считать переходы назад, н�
 <p>Второй: ничего не запоминать, а для нахождения оптимального перехода просто перебрать все переходы заново.</p>
 <h2 id="ленивое-динамическое-программирование">Ленивое динамическое программирование<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Вычисление переходов назад можно делать лениво: напишем рекурсивную функцию, делающую рекурсивные вызовы от состояний, которые нужны для вычисления текущего. При этом будем запоминать уже вычисленные значения. Пример ленивого решения задачи поиска кратчайшего пути в ациклическом ориентированном графе:</p>
-<div class="tab-panel" data-tab-group="R-tabs-06e16ccda76cb06c4ae0841bc8a35a0c">
+<div class="tab-panel" data-tab-group="R-tabs-1e70368bbe9f98a5f874cd5b92317f41">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-b0113715f08c4159ffed742ee7b855bb" aria-expanded="true"
+      aria-controls="R-tab-id-9a8bc12cff55568b8bfd4d873e8d88ad" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-06e16ccda76cb06c4ae0841bc8a35a0c','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-1e70368bbe9f98a5f874cd5b92317f41','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-fd961f65390fe75a458da698aebf8eaf" aria-expanded="false"
+      aria-controls="R-tab-id-8a61d919bacea1c4d15891f231701b40" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-06e16ccda76cb06c4ae0841bc8a35a0c','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-1e70368bbe9f98a5f874cd5b92317f41','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-b0113715f08c4159ffed742ee7b855bb"
+      id="R-tab-id-9a8bc12cff55568b8bfd4d873e8d88ad"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -528,7 +534,7 @@ $$<p>Для того, чтобы считать переходы назад, н�
       </div>
     </div>
     <div
-      id="R-tab-id-fd961f65390fe75a458da698aebf8eaf"
+      id="R-tab-id-8a61d919bacea1c4d15891f231701b40"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
