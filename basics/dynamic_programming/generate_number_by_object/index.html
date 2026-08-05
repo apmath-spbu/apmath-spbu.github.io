@@ -200,29 +200,29 @@ $$
 \end{array}
 $$<p>Номер перестановки $p$ — это количество перестановок, лексикографически меньших $p$. Пусть $q$ — одна из таких перестановок. Тогда $q_1 = p_1, \ldots, q_{k-1} = p_{k-1}$, $x = q_k < p_k$ для некоторого $k$. При этом для фиксированных $k$, $x < p_k$ существует $(n-k)!$ различных перестановок $q$ (оставшиеся $n-k$ чисел могут идти в любом порядке).</p>
 <p>Алгоритм: переберём $k$ — позицию самого левого несовпадения $q$ и $p$, переберём $x < p_k$ — значение $q_k$, просуммируем количество перестановок $q$ по всем таким $k, x$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-72e772c77d091683c669bbad389fae70">
+<div class="tab-panel" data-tab-group="R-tabs-8b38e9344357f35d8fbf2c55502f8efe">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-41aa31dab86176ec383147b8ad202743" aria-expanded="true"
+      aria-controls="R-tab-id-0c1fca14c3df76ad7e6c111f161638e1" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-72e772c77d091683c669bbad389fae70','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-8b38e9344357f35d8fbf2c55502f8efe','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-8a5e879faf45f460274a86b98626de7e" aria-expanded="false"
+      aria-controls="R-tab-id-8258a2df60aed92c67915707af8cb8d8" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-72e772c77d091683c669bbad389fae70','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-8b38e9344357f35d8fbf2c55502f8efe','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-41aa31dab86176ec383147b8ad202743"
+      id="R-tab-id-0c1fca14c3df76ad7e6c111f161638e1"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -265,7 +265,7 @@ $$<p>Номер перестановки $p$ — это количество п�
       </div>
     </div>
     <div
-      id="R-tab-id-8a5e879faf45f460274a86b98626de7e"
+      id="R-tab-id-8258a2df60aed92c67915707af8cb8d8"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -337,29 +337,29 @@ $$
 $$<h2 id="номер-по-псп">Номер по ПСП<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Будем искать номер ПСП $a$ длины $2n$ тем же методом: пусть $b$ лексикографически меньше $a$, причём $b_1 = a_1, \ldots, b_{k-1} = a_{k-1}$; <code>(</code> $= b_k < a_k =$ <code>)</code>. Сколько существует таких ПСП $b$?</p>
 <p>Поскольку баланс каждого префикса $b$ неотрицателен, баланс каждого суффикса $b$ неположителен. Тогда, если перевернуть суффикс $b_{k+1}, \ldots, b_{2n}$ и заменить скобки на противоположные, получится скобочная последовательность длины $2n - k$, баланс любого префикса которой неотрицателен, а баланс её целиком совпадает с балансом $b_1, \ldots, b_k$. Предподсчитаем количество таких последовательностей для каждой длины и каждого значения баланса динамическим программированием.</p>
-<div class="tab-panel" data-tab-group="R-tabs-2fc79a17934447ab7967833d50d5b9c4">
+<div class="tab-panel" data-tab-group="R-tabs-21416afd101d1c1568420452f21386f0">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-be1929a75c272d3376f505e97fe11f8e" aria-expanded="true"
+      aria-controls="R-tab-id-127e6a9113587d80de78a3f8716ffb7d" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-2fc79a17934447ab7967833d50d5b9c4','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-21416afd101d1c1568420452f21386f0','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-00f6f2bd2b7ec0e355e850d25d84d3a6" aria-expanded="false"
+      aria-controls="R-tab-id-502f7ade341c06369fcadfa811d0a7b2" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-2fc79a17934447ab7967833d50d5b9c4','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-21416afd101d1c1568420452f21386f0','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-be1929a75c272d3376f505e97fe11f8e"
+      id="R-tab-id-127e6a9113587d80de78a3f8716ffb7d"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -426,7 +426,7 @@ $$<h2 id="номер-по-псп">Номер по ПСП<span class="btn cstyle 
       </div>
     </div>
     <div
-      id="R-tab-id-00f6f2bd2b7ec0e355e850d25d84d3a6"
+      id="R-tab-id-502f7ade341c06369fcadfa811d0a7b2"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -505,29 +505,29 @@ $$<h2 id="номер-по-псп">Номер по ПСП<span class="btn cstyle 
 <h2 id="перестановка-по-номеру">Перестановка по номеру<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Вернёмся к перестановкам и решим обратную задачу: найти перестановку с заданным номером <code>num</code>.</p>
 <p>Для любого $x$ от 1 до $n$ существует $(n-1)!$ перестановок, начинающихся с $x$. Тогда первый символ искомой перестановки — минимальное $x$ такое, что накопленное число не превышает <code>num</code>. Далее повторяем те же рассуждения для следующих позиций.</p>
-<div class="tab-panel" data-tab-group="R-tabs-c5b2bc20f7540f12804df583bb987946">
+<div class="tab-panel" data-tab-group="R-tabs-7e8d7ce7566829c8b99269ea5d796d3d">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-832a4154e34d160f12e00aa6fdba5b2c" aria-expanded="true"
+      aria-controls="R-tab-id-990a313125bd44b0b6280919f0b62da9" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-c5b2bc20f7540f12804df583bb987946','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-7e8d7ce7566829c8b99269ea5d796d3d','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-e880867f6530b1e78569ac41fdea6c7f" aria-expanded="false"
+      aria-controls="R-tab-id-1d2df3eeb52e87d7b08ed4122326686d" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-c5b2bc20f7540f12804df583bb987946','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-7e8d7ce7566829c8b99269ea5d796d3d','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-832a4154e34d160f12e00aa6fdba5b2c"
+      id="R-tab-id-990a313125bd44b0b6280919f0b62da9"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -568,7 +568,7 @@ $$<h2 id="номер-по-псп">Номер по ПСП<span class="btn cstyle 
       </div>
     </div>
     <div
-      id="R-tab-id-e880867f6530b1e78569ac41fdea6c7f"
+      id="R-tab-id-1d2df3eeb52e87d7b08ed4122326686d"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -616,29 +616,29 @@ $$<h2 id="номер-по-псп">Номер по ПСП<span class="btn cstyle 
 </div>
 <h2 id="псп-по-номеру">ПСП по номеру<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Будем ставить на очередную позицию открывающую скобку, если номер ПСП меньше количества способов закончить ПСП после постановки этой скобки; иначе ставим закрывающую скобку и уменьшаем номер на количество «пропущенных» ПСП.</p>
-<div class="tab-panel" data-tab-group="R-tabs-9c0c8f439b62c93af128b62ced711e0c">
+<div class="tab-panel" data-tab-group="R-tabs-fe570cfb3d8387acd51737639a4b3fd2">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-ea5224daa981b05889fe8dd23fc5b28e" aria-expanded="true"
+      aria-controls="R-tab-id-72ac528aa13448932bb94e910d0a8c77" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-9c0c8f439b62c93af128b62ced711e0c','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-fe570cfb3d8387acd51737639a4b3fd2','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-8d762aa1ea6d56eb377779e61e19901c" aria-expanded="false"
+      aria-controls="R-tab-id-984627b2c2ab5cccde4f3c5103cbde9a" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-9c0c8f439b62c93af128b62ced711e0c','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-fe570cfb3d8387acd51737639a4b3fd2','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-ea5224daa981b05889fe8dd23fc5b28e"
+      id="R-tab-id-72ac528aa13448932bb94e910d0a8c77"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -685,7 +685,7 @@ $$<h2 id="номер-по-псп">Номер по ПСП<span class="btn cstyle 
       </div>
     </div>
     <div
-      id="R-tab-id-8d762aa1ea6d56eb377779e61e19901c"
+      id="R-tab-id-984627b2c2ab5cccde4f3c5103cbde9a"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -792,6 +792,7 @@ $$<h2 id="номер-по-псп">Номер по ПСП<span class="btn cstyle 
       <div id="R-content-wrapper" class="highlightable">
         <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
           <ul class="enlarge morespace collapsible-menu">
+            <li class="" data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu"></ul></li>
             <li class="parent " data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu">
             <li class="" data-nav-id="/basics/complexity/index.html"><a class="padding" href="/basics/complexity/index.html">1. Анализ сложности алгоритмов</a></li>
             <li class="" data-nav-id="/basics/elementary_arithmetic/index.html"><a class="padding" href="/basics/elementary_arithmetic/index.html">2. Элементарная арифметика</a></li>

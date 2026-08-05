@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Потолок «железной» арифметики — uint64_t: $2^{64} - 1 \approx 1.8 \cdot 10^{19}$, всего 20 цифр. При этом $F_{500}$ — 105 цифр, $1000!$ — 2568 цифр, ключ RSA — 617 цифр. Python делает вид, что проблемы нет: его int безразмерный. Сегодня узнаем, что у него внутри, и соберём то же самое руками — а заодно освоим Git, через который будем сдавать домашние задания.
+Представление: число — это вектор цифр 1 2 3 // 1 048 576 при основании 10: std::vector&lt;int&gt; d = {6, 7, 5, 8, 4, 0, 1}; // d[0] — единицы, d[1] — десятки, …, d[i] — цифра при 10^i Порядок little-endian (младшие разряды в начале) удобен: сложение и умножение идут от младших разрядов — то есть от начала вектора. Держим инварианты: $0 \le d[i] &lt; 10$ и никаких ведущих нулей (кроме самого числа 0).">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 4. Элементарная арифметика :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Потолок «железной» арифметики — uint64_t: $2^{64} - 1 \approx 1.8 \cdot 10^{19}$, всего 20 цифр. При этом $F_{500}$ — 105 цифр, $1000!$ — 2568 цифр, ключ RSA — 617 цифр. Python делает вид, что проблемы нет: его int безразмерный. Сегодня узнаем, что у него внутри, и соберём то же самое руками — а заодно освоим Git, через который будем сдавать домашние задания.
+Представление: число — это вектор цифр 1 2 3 // 1 048 576 при основании 10: std::vector&lt;int&gt; d = {6, 7, 5, 8, 4, 0, 1}; // d[0] — единицы, d[1] — десятки, …, d[i] — цифра при 10^i Порядок little-endian (младшие разряды в начале) удобен: сложение и умножение идут от младших разрядов — то есть от начала вектора. Держим инварианты: $0 \le d[i] &lt; 10$ и никаких ведущих нулей (кроме самого числа 0).">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/04-arifmetika/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 4. Элементарная арифметика :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Потолок «железной» арифметики — uint64_t: $2^{64} - 1 \approx 1.8 \cdot 10^{19}$, всего 20 цифр. При этом $F_{500}$ — 105 цифр, $1000!$ — 2568 цифр, ключ RSA — 617 цифр. Python делает вид, что проблемы нет: его int безразмерный. Сегодня узнаем, что у него внутри, и соберём то же самое руками — а заодно освоим Git, через который будем сдавать домашние задания.
+Представление: число — это вектор цифр 1 2 3 // 1 048 576 при основании 10: std::vector&lt;int&gt; d = {6, 7, 5, 8, 4, 0, 1}; // d[0] — единицы, d[1] — десятки, …, d[i] — цифра при 10^i Порядок little-endian (младшие разряды в начале) удобен: сложение и умножение идут от младших разрядов — то есть от начала вектора. Держим инварианты: $0 \le d[i] &lt; 10$ и никаких ведущих нулей (кроме самого числа 0).">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-05T12:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="name" content="Занятие 4. Элементарная арифметика :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Потолок «железной» арифметики — uint64_t: $2^{64} - 1 \approx 1.8 \cdot 10^{19}$, всего 20 цифр. При этом $F_{500}$ — 105 цифр, $1000!$ — 2568 цифр, ключ RSA — 617 цифр. Python делает вид, что проблемы нет: его int безразмерный. Сегодня узнаем, что у него внутри, и соберём то же самое руками — а заодно освоим Git, через который будем сдавать домашние задания.
+Представление: число — это вектор цифр 1 2 3 // 1 048 576 при основании 10: std::vector&lt;int&gt; d = {6, 7, 5, 8, 4, 0, 1}; // d[0] — единицы, d[1] — десятки, …, d[i] — цифра при 10^i Порядок little-endian (младшие разряды в начале) удобен: сложение и умножение идут от младших разрядов — то есть от начала вектора. Держим инварианты: $0 \le d[i] &lt; 10$ и никаких ведущих нулей (кроме самого числа 0).">
+    <meta itemprop="datePublished" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="wordCount" content="1746">
+    <title>Занятие 4. Элементарная арифметика :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/04-arifmetika\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/04-arifmetika/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#представление-число--это-вектор-цифр">Представление: число — это вектор цифр</a></li>
+    <li><a href="#сложение-школьный-столбик">Сложение: школьный столбик</a></li>
+    <li><a href="#умножение-столбиком">Умножение столбиком</a></li>
+    <li><a href="#разделяй-и-властвуй-первая-попытка">Разделяй и властвуй: первая попытка</a></li>
+    <li><a href="#трюк-карацубы-три-умножения-вместо-четырёх">Трюк Карацубы: три умножения вместо четырёх</a>
+      <ul>
+        <li><a href="#карацуба-в-коде">Карацуба в коде</a></li>
+      </ul>
+    </li>
+    <li><a href="#страница-истории-1960-год">Страница истории: 1960 год</a></li>
+    <li><a href="#проверка-боем-python-использует-карацубу">Проверка боем: Python использует Карацубу</a>
+      <ul>
+        <li><a href="#лестница-алгоритмов-умножения">Лестница алгоритмов умножения</a></li>
+      </ul>
+    </li>
+    <li><a href="#деление">Деление</a></li>
+    <li><a href="#см-также">См. также</a></li>
+    <li><a href="#git-машина-времени-для-кода">Git: машина времени для кода</a>
+      <ul>
+        <li><a href="#три-зоны">Три зоны</a></li>
+        <li><a href="#минимальный-цикл-работы">Минимальный цикл работы</a></li>
+        <li><a href="#ветки-и-gitignore">Ветки и .gitignore</a></li>
+      </ul>
+    </li>
+    <li><a href="#итоги">Итоги</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 4. Элементарная арифметика</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/04-arifmetika/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/03-tipy-dannyh/index.html" title="Занятие 3. Типы данных: во что упаковываем данные? (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/05-funkcii/index.html" title="Занятие 5. Управление программой: функции и потоки выполнения (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-4-элементарная-арифметика">Занятие 4. Элементарная арифметика</h1>
+
+<p>Потолок «железной» арифметики — <code>uint64_t</code>: $2^{64} - 1 \approx 1.8 \cdot 10^{19}$, всего 20 цифр. При этом $F_{500}$ — 105 цифр, $1000!$ — 2568 цифр, ключ RSA — 617 цифр. Python делает вид, что проблемы нет: его <code>int</code> безразмерный. Сегодня узнаем, что у него внутри, и соберём то же самое руками — а заодно освоим Git, через который будем сдавать домашние задания.</p>
+<h2 id="представление-число--это-вектор-цифр">Представление: число — это вектор цифр<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// 1 048 576 при основании 10:
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> d <span style="color:#f92672">=</span> {<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>};
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// d[0] — единицы, d[1] — десятки, …, d[i] — цифра при 10^i
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Порядок <strong>little-endian</strong> (младшие разряды в начале) удобен: сложение и умножение идут от младших разрядов — то есть от начала вектора. Держим инварианты: $0 \le d[i] < 10$ и никаких ведущих нулей (кроме самого числа 0).</p>
+<p>Основание не обязано быть десяткой: продакшен-вариант — база $10^9$, одна «цифра» — целый <code>int</code> (в 9 раз меньше памяти и итераций; печать — по 9 знаков с ведущими нулями). На семинаре пишем базу 10 — её прозрачнее отлаживать.</p>
+<h2 id="сложение-школьный-столбик">Сложение: школьный столбик<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p><img alt="Сложение столбиком: 958 + 147 с переносами" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/column-addition.svg" style="height: auto;width: auto;"></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> add(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> b) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> res;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> carry <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>max(a.size(), b.size()) <span style="color:#f92672">||</span> carry; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> cur <span style="color:#f92672">=</span> carry;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&lt;</span> a.size()) cur <span style="color:#f92672">+=</span> a[i];
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">&lt;</span> b.size()) cur <span style="color:#f92672">+=</span> b[i];
+</span></span><span style="display:flex;"><span>        res.push_back(cur <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>);   <span style="color:#75715e">// цифра
+</span></span></span><span style="display:flex;"><span>        carry <span style="color:#f92672">=</span> cur <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span>;          <span style="color:#75715e">// перенос
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Обратите внимание на условие <code>|| carry</code>: оно дотягивает последний перенос, когда результат длиннее обоих слагаемых (958 + 147 = 1105). Время — $\Theta(\max(n, m))$: каждый разряд трогаем один раз. Вычитание устроено так же, но с <em>заёмом</em> (borrow) и предусловием $a \ge b$; сравнение идёт со старших разрядов с учётом длин.</p>
+<h2 id="умножение-столбиком">Умножение столбиком<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> mul(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> b) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> res(a.size() <span style="color:#f92672">+</span> b.size(), <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> a.size(); <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> carry <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (size_t j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> b.size() <span style="color:#f92672">||</span> carry; <span style="color:#f92672">++</span>j) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int64_t</span> cur <span style="color:#f92672">=</span> res[i <span style="color:#f92672">+</span> j] <span style="color:#f92672">+</span> carry;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (j <span style="color:#f92672">&lt;</span> b.size()) cur <span style="color:#f92672">+=</span> <span style="color:#66d9ef">int64_t</span>(a[i]) <span style="color:#f92672">*</span> b[j];
+</span></span><span style="display:flex;"><span>            res[i <span style="color:#f92672">+</span> j] <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span>(cur <span style="color:#f92672">%</span> <span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>            carry <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span>(cur <span style="color:#f92672">/</span> <span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// срезать ведущие нули
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> res;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Цифра <code>a[i]</code> умножается на <strong>каждую</strong> цифру <code>b[j]</code>, произведение копится в ячейке <code>i + j</code> — это и есть «сдвиги» школьного столбика. Вложенные циклы дают $\Theta(n \cdot m)$, для равных длин — $\Theta(n^2)$. Много это или мало?</p>
+<table>
+	<thead>
+			<tr>
+					<th>цифр</th>
+					<th>операций ~$n^2$</th>
+					<th>при $10^8$ оп/с</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>$10^3$</td>
+					<td>$10^6$</td>
+					<td>0.01 с</td>
+			</tr>
+			<tr>
+					<td>$10^4$</td>
+					<td>$10^8$</td>
+					<td>1 с</td>
+			</tr>
+			<tr>
+					<td>$10^5$</td>
+					<td>$10^{10}$</td>
+					<td>~2 мин</td>
+			</tr>
+			<tr>
+					<td>$10^6$</td>
+					<td>$10^{12}$</td>
+					<td>~3 часа</td>
+			</tr>
+	</tbody>
+</table>
+<p>Квадрат больно кусается. Можно ли быстрее? До 1960 года «все знали», что нельзя.</p>
+<h2 id="разделяй-и-властвуй-первая-попытка">Разделяй и властвуй: первая попытка<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Разрежем $n$-значные числа посередине ($B = 10^{n/2}$):</p>
+$$x = x_1 B + x_0, \qquad y = y_1 B + y_0$$$$xy = x_1 y_1 B^2 + (x_1 y_0 + x_0 y_1) B + x_0 y_0$$<p>Умножение на $B^k$ — это сдвиг (приписать нули), сложения дешёвые; осталось <strong>четыре умножения</strong> половинной длины. Считаем: $T(n) = 4T(n/2) + \Theta(n)$. Раскручивая рекурсию (4 задачи размера $n/2$, 16 задач размера $n/4$, …), получаем снова $\Theta(n^2)$: четыре половинки стоят ровно как одно целое. Ничего не выиграли. (Строгий инструмент для таких рекуррент — мастер-теорема, занятие 6.)</p>
+<h2 id="трюк-карацубы-три-умножения-вместо-четырёх">Трюк Карацубы: три умножения вместо четырёх<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Вычислим всего три произведения половинной длины:</p>
+$$P_1 = x_1 y_1, \qquad P_2 = x_0 y_0, \qquad P_3 = (x_1 + x_0)(y_1 + y_0)$$<p>Средний член достаётся бесплатно — вычитанием:</p>
+$$x_1 y_0 + x_0 y_1 = P_3 - P_1 - P_2$$$$xy = P_1 B^2 + (P_3 - P_1 - P_2)\,B + P_2$$<p>Мы обменяли одно умножение (стоимостью $\Theta(n^2)$) на несколько сложений и вычитаний (стоимостью $\Theta(n)$) — обмен выгодный. Проверьте выкладку сами: раскройте $(x_1+x_0)(y_1+y_0)$ и убедитесь, что лишние члены — ровно $P_1$ и $P_2$.</p>
+<p><img alt="Дерево рекурсии: четыре ветви дают n², три — n в степени log₂3 ≈ 1.585" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/karatsuba-tree.svg" style="height: auto;width: auto;"></p>
+<p>Теперь рекуррента $T(n) = 3T(n/2) + \Theta(n)$: на уровне $k$ дерева — $3^k$ задач размера $n/2^k$, листьев $3^{\log_2 n} = n^{\log_2 3}$, и именно листья доминируют:</p>
+$$T(n) = \Theta\!\left(n^{\log_2 3}\right) \approx \Theta\!\left(n^{1.585}\right)$$<table>
+	<thead>
+			<tr>
+					<th>цифр</th>
+					<th>$n^2$</th>
+					<th>$n^{1.585}$</th>
+					<th>выигрыш</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>$10^3$</td>
+					<td>$10^6$</td>
+					<td>≈ $5.7 \cdot 10^4$</td>
+					<td>×18</td>
+			</tr>
+			<tr>
+					<td>$10^4$</td>
+					<td>$10^8$</td>
+					<td>≈ $2.2 \cdot 10^6$</td>
+					<td>×46</td>
+			</tr>
+			<tr>
+					<td>$10^6$</td>
+					<td>$10^{12}$</td>
+					<td>≈ $3.2 \cdot 10^9$</td>
+					<td>×310</td>
+			</tr>
+	</tbody>
+</table>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Скрытая константа не дремлет
+  </summary>
+  <div class="box-content">
+<p>У Карацубы больше сложений и рекурсивной возни: на коротких числах школьный столбик быстрее. Реальные библиотеки переключаются между алгоритмами по длине (CPython — примерно с 70 десятичных цифр). Это «скрытая константа» из занятия 2 — вживую.</p>
+  </div>
+</details>
+<h3 id="карацуба-в-коде">Карацуба в коде<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Big <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Big <span style="color:#a6e22e">karatsuba</span>(<span style="color:#66d9ef">const</span> Big<span style="color:#f92672">&amp;</span> x, <span style="color:#66d9ef">const</span> Big<span style="color:#f92672">&amp;</span> y) {
+</span></span><span style="display:flex;"><span>    size_t n <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>max(x.size(), y.size());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">32</span>) <span style="color:#66d9ef">return</span> mul(x, y);            <span style="color:#75715e">// база: столбик быстрее
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    size_t m <span style="color:#f92672">=</span> n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> [x0, x1] <span style="color:#f92672">=</span> split(x, m);              <span style="color:#75715e">// младшая и старшая половины
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> [y0, y1] <span style="color:#f92672">=</span> split(y, m);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Big p1 <span style="color:#f92672">=</span> karatsuba(x1, y1);
+</span></span><span style="display:flex;"><span>    Big p2 <span style="color:#f92672">=</span> karatsuba(x0, y0);
+</span></span><span style="display:flex;"><span>    Big p3 <span style="color:#f92672">=</span> karatsuba(add(x1, x0), add(y1, y0));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Big mid <span style="color:#f92672">=</span> sub(sub(p3, p1), p2);           <span style="color:#75715e">// x1·y0 + x0·y1
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> add(add(shift(p1, <span style="color:#ae81ff">2</span> <span style="color:#f92672">*</span> m), shift(mid, m)), p2);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Вспомогательные <code>split</code> (разрез вектора), <code>shift</code> (приписать $k$ нулевых разрядов — умножение на $B^k$ за линию) и <code>sub</code> дописываются на семинаре. Отлаживать — <strong>стресс-тестом</strong>: гоняем Карацубу против школьного умножения на тысячах случайных пар и сравниваем результаты; это главный инструмент проверки правильности во всём курсе.</p>
+<h2 id="страница-истории-1960-год">Страница истории: 1960 год<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li><strong>1956.</strong> А. Н. Колмогоров формулирует «гипотезу $n^2$»: умножать быстрее, чем за $\Theta(n^2)$, невозможно. Так человечество считало тысячелетиями.</li>
+<li><strong>Осень 1960.</strong> Колмогоров объявляет гипотезу на своём семинаре в МГУ.</li>
+<li><strong>Через неделю</strong> 23-летний студент <strong>Анатолий Карацуба</strong> приносит алгоритм за $\Theta(n^{\log_2 3})$ — гипотеза опровергнута.</li>
+<li><strong>1962.</strong> Колмогоров сам пишет статью и публикует её от имени Карацубы; автор узнал о публикации уже из оттисков.</li>
+</ul>
+<p>Так родилась целая область — быстрые алгоритмы. Мораль: «все знают, что быстрее нельзя» — не доказательство. Проверяйте нижние оценки, а не фольклор.</p>
+<h2 id="проверка-боем-python-использует-карацубу">Проверка боем: Python использует Карацубу<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>CPython переключается на Карацубу для больших <code>int</code> — и это видно обычным секундомером:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> time<span style="color:#f92672">,</span> random
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> digits <span style="color:#f92672">in</span> (<span style="color:#ae81ff">10_000</span>, <span style="color:#ae81ff">40_000</span>, <span style="color:#ae81ff">160_000</span>):
+</span></span><span style="display:flex;"><span>    a <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randrange(<span style="color:#ae81ff">10</span><span style="color:#f92672">**</span>(digits<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">10</span><span style="color:#f92672">**</span>digits)
+</span></span><span style="display:flex;"><span>    b <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>randrange(<span style="color:#ae81ff">10</span><span style="color:#f92672">**</span>(digits<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">10</span><span style="color:#f92672">**</span>digits)
+</span></span><span style="display:flex;"><span>    t0 <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>perf_counter()
+</span></span><span style="display:flex;"><span>    c <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> b
+</span></span><span style="display:flex;"><span>    print(digits, time<span style="color:#f92672">.</span>perf_counter() <span style="color:#f92672">-</span> t0)</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<table>
+	<thead>
+			<tr>
+					<th>цифр</th>
+					<th>время*</th>
+					<th>рост</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>10 000</td>
+					<td>0.29 мс</td>
+					<td></td>
+			</tr>
+			<tr>
+					<td>40 000</td>
+					<td>2.6 мс</td>
+					<td>×9</td>
+			</tr>
+			<tr>
+					<td>160 000</td>
+					<td>23.7 мс</td>
+					<td>×9</td>
+			</tr>
+	</tbody>
+</table>
+<p>* CPython 3, медиана из 5 прогонов.</p>
+<p>Длина ×4 → время ×9. Ровно $4^{\log_2 3} = 9$ — сигнатура Карацубы; школьный столбик дал бы $4^2 = 16$. Асимптотика — не абстракция: её видно в три строки кода.</p>
+<h3 id="лестница-алгоритмов-умножения">Лестница алгоритмов умножения<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>год</th>
+					<th>алгоритм</th>
+					<th>сложность</th>
+					<th>когда включается</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>~−2000</td>
+					<td>столбик</td>
+					<td>$\Theta(n^2)$</td>
+					<td>до ~$10^2$ цифр</td>
+			</tr>
+			<tr>
+					<td>1960</td>
+					<td><strong>Карацуба</strong></td>
+					<td>$\Theta(n^{1.585})$</td>
+					<td>$10^2$–$10^4$</td>
+			</tr>
+			<tr>
+					<td>1963</td>
+					<td>Тоом–Кук (Toom-3)</td>
+					<td>$\Theta(n^{1.465})$</td>
+					<td>$10^4$–$10^5$</td>
+			</tr>
+			<tr>
+					<td>1971</td>
+					<td>Шёнхаге–Штрассен (FFT)</td>
+					<td>$\Theta(n \log n \log \log n)$</td>
+					<td>$10^5$ и дальше</td>
+			</tr>
+			<tr>
+					<td>2019</td>
+					<td>Харви–ван дер Хувен</td>
+					<td>$\Theta(n \log n)$</td>
+					<td>пока только теория</td>
+			</tr>
+	</tbody>
+</table>
+<p>Библиотека GMP держит все уровни сразу и переключается по длине. Нижняя оценка $\Omega(n \log n)$ до сих пор <strong>не доказана</strong> — вопрос открыт; может быть, среди читателей сидит следующий Карацуба.</p>
+<h2 id="деление">Деление<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Деление длинного числа на <strong>короткое</strong> (влезающее в <code>int</code>) — простой проход со старших разрядов с протаскиванием остатка:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>Big <span style="color:#a6e22e">divShort</span>(<span style="color:#66d9ef">const</span> Big<span style="color:#f92672">&amp;</span> a, <span style="color:#66d9ef">int</span> b, <span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> rem) {
+</span></span><span style="display:flex;"><span>    Big res(a.size());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int64_t</span> cur <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> a.size(); i<span style="color:#f92672">--</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; ) {   <span style="color:#75715e">// со старших разрядов!
+</span></span></span><span style="display:flex;"><span>        cur <span style="color:#f92672">=</span> cur <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">+</span> a[i];
+</span></span><span style="display:flex;"><span>        res[i] <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span>(cur <span style="color:#f92672">/</span> b);
+</span></span><span style="display:flex;"><span>        cur <span style="color:#f92672">%=</span> b;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    rem <span style="color:#f92672">=</span> <span style="color:#66d9ef">int</span>(cur);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> res;   <span style="color:#75715e">// + срезать ведущие нули
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>(Заметьте цикл <code>i-- &gt; 0</code> — наш трюк против беззнакового <code>size_t</code> из занятия 3.)</p>
+<p>Деление <strong>длинного на длинное</strong> — школьный столбик с подбором очередной цифры частного (двоичным поиском «влезает ли $b \cdot d$») — $\Theta(n^2)$; быстрые варианты строятся через метод Ньютона и стоят как умножение. Краевые случаи — источник 90% багов: ноль, $b = 1$, ведущие нули результата, остаток. Пишите тесты до кода.</p>
+<h2 id="см-также">См. также<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li><a href="/basics/elementary_arithmetic/index.html">Элементарная арифметика (теория, весенний семестр)</a> — расширенная версия темы: деление длинных чисел столбиком в подробностях, оценки и доказательства корректности.</li>
+</ul>
+<h2 id="git-машина-времени-для-кода">Git: машина времени для кода<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Вторая часть семинара — инструмент, которым сдаются все домашние задания курса.</p>
+<p>Git решает три задачи: <strong>история</strong> (каждое состояние проекта сохранено — можно вернуться к «работало вчера»), <strong>эксперименты без страха</strong> (ветка — песочница) и <strong>совместная работа</strong> (двое правят проект, не затирая друг друга). Ключевая идея: Git хранит <strong>снимки</strong> (snapshots) всего проекта. Каждый снимок — коммит: содержимое + автор + время + ссылка на родителя; имя коммита — SHA-хеш содержимого, поэтому историю нельзя незаметно подделать.</p>
+<h3 id="три-зоны">Три зоны<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><img alt="Три зоны Git: рабочая папка, индекс, репозиторий" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/git-zones.svg" style="height: auto;width: auto;"></p>
+<ul>
+<li><strong>Рабочая папка</strong> — ваши файлы как есть: правки, черновики, мусор.</li>
+<li><strong>Индекс (staging)</strong> — «корзина» будущего коммита: только то, что вы отобрали командой <code>git add</code>.</li>
+<li><strong>Репозиторий (.git)</strong> — цепочка коммитов, вся история; пополняется командой <code>git commit</code>.</li>
+</ul>
+<p>Зачем индекс? Коммит должен быть <strong>осмысленной порцией</strong>: из десяти правок можно отобрать три связанных и закоммитить только их. Команда <code>git status</code> показывает состояние всех трёх зон — запускайте её рефлекторно.</p>
+<h3 id="минимальный-цикл-работы">Минимальный цикл работы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone git@github.com:spbu/bigint-ivanov.git
+</span></span><span style="display:flex;"><span>cd bigint-ivanov
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># … пишем код …</span>
+</span></span><span style="display:flex;"><span>git status
+</span></span><span style="display:flex;"><span>git add add.cpp
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;add: сложение длинных чисел&#34;</span>
+</span></span><span style="display:flex;"><span>git push origin main
+</span></span><span style="display:flex;"><span>git pull          <span style="color:#75715e"># забрать изменения с сервера</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Сообщения коммитов пишем по-человечески: хорошо — «fix: перенос при равных длинах», плохо — «фикс», «работает!!», «final_final2». Правило: сообщение отвечает на вопрос <em>«что изменится, если этот коммит применить»</em>. Коммитьте часто и мелко — каждый логический шаг; «одним коммитом всё ДЗ» — антипаттерн: такую историю нельзя ни читать, ни откатывать.</p>
+<h3 id="ветки-и-gitignore">Ветки и .gitignore<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><img alt="Ветка отходит от main и вливается обратно через merge" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/git-branches.svg" style="height: auto;width: auto;"></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git switch -c karatsuba   <span style="color:#75715e"># создать ветку и перейти в неё</span>
+</span></span><span style="display:flex;"><span>git switch main           <span style="color:#75715e"># вернуться</span>
+</span></span><span style="display:flex;"><span>git merge karatsuba       <span style="color:#75715e"># влить ветку в main</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>В <code>.gitignore</code> перечисляем то, чему в истории не место:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code class="language-gitignore" data-lang="gitignore">build/
+*.o
+a.out
+.DS_Store</code></pre></div>
+<p>В репозитории живут <strong>исходники</strong>, а не артефакты сборки (бинарники всегда собираются заново из кода). И никогда не коммитьте секреты — пароли, токены: история помнит всё.</p>
+<h2 id="итоги">Итоги<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li>Длинное число — вектор цифр little-endian; сложение $\Theta(n)$, школьное умножение $\Theta(n^2)$.</li>
+<li>Карацуба: три половинных умножения вместо четырёх → $\Theta(n^{1.585})$; выгода — с сотен цифр (скрытая константа!).</li>
+<li>Замер Python подтверждает теорию: длина ×4 → время ×9 = $4^{\log_2 3}$.</li>
+<li>Выше по лестнице — Тоом–Кук и FFT; нижняя оценка умножения — открытая проблема.</li>
+<li>Git: снимки-коммиты, три зоны, цикл <code>status → add → commit → push</code>; мелкие осмысленные коммиты, ветка на задачу, мусор — в <code>.gitignore</code>.</li>
+</ul>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>BigInt: чтение, печать, сравнение, сложение, вычитание.</li>
+<li>Умножение столбиком + тесты на краевые случаи (нули, переносы, разные длины).</li>
+<li>Посчитать $1000!$ и $F_{1000}$; приложить время работы.</li>
+<li>История — минимум 5 осмысленных коммитов.</li>
+<li>* Карацуба со стресс-тестом против столбика.</li>
+</ol>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 5 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="active " data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

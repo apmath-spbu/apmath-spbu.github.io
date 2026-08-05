@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Программа — это не список действий, а граф решений и повторений. Сегодня разбираем инструменты управления этим графом: функции (и их скрытую механику — стек вызовов), ветвления и циклы — вместе с полным каталогом способов застрять в цикле навечно. Все числа в конспекте — реальные замеры (Apple M-серия, clang).
+Функции Единица смысла, а не экономии строк Функция нужна не для того, чтобы «не повторять код» (это приятный бонус), а чтобы:">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 5. Управление программой: функции и потоки выполнения :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Программа — это не список действий, а граф решений и повторений. Сегодня разбираем инструменты управления этим графом: функции (и их скрытую механику — стек вызовов), ветвления и циклы — вместе с полным каталогом способов застрять в цикле навечно. Все числа в конспекте — реальные замеры (Apple M-серия, clang).
+Функции Единица смысла, а не экономии строк Функция нужна не для того, чтобы «не повторять код» (это приятный бонус), а чтобы:">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/05-funkcii/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 5. Управление программой: функции и потоки выполнения :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Программа — это не список действий, а граф решений и повторений. Сегодня разбираем инструменты управления этим графом: функции (и их скрытую механику — стек вызовов), ветвления и циклы — вместе с полным каталогом способов застрять в цикле навечно. Все числа в конспекте — реальные замеры (Apple M-серия, clang).
+Функции Единица смысла, а не экономии строк Функция нужна не для того, чтобы «не повторять код» (это приятный бонус), а чтобы:">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-05T12:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="name" content="Занятие 5. Управление программой: функции и потоки выполнения :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Программа — это не список действий, а граф решений и повторений. Сегодня разбираем инструменты управления этим графом: функции (и их скрытую механику — стек вызовов), ветвления и циклы — вместе с полным каталогом способов застрять в цикле навечно. Все числа в конспекте — реальные замеры (Apple M-серия, clang).
+Функции Единица смысла, а не экономии строк Функция нужна не для того, чтобы «не повторять код» (это приятный бонус), а чтобы:">
+    <meta itemprop="datePublished" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="wordCount" content="2026">
+    <title>Занятие 5. Управление программой: функции и потоки выполнения :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/05-funkcii\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/05-funkcii/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#функции">Функции</a>
+      <ul>
+        <li><a href="#единица-смысла-а-не-экономии-строк">Единица смысла, а не экономии строк</a></li>
+        <li><a href="#анатомия">Анатомия</a></li>
+        <li><a href="#стек-вызовов">Стек вызовов</a></li>
+        <li><a href="#хвостовая-рекурсия">Хвостовая рекурсия</a></li>
+        <li><a href="#параметры-передача-и-умолчания">Параметры: передача и умолчания</a></li>
+        <li><a href="#перегрузка">Перегрузка</a></li>
+        <li><a href="#возврат-одно-значение-несколько-ни-одного">Возврат: одно значение, несколько, ни одного</a></li>
+      </ul>
+    </li>
+    <li><a href="#ветвления">Ветвления</a>
+      <ul>
+        <li><a href="#ifelse--и-init-statement-из-c17">if/else — и init-statement из C++17</a></li>
+        <li><a href="#тернарный-оператор">Тернарный оператор</a></li>
+        <li><a href="#switch">switch</a></li>
+      </ul>
+    </li>
+    <li><a href="#циклы">Циклы</a>
+      <ul>
+        <li><a href="#for-три-секции">for: три секции</a></li>
+        <li><a href="#while-и-do-while">while и do-while</a></li>
+        <li><a href="#range-based-for">range-based for</a></li>
+        <li><a href="#break-continue-и-вложенные-циклы">break, continue и вложенные циклы</a></li>
+      </ul>
+    </li>
+    <li><a href="#ловушки">Ловушки</a>
+      <ul>
+        <li><a href="#бесконечные-циклы-каталог">Бесконечные циклы: каталог</a></li>
+        <li><a href="#инвариант-цикла">Инвариант цикла</a></li>
+        <li><a href="#области-видимости-и-затенение">Области видимости и затенение</a></li>
+        <li><a href="#порядок-вычислений">Порядок вычислений</a></li>
+        <li><a href="#стиль-ранний-выход-против-лестницы">Стиль: ранний выход против лестницы</a></li>
+      </ul>
+    </li>
+    <li><a href="#взгляд-со-стороны-python">Взгляд со стороны: Python</a></li>
+    <li><a href="#самопроверка">Самопроверка</a></li>
+    <li><a href="#практика">Практика</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 5. Управление программой: функции и потоки выполнения</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/05-funkcii/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/04-arifmetika/index.html" title="Занятие 4. Элементарная арифметика (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/06-rekurrenty/index.html" title="Занятие 6. Рекуррентные соотношения (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-5-управление-программой-функции-и-потоки-выполнения">Занятие 5. Управление программой: функции и потоки выполнения</h1>
+
+<p>Программа — это не список действий, а граф решений и повторений. Сегодня разбираем инструменты управления этим графом: функции (и их скрытую механику — стек вызовов), ветвления и циклы — вместе с полным каталогом способов застрять в цикле навечно. Все числа в конспекте — реальные замеры (Apple M-серия, clang).</p>
+<h2 id="функции">Функции<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="единица-смысла-а-не-экономии-строк">Единица смысла, а не экономии строк<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Функция нужна не для того, чтобы «не повторять код» (это приятный бонус), а чтобы:</p>
+<ul>
+<li><strong>декомпозировать</strong>: большая задача превращается в композицию маленьких, каждую можно понять отдельно;</li>
+<li><strong>зафиксировать контракт</strong>: сигнатура обещает «что», скрывая «как» — вспомните разделение интерфейса и реализации через <code>.h/.cpp</code> из занятия 1;</li>
+<li><strong>тестировать в изоляции</strong>: функцию можно прогнать на краевых случаях отдельно от всей программы.</li>
+</ul>
+<p>Эмпирическое правило: функция делает <strong>одну вещь</strong> и умещается на экран. Если в имени просится союз «и» — <code>read_and_validate_and_save()</code> — это три функции. Имя — глагол или вопрос: <code>parse()</code>, <code>is_prime()</code>; если имя не придумывается, вы ещё не поняли, что делает функция.</p>
+<h3 id="анатомия">Анатомия<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">//   тип      имя     параметры
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">power</span>(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> base, <span style="color:#66d9ef">int</span> exp) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (exp<span style="color:#f92672">--</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>) r <span style="color:#f92672">*=</span> base;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> r;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Терминология: <strong>параметры</strong> — имена внутри функции, <strong>аргументы</strong> — то, что передали при вызове. Параметр — новая переменная, живущая от вызова до возврата. <code>return</code> завершает функцию немедленно, из любого места. Функция не-<code>void</code> обязана вернуть значение на каждом пути исполнения — «дойти до конца без return» это UB (ловится <code>-Wall</code> через <code>-Wreturn-type</code>).</p>
+<h3 id="стек-вызовов">Стек вызовов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Каждый вызов функции кладёт на стек <strong>кадр</strong> (stack frame): параметры, адрес возврата, локальные переменные. <code>return</code> снимает кадр и продолжает исполнение с адреса возврата. Рекурсия работает ровно поэтому: каждый уровень получает <strong>независимый</strong> кадр со своими значениями.</p>
+<p><img alt="Стек вызовов: кадры gcd(1071, 462) → gcd(462, 147) → gcd(147, 21)" class="lazy figure-image" loading="lazy" src="/winter2026/05-funkcii/call-stack.svg" style="height: auto;width: auto;"></p>
+<p>Стек конечен. По умолчанию — около 8 МБ (<code>ulimit -s</code> → 8176 КБ):</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">long</span> depth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">dive</span>() { <span style="color:#f92672">++</span>depth; dive(); }   <span style="color:#75715e">// рекурсия без базы
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() { dive(); }</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>$ clang++ -O0 stack_depth.cpp &amp;&amp; ./a.out
+261000
+zsh: segmentation fault</code></pre></div>
+<p>8 МБ ÷ ~32 байта на кадр ≈ <strong>260 тысяч вызовов</strong> — арифметика сходится с экспериментом. Переполнение стека — мгновенный segfault, его нельзя поймать и обработать.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Правило
+  </summary>
+  <div class="box-content">
+<p>Рекурсия хороша, когда глубина <em>логарифмическая</em> (двоичный поиск, быстрое возведение в степень) или заведомо мала. Линейная глубина порядка $10^5$ и больше — переписываем циклом или явным стеком.</p>
+  </div>
+</details>
+<h3 id="хвостовая-рекурсия">Хвостовая рекурсия<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Если рекурсивный вызов — <strong>последнее действие</strong> функции, кадр можно не сохранять: компилятор заменяет вызов переходом (tail call optimization), и рекурсия превращается в цикл:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#a6e22e">fact_acc</span>(<span style="color:#66d9ef">long</span> n, <span style="color:#66d9ef">long</span> acc) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> acc;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fact_acc(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, acc <span style="color:#f92672">*</span> n);   <span style="color:#75715e">// хвостовой вызов
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>В листинге <code>clang++ -S -O2</code> этой функции нет <strong>ни одной инструкции вызова</strong> — только сравнения и переходы: стек не растёт. Но заметьте: <code>fib_rec</code> из занятия 2 — <em>не</em> хвостовая рекурсия (после вызовов ещё сложение), а стандарт C++ TCO <strong>не гарантирует</strong> — на <code>-O0</code> та же функция честно упадёт. Не стройте корректность программы на оптимизации.</p>
+<h3 id="параметры-передача-и-умолчания">Параметры: передача и умолчания<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Способы передачи — шпаргалка из занятия 3: мелкое копией (<code>int x</code>), крупное для чтения — <code>const T&amp;</code>, для изменения — <code>T&amp;</code>, «может отсутствовать» — <code>T*</code>. Новое — значения по умолчанию:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">round_to</span>(<span style="color:#66d9ef">double</span> x, <span style="color:#66d9ef">int</span> digits <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>round_to(<span style="color:#ae81ff">3.14159</span>);      <span style="color:#75715e">// digits = 2
+</span></span></span><span style="display:flex;"><span>round_to(<span style="color:#ae81ff">3.14159</span>, <span style="color:#ae81ff">4</span>);   <span style="color:#75715e">// явно
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Умолчания задаются <strong>в объявлении</strong> (в заголовке) — вызывающие видят только его; вычисляются заново при каждом вызове (запомните это до Python-интерлюдии). Много параметров — запах: связанные настройки собирайте в структуру.</p>
+<h3 id="перегрузка">Перегрузка<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span>    <span style="color:#a6e22e">max</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">max</span>(<span style="color:#66d9ef">double</span> a, <span style="color:#66d9ef">double</span> b);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>max(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>);      <span style="color:#75715e">// int-версия
+</span></span></span><span style="display:flex;"><span>max(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5.0</span>);    <span style="color:#75715e">// ошибка: неоднозначно
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Перегрузки различаются <strong>типами параметров</strong> (возвращаемый тип не участвует). Компилятор выбирает лучшее соответствие: точное → продвижения (<code>char</code>→<code>int</code>, <code>float</code>→<code>double</code>) → преобразования (<code>int</code>→<code>double</code>); если лучших несколько — честная ошибка компиляции. Под капотом работает манглинг из занятия 1: <code>__Z3maxii</code> и <code>__Z3maxdd</code> — разные символы для линковщика.</p>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Стиль
+  </summary>
+  <div class="box-content">
+<p>Перегрузки должны делать одно и то же для разных типов. Если <code>print(int)</code> печатает, а <code>print(bool)</code> пишет в файл — вы готовите коллегам сюрприз.</p>
+  </div>
+</details>
+<h3 id="возврат-одно-значение-несколько-ни-одного">Возврат: одно значение, несколько, ни одного<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>pair<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">bool</span><span style="color:#f92672">&gt;</span> divide(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (b <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> {<span style="color:#ae81ff">0</span>, false};
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {a <span style="color:#f92672">/</span> b, true};
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> [q, ok] <span style="color:#f92672">=</span> divide(<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">3</span>);   <span style="color:#75715e">// structured bindings, C++17
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Возврат больших объектов дёшев: copy elision / RVO строит объект сразу на месте результата (гарантировано стандартом с C++17). Несколько значений — <code>std::pair</code>/<code>std::tuple</code> со structured bindings, а для осмысленных наборов — маленькая <code>struct</code> с именованными полями. Атрибут <code>[[nodiscard]]</code> заставляет вызывающего использовать результат — вешайте его на функции, игнорирование результата которых почти наверняка баг:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#a6e22e">[[nodiscard]]</span> <span style="color:#66d9ef">bool</span> save(<span style="color:#66d9ef">const</span> Data<span style="color:#f92672">&amp;</span> d);
+</span></span><span style="display:flex;"><span>save(data);    <span style="color:#75715e">// warning: ignoring return value
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h2 id="ветвления">Ветвления<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="ifelse--и-init-statement-из-c17">if/else — и init-statement из C++17<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> m.find(key); it <span style="color:#f92672">!=</span> m.end()) {
+</span></span><span style="display:flex;"><span>    use(it<span style="color:#f92672">-&gt;</span>second);
+</span></span><span style="display:flex;"><span>}   <span style="color:#75715e">// it здесь уже не существует
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Условие — любое выражение, приводимое к <code>bool</code> (отсюда идиомы <code>if (ptr)</code>, <code>if (!v.empty())</code>). <code>else if</code> — это просто <code>if</code> внутри <code>else</code>. Init-statement сужает область видимости: имя не «протекает» за пределы проверки.</p>
+<p>Две привычки: скобки <code>{}</code> вокруг веток — всегда (история знает баг Apple <code>goto fail</code>, случившийся из-за «второй строки без скобок»); и помните про <code>if (x = 0)</code> — присваивание вместо сравнения компилируется, ловится <code>-Wall</code>.</p>
+<h3 id="тернарный-оператор">Тернарный оператор<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> sign <span style="color:#f92672">=</span> x <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;+&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;-&#34;</span>;</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>усл ? a : b</code> — <strong>выражение</strong>: у него есть значение и тип. Главный кейс — инициализация <code>const</code>-переменных, где if бессилен. Вычисляется только выбранная ветка. Тернарный — для выбора <em>значения</em>; для выбора <em>действия</em> — обычный if. Вложенные тернарные не пишем: два уровня уже требуют расстановки скобок в уме.</p>
+<h3 id="switch">switch<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Op</span> { add, sub, mul, div };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">switch</span> (op) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> Op<span style="color:#f92672">::</span>add: r <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b; <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> Op<span style="color:#f92672">::</span>sub: r <span style="color:#f92672">=</span> a <span style="color:#f92672">-</span> b; <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> Op<span style="color:#f92672">::</span>mul: r <span style="color:#f92672">=</span> a <span style="color:#f92672">*</span> b; <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> Op<span style="color:#f92672">::</span>div: r <span style="color:#f92672">=</span> a <span style="color:#f92672">/</span> b; <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>}   <span style="color:#75715e">// без default: -Wall предупредит о забытом Op
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>switch</code> сравнивает целочисленное выражение (включая <code>enum</code> и <code>char</code>) с константами времени компиляции. Без <code>break</code> исполнение <strong>проваливается</strong> в следующий <code>case</code> — источник классических багов; осознанное проваливание помечайте <code>[[fallthrough]];</code>. Приём: <code>switch</code> по <code>enum class</code> <em>без</em> <code>default</code> — тогда при добавлении нового значения enum компилятор укажет все места, где разбор неполон.</p>
+<h2 id="циклы">Циклы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="for-три-секции">for: три секции<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i) { use(i); }
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//   ^init      ^cond   ^step
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img alt="Блок-схема for: init → cond → тело → step → cond…" class="lazy figure-image" loading="lazy" src="/winter2026/05-funkcii/for-flowchart.svg" style="height: auto;width: auto;"></p>
+<p>Порядок: init → cond → тело → step → cond → … Проверка условия — <strong>до</strong> первой итерации: тело может не выполниться ни разу. Счётчик живёт только внутри цикла. Любая секция опциональна: <code>for (;;)</code> — идиома осознанной бесконечности.</p>
+<h3 id="while-и-do-while">while и do-while<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>)                      <span style="color:#75715e">// 0+ итераций
+</span></span></span><span style="display:flex;"><span>    n <span style="color:#f92672">=</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">*</span> n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> n <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">do</span> {                               <span style="color:#75715e">// 1+ итерация
+</span></span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>getline(std<span style="color:#f92672">::</span>cin, cmd);
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">while</span> (cmd <span style="color:#f92672">!=</span> <span style="color:#e6db74">&#34;quit&#34;</span>);</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Соглашение о читаемости: <code>for</code> — когда есть счётчик или диапазон; <code>while</code> — когда есть условие продолжения; <code>do-while</code> — когда тело обязано выполниться хотя бы раз (ввод, меню). Кстати, цикл в примере — гипотеза Коллатца: его завершимость для всех n — открытая математическая проблема.</p>
+<h3 id="range-based-for">range-based for<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> x : v)         use(x);    <span style="color:#75715e">// копия элемента
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span><span style="color:#f92672">&amp;</span> x : v)        x <span style="color:#f92672">*=</span> <span style="color:#ae81ff">2</span>;    <span style="color:#75715e">// меняем элементы
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> x : v) print(x);  <span style="color:#75715e">// читаем без копий
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Работает со всем, у чего есть <code>begin()/end()</code> — под капотом это в точности цикл по итераторам (тема занятия 16). Выбор формы — та же логика, что у параметров функций. Нет индекса — нет ошибок ±1; нужен индекс — берите классический for. Запрещено добавлять и удалять элементы контейнера внутри range-for: итераторы «протухают», это UB.</p>
+<h3 id="break-continue-и-вложенные-циклы">break, continue и вложенные циклы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><code>break</code> покидает ближайший цикл или switch; <code>continue</code> перепрыгивает к следующей итерации (у for — через step). Ранние выходы упрощают условие цикла: вместо трёх флагов в cond — понятные точки выхода в теле.</p>
+<p>Из вложенных циклов <code>break</code> не выведет. Лучший выход — функция:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">has_pair</span>(<span style="color:#66d9ef">const</span> Grid<span style="color:#f92672">&amp;</span> g, <span style="color:#66d9ef">int</span> sum) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> a : g.row1)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> b : g.row2)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> (a <span style="color:#f92672">+</span> b <span style="color:#f92672">==</span> sum) <span style="color:#66d9ef">return</span> true;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> false;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>А <code>goto</code>? Существует; его легитимная ниша в C — как раз выход из вложенных циклов. В C++ функция с <code>return</code> решает то же чище — в курсе goto не используем.</p>
+<h2 id="ловушки">Ловушки<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="бесконечные-циклы-каталог">Бесконечные циклы: каталог<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>; <span style="color:#f92672">--</span>i)      <span style="color:#75715e">// 1: unsigned не бывает &lt; 0
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">float</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; x <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1.0f</span>; x <span style="color:#f92672">+=</span> <span style="color:#ae81ff">0.1f</span>)  <span style="color:#75715e">// 2: 0.1 не представим — x перепрыгнет 1.0
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&lt;</span> n) { process(j); <span style="color:#f92672">++</span>j; }       <span style="color:#75715e">// 3: меняется не та переменная
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> v.size(); <span style="color:#f92672">++</span>i)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (bad(v[i])) v.push_back(...);     <span style="color:#75715e">// 4: граница убегает от счётчика
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Диагностика: программа «висит» — это почти всегда цикл; отладчик (пауза → где стоим?) или печать счётчика раз в миллион итераций находят виновника за минуту.</p>
+<h3 id="инвариант-цикла">Инвариант цикла<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><strong>Инвариант</strong> — утверждение, истинное перед каждой проверкой условия цикла. Это главный инструмент рассуждения о корректности:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> mx <span style="color:#f92672">=</span> a[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// инвариант: mx == max(a[0..i-1])
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (a[i] <span style="color:#f92672">&gt;</span> mx) mx <span style="color:#f92672">=</span> a[i];   <span style="color:#75715e">// инвариант восстановлен для i+1
+</span></span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// после цикла: i == n → mx == max(a[0..n-1]), что и требовалось
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Схема: инвариант истинен до цикла (база) → тело его сохраняет (шаг) → после выхода инвариант вместе с отрицанием условия дают требуемое. Это индукция, замаскированная под программирование. Навык понадобится немедленно: корректный двоичный поиск (занятие 12) без инварианта невозможно ни написать, ни отладить.</p>
+<h3 id="области-видимости-и-затенение">Области видимости и затенение<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;                      <span style="color:#75715e">// затеняет внешнюю
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">3</span>; <span style="color:#f92672">++</span>x) { }  <span style="color:#75715e">// и ещё раз
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Блок <code>{}</code> — граница видимости. <strong>Затенение</strong> (shadowing) легально и почти всегда случайно: включите <code>-Wshadow</code> в боевой набор флагов. Правило гигиены: объявляйте переменные в минимальной области и как можно ближе к использованию.</p>
+<h3 id="порядок-вычислений">Порядок вычислений<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>printf(<span style="color:#e6db74">&#34;%d %d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, i<span style="color:#f92672">++</span>, i<span style="color:#f92672">++</span>);   <span style="color:#75715e">// UB!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// warning: multiple unsequenced modifications to &#39;i&#39; [-Wunsequenced]
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Два изменения одной переменной без упорядочивания между ними — UB. C++17 навёл частичный порядок (в <code>a[i] = b[j]</code>, цепочках <code>&lt;&lt;</code>), но порядок вычисления аргументов функции по-прежнему не определён: в <code>f(read_next(), read_next())</code> неизвестно, какой вызов первый. Рабочее правило: <strong>не более одного побочного эффекта на выражение</strong>; сложное выражение — разбить на строки с именованными переменными.</p>
+<h3 id="стиль-ранний-выход-против-лестницы">Стиль: ранний выход против лестницы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">process</span>(File<span style="color:#f92672">*</span> f) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (f <span style="color:#f92672">==</span> <span style="color:#66d9ef">nullptr</span>)  <span style="color:#66d9ef">return</span> E_NULL;     <span style="color:#75715e">// guard clauses:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>f<span style="color:#f92672">-&gt;</span>is_open()) <span style="color:#66d9ef">return</span> E_CLOSED;   <span style="color:#75715e">// ошибки обработаны
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (f<span style="color:#f92672">-&gt;</span>empty())    <span style="color:#66d9ef">return</span> E_EMPTY;    <span style="color:#75715e">// и забыты
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// основная работа — на первом уровне вложенности
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Проверки-«вышибалы» в начале функции вместо четырёхэтажной лестницы if-ов: основной сценарий читается сверху вниз без скроллинга вправо.</p>
+<h2 id="взгляд-со-стороны-python">Взгляд со стороны: Python<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">f</span>(x, items<span style="color:#f92672">=</span>[]):     <span style="color:#75715e"># ловушка: список создаётся ОДИН раз — при def</span>
+</span></span><span style="display:flex;"><span>    items<span style="color:#f92672">.</span>append(x)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> items
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>f(<span style="color:#ae81ff">1</span>)   <span style="color:#75715e"># [1]</span>
+</span></span><span style="display:flex;"><span>f(<span style="color:#ae81ff">2</span>)   <span style="color:#75715e"># [1, 2] — сюрприз!</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Отличия от C++: умолчания вычисляются один раз при определении функции (в C++ — при каждом вызове), поэтому mutable-умолчание живёт между вызовами. Перегрузки по типам нет — функция это объект, имя указывает на последний <code>def</code>. Лимит рекурсии мягкий: ~1000 вызовов и ловимый <code>RecursionError</code> вместо segfault. А <code>for</code> в Python — всегда range-based; классического трёхсекционного нет.</p>
+<h2 id="самопроверка">Самопроверка<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>Почему переполнение стека нельзя обработать, а <code>RecursionError</code> в Python — можно?</li>
+<li><code>f(3)</code> при перегрузках <code>f(int)</code> и <code>f(double)</code> — какая версия вызовется для аргумента <code>3.5f</code> (float)? Почему?</li>
+<li>Чем <code>while (cond)</code> отличается от <code>do … while (cond)</code> по числу гарантированных итераций?</li>
+<li>Сформулируйте инвариант цикла суммирования массива.</li>
+</ol>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответы-ориентиры
+  </summary>
+  <div class="box-content">
+<ol>
+<li>Segfault приходит от ОС при обращении за пределы стека — процесс уже не в состоянии продолжать; Python сам считает глубину и бросает обычное исключение заранее.</li>
+<li><code>f(double)</code>: float→double — продвижение, оно «лучше», чем преобразование float→int.</li>
+<li><code>while</code> — ноль и больше; <code>do-while</code> — одна и больше.</li>
+<li>Перед проверкой условия: <code>sum == a[0] + … + a[i-1]</code>.</li>
+</ol>
+  </div>
+</details>
+<h2 id="практика">Практика<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>Напишите <code>is_prime(n)</code>, <code>gcd(a, b)</code> циклом и <code>power(base, exp)</code> за $O(\log exp)$ — с обработкой краевых случаев.</li>
+<li>Перепишите рекурсивный <code>gcd</code> итеративно; сравните ассемблер обеих версий на godbolt.org при <code>-O2</code>.</li>
+<li>Измерьте глубину стека своей машины программой <code>dive()</code>; объясните полученное число через <code>ulimit -s</code>.</li>
+<li>Сформулируйте инвариант цикла своей <code>power</code> и докажите её корректность.</li>
+</ol>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 5 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="active " data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

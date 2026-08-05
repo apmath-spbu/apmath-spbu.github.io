@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Обе программы из этого конспекта решают одну и ту же задачу, обе корректны — и отличаются по времени работы на шесть порядков уже при небольших входах. Разница не в железе и не в языке, а в алгоритме. Сегодняшняя цель — научиться предсказывать такие разрывы до запуска, а в идеале — до написания кода.
+Все замеры в тексте — реальные: Apple M-серия, clang&#43;&#43; -O2.
+Задача дня: числа Фибоначчи $$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} &#43; F_{n-2}$$Последовательность 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, … — задача Леонардо Пизанского о кроликах (1202 год), а сегодня — стандартный полигон для разговора о рекурсии и сложности. Числа Фибоначчи всплывают в анализе алгоритма Евклида (его худший случай — соседние $F_n$), в фибоначчиевых кучах, в филлотаксисе — спиралях подсолнуха; отношение соседних членов стремится к золотому сечению $\varphi \approx 1.618$.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 2. Анализ сложности алгоритмов :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Обе программы из этого конспекта решают одну и ту же задачу, обе корректны — и отличаются по времени работы на шесть порядков уже при небольших входах. Разница не в железе и не в языке, а в алгоритме. Сегодняшняя цель — научиться предсказывать такие разрывы до запуска, а в идеале — до написания кода.
+Все замеры в тексте — реальные: Apple M-серия, clang&#43;&#43; -O2.
+Задача дня: числа Фибоначчи $$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} &#43; F_{n-2}$$Последовательность 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, … — задача Леонардо Пизанского о кроликах (1202 год), а сегодня — стандартный полигон для разговора о рекурсии и сложности. Числа Фибоначчи всплывают в анализе алгоритма Евклида (его худший случай — соседние $F_n$), в фибоначчиевых кучах, в филлотаксисе — спиралях подсолнуха; отношение соседних членов стремится к золотому сечению $\varphi \approx 1.618$.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/02-slozhnost/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 2. Анализ сложности алгоритмов :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Обе программы из этого конспекта решают одну и ту же задачу, обе корректны — и отличаются по времени работы на шесть порядков уже при небольших входах. Разница не в железе и не в языке, а в алгоритме. Сегодняшняя цель — научиться предсказывать такие разрывы до запуска, а в идеале — до написания кода.
+Все замеры в тексте — реальные: Apple M-серия, clang&#43;&#43; -O2.
+Задача дня: числа Фибоначчи $$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} &#43; F_{n-2}$$Последовательность 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, … — задача Леонардо Пизанского о кроликах (1202 год), а сегодня — стандартный полигон для разговора о рекурсии и сложности. Числа Фибоначчи всплывают в анализе алгоритма Евклида (его худший случай — соседние $F_n$), в фибоначчиевых кучах, в филлотаксисе — спиралях подсолнуха; отношение соседних членов стремится к золотому сечению $\varphi \approx 1.618$.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-05T12:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="name" content="Занятие 2. Анализ сложности алгоритмов :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Обе программы из этого конспекта решают одну и ту же задачу, обе корректны — и отличаются по времени работы на шесть порядков уже при небольших входах. Разница не в железе и не в языке, а в алгоритме. Сегодняшняя цель — научиться предсказывать такие разрывы до запуска, а в идеале — до написания кода.
+Все замеры в тексте — реальные: Apple M-серия, clang&#43;&#43; -O2.
+Задача дня: числа Фибоначчи $$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} &#43; F_{n-2}$$Последовательность 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, … — задача Леонардо Пизанского о кроликах (1202 год), а сегодня — стандартный полигон для разговора о рекурсии и сложности. Числа Фибоначчи всплывают в анализе алгоритма Евклида (его худший случай — соседние $F_n$), в фибоначчиевых кучах, в филлотаксисе — спиралях подсолнуха; отношение соседних членов стремится к золотому сечению $\varphi \approx 1.618$.">
+    <meta itemprop="datePublished" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="wordCount" content="1746">
+    <title>Занятие 2. Анализ сложности алгоритмов :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/02-slozhnost\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/02-slozhnost/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#задача-дня-числа-фибоначчи">Задача дня: числа Фибоначчи</a></li>
+    <li><a href="#способ-1-наивная-рекурсия">Способ 1: наивная рекурсия</a>
+      <ul>
+        <li><a href="#замеры">Замеры</a></li>
+        <li><a href="#почему--считаем-вызовы">Почему $\varphi^n$: считаем вызовы</a></li>
+      </ul>
+    </li>
+    <li><a href="#способ-2-итерация">Способ 2: итерация</a></li>
+    <li><a href="#способ-3-мемоизация">Способ 3: мемоизация</a></li>
+    <li><a href="#способ-4-матрицы-и">Способ 4: матрицы и $O(\log n)$</a>
+      <ul>
+        <li><a href="#ложный-способ-5-формула-бине">Ложный способ 5: формула Бине</a></li>
+      </ul>
+    </li>
+    <li><a href="#формализуем-o-символика">Формализуем: O-символика</a>
+      <ul>
+        <li><a href="#определение">Определение</a></li>
+        <li><a href="#семейство-асимптотик">Семейство асимптотик</a></li>
+        <li><a href="#правила-арифметики-o">Правила арифметики O</a></li>
+      </ul>
+    </li>
+    <li><a href="#иерархия-скоростей-роста">Иерархия скоростей роста</a>
+      <ul>
+        <li><a href="#какой-n-потянем-за-секунду">Какой n потянем за секунду?</a></li>
+        <li><a href="#логарифм--лучший-друг-программиста">Логарифм — лучший друг программиста</a></li>
+        <li><a href="#почему-экспонента-всегда-обгонит-многочлен">Почему экспонента всегда обгонит многочлен</a></li>
+      </ul>
+    </li>
+    <li><a href="#что-o-символика-не-расскажет">Что O-символика не расскажет</a></li>
+    <li><a href="#задачи-семинара">Задачи семинара</a></li>
+    <li><a href="#см-также">См. также</a></li>
+    <li><a href="#домашнее-задание">Домашнее задание</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 2. Анализ сложности алгоритмов</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/02-slozhnost/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/01-sborka-cpp/index.html" title="Занятие 1. Сборка C++: от кода до .exe (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/03-tipy-dannyh/index.html" title="Занятие 3. Типы данных: во что упаковываем данные? (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-2-анализ-сложности-алгоритмов">Занятие 2. Анализ сложности алгоритмов</h1>
+
+<p>Обе программы из этого конспекта решают одну и ту же задачу, обе корректны — и отличаются по времени работы на <strong>шесть порядков</strong> уже при небольших входах. Разница не в железе и не в языке, а в алгоритме. Сегодняшняя цель — научиться <em>предсказывать</em> такие разрывы до запуска, а в идеале — до написания кода.</p>
+<p>Все замеры в тексте — реальные: Apple M-серия, <code>clang++ -O2</code>.</p>
+<h2 id="задача-дня-числа-фибоначчи">Задача дня: числа Фибоначчи<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+$$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} + F_{n-2}$$<p>Последовательность 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, … — задача Леонардо Пизанского о кроликах (1202 год), а сегодня — стандартный полигон для разговора о рекурсии и сложности. Числа Фибоначчи всплывают в анализе алгоритма Евклида (его худший случай — соседние $F_n$), в фибоначчиевых кучах, в филлотаксисе — спиралях подсолнуха; отношение соседних членов стремится к золотому сечению $\varphi \approx 1.618$.</p>
+<h2 id="способ-1-наивная-рекурсия">Способ 1: наивная рекурсия<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Прямой перевод определения в код:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;cstdint&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">uint64_t</span> <span style="color:#a6e22e">fib</span>(<span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">return</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Красиво: три строки, дословно повторяющие математику. Но каждый вызов порождает <strong>два</strong> подвызова, и одинаковые значения вычисляются заново — никакого запоминания.</p>
+<p><img alt="Дерево вызовов fib(5): повторы растут лавинообразно" class="lazy figure-image" loading="lazy" src="/winter2026/02-slozhnost/fib-tree.svg" style="height: auto;width: auto;"></p>
+<p>Уже для <code>fib(5)</code> дерево содержит 15 вызовов: <code>f(3)</code> вычисляется 2 раза, <code>f(2)</code> — 3 раза, <code>f(1)</code> — 5 раз. Обратите внимание: счётчики повторов — 2, 3, 5 — <strong>сами числа Фибоначчи</strong>. Дерево растёт с той же скоростью, что и значения, которые мы считаем.</p>
+<h3 id="замеры">Замеры<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>$n$</th>
+					<th>время <code>fib(n)</code></th>
+					<th>рост</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>30</td>
+					<td>1.4 мс</td>
+					<td></td>
+			</tr>
+			<tr>
+					<td>35</td>
+					<td>15 мс</td>
+					<td>×11</td>
+			</tr>
+			<tr>
+					<td>40</td>
+					<td>177 мс</td>
+					<td>×11</td>
+			</tr>
+			<tr>
+					<td>45</td>
+					<td><strong>1.89 с</strong></td>
+					<td>×11</td>
+			</tr>
+			<tr>
+					<td>50</td>
+					<td>≈ 21 с</td>
+					<td>прогноз</td>
+			</tr>
+			<tr>
+					<td>60</td>
+					<td>≈ 43 мин</td>
+					<td>прогноз</td>
+			</tr>
+			<tr>
+					<td>90</td>
+					<td><strong>≈ 150 лет</strong></td>
+					<td>прогноз</td>
+			</tr>
+	</tbody>
+</table>
+<p>Каждые +5 к $n$ — рост в ~11 раз. Почему именно 11?</p>
+$$\varphi^5 = \left(\frac{1+\sqrt{5}}{2}\right)^{5} \approx 1.618^5 \approx 11.09$$<p>Время растёт как степень золотого сечения — геометрическая прогрессия, то есть <strong>экспоненциальный рост</strong>.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Проверка интуиции
+  </summary>
+  <div class="box-content">
+<p>Спасёт ли компьютер в 10 раз быстрее? Нет: $10 \approx \varphi^{4.8}$, выигрыш — всего <strong>+5 к посильному n</strong>. Против экспоненты железо бессильно; помогает только смена алгоритма.</p>
+  </div>
+</details>
+<h3 id="почему--считаем-вызовы">Почему $\varphi^n$: считаем вызовы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Пусть $C(n)$ — число вызовов <code>fib(n)</code>. Каждый вызов делает два подвызова и $O(1)$ собственной работы:</p>
+$$C(n) = C(n-1) + C(n-2) + 1, \qquad C(0) = C(1) = 1$$<p>Индукцией проверяется точное решение $C(n) = 2F_{n+1} - 1$ (для $n=5$: $2 \cdot 8 - 1 = 15$ — ровно как на дереве). А сами числа Фибоначчи растут как $F_n = \varphi^n/\sqrt{5}$ с округлением (докажем строго на занятии 6 про рекуррентные соотношения). Итого время наивной рекурсии:</p>
+$$T(n) = \Theta(\varphi^n) \approx \Theta(1.618^n)$$<h2 id="способ-2-итерация">Способ 2: итерация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Идём снизу вверх, храня только два последних числа:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">uint64_t</span> <span style="color:#a6e22e">fib</span>(<span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">uint64_t</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, b <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;            <span style="color:#75715e">// F(0), F(1)
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">uint64_t</span> t <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;
+</span></span><span style="display:flex;"><span>        a <span style="color:#f92672">=</span> b;                        <span style="color:#75715e">// окно (F(i), F(i+1))
+</span></span></span><span style="display:flex;"><span>        b <span style="color:#f92672">=</span> t;                        <span style="color:#75715e">// едет вправо
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> a;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Каждое значение вычисляется ровно один раз: $\Theta(n)$ времени, $\Theta(1)$ памяти. Итог очной ставки:</p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>вызовов/итераций</th>
+					<th>fib(45)</th>
+					<th>fib(90)</th>
+					<th>асимптотика</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>рекурсия</td>
+					<td>$2F_{n+1}-1 \approx 2.7 \cdot 10^9$</td>
+					<td>1.89 с</td>
+					<td>≈ 150 лет</td>
+					<td>$\Theta(\varphi^n)$</td>
+			</tr>
+			<tr>
+					<td>цикл</td>
+					<td>$n$</td>
+					<td>&lt; 1 мкс</td>
+					<td>42 нс</td>
+					<td>$\Theta(n)$</td>
+			</tr>
+	</tbody>
+</table>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Деталь
+  </summary>
+  <div class="box-content">
+<p><code>uint64_t</code> переполнится уже на F(94). Что делать с F(1000) — тема занятия 4 (длинная арифметика).</p>
+  </div>
+</details>
+<h2 id="способ-3-мемоизация">Способ 3: мемоизация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Рекурсию можно вылечить, не отказываясь от неё, — кэшем:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">uint64_t</span> <span style="color:#a6e22e">fib</span>(<span style="color:#66d9ef">int</span> n, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">uint64_t</span><span style="color:#f92672">&gt;&amp;</span> memo) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span>) <span style="color:#66d9ef">return</span> n;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (memo[n] <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span>) <span style="color:#66d9ef">return</span> memo[n];        <span style="color:#75715e">// уже считали
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> memo[n] <span style="color:#f92672">=</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>, memo) <span style="color:#f92672">+</span> fib(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>, memo);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Каждое значение считается один раз, повторные обращения отвечают из кэша за $O(1)$: время $\Theta(n)$, память $\Theta(n)$. Это первый шаг к <strong>динамическому программированию</strong> — «рекурсия + таблица результатов» (большая тема второго семестра). Цикл из способа 2 — та же идея, но таблица заполняется явно снизу вверх, и хранить можно лишь два значения.</p>
+<h2 id="способ-4-матрицы-и">Способ 4: матрицы и $O(\log n)$<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Шаг Фибоначчи — линейное преобразование пары соседних чисел, значит, $n$ шагов — степень матрицы:</p>
+$$\begin{pmatrix} F_{n+1} & F_n \\ F_n & F_{n-1} \end{pmatrix} = \begin{pmatrix} 1 & 1 \\ 1 & 0 \end{pmatrix}^{n}$$<p>Степень считается <strong>быстрым возведением</strong>: $A^{10} = (A^5)^2$, $A^5 = A \cdot (A^2)^2$ — показатель каждый раз делится пополам, итого $\Theta(\log n)$ матричных умножений. Тот же трюк для чисел встретится в криптографии (второй семестр).</p>
+<table>
+	<thead>
+			<tr>
+					<th>способ</th>
+					<th>время</th>
+					<th>память</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>рекурсия</td>
+					<td>$\Theta(\varphi^n)$</td>
+					<td>$\Theta(n)$ стек</td>
+			</tr>
+			<tr>
+					<td>мемоизация</td>
+					<td>$\Theta(n)$</td>
+					<td>$\Theta(n)$</td>
+			</tr>
+			<tr>
+					<td>цикл</td>
+					<td>$\Theta(n)$</td>
+					<td>$\Theta(1)$</td>
+			</tr>
+			<tr>
+					<td>матрицы</td>
+					<td>$\Theta(\log n)$</td>
+					<td>$\Theta(1)$</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="ложный-способ-5-формула-бине">Ложный способ 5: формула Бине<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+$$F_n = \frac{\varphi^n - \psi^n}{\sqrt{5}}, \qquad \psi = \frac{1-\sqrt{5}}{2} \approx -0.618$$<p>Выглядит как $O(1)$, но не работает: <code>double</code> хранит ~15–16 значащих цифр, и уже $F_{72} > 10^{14}$ вычисляется с ошибкой округления — ответ просто неверный. Да и честное возведение в степень — всё равно $\Theta(\log n)$ умножений. Урок: асимптотика — про количество операций, но операции бывают неточными (устройство <code>double</code> — на занятии 3).</p>
+<h2 id="формализуем-o-символика">Формализуем: O-символика<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Секунды зависят от процессора, компилятора и погоды. Чтобы сравнивать <strong>алгоритмы</strong>, а не компьютеры, договариваемся о модели RAM: память с доступом за $O(1)$, элементарные операции (арифметика, сравнение, присваивание) стоят по единице; время алгоритма = число операций как функция размера входа $n$. Константы и младшие члены — свойства машины, а не алгоритма, поэтому смотрим только на <strong>порядок роста</strong>.</p>
+<h3 id="определение">Определение<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+$$f(n) = O(g(n)) \;\Longleftrightarrow\; \exists\, c > 0,\ \exists\, n_0: \quad \forall n \ge n_0 \quad f(n) \le c \cdot g(n)$$<p><img alt="Определение O: с некоторого n₀ функция f зажата под c·g" class="lazy figure-image" loading="lazy" src="/winter2026/02-slozhnost/big-o.svg" style="height: auto;width: auto;"></p>
+<p>С некоторого места $n_0$ функция $f$ зажата под графиком $c \cdot g$; что происходит до $n_0$ — не важно. Константа $c$ «поглощает» множители: $5n^2 + 3n = O(n^2)$ (возьмите $c = 6$, $n_0 = 3$). Запись $f = O(g)$ — историческая вольность: корректнее $f \in O(g)$, ведь $O(g)$ — множество функций.</p>
+<h3 id="семейство-асимптотик">Семейство асимптотик<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>запись</th>
+					<th>смысл</th>
+					<th>аналогия</th>
+					<th>пример</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>$f = O(g)$</td>
+					<td>растёт не быстрее $g$</td>
+					<td>≤</td>
+					<td>$n = O(n^2)$</td>
+			</tr>
+			<tr>
+					<td>$f = \Omega(g)$</td>
+					<td>растёт не медленнее $g$</td>
+					<td>≥</td>
+					<td>$n^2 = \Omega(n)$</td>
+			</tr>
+			<tr>
+					<td>$f = \Theta(g)$</td>
+					<td>тот же порядок (O и Ω сразу)</td>
+					<td>=</td>
+					<td>$5n^2 + 3n = \Theta(n^2)$</td>
+			</tr>
+			<tr>
+					<td>$f = o(g)$</td>
+					<td>строго медленнее: $f/g \to 0$</td>
+					<td>&lt;</td>
+					<td>$n = o(n^2)$</td>
+			</tr>
+			<tr>
+					<td>$f = \omega(g)$</td>
+					<td>строго быстрее: $f/g \to \infty$</td>
+					<td>&gt;</td>
+					<td>$n^2 = \omega(n)$</td>
+			</tr>
+	</tbody>
+</table>
+<p>В устной речи «O» часто используют в смысле «Θ» («сортировка за O(n log n)» — имеется в виду точный порядок). На письме и в задачах — различайте. И помните: сказать про итеративный fib «он $O(2^n)$» — корректно (не быстрее экспоненты — чистая правда), но бесполезно; содержательная оценка — $\Theta(n)$.</p>
+<h3 id="правила-арифметики-o">Правила арифметики O<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ul>
+<li>константы: $O(c \cdot f) = O(f)$;</li>
+<li>сумма (последовательные куски кода): $O(f) + O(g) = O(\max(f, g))$;</li>
+<li>произведение (вложенные циклы): $O(f) \cdot O(g) = O(f \cdot g)$;</li>
+<li>транзитивность: $f = O(g),\ g = O(h) \Rightarrow f = O(h)$.</li>
+</ul>
+<p>Пример: чтение входа $\Theta(n)$ + сортировка $\Theta(n \log n)$ + вывод $\Theta(n)$ = $\Theta(n \log n)$.</p>
+<p>Типичные ошибки: писать $O(2n)$ или $O(n^2 + n)$ (то же, что $O(n)$ и $O(n^2)$); думать, что «$O(1)$ всегда быстрее $O(n)$» ($10^9$ операций — это тоже $O(1)$); указывать основание логарифма (смена основания — умножение на константу: $\log_a n = \log_b n / \log_b a$).</p>
+<h2 id="иерархия-скоростей-роста">Иерархия скоростей роста<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+$$1 \prec \log n \prec \sqrt{n} \prec n \prec n \log n \prec n^2 \prec n^3 \prec 2^n \prec n!$$<p><img alt="Лестница сложностей: от константы до факториала" class="lazy figure-image" loading="lazy" src="/winter2026/02-slozhnost/growth.svg" style="height: auto;width: auto;"></p>
+<p>Интуиция по классам: до $n \log n$ — «быстрые» алгоритмы, миллионы элементов не страшны; полиномы $n^2$, $n^3$ терпимы на тысячах; экспонента и факториал — только крошечные $n$, и обычно это сигнал «ищи другой алгоритм».</p>
+<h3 id="какой-n-потянем-за-секунду">Какой n потянем за секунду?<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Ориентир: современный CPU — порядка $10^8$–$10^9$ простых операций в секунду.</p>
+<table>
+	<thead>
+			<tr>
+					<th>сложность</th>
+					<th>максимальный n за ~1 с</th>
+					<th>пример</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>$\log n$</td>
+					<td>практически любой ($10^{18}$ — это 60 шагов)</td>
+					<td>двоичный поиск</td>
+			</tr>
+			<tr>
+					<td>$n$</td>
+					<td>$\approx 10^8$</td>
+					<td>проход по массиву</td>
+			</tr>
+			<tr>
+					<td>$n \log n$</td>
+					<td>$\approx 5 \cdot 10^6$</td>
+					<td>хорошие сортировки</td>
+			</tr>
+			<tr>
+					<td>$n^2$</td>
+					<td>$\approx 10^4$</td>
+					<td>пузырёк, наивное умножение матриц</td>
+			</tr>
+			<tr>
+					<td>$n^3$</td>
+					<td>$\approx 500$</td>
+					<td>Флойд–Уоршелл</td>
+			</tr>
+			<tr>
+					<td>$2^n$</td>
+					<td>$\approx 26$</td>
+					<td>перебор подмножеств</td>
+			</tr>
+			<tr>
+					<td>$n!$</td>
+					<td>$\approx 11$</td>
+					<td>перебор перестановок</td>
+			</tr>
+	</tbody>
+</table>
+<p>Это таблица-компас: по ограничению на $n$ в условии задачи сразу видно, алгоритм какого класса от вас ждут.</p>
+<h3 id="логарифм--лучший-друг-программиста">Логарифм — лучший друг программиста<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>$\log_2 n$ — «сколько раз поделить $n$ пополам до единицы»: $\log_2 10^6 \approx 20$, $\log_2 10^9 \approx 30$, $\log_2 10^{18} \approx 60$. Миллиард элементов — 30 шагов двоичного поиска; рост входа в 1000 раз добавляет лишь ~10 шагов. Пригодятся свойства: $\log(ab) = \log a + \log b$, $\log(a^k) = k \log a$, $a^{\log_a n} = n$.</p>
+<h3 id="почему-экспонента-всегда-обгонит-многочлен">Почему экспонента всегда обгонит многочлен<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+$$\lim_{n \to \infty} \frac{n^k}{c^n} = 0 \quad (c > 1), \qquad \lim_{n \to \infty} \frac{\log^k n}{n^{\varepsilon}} = 0 \quad (\varepsilon > 0)$$<p>Интуиция без пределов: при шаге $n \to n+1$ экспонента $c^n$ умножается на константу $c > 1$, а многочлен $n^k$ — на $(1 + 1/n)^k \to 1$. Один множится на константу, другой почти на единицу — исход предрешён. Но на <em>конкретном</em> $n$ всё решают константы: $1.001^n$ обгонит $n^{10}$ лишь при астрономических $n$. Асимптотика — про «в конце концов».</p>
+<h2 id="что-o-символика-не-расскажет">Что O-символика не расскажет<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li><strong>Лучший / средний / худший случай.</strong> Одна программа — три функции роста: линейный поиск — лучший $O(1)$, худший $O(n)$; быстрая сортировка — средний $\Theta(n \log n)$, худший $\Theta(n^2)$. Уточняйте, о каком случае речь.</li>
+<li><strong>Скрытые константы.</strong> $\Theta(n)$ с тяжёлой константой может проигрывать $\Theta(n \log n)$ на всех практических $n$; Карацуба (занятие 4) окупается лишь с сотен цифр.</li>
+<li><strong>Амортизация.</strong> Отдельная операция бывает дорогой, но в среднем по серии — дешёвой: <code>push_back</code> в динамический массив — $\Theta(1)$ амортизированно (строго — на занятии 10).</li>
+<li><strong>Память.</strong> Кроме времени есть space complexity: мемоизация платит $\Theta(n)$ памяти, цикл — $\Theta(1)$. И кэши процессора: «одинаковые» $\Theta(n)$ различаются в разы.</li>
+</ul>
+<h2 id="задачи-семинара">Задачи семинара<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Определите $\Theta$ для каждого фрагмента:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// A
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>j)
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">++</span>count;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// B
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) n <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// C
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; <span style="color:#f92672">++</span>i)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; j <span style="color:#f92672">&lt;</span> i; <span style="color:#f92672">++</span>j)   <span style="color:#75715e">// j &lt; i!
+</span></span></span><span style="display:flex;"><span>        <span style="color:#f92672">++</span>count;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// D
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">*</span> i <span style="color:#f92672">&lt;=</span> n; <span style="color:#f92672">++</span>i)
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">++</span>count;</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответы
+  </summary>
+  <div class="box-content">
+<p>A — $\Theta(n^2)$; B — $\Theta(\log n)$; C — $\Theta(n^2)$ (сумма $0+1+\dots+(n{-}1) = n(n{-}1)/2$); D — $\Theta(\sqrt{n})$.</p>
+  </div>
+</details>
+<h2 id="см-также">См. также<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li><a href="/basics/complexity/index.html">Анализ сложности алгоритмов (теория, весенний семестр)</a> — та же тема с другой стороны: лемма о скорости роста чисел Фибоначчи с доказательством по индукции и строгие оценки.</li>
+<li><a href="/basics/recurrence_relation/index.html">Рекуррентные соотношения</a> — мастер-теорема, которой мы пользовались «на глаз» для $T(n) = 3T(n/2) + \Theta(n)$; строгая формулировка — на занятии 6.</li>
+</ul>
+<h2 id="домашнее-задание">Домашнее задание<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>Реализовать fib рекурсивно и итеративно, измерить времена для $n = 30 \dots 45$, построить таблицу роста.</li>
+<li>Доказать индукцией: $C(n) = 2F_{n+1} - 1$.</li>
+<li>Упорядочить по скорости роста: $n \log n$, $2^{\log n}$, $n^{1.5}$, $\log^2 n$, $2^{2^{10}}$.</li>
+<li>Оценить $\Theta$ выданных фрагментов кода.</li>
+<li>* Реализовать fib за $\Theta(\log n)$ матричным возведением в степень.</li>
+</ol>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 5 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="active " data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

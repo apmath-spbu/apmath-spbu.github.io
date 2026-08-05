@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="К шестому занятию у нас накопилось четыре рекуррентности, решённые «на глаз»: число вызовов наивного Фибоначчи, два разбиения из длинной арифметики и быстрое возведение в степень. Сегодня получаем строгий инструментарий: два ручных метода, основную теорему с доказательством — и характеристические уравнения, которые закроют обещание, данное ещё на занятии 2.
+откуда соотношение мы «угадали» наивный fib (зан. 2) $C(n) = C(n-1) &#43; C(n-2) &#43; 1$ $\Theta(\varphi^n)$ — по замерам разбиение пополам (зан. 4) $T(n) = 4T(n/2) &#43; \Theta(n)$ $\Theta(n^2)$ — по дереву Карацуба (зан. 4) $T(n) = 3T(n/2) &#43; \Theta(n)$ $\Theta(n^{1.585})$ — по дереву быстрое возведение (зан. 2) $T(n) = T(n/2) &#43; \Theta(1)$ $\Theta(\log n)$ — интуиция Рекуррентное соотношение — определение функции через её значения на меньших аргументах плюс база (начальные значения). Решить — найти замкнутую форму или хотя бы асимптотику $\Theta$; для анализа алгоритмов асимптотики почти всегда достаточно.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 6. Рекуррентные соотношения :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="К шестому занятию у нас накопилось четыре рекуррентности, решённые «на глаз»: число вызовов наивного Фибоначчи, два разбиения из длинной арифметики и быстрое возведение в степень. Сегодня получаем строгий инструментарий: два ручных метода, основную теорему с доказательством — и характеристические уравнения, которые закроют обещание, данное ещё на занятии 2.
+откуда соотношение мы «угадали» наивный fib (зан. 2) $C(n) = C(n-1) &#43; C(n-2) &#43; 1$ $\Theta(\varphi^n)$ — по замерам разбиение пополам (зан. 4) $T(n) = 4T(n/2) &#43; \Theta(n)$ $\Theta(n^2)$ — по дереву Карацуба (зан. 4) $T(n) = 3T(n/2) &#43; \Theta(n)$ $\Theta(n^{1.585})$ — по дереву быстрое возведение (зан. 2) $T(n) = T(n/2) &#43; \Theta(1)$ $\Theta(\log n)$ — интуиция Рекуррентное соотношение — определение функции через её значения на меньших аргументах плюс база (начальные значения). Решить — найти замкнутую форму или хотя бы асимптотику $\Theta$; для анализа алгоритмов асимптотики почти всегда достаточно.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/06-rekurrenty/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 6. Рекуррентные соотношения :: Краткий курс по основам программирования">
+    <meta property="og:description" content="К шестому занятию у нас накопилось четыре рекуррентности, решённые «на глаз»: число вызовов наивного Фибоначчи, два разбиения из длинной арифметики и быстрое возведение в степень. Сегодня получаем строгий инструментарий: два ручных метода, основную теорему с доказательством — и характеристические уравнения, которые закроют обещание, данное ещё на занятии 2.
+откуда соотношение мы «угадали» наивный fib (зан. 2) $C(n) = C(n-1) &#43; C(n-2) &#43; 1$ $\Theta(\varphi^n)$ — по замерам разбиение пополам (зан. 4) $T(n) = 4T(n/2) &#43; \Theta(n)$ $\Theta(n^2)$ — по дереву Карацуба (зан. 4) $T(n) = 3T(n/2) &#43; \Theta(n)$ $\Theta(n^{1.585})$ — по дереву быстрое возведение (зан. 2) $T(n) = T(n/2) &#43; \Theta(1)$ $\Theta(\log n)$ — интуиция Рекуррентное соотношение — определение функции через её значения на меньших аргументах плюс база (начальные значения). Решить — найти замкнутую форму или хотя бы асимптотику $\Theta$; для анализа алгоритмов асимптотики почти всегда достаточно.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-05T12:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="name" content="Занятие 6. Рекуррентные соотношения :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="К шестому занятию у нас накопилось четыре рекуррентности, решённые «на глаз»: число вызовов наивного Фибоначчи, два разбиения из длинной арифметики и быстрое возведение в степень. Сегодня получаем строгий инструментарий: два ручных метода, основную теорему с доказательством — и характеристические уравнения, которые закроют обещание, данное ещё на занятии 2.
+откуда соотношение мы «угадали» наивный fib (зан. 2) $C(n) = C(n-1) &#43; C(n-2) &#43; 1$ $\Theta(\varphi^n)$ — по замерам разбиение пополам (зан. 4) $T(n) = 4T(n/2) &#43; \Theta(n)$ $\Theta(n^2)$ — по дереву Карацуба (зан. 4) $T(n) = 3T(n/2) &#43; \Theta(n)$ $\Theta(n^{1.585})$ — по дереву быстрое возведение (зан. 2) $T(n) = T(n/2) &#43; \Theta(1)$ $\Theta(\log n)$ — интуиция Рекуррентное соотношение — определение функции через её значения на меньших аргументах плюс база (начальные значения). Решить — найти замкнутую форму или хотя бы асимптотику $\Theta$; для анализа алгоритмов асимптотики почти всегда достаточно.">
+    <meta itemprop="datePublished" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="wordCount" content="1376">
+    <title>Занятие 6. Рекуррентные соотношения :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/06-rekurrenty\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/06-rekurrenty/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#метод-1-раскрутка">Метод 1: раскрутка</a></li>
+    <li><a href="#метод-2-дерево-рекурсии">Метод 2: дерево рекурсии</a></li>
+    <li><a href="#основная-теорема">Основная теорема</a>
+      <ul>
+        <li><a href="#доказательство">Доказательство</a></li>
+      </ul>
+    </li>
+    <li><a href="#когда-теорема-молчит">Когда теорема молчит</a></li>
+    <li><a href="#замена-переменной">Замена переменной</a></li>
+    <li><a href="#линейные-рекуррентности-и-формула-бине">Линейные рекуррентности и формула Бине</a></li>
+    <li><a href="#шпаргалка-какой-метод-брать">Шпаргалка: какой метод брать</a></li>
+    <li><a href="#задачи-семинара">Задачи семинара</a></li>
+    <li><a href="#см-также">См. также</a></li>
+    <li><a href="#домашнее-задание-4-балла">Домашнее задание (4 балла)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 6. Рекуррентные соотношения</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/06-rekurrenty/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/05-funkcii/index.html" title="Занятие 5. Управление программой: функции и потоки выполнения (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/index.html" title="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-6-рекуррентные-соотношения">Занятие 6. Рекуррентные соотношения</h1>
+
+<p>К шестому занятию у нас накопилось четыре рекуррентности, решённые «на глаз»: число вызовов наивного Фибоначчи, два разбиения из длинной арифметики и быстрое возведение в степень. Сегодня получаем строгий инструментарий: два ручных метода, основную теорему с доказательством — и характеристические уравнения, которые закроют обещание, данное ещё на занятии 2.</p>
+<table>
+	<thead>
+			<tr>
+					<th>откуда</th>
+					<th>соотношение</th>
+					<th>мы «угадали»</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>наивный fib (зан. 2)</td>
+					<td>$C(n) = C(n-1) + C(n-2) + 1$</td>
+					<td>$\Theta(\varphi^n)$ — по замерам</td>
+			</tr>
+			<tr>
+					<td>разбиение пополам (зан. 4)</td>
+					<td>$T(n) = 4T(n/2) + \Theta(n)$</td>
+					<td>$\Theta(n^2)$ — по дереву</td>
+			</tr>
+			<tr>
+					<td>Карацуба (зан. 4)</td>
+					<td>$T(n) = 3T(n/2) + \Theta(n)$</td>
+					<td>$\Theta(n^{1.585})$ — по дереву</td>
+			</tr>
+			<tr>
+					<td>быстрое возведение (зан. 2)</td>
+					<td>$T(n) = T(n/2) + \Theta(1)$</td>
+					<td>$\Theta(\log n)$ — интуиция</td>
+			</tr>
+	</tbody>
+</table>
+<p><strong>Рекуррентное соотношение</strong> — определение функции через её значения на меньших аргументах плюс база (начальные значения). <strong>Решить</strong> — найти замкнутую форму или хотя бы асимптотику $\Theta$; для анализа алгоритмов асимптотики почти всегда достаточно.</p>
+<h2 id="метод-1-раскрутка">Метод 1: раскрутка<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Подставляем определение в само себя, пока не дойдём до базы, и узнаём получившуюся сумму. Пример — $T(1) = 1$, $T(n) = T(n-1) + n$ (так ведут себя треугольные циклы и сортировка вставками):</p>
+$$T(n) = T(n-1) + n = T(n-2) + (n-1) + n = \dots = T(1) + 2 + \dots + n = \frac{n(n+1)}{2} = \Theta(n^2)$$<p>Раскрутка идеальна для «линейного спуска» ($n-1$, $n-2$), где дерево вырождается в цепочку. Если сумма не узнаётся сразу, раскрутка даёт гипотезу, которую можно закрепить индукцией.</p>
+<h2 id="метод-2-дерево-рекурсии">Метод 2: дерево рекурсии<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Считаем суммарную работу <strong>по уровням</strong>. Классика: $T(n) = 2T(n/2) + n$ — «подели пополам, склей за линию» (так устроена сортировка слиянием, скоро увидим её вживую):</p>
+<p><img alt="Дерево рекурсии для 2T(n/2)+n: каждый уровень даёт ровно n" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/tree-nlogn.svg" style="height: auto;width: auto;"></p>
+<p>На уровне $i$ живёт $2^i$ узлов с работой $n/2^i$ каждый — уровень в сумме даёт ровно $n$. Уровней $\Theta(\log n)$, итого $\Theta(n \log n)$.</p>
+<p>Дерево — универсальный метод: оно рисует картину даже там, где теоремы молчат. Обобщим его. Пусть</p>
+$$T(n) = a \cdot T(n/b) + \Theta(n^c).$$<p>Работа уровня $i$:</p>
+$$a^i \cdot \left(\frac{n}{b^i}\right)^{c} = n^c \cdot \left(\frac{a}{b^c}\right)^{i} = n^c \cdot q^i, \qquad q = \frac{a}{b^c}$$<p>— <strong>геометрическая прогрессия</strong> со знаменателем $q$. Число $q$ сравнивает рост количества задач (×$a$ за уровень) с падением работы на задачу (÷$b^c$). Листьев в дереве $a^{\log_b n} = n^{\log_b a}$ — это тождество стоит проверить логарифмированием и запомнить.</p>
+<p>Три режима прогрессии — три исхода:</p>
+<p><img alt="q &lt; 1: работа тает с глубиной, доминирует корень" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/mode-root.svg" style="height: auto;width: auto;"></p>
+<p><img alt="q = 1: все уровни дают поровну" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/mode-balanced.svg" style="height: auto;width: auto;"></p>
+<p><img alt="q &gt; 1: работа нарастает, доминируют листья" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/mode-leaves.svg" style="height: auto;width: auto;"></p>
+<h2 id="основная-теорема">Основная теорема<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Основная теорема о рекуррентных соотношениях
+  </summary>
+  <div class="box-content">
+<p>Пусть $T(n) = a \cdot T(\lceil n/b \rceil) + \Theta(n^c)$, где $a > 0$, $b > 1$, $c \ge 0$. Тогда:
+</p>
+$$T(n) = \begin{cases} \Theta(n^c), & \text{если } c > \log_b a \\ \Theta(n^c \log n), & \text{если } c = \log_b a \\ \Theta(n^{\log_b a}), & \text{если } c < \log_b a \end{cases}$$
+  </div>
+</details>
+<p>Формулировка совпадает с <a href="/basics/recurrence_relation/index.html">теорией весеннего семестра</a> — это «экзаменационная» версия. Рецепт применения: выписать $a, b, c$ → посчитать $\log_b a$ → сравнить с $c$. В терминах дерева это в точности случаи $q < 1$, $q = 1$, $q > 1$.</p>
+<p>Закрываем долги одним движением:</p>
+<table>
+	<thead>
+			<tr>
+					<th>алгоритм</th>
+					<th>$T(n)$</th>
+					<th>$a, b, c$</th>
+					<th>$\log_b a$</th>
+					<th>ответ</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Карацуба</td>
+					<td>$3T(n/2) + n$</td>
+					<td>3, 2, 1</td>
+					<td>1.585</td>
+					<td>$\Theta(n^{1.585})$</td>
+			</tr>
+			<tr>
+					<td>наивное разбиение</td>
+					<td>$4T(n/2) + n$</td>
+					<td>4, 2, 1</td>
+					<td>2</td>
+					<td>$\Theta(n^2)$</td>
+			</tr>
+			<tr>
+					<td>сортировка слиянием</td>
+					<td>$2T(n/2) + n$</td>
+					<td>2, 2, 1</td>
+					<td>1</td>
+					<td>$\Theta(n \log n)$</td>
+			</tr>
+			<tr>
+					<td>двоичный поиск</td>
+					<td>$T(n/2) + 1$</td>
+					<td>1, 2, 0</td>
+					<td>0</td>
+					<td>$\Theta(\log n)$</td>
+			</tr>
+			<tr>
+					<td>«тяжёлая склейка»</td>
+					<td>$2T(n/2) + n^2$</td>
+					<td>2, 2, 2</td>
+					<td>1</td>
+					<td>$\Theta(n^2)$</td>
+			</tr>
+	</tbody>
+</table>
+<p>Обратите внимание на последнюю строку: рекурсия есть, а платим только за корень — дети дешевле родителя, дерево «сходится» сверху.</p>
+<h3 id="доказательство">Доказательство<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+
+<details open class="box cstyle notices prove expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    <i class="fa-fw fas fa-lock-open"></i> 
+    Доказательство
+  </summary>
+  <div class="box-content">
+<p><strong>Шаг 1: $n = b^k$, раскрутка.</strong> Подставляем определение в себя до базы:</p>
+$$T(n) = a T\!\left(\frac{n}{b}\right) + \Theta(n^c) = \dots = \Theta\!\left(n^c \left(1 + q + q^2 + \dots + q^k\right)\right), \qquad q = \frac{a}{b^c}.$$<p>Слагаемое уровня $i$ — это $a^i (n/b^i)^c = n^c q^i$: суммы уровней дерева, выписанные формулой. Последний член — листья: $a^k T(1) = \Theta(a^k) = \Theta(n^c q^k)$ при $n = b^k$, он вливается в ту же прогрессию.</p>
+<p><strong>Шаг 2: три случая прогрессии.</strong></p>
+<ul>
+<li>$q < 1$ (то есть $c > \log_b a$): сумма ограничена константой $\frac{1}{1-q}$, не зависящей от $n$: $T(n) = \Theta(n^c)$.</li>
+<li>$q = 1$ (то есть $c = \log_b a$): все $k+1 = \Theta(\log n)$ слагаемых равны: $T(n) = \Theta(n^c \log n)$.</li>
+<li>$q > 1$ (то есть $c < \log_b a$): сумма есть $\Theta(q^k)$ — доминирует последний член: $T(n) = \Theta(n^c q^k) = \Theta(a^k) = \Theta(n^{\log_b a})$.</li>
+</ul>
+<p><strong>Шаг 3: произвольное $n$.</strong> Возьмём $k(n)$ с условием $b^{k(n)-1} < n \le b^{k(n)}$. Функция $T$ монотонна (при меньшем $n$ задач и работы не больше), поэтому $T(n) = O(T(b^{k(n)}))$, а $b^{k(n)} < b \cdot n = O(n)$: «округление до степени $b$» меняет аргумент лишь в константу раз. Так получается оценка $O$ для всех $n$; точная $\Theta$ с потолками $\lceil n/b \rceil$ требует технических выкладок — глава 4.6 Кормена.</p>
+  </div>
+</details>
+<p>Вся теорема — это три режима геометрической прогрессии. Помните картинку «корень / равновесие / листья» — формулы восстанавливаются на месте.</p>
+<h2 id="когда-теорема-молчит">Когда теорема молчит<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li><strong>Спуск вычитанием:</strong> $T(n) = T(n-1) + n$ — нет деления на $b > 1$. Метод: раскрутка → $\Theta(n^2)$.</li>
+<li><strong>«Нестепенная» склейка:</strong> $T(n) = 2T(n/2) + n/\log n$ — $f(n)$ не имеет вид $n^c$. Метод: дерево и честное суммирование (получится $\Theta(n \log \log n)$).</li>
+<li><strong>Неравные части:</strong> $T(n) = T(n/3) + T(2n/3) + n$. Дерево: каждый уровень даёт $\le n$, глубина $\log_{3/2} n$ → $\Theta(n \log n)$. Общий инструмент для таких случаев — теорема Акры–Бацци.</li>
+<li><strong>Экспоненциальный рост задач:</strong> $C(n) = C(n-1) + C(n-2) + 1$ — Фибоначчи. Нужен другой аппарат — ниже.</li>
+</ul>
+<h2 id="замена-переменной">Замена переменной<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+$$T(n) = T(\sqrt{n}) + 1.$$<p>Пусть $m = \log_2 n$ (то есть $n = 2^m$, $\sqrt{n} = 2^{m/2}$). Для $S(m) = T(2^m)$ получаем знакомое $S(m) = S(m/2) + 1 = \Theta(\log m)$, откуда</p>
+$$T(n) = \Theta(\log \log n).$$<p>Приём общий: «странный» аргумент — переименуйте его так, чтобы соотношение стало знакомым. Величина $\log \log n$ — «почти константа»: для $n = 10^{18}$ это ≈ 6. Упражнение на месте: $T(n) = 2T(\sqrt{n}) + \log n$ — что получится? (Подсказка: после замены выйдет сортировка слиянием.)</p>
+<h2 id="линейные-рекуррентности-и-формула-бине">Линейные рекуррентности и формула Бине<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Для соотношений вида $x_n = p \cdot x_{n-1} + q \cdot x_{n-2}$ ищем решения-«геометрии» $x_n = \lambda^n$. Подстановка даёт <strong>характеристическое уравнение</strong> $\lambda^2 = p\lambda + q$; при различных корнях $\lambda_1 \ne \lambda_2$ общее решение — $x_n = \alpha \lambda_1^n + \beta \lambda_2^n$, где $\alpha, \beta$ находятся из начальных условий. Асимптотику определяет наибольший по модулю корень.</p>
+<p>Применим к Фибоначчи ($p = q = 1$): $\lambda^2 = \lambda + 1$, корни</p>
+$$\varphi = \frac{1+\sqrt{5}}{2} \approx 1.618, \qquad \psi = \frac{1-\sqrt{5}}{2} \approx -0.618.$$<p>Из $F_0 = 0$, $F_1 = 1$ получаем $\alpha = -\beta = 1/\sqrt{5}$:</p>
+$$F_n = \frac{\varphi^n - \psi^n}{\sqrt{5}}.$$<p>Так как $|\psi| < 1$, слагаемое $\psi^n/\sqrt 5$ стремится к нулю — $F_n$ есть ближайшее целое к $\varphi^n/\sqrt{5}$. Отсюда строго: $F_n = \Theta(\varphi^n)$, число вызовов наивного fib $C(n) = 2F_{n+1} - 1 = \Theta(\varphi^n)$, а «×11 за +5» из занятия 2 — это $\varphi^5 \approx 11.09$. Замер, интуиция и теорема сомкнулись.</p>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Напоминание из занятия 3
+  </summary>
+  <div class="box-content">
+<p>Формула Бине точна в $\mathbb{R}$, но в <code>double</code> ломается уже на $F_{72}$ — 52 бита мантиссы. Красивая математика ещё не значит хороший алгоритм.</p>
+  </div>
+</details>
+<h2 id="шпаргалка-какой-метод-брать">Шпаргалка: какой метод брать<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<table>
+	<thead>
+			<tr>
+					<th>вид соотношения</th>
+					<th>метод</th>
+					<th>типичный ответ</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>подзадачи $T(n/b)$, склейка $n^c$</td>
+					<td>основная теорема</td>
+					<td>по трём случаям</td>
+			</tr>
+			<tr>
+					<td>спуск вычитанием $T(n-1)$</td>
+					<td>раскрутка до суммы</td>
+					<td>арифметика/геометрия ряда</td>
+			</tr>
+			<tr>
+					<td>неравные части, «странная» склейка</td>
+					<td>дерево + суммирование</td>
+					<td>индивидуально</td>
+			</tr>
+			<tr>
+					<td>$\sqrt{n}$, $\log n$ в аргументе</td>
+					<td>замена переменной</td>
+					<td>$\log \log n$ и похожие</td>
+			</tr>
+			<tr>
+					<td>линейная с постоянными коэффициентами</td>
+					<td>характеристическое уравнение</td>
+					<td>$\Theta(\lvert\lambda_{\max}\rvert^n)$</td>
+			</tr>
+	</tbody>
+</table>
+<p>Сомневаетесь — рисуйте дерево: оно никогда не врёт, просто иногда требует терпения.</p>
+<h2 id="задачи-семинара">Задачи семинара<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Решите:</p>
+<ol>
+<li>$T(n) = 9T(n/3) + n$</li>
+<li>$T(n) = T(2n/3) + 1$</li>
+<li>$T(n) = 3T(n/4) + n$</li>
+<li>$T(n) = 7T(n/2) + n^2$ — умножение матриц Штрассена!</li>
+<li>$T(n) = T(n-1) + \log n$</li>
+<li>$T(n) = 2T(n/2) + n \log n$ — осторожно: подходит ли теорема?</li>
+<li>$T(n) = T(\sqrt{n}) + \log n$</li>
+<li>$x_n = 4x_{n-1} - 4x_{n-2}$ — кратный корень</li>
+</ol>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ориентиры ответов
+  </summary>
+  <div class="box-content">
+<p>1 — $\Theta(n^2)$; 2 — $\Theta(\log n)$; 3 — $\Theta(n)$; 4 — $\Theta(n^{\log_2 7}) \approx \Theta(n^{2.807})$; 5 — $\Theta(n \log n)$; 6 — вне степенной формулировки, дерево даёт $\Theta(n \log^2 n)$; 7 — $\Theta(\log n)$; 8 — $x_n = (\alpha + \beta n) \cdot 2^n = \Theta(n \cdot 2^n)$.</p>
+  </div>
+</details>
+<h2 id="см-также">См. также<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li><a href="/basics/recurrence_relation/index.html">Рекуррентные соотношения (теория, весенний семестр)</a> — та же теорема с доказательством и девять упражнений «оцените алгоритм» для тренировки.</li>
+<li><a href="/winter2026/02-slozhnost/index.html">Анализ сложности алгоритмов</a> — O-символика и иерархия роста, на которых всё здесь стоит.</li>
+</ul>
+<h2 id="домашнее-задание-4-балла">Домашнее задание (4 балла)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>Решить восемь рекуррентностей из практики с полными выкладками (для 4 и 6 — нарисовать дерево).</li>
+<li>Доказать тождество $a^{\log_b n} = n^{\log_b a}$.</li>
+<li>Вывести формулу Бине из характеристического уравнения самостоятельно, со всеми $\alpha, \beta$.</li>
+<li>* Оценить $T(n) = 2T(n/2) + n/\log n$ деревом рекурсии.</li>
+</ol>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 5 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="active " data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Курс начинается не с синтаксиса, а с ответа на вопрос, который обычно откладывают «на потом» — и зря: что происходит между текстом программы и её запуском? Это знание превращает загадочные ошибки сборки в понятные сообщения с конкретным виновником и делает осмысленным всё, что мы будем писать дальше.
+Компиляция и интерпретация Процессор исполняет только машинные команды. Все языки программирования отличаются, по большому счёту, тем, в какой момент и кто переводит текст программы в эти команды.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 1. Сборка C&#43;&#43;: от кода до .exe :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Курс начинается не с синтаксиса, а с ответа на вопрос, который обычно откладывают «на потом» — и зря: что происходит между текстом программы и её запуском? Это знание превращает загадочные ошибки сборки в понятные сообщения с конкретным виновником и делает осмысленным всё, что мы будем писать дальше.
+Компиляция и интерпретация Процессор исполняет только машинные команды. Все языки программирования отличаются, по большому счёту, тем, в какой момент и кто переводит текст программы в эти команды.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/01-sborka-cpp/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 1. Сборка C&#43;&#43;: от кода до .exe :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Курс начинается не с синтаксиса, а с ответа на вопрос, который обычно откладывают «на потом» — и зря: что происходит между текстом программы и её запуском? Это знание превращает загадочные ошибки сборки в понятные сообщения с конкретным виновником и делает осмысленным всё, что мы будем писать дальше.
+Компиляция и интерпретация Процессор исполняет только машинные команды. Все языки программирования отличаются, по большому счёту, тем, в какой момент и кто переводит текст программы в эти команды.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-05T12:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="name" content="Занятие 1. Сборка C&#43;&#43;: от кода до .exe :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Курс начинается не с синтаксиса, а с ответа на вопрос, который обычно откладывают «на потом» — и зря: что происходит между текстом программы и её запуском? Это знание превращает загадочные ошибки сборки в понятные сообщения с конкретным виновником и делает осмысленным всё, что мы будем писать дальше.
+Компиляция и интерпретация Процессор исполняет только машинные команды. Все языки программирования отличаются, по большому счёту, тем, в какой момент и кто переводит текст программы в эти команды.">
+    <meta itemprop="datePublished" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="wordCount" content="2072">
+    <title>Занятие 1. Сборка C&#43;&#43;: от кода до .exe :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/01-sborka-cpp\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'green' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+  
+ <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    },
+    loader:{
+      load: ['ui/safe']
+    },
+  };
+</script> 
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/01-sborka-cpp/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#компиляция-и-интерпретация">Компиляция и интерпретация</a></li>
+    <li><a href="#одна-команда--четыре-стадии">Одна команда — четыре стадии</a></li>
+    <li><a href="#стадия-1-препроцессор">Стадия 1. Препроцессор</a>
+      <ul>
+        <li><a href="#include-кавычки-и-скобки">#include: кавычки и скобки</a></li>
+        <li><a href="#макросы-сила-и-проклятие">Макросы: сила и проклятие</a></li>
+        <li><a href="#условная-компиляция">Условная компиляция</a></li>
+      </ul>
+    </li>
+    <li><a href="#стадия-2-компилятор">Стадия 2. Компилятор</a>
+      <ul>
+        <li><a href="#заглянем-в-ассемблер">Заглянем в ассемблер</a></li>
+      </ul>
+    </li>
+    <li><a href="#стадия-3-объектный-файл">Стадия 3. Объектный файл</a>
+      <ul>
+        <li><a href="#name-mangling">Name mangling</a></li>
+      </ul>
+    </li>
+    <li><a href="#стадия-4-линковщик">Стадия 4. Линковщик</a></li>
+    <li><a href="#читаем-ошибки-кто-именно-ругается">Читаем ошибки: кто именно ругается?</a></li>
+    <li><a href="#заголовочные-файлы">Заголовочные файлы</a>
+      <ul>
+        <li><a href="#объявление-и-определение">Объявление и определение</a></li>
+        <li><a href="#канонический-мини-проект">Канонический мини-проект</a></li>
+        <li><a href="#раздельная-компиляция">Раздельная компиляция</a></li>
+        <li><a href="#odr--правило-одного-определения">ODR — правило одного определения</a></li>
+      </ul>
+    </li>
+    <li><a href="#защита-от-повторного-включения">Защита от повторного включения</a>
+      <ul>
+        <li><a href="#проблема-ромб-включений">Проблема: ромб включений</a></li>
+        <li><a href="#include-guards">Include guards</a></li>
+        <li><a href="#pragma-once">#pragma once</a></li>
+        <li><a href="#циклические-зависимости-и-forward-декларации">Циклические зависимости и forward-декларации</a></li>
+      </ul>
+    </li>
+    <li><a href="#окружение-три-ос">Окружение: три ОС</a></li>
+    <li><a href="#самопроверка">Самопроверка</a></li>
+    <li><a href="#практика">Практика</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/01-sborka-cpp/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/index.html" title="Основы программирования — зимний семестр 2026/27 (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/02-slozhnost/index.html" title="Занятие 2. Анализ сложности алгоритмов (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-1-сборка-c-от-кода-до-exe">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</h1>
+
+<p>Курс начинается не с синтаксиса, а с ответа на вопрос, который обычно откладывают «на потом» — и зря: <strong>что происходит между текстом программы и её запуском?</strong> Это знание превращает загадочные ошибки сборки в понятные сообщения с конкретным виновником и делает осмысленным всё, что мы будем писать дальше.</p>
+<h2 id="компиляция-и-интерпретация">Компиляция и интерпретация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Процессор исполняет только машинные команды. Все языки программирования отличаются, по большому счёту, тем, <strong>в какой момент и кто</strong> переводит текст программы в эти команды.</p>
+<p><img alt="Два пути к процессору: компиляция и интерпретация" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/compile-vs-interpret.svg" style="height: auto;width: auto;"></p>
+<p><strong>C++ — компилируемый язык:</strong> перевод происходит заранее, один раз, и на выходе получается нативный исполняемый файл. Мы платим временем сборки и получаем скорость: между программой и процессором нет посредников.</p>
+<p><strong>Python — интерпретируемый:</strong> исходник на лету транслируется в байткод, который исполняет виртуальная машина. Мгновенный старт разработки, но интерпретатор работает при <em>каждом</em> запуске программы.</p>
+<p>Между этими полюсами — JIT-компиляция (Java, C#, PyPy, JavaScript/V8): байткод докомпилируется в машинный код прямо во время исполнения, на «горячих» участках.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Зачем это знать
+  </summary>
+  <div class="box-content">
+<p>Многие свойства C++, которые поначалу раздражают — раздельная компиляция, заголовочные файлы, ошибки линковки, — прямые следствия компилируемой модели. Понимая модель, вы понимаете и их.</p>
+  </div>
+</details>
+<h2 id="одна-команда--четыре-стадии">Одна команда — четыре стадии<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Минимальная программа:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;Привет, СПбГУ!</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>g++ hello.cpp -o hello <span style="color:#f92672">&amp;&amp;</span> ./hello</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Команда <code>g++</code> выглядит как один шаг, но это <strong>драйвер</strong>, запускающий конвейер из четырёх стадий. Каждую можно остановить флагом и рассмотреть промежуточный результат.</p>
+<p><img alt="Конвейер сборки: препроцессор → компилятор → ассемблер → линковщик" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/pipeline.svg" style="height: auto;width: auto;"></p>
+<table>
+	<thead>
+			<tr>
+					<th>Стадия</th>
+					<th>Вход → выход</th>
+					<th>Остановиться здесь</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Препроцессор</td>
+					<td><code>.cpp</code> → «расшитый» текст <code>.i</code></td>
+					<td><code>g++ -E</code></td>
+			</tr>
+			<tr>
+					<td>Компилятор</td>
+					<td><code>.i</code> → ассемблер <code>.s</code></td>
+					<td><code>g++ -S</code></td>
+			</tr>
+			<tr>
+					<td>Ассемблер</td>
+					<td><code>.s</code> → объектный файл <code>.o</code></td>
+					<td><code>g++ -c</code></td>
+			</tr>
+			<tr>
+					<td>Линковщик</td>
+					<td><code>.o</code> + библиотеки → исполняемый файл</td>
+					<td>—</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="стадия-1-препроцессор">Стадия 1. Препроцессор<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Препроцессор — это <strong>текстовый редактор без понятия о C++</strong>. Он выполняет директивы, начинающиеся с <code>#</code>, до того, как компилятор увидит хоть одну строку:</p>
+<ul>
+<li><code>#include</code> — дословно вставляет содержимое файла в это место;</li>
+<li><code>#define</code> — подстановка макросов, поиск-замена по токенам;</li>
+<li><code>#ifdef / #if / #endif</code> — условно вырезает куски текста.</li>
+</ul>
+<p>Масштаб текстовых подстановок легко недооценить:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ g++ -E hello.cpp -o hello.i
+</span></span><span style="display:flex;"><span>$ wc -l hello.cpp hello.i
+</span></span><span style="display:flex;"><span>       <span style="color:#ae81ff">6</span> hello.cpp
+</span></span><span style="display:flex;"><span>   <span style="color:#ae81ff">59349</span> hello.i</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Шесть строк превратились в <strong>59 349</strong> — столько тащит за собой один <code>#include &lt;iostream&gt;</code> (замер: Apple Clang 21). Отсюда практическое следствие: каждая единица трансляции заново компилирует все свои заголовки, и лишние <code>#include</code> — это минуты жизни на больших проектах.</p>
+<h3 id="include-кавычки-и-скобки">#include: кавычки и скобки<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">   </span><span style="color:#75715e">// системный заголовок: стандартная библиотека, API ОС
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;matrix.h&#34;</span><span style="color:#75715e">   </span><span style="color:#75715e">// ваш заголовок: сначала ищется рядом с текущим файлом
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Дополнительные каталоги поиска подключаются флагом <code>-I include/</code>. Формально точный порядок поиска — implementation-defined, но GCC, Clang и MSVC ведут себя одинаково: <code>&quot;file&quot;</code> — от каталога текущего файла, затем как <code>&lt;file&gt;</code>; <code>&lt;file&gt;</code> — по системным путям и <code>-I</code>.</p>
+<h3 id="макросы-сила-и-проклятие">Макросы: сила и проклятие<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Макрос — текстовая подстановка, и в этом вся его опасность:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#define SQR(x) x * x
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> SQR(<span style="color:#ae81ff">3</span>);       <span style="color:#75715e">// 3 * 3 = 9        — ок
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> b <span style="color:#f92672">=</span> SQR(<span style="color:#ae81ff">2</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);   <span style="color:#75715e">// 2 + 1 * 2 + 1 = 5 — сюрприз!
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> <span style="color:#ae81ff">100</span> <span style="color:#f92672">/</span> SQR(<span style="color:#ae81ff">5</span>); <span style="color:#75715e">// 100 / 5 * 5 = 100 — снова сюрприз
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#define SQR2(x) ((x) * (x))   </span><span style="color:#75715e">// «исправленный» вариант…
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> d <span style="color:#f92672">=</span> SQR2(i<span style="color:#f92672">++</span>);    <span style="color:#75715e">// ((i++) * (i++)) — UB: i++ дважды!
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Современный C++ решает те же задачи средствами языка — с проверкой типов и однократным вычислением аргумента:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">double</span> pi <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.141592653589793</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sqr</span>(<span style="color:#66d9ef">int</span> x) { <span style="color:#66d9ef">return</span> x <span style="color:#f92672">*</span> x; }</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Легитимные ниши макросов сегодня: include guards, условная компиляция под платформы, <code>__LINE__</code> / <code>__FILE__</code> в логировании.</p>
+<h3 id="условная-компиляция">Условная компиляция<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#if defined(_WIN32)
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;windows.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#elif defined(__APPLE__) || defined(__linux__)
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;unistd.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#endif
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#ifdef DEBUG
+</span></span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cerr <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;x = &#34;</span> <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>;   <span style="color:#75715e">// включается флагом: g++ -DDEBUG
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#endif</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Макросы <code>_WIN32</code>, <code>__APPLE__</code>, <code>__linux__</code> определяет сам компилятор — код «знает», где его собирают. Вырезанный текст не доходит даже до компилятора: нулевая цена в рантайме. Так устроены все кроссплатформенные библиотеки. (С C++17 часть таких задач решает <code>if constexpr</code> — ветвление на этапе компиляции внутри языка.)</p>
+<h2 id="стадия-2-компилятор">Стадия 2. Компилятор<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Компилятор — самая сложная часть конвейера, три больших блока:</p>
+<p><img alt="Стадии компилятора: фронтенд, оптимизатор, бэкенд" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/compiler-stages.svg" style="height: auto;width: auto;"></p>
+<ol>
+<li><strong>Фронтенд</strong>: лексер и парсер строят синтаксическое дерево (AST), проверяются типы — здесь рождаются сообщения об ошибках компиляции.</li>
+<li><strong>Оптимизатор</strong>: inlining, свёртка констант, удаление мёртвого кода и десятки других преобразований.</li>
+<li><strong>Бэкенд</strong>: выбор машинных инструкций и распределение регистров под целевую архитектуру (x86-64, ARM64…).</li>
+</ol>
+<p>Уровни оптимизации: <code>-O0</code> (без оптимизаций, для отладки), <code>-O2</code> (стандарт для релиза), <code>-O3</code>/<code>-Os</code> (агрессивнее / компактнее).</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Привычка с первого дня
+  </summary>
+  <div class="box-content">
+<p>собирайте с <code>-Wall -Wextra -Werror</code>. Предупреждение компилятора — это почти всегда найденный за вас баг. <code>-Werror</code> не даёт «потом посмотрю» превратиться в «никогда».</p>
+  </div>
+</details>
+<p>Пара «исходник + все его заголовки» называется <strong>единицей трансляции</strong>. Компилятор видит только её — что происходит в соседних <code>.cpp</code>, ему неизвестно. Это ключ к пониманию линковки.</p>
+<h3 id="заглянем-в-ассемблер">Заглянем в ассемблер<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">square</span>(<span style="color:#66d9ef">int</span> x) { <span style="color:#66d9ef">return</span> x <span style="color:#f92672">*</span> x; }</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ clang++ -S -O2 square.cpp -o -
+</span></span><span style="display:flex;"><span>__Z6squarei:
+</span></span><span style="display:flex;"><span>        mul     w0, w0, w0
+</span></span><span style="display:flex;"><span>        ret</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Вся функция — две инструкции ARM64: перемножить регистр сам на себя и вернуться. Имя <code>__Z6squarei</code> — не опечатка, о нём ниже.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Инструмент недели
+  </summary>
+  <div class="box-content">
+<p><a href="https://godbolt.org" rel="external">Compiler Explorer (godbolt.org)</a> — пишете C++ слева, видите ассемблер любого компилятора справа. Лучший способ развить интуицию «во что превращается мой код». Сравните <code>-O0</code> и <code>-O2</code> на своей функции.</p>
+  </div>
+</details>
+<h2 id="стадия-3-объектный-файл">Стадия 3. Объектный файл<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Ассемблер превращает <code>.s</code> в объектный файл — контейнер с секциями:</p>
+<table>
+	<thead>
+			<tr>
+					<th>Секция</th>
+					<th>Содержимое</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>.text</code></td>
+					<td>машинный код функций</td>
+			</tr>
+			<tr>
+					<td><code>.rodata</code></td>
+					<td>константы и строковые литералы</td>
+			</tr>
+			<tr>
+					<td><code>.data</code></td>
+					<td>глобальные переменные с инициализацией</td>
+			</tr>
+			<tr>
+					<td><code>.bss</code></td>
+					<td>глобальные, заполняемые нулями</td>
+			</tr>
+			<tr>
+					<td>таблица символов</td>
+					<td>«что я определяю, что мне нужно снаружи»</td>
+			</tr>
+	</tbody>
+</table>
+<p>Таблицу символов можно посмотреть утилитой <code>nm</code>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ clang++ -c hello.cpp <span style="color:#f92672">&amp;&amp;</span> nm hello.o
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">0000000000000000</span> T _main            <span style="color:#75715e"># T — определён здесь</span>
+</span></span><span style="display:flex;"><span>                 U __ZNSt3__14coutE <span style="color:#75715e"># U — undefined: «найдётся где-то ещё»</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Разрешить все <code>U</code>-символы — работа линковщика.</p>
+<h3 id="name-mangling">Name mangling<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>В C++ разрешена перегрузка — несколько функций с одним именем. Линковщик различает только строки, поэтому компилятор «вшивает» типы аргументов прямо в символ:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span>    <span style="color:#a6e22e">square</span>(<span style="color:#66d9ef">int</span> x);     <span style="color:#75715e">// __Z6squarei
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span>   <span style="color:#a6e22e">square</span>(<span style="color:#66d9ef">long</span> x);    <span style="color:#75715e">// __Z6squarel
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">square</span>(<span style="color:#66d9ef">double</span> x);  <span style="color:#75715e">// __Z6squared
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Расшифровать имя обратно умеет <code>c++filt</code>; <code>extern &quot;C&quot;</code> отключает манглинг (и перегрузку) — так C++ стыкуется с C-библиотеками и FFI других языков. Схемы манглинга у GCC/Clang и MSVC разные — ещё одна причина, почему объектники разных компиляторов несовместимы.</p>
+<h2 id="стадия-4-линковщик">Стадия 4. Линковщик<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Линковщик собирает все <code>.o</code> и библиотеки в исполняемый файл: сшивает секции, разрешает каждый undefined-символ ровно одним определением, расставляет адреса.</p>
+<p><img alt="Статическая и динамическая линковка" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/linking.svg" style="height: auto;width: auto;"></p>
+<p><strong>Статическая</strong> линковка (<code>.a</code>/<code>.lib</code>) копирует код библиотеки внутрь программы: один самодостаточный файл, нет проблем с версиями, но больше размер. <strong>Динамическая</strong> (<code>.so</code>/<code>.dylib</code>/<code>.dll</code>) оставляет в программе только ссылку — библиотека загружается при запуске: одна копия на все программы, обновляется отдельно, но появляется зависимость от окружения («dll hell»).</p>
+<h2 id="читаем-ошибки-кто-именно-ругается">Читаем ошибки: кто именно ругается?<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Умение отличить ошибку компиляции от ошибки линковки — половина успеха в диагностике:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># 1. Компилятор: файл и строка, синтаксис/типы
+bad.cpp:3:5: error: use of undeclared identifier &#39;prinf&#39;; did you mean &#39;printf&#39;?
+
+# 2. Линковщик: объявлено, но нигде не определено
+Undefined symbols for architecture arm64:
+  &#34;foo(int)&#34;, referenced from: _main in undef-a4e21f.o
+
+# 3. Линковщик: определение попало в программу дважды
+duplicate symbol &#39;f()&#39; in: a.o, b.o</code></pre></div>
+<table>
+	<thead>
+			<tr>
+					<th>Симптом</th>
+					<th>Стадия</th>
+					<th>Типовая причина</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>error:</code> + файл:строка</td>
+					<td>компилятор</td>
+					<td>опечатка, типы, забытая <code>;</code></td>
+			</tr>
+			<tr>
+					<td><code>undefined symbol</code></td>
+					<td>линковщик</td>
+					<td>забыли <code>.cpp</code> в команде сборки</td>
+			</tr>
+			<tr>
+					<td><code>duplicate symbol</code></td>
+					<td>линковщик</td>
+					<td>определение в заголовке</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="заголовочные-файлы">Заголовочные файлы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="объявление-и-определение">Объявление и определение<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><strong>Объявление</strong> сообщает сигнатуру — его можно повторять сколько угодно раз. <strong>Определение</strong> порождает код или память — оно должно быть ровно одно на программу:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);              <span style="color:#75715e">// объявление (прототип)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) {             <span style="color:#75715e">// определение
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> b <span style="color:#f92672">?</span> gcd(b, a <span style="color:#f92672">%</span> b) <span style="color:#f92672">:</span> a;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Идея заголовка: в <code>.h</code> кладём объявления — «интерфейс», который раздаётся всем желающим через <code>#include</code>; определения живут в <code>.cpp</code> и компилируются один раз.</p>
+<h3 id="канонический-мини-проект">Канонический мини-проект<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// gcd.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#pragma once
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b);</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// gcd.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;gcd.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">gcd</span>(<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) { <span style="color:#66d9ef">return</span> b <span style="color:#f92672">?</span> gcd(b, a <span style="color:#f92672">%</span> b) <span style="color:#f92672">:</span> a; }</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// main.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;iostream&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&#34;gcd.h&#34;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() { std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> gcd(<span style="color:#ae81ff">1071</span>, <span style="color:#ae81ff">462</span>); }   <span style="color:#75715e">// 21
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>g++ -c gcd.cpp     <span style="color:#75715e"># → gcd.o</span>
+</span></span><span style="display:flex;"><span>g++ -c main.cpp    <span style="color:#75715e"># → main.o</span>
+</span></span><span style="display:flex;"><span>g++ gcd.o main.o -o app</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>main.cpp</code> ничего не знает о реализации <code>gcd</code> — только объявление. Обещание «найдётся при линковке» выполняет <code>gcd.o</code>.</p>
+<h3 id="раздельная-компиляция">Раздельная компиляция<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><img alt="Раздельная компиляция: пересобирается только изменённое" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/separate-compilation.svg" style="height: auto;width: auto;"></p>
+<p>Каждый <code>.cpp</code> компилируется независимо (хоть параллельно, <code>make -j</code>). Изменили один файл — пересобрали один <code>.o</code> и перелинковали: на проекте в миллион строк это разница между секундами и часами. Обратная сторона: правка <strong>заголовка</strong> перекомпилирует все включившие его <code>.cpp</code> — поэтому заголовки держат минимальными и стабильными.</p>
+<h3 id="odr--правило-одного-определения">ODR — правило одного определения<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Заголовок вставляется в несколько <code>.cpp</code>, а значит, всё его содержимое «размножается». One Definition Rule: каждая функция и переменная определяется <strong>ровно один раз на программу</strong>.</p>
+<p>Нельзя в заголовке:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;                    <span style="color:#75715e">// duplicate symbol при линковке
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">next</span>() { <span style="color:#66d9ef">return</span> <span style="color:#f92672">++</span>counter; }    <span style="color:#75715e">// duplicate symbol
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Можно в заголовке:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">next</span>();                          <span style="color:#75715e">// объявление
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">extern</span> <span style="color:#66d9ef">int</span> counter;                  <span style="color:#75715e">// объявление переменной
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">sq</span>(<span style="color:#66d9ef">int</span> x) { <span style="color:#66d9ef">return</span> x<span style="color:#f92672">*</span>x; } <span style="color:#75715e">// inline разрешает дубли
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">double</span> eps <span style="color:#f92672">=</span> <span style="color:#ae81ff">1e-9</span>;         <span style="color:#75715e">// constexpr — неявно inline
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">template</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">T</span><span style="color:#f92672">&gt;</span> T mx(T a, T b);   <span style="color:#75715e">// шаблоны — особые правила
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Point</span> { <span style="color:#75715e">/* ... */</span> };           <span style="color:#75715e">// определение типа — можно
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<blockquote>
+<p>Современный смысл <code>inline</code> — не «встроить код», а «разрешаю несколько одинаковых определений; линковщик, оставь одно».</p>
+</blockquote>
+<h2 id="защита-от-повторного-включения">Защита от повторного включения<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="проблема-ромб-включений">Проблема: ромб включений<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><img alt="Ромб включений: point.h приезжает дважды" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/include-diamond.svg" style="height: auto;width: auto;"></p>
+<p><code>main.cpp</code> включает <code>matrix.h</code> и <code>vector.h</code>, оба включают <code>point.h</code> — препроцессор честно вставляет его дважды, и компилятор видит два определения <code>struct Point</code> в одной единице трансляции:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>point.h:1:8: error: redefinition of &#39;struct Point&#39;</code></pre></div>
+<h3 id="include-guards">Include guards<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#ifndef POINT_H
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#define POINT_H
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Point</span> { <span style="color:#66d9ef">double</span> x, y; };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#endif  </span><span style="color:#75715e">// POINT_H
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Первое включение: <code>POINT_H</code> не определён → тело вставляется и определяет его. Второе включение в той же единице трансляции: всё до <code>#endif</code> вырезается. В другой единице трансляции препроцессор начинает «с чистого листа» — и это правильно. Имя стража должно быть уникальным во всём проекте (<code>ПРОЕКТ_ПУТЬ_ФАЙЛ_H</code>) — коллизия имён означает тихо пропавший заголовок и очень странные ошибки.</p>
+<h3 id="pragma-once">#pragma once<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#pragma once
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Point</span> { <span style="color:#66d9ef">double</span> x, y; };</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th><code>#pragma once</code></th>
+					<th>include guards</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>стандарт C++</td>
+					<td>нет (но поддержан GCC/Clang/MSVC)</td>
+					<td>да</td>
+			</tr>
+			<tr>
+					<td>ошибки автора</td>
+					<td>исключены</td>
+					<td>коллизия/опечатка имени</td>
+			</tr>
+			<tr>
+					<td>краевые случаи</td>
+					<td>файл виден по двум путям (симлинки)</td>
+					<td>нет</td>
+			</tr>
+	</tbody>
+</table>
+<p><strong>В курсе используем <code>#pragma once</code></strong> — коротко и безопасно. Но guards обязаны уметь читать: ими написана вся стандартная библиотека.</p>
+<h3 id="циклические-зависимости-и-forward-декларации">Циклические зависимости и forward-декларации<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Если <code>user.h</code> и <code>group.h</code> включают друг друга, guards не спасут — цикл надо разорвать. Часто полное определение и не нужно:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// user.h
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">#pragma once
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Group</span>;              <span style="color:#75715e">// forward-декларация вместо #include
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span> {
+</span></span><span style="display:flex;"><span>    Group<span style="color:#f92672">*</span> group_;        <span style="color:#75715e">// указателю достаточно объявления
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> join(Group<span style="color:#f92672">&amp;</span> g);  <span style="color:#75715e">// ссылке — тоже
+</span></span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<table>
+	<thead>
+			<tr>
+					<th>Достаточно <code>class G;</code></th>
+					<th>Нужно полное определение</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>указатель <code>G*</code>, ссылка <code>G&amp;</code></td>
+					<td>член по значению <code>G g;</code></td>
+			</tr>
+			<tr>
+					<td>параметр/возврат в объявлении</td>
+					<td>вызов методов, <code>sizeof(G)</code></td>
+			</tr>
+			<tr>
+					<td><code>std::vector&lt;G*&gt;</code></td>
+					<td>наследование <code>: public G</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>Правило стиля: в заголовках — минимум включений и forward-декларации; полные <code>#include</code> — в <code>.cpp</code>. Бонус — быстрее компиляция.</p>
+<h2 id="окружение-три-ос">Окружение: три ОС<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>Linux</th>
+					<th>macOS</th>
+					<th>Windows</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>установка</td>
+					<td><code>sudo apt install g++ gdb make</code></td>
+					<td><code>xcode-select --install</code></td>
+					<td>Visual Studio <strong>или WSL2</strong></td>
+			</tr>
+			<tr>
+					<td>компилятор</td>
+					<td>GCC (Clang — рядом)</td>
+					<td>Apple Clang (<code>g++</code> — псевдоним clang!)</td>
+					<td>MSVC / GCC в WSL</td>
+			</tr>
+			<tr>
+					<td>примечание</td>
+					<td>эталон для автотестов курса</td>
+					<td>настоящий GCC — <code>brew install gcc</code></td>
+					<td>рекомендуем WSL2: та же среда, что у тестов</td>
+			</tr>
+	</tbody>
+</table>
+<p>Редактор — на вкус: VS Code (+ clangd), CLion (бесплатно по студенческой лицензии JetBrains), Visual Studio. Важно одно: уметь собрать проект <strong>руками из терминала</strong> — IDE делает то же самое, но за шторкой.</p>
+<p>Боевой набор флагов для всего кода курса:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>g++ -std<span style="color:#f92672">=</span>c++20 -Wall -Wextra -Werror -g -fsanitize<span style="color:#f92672">=</span>address,undefined main.cpp -o main</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><code>-std=c++20</code> — стандарт языка курса;</li>
+<li><code>-g</code> — отладочная информация для gdb/lldb;</li>
+<li><code>-fsanitize=address</code> — ловит выход за границы массива, use-after-free;</li>
+<li><code>-fsanitize=undefined</code> — ловит UB: переполнение знаковых, null-разыменование.</li>
+</ul>
+<p>Когда файлов станет много, сборку возьмёт на себя CMake (минимальный <code>CMakeLists.txt</code> — пять строк); познакомимся с ним при первом многофайловом проекте.</p>
+<h2 id="самопроверка">Самопроверка<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>Почему ошибка «undefined symbol» <em>принципиально</em> не может быть обнаружена компилятором?</li>
+<li>Что произойдёт, если два <code>.cpp</code> включат заголовок со строкой <code>int x = 0;</code>? А со строкой <code>extern int x;</code>?</li>
+<li>Почему изменение <code>.h</code> пересобирает пол-проекта, а изменение <code>.cpp</code> — один файл?</li>
+<li>Зачем в C++ манглинг имён, а в C его нет?</li>
+</ol>
+<h2 id="практика">Практика<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>Настроить окружение под свою ОС и собрать hello с полным набором флагов.</li>
+<li>Разнести программу на <code>.h</code> + два <code>.cpp</code>, собрать вручную через <code>-c</code> и линковку.</li>
+<li>Сломать сборку тремя способами — ошибка компиляции, undefined symbol, duplicate symbol — и прочитать сообщения.</li>
+<li>Посмотреть свою функцию на godbolt.org при <code>-O0</code> и <code>-O2</code>.</li>
+</ol>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 5 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="active " data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>
