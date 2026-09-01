@@ -67,7 +67,7 @@
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
       window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
       // variant stuff
-      window.relearn.themevariants = [ 'green' ];
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -95,19 +95,9 @@
       window.relearn.initVariant();
       window.relearn.markVariant();
     </script> <link href="/css/custom_links.css" rel="stylesheet" />
-  
- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script> 
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
 
   </head>
   <body class="mobile-support html" data-origin="/basics/dynamic_programming/hirschbergs_algorithm/index.html">
@@ -196,29 +186,29 @@
 <p>Осталось понять, почему оценка времени работы по-прежнему равна $O(mn)$. Посмотрим на все рекурсивные вызовы на глубине $k$. Во всех них первая последовательность имеет длину $O(n/2^k)$, а сумма длин вторых последовательностей по всем вызовам на глубине $k$ равна $m$. Значит, суммарное время работы рекурсивных вызовов на глубине $k$ равно $O(mn/2^k)$. Тогда суммарное время работы всех вызовов есть $\sum_{k} O(mn/2^k) = O(mn)$.</p>
   </div>
 </details>
-<div class="tab-panel" data-tab-group="R-tabs-398ec9f0f3c55c7682fb28322f1d3600">
+<div class="tab-panel" data-tab-group="R-tabs-113166ef6c60ad2b4a53a6204ac905ae">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-4abbc75706baa63db2a0d956def06af9" aria-expanded="true"
+      aria-controls="R-tab-id-1115e2413ca0143d08687b747dfe3bbe" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-398ec9f0f3c55c7682fb28322f1d3600','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-113166ef6c60ad2b4a53a6204ac905ae','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-da64cc5ab741e3f2276552b7cee33771" aria-expanded="false"
+      aria-controls="R-tab-id-f131c295c512b5b9731eb783c4ed38b6" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-398ec9f0f3c55c7682fb28322f1d3600','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-113166ef6c60ad2b4a53a6204ac905ae','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-4abbc75706baa63db2a0d956def06af9"
+      id="R-tab-id-1115e2413ca0143d08687b747dfe3bbe"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -279,7 +269,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-da64cc5ab741e3f2276552b7cee33771"
+      id="R-tab-id-f131c295c512b5b9731eb783c4ed38b6"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -391,29 +381,29 @@
 </div>
 <h3 id="альтернативный-способ">Альтернативный способ<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Другой способ, работающий по тем же причинам: будем действовать как обычно при восстановлении ответа, но запоминать будем не предыдущее состояние, а состояние на оптимальном пути от начального с $i = n/2$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-7d5ffaada1c3828fe9bc309ab73a5c53">
+<div class="tab-panel" data-tab-group="R-tabs-d320e458e664f0089e3931bd31a723d3">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-48953fe77b4744ec10c0424b7070a19d" aria-expanded="true"
+      aria-controls="R-tab-id-c1f469f4eebacd29e7f22ab0ccd633fe" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-7d5ffaada1c3828fe9bc309ab73a5c53','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-d320e458e664f0089e3931bd31a723d3','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-503ace80fad07cfea5e644657cd1012e" aria-expanded="false"
+      aria-controls="R-tab-id-51170ced9f77b0d160dd70ef6cc380ec" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-7d5ffaada1c3828fe9bc309ab73a5c53','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-d320e458e664f0089e3931bd31a723d3','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-48953fe77b4744ec10c0424b7070a19d"
+      id="R-tab-id-c1f469f4eebacd29e7f22ab0ccd633fe"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -486,7 +476,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-503ace80fad07cfea5e644657cd1012e"
+      id="R-tab-id-51170ced9f77b0d160dd70ef6cc380ec"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -579,6 +569,7 @@
             <li class="" data-nav-id="/basics/dynamic_programming/travelling_salesman_problem/index.html"><a class="padding" href="/basics/dynamic_programming/travelling_salesman_problem/index.html">15.8. Задача коммивояжёра</a></li>
             <li class="" data-nav-id="/basics/dynamic_programming/generate_number_by_object/index.html"><a class="padding" href="/basics/dynamic_programming/generate_number_by_object/index.html">15.9. Генерация номера по объекту</a></li>
             <li class="" data-nav-id="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html"><a class="padding" href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">15.10. Рекуррентные соотношения</a></li></ul></li></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
@@ -591,6 +582,22 @@
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>

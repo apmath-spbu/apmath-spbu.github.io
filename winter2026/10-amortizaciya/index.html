@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Семинар закрывает два долга: занятие 8 обещало строго доказать «O(1) амортизированно» для push_back, а занятие 2 — объяснить, что вообще значит «дорогая операция, оплаченная дешёвыми». Плюс две классические структуры, где амортизация — суть, а не оптимизация. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Проблема и определение Худший случай одной операции push_back — $O(n)$: переезд всего массива. Значит ли это, что $n$ операций стоят $O(n^2)$? Нет: дорогие операции редки. Амортизационный анализ узаконивает это рассуждение.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 10. Амортизационный анализ и динамические структуры :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Семинар закрывает два долга: занятие 8 обещало строго доказать «O(1) амортизированно» для push_back, а занятие 2 — объяснить, что вообще значит «дорогая операция, оплаченная дешёвыми». Плюс две классические структуры, где амортизация — суть, а не оптимизация. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Проблема и определение Худший случай одной операции push_back — $O(n)$: переезд всего массива. Значит ли это, что $n$ операций стоят $O(n^2)$? Нет: дорогие операции редки. Амортизационный анализ узаконивает это рассуждение.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/10-amortizaciya/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 10. Амортизационный анализ и динамические структуры :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Семинар закрывает два долга: занятие 8 обещало строго доказать «O(1) амортизированно» для push_back, а занятие 2 — объяснить, что вообще значит «дорогая операция, оплаченная дешёвыми». Плюс две классические структуры, где амортизация — суть, а не оптимизация. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Проблема и определение Худший случай одной операции push_back — $O(n)$: переезд всего массива. Значит ли это, что $n$ операций стоят $O(n^2)$? Нет: дорогие операции редки. Амортизационный анализ узаконивает это рассуждение.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-06T17:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-06T17:00:00+03:00">
+    <meta itemprop="name" content="Занятие 10. Амортизационный анализ и динамические структуры :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Семинар закрывает два долга: занятие 8 обещало строго доказать «O(1) амортизированно» для push_back, а занятие 2 — объяснить, что вообще значит «дорогая операция, оплаченная дешёвыми». Плюс две классические структуры, где амортизация — суть, а не оптимизация. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Проблема и определение Худший случай одной операции push_back — $O(n)$: переезд всего массива. Значит ли это, что $n$ операций стоят $O(n^2)$? Нет: дорогие операции редки. Амортизационный анализ узаконивает это рассуждение.">
+    <meta itemprop="datePublished" content="2026-08-06T17:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-06T17:00:00+03:00">
+    <meta itemprop="wordCount" content="902">
+    <title>Занятие 10. Амортизационный анализ и динамические структуры :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/10-amortizaciya\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/10-amortizaciya/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#проблема-и-определение">Проблема и определение</a></li>
+    <li><a href="#метод-усреднения">Метод усреднения</a></li>
+    <li><a href="#банковский-метод">Банковский метод</a></li>
+    <li><a href="#метод-потенциалов-для-подготовленных">Метод потенциалов (для подготовленных)</a></li>
+    <li><a href="#стек-с-минимумом-за-o1">Стек с минимумом за O(1)</a></li>
+    <li><a href="#очередь-на-двух-стеках">Очередь на двух стеках</a></li>
+    <li><a href="#амортизация--равномерность">Амортизация ≠ равномерность</a></li>
+    <li><a href="#задачи-семинара">Задачи семинара</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 10. Амортизационный анализ и динамические структуры</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/10-amortizaciya/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/09-stroki/index.html" title="Занятие 9. Строки: от C-стиля до modern C++ (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/11-klyuchevye-slova/index.html" title="Занятие 11. Ключевые слова: волшебные слова C++ (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-10-амортизационный-анализ-и-динамические-структуры">Занятие 10. Амортизационный анализ и динамические структуры</h1>
+
+<p>Семинар закрывает два долга: занятие 8 обещало строго доказать «O(1) амортизированно» для <code>push_back</code>, а занятие 2 — объяснить, что вообще значит «дорогая операция, оплаченная дешёвыми». Плюс две классические структуры, где амортизация — суть, а не оптимизация. Замеры реальные (Apple M-серия, <code>clang++ -O2</code>).</p>
+<h2 id="проблема-и-определение">Проблема и определение<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Худший случай одной операции <code>push_back</code> — $O(n)$: переезд всего массива. Значит ли это, что $n$ операций стоят $O(n^2)$? Нет: дорогие операции редки. Амортизационный анализ узаконивает это рассуждение.</p>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Амортизированная стоимость
+  </summary>
+  <div class="box-content">
+<p>Операция имеет амортизированную стоимость $t(n)$, если <strong>любая</strong> последовательность из $m$ таких операций (из начального состояния) выполняется за время $T(m) \le m \cdot t(n)$.</p>
+  </div>
+</details>
+<p>Ключевое отличие от среднего случая: average case усредняет по <em>случайным входам</em>, амортизация — по операциям <strong>худшей серии</strong>. Никаких вероятностей: гарантия «$n$ операций ≤ $n \cdot t$» держится для любого злого сценария.</p>
+<p>Три метода доказательства: усреднение, банковский, потенциалы.</p>
+<h2 id="метод-усреднения">Метод усреднения<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p><strong>Разминка — двоичный счётчик.</strong> Инкремент перещёлкивает хвост единиц: в худшем случае все $k$ бит. Но бит $i$ меняется лишь каждые $2^i$ инкрементов, поэтому $n$ инкрементов стоят</p>
+$$T(n) = \sum_{i \ge 0} \frac{n}{2^i} \le 2n \;\Rightarrow\; O(1) \text{ амортизированно.}$$<p><strong>Вектор.</strong> Переезды случаются на размерах $1, 2, 4, \dots$: суммарных копирований $\sum 2^j \le 2n$, плюс $n$ вставок — итого $T(n) \le 3n$. Интуиция занятия 8 стала теоремой; экспериментальная сверка — 21 реаллокация на миллион <code>push_back</code>. Та же геометрическая прогрессия, что в мастер-теореме (занятие 6).</p>
+<h2 id="банковский-метод">Банковский метод<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Назначаем операциям <strong>тариф в монетках</strong>; реальная работа списывает монетки, переплата копится на элементах структуры. Правило корректности: <strong>баланс никогда не уходит в минус</strong> — тогда тарифы и есть честные амортизированные оценки.</p>
+<p>Тариф <code>push_back</code> — 3 монеты: одна за собственную вставку, одна на свой будущий переезд, одна — за «старый» элемент, чьи монетки сгорели в прошлом переезде. К моменту переполнения на каждом элементе лежит монетка — реаллокация оплачена заранее:</p>
+<p><img alt="Банковский метод: монетки копятся на элементах и оплачивают переезд" class="lazy figure-image" loading="lazy" src="/winter2026/10-amortizaciya/bank-coins.svg" style="height: auto;width: auto;"></p>
+<p><strong>Почему геометрический рост обязателен.</strong> Стратегии <code>+1</code> и <code>+k</code> дают $O(n)$ и $O(n/k)$ на операцию — фиксированного тарифа не хватает. Любой множитель $> 1$ (×1.5, ×2) даёт $O(1)$. Стандарт C++, кстати, требует от <code>vector::push_back</code> именно амортизированное $O(1)$ — теория прописана в тексте стандарта. Обратное сжатие делают при заполнении в четверть (не в половину — иначе «пила» push/pop на границе устраивает переезд каждый раз).</p>
+<h2 id="метод-потенциалов-для-подготовленных">Метод потенциалов (для подготовленных)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Вводим функцию состояния $\Phi \ge 0$ и считаем амортизированную стоимость как $\hat{t} = t_{\text{real}} + \Phi_{\text{после}} - \Phi_{\text{до}}$. Сумма телескопируется: $\sum \hat{t} = T + \Phi_{\text{кон}} - \Phi_{\text{нач}} \ge T$ — оценка честная. Для вектора берём $\Phi = 2 \cdot \text{size} - \text{capacity}$: обычный push — $\hat{t} = 3$; push с переездом при $\text{size} = \text{cap} = k$ — реально $k+1$, но $\Delta\Phi = 2 - k$, и снова $\hat{t} = 3$. Монетки стали алгеброй.</p>
+<h2 id="стек-с-минимумом-за-o1">Стек с минимумом за O(1)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Задача: обычный стек плюс <code>min()</code> за $O(1)$. Одна переменная-минимум ломается на <code>pop</code>. Решение — <strong>параллельный стек минимумов</strong>: рядом с каждым элементом храним минимум «его эпохи».</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MinStack</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> push(<span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>        data_.push_back(x);
+</span></span><span style="display:flex;"><span>        mins_.push_back(mins_.empty() <span style="color:#f92672">?</span> x : std<span style="color:#f92672">::</span>min(x, mins_.back()));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">pop</span>()  { data_.pop_back(); mins_.pop_back(); }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">top</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> data_.back(); }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">min</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> mins_.back(); }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> data_, mins_;
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Инвариант: <code>mins_[i] = min(data_[0..i])</code>. Push его сохраняет (новый минимум = min(старый, x)), pop снимает обе вершины — соответствие 1:1 не рвётся, значит <code>mins_.back()</code> — всегда минимум стека. Цена — ×2 памяти; оптимизация со стеком «рекордов» — задача со звёздочкой.</p>
+<h2 id="очередь-на-двух-стеках">Очередь на двух стеках<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p><img alt="Очередь на двух стеках: push в in, pop из out, переброс при пустом out" class="lazy figure-image" loading="lazy" src="/winter2026/10-amortizaciya/two-stacks.svg" style="height: auto;width: auto;"></p>
+<p><code>push</code> — всегда в стек <strong>in</strong>; <code>pop</code> — из стека <strong>out</strong>, а если он пуст — перелить всё из in (порядок переворачивается, два переворота дают порядок очереди):</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Queue</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> push(<span style="color:#66d9ef">int</span> x) { in_.push_back(x); }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">pop</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (out_.empty())
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> (<span style="color:#f92672">!</span>in_.empty()) { out_.push_back(in_.back()); in_.pop_back(); }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> v <span style="color:#f92672">=</span> out_.back(); out_.pop_back(); <span style="color:#66d9ef">return</span> v;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> in_, out_;
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Амортизированное O(1)
+  </summary>
+  <div class="box-content">
+<p>Тариф 3 монеты на push: положить в in, перелететь в out, выйти при pop. Каждый элемент проходит этот путь ровно один раз — всё оплачено при рождении, банк неотрицателен. Отдельный <code>pop</code> бывает за $O(n)$, но любая серия из $n$ операций стоит ≤ $3n$.</p>
+  </div>
+</details>
+<h2 id="амортизация--равномерность">Амортизация ≠ равномерность<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Замер одного <code>push_back</code> из серии в $10^7$:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>медиана:            0 нс
+99-й процентиль:   42 нс
+среднее:           14 нс
+максимум:   4 722 958 нс   # 4.7 мс — переезд 8 млн элементов</code></pre></div>
+<p>Средняя цена — копейки, но один push из десяти миллионов стоил в ~300 000 раз дороже типичного. Для систем реального времени (игры, аудио, торговля) такой пик — дёрганый кадр или сорванный дедлайн: там нужны честные worst-case гарантии, а не амортизированные. Лекарства: <code>reserve</code> заранее, инкрементальные структуры, аллокации вне горячего пути. И помните: амортизация размазывает стоимость по операциям <em>одной</em> структуры — усреднять между разными объектами нельзя.</p>
+<p>Где амортизация живёт: <code>vector</code>/<code>string</code> (занятия 8–9), rehash хеш-таблиц и union-find (второй семестр), компакция логов и LSM-деревья в базах, сборка мусора поколениями, <code>git gc</code>.</p>
+<h2 id="задачи-семинара">Задачи семинара<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>Счётчик монетками:</strong> докажите $O(1)$ инкремента банковским методом — монетка кладётся на каждую единицу. Кто платит за обнуление хвоста?</li>
+<li><strong>MinQueue:</strong> очередь с минимумом за $O(1)$ аморт. — два <code>MinStack</code> по схеме in/out; минимум очереди = min двух минимумов. (Это стандартный приём для «минимума в скользящем окне» — встретится на рубежном контроле.)</li>
+<li><strong>Ленивая очередь:</strong> один вектор + индекс головы; физическая чистка — когда голова дошла до половины. Докажите $O(1)$ аморт.</li>
+</ol>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><code>MinStack</code> и <code>MinQueue</code> + стресс-тест против наивного $O(n)$-минимума.</li>
+<li>Письменное доказательство $O(1)$ для очереди на двух стеках банковским методом.</li>
+<li>Ленивая очередь: код + анализ.</li>
+<li>* MinStack с $O(1)$ дополнительной памяти на неубывающих участках (стек «рекордов» со счётчиками).</li>
+</ol>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 6 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="active " data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

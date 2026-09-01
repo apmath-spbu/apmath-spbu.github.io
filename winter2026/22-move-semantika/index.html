@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Копии дороги, а временные объекты умирают богатыми: в конце выражения их ресурсы всё равно пропадут — значит, у умирающего можно честно забрать, а не копировать. Мы этим уже пользовались вслепую, передавая unique_ptr через std::move (занятие 14). Эта лекция — механика: как язык отличает умирающих от живых, что происходит при «краже» и где выигрыш возникает сам собой. Все счётчики и замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Заглавный замер:
+# 10^6 строк по 100 символов копия вектора: 25.96 мс # миллион аллокаций &#43; мегабайты memcpy move вектора: 0.0000 мс # переписали три указателя (занятие 16) lvalue и rvalue lvalue — «жилец»: есть имя или адрес, переживёт текущую строку, к нему можно вернуться (x, s[0], *ptr; можно взять &amp;x). rvalue — «временный»: безымянный, умирает в конце полного выражения (42, x &#43; 1, makeString(); &amp;(x &#43; 1) не скомпилируется).">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 22. Move-семантика :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Копии дороги, а временные объекты умирают богатыми: в конце выражения их ресурсы всё равно пропадут — значит, у умирающего можно честно забрать, а не копировать. Мы этим уже пользовались вслепую, передавая unique_ptr через std::move (занятие 14). Эта лекция — механика: как язык отличает умирающих от живых, что происходит при «краже» и где выигрыш возникает сам собой. Все счётчики и замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Заглавный замер:
+# 10^6 строк по 100 символов копия вектора: 25.96 мс # миллион аллокаций &#43; мегабайты memcpy move вектора: 0.0000 мс # переписали три указателя (занятие 16) lvalue и rvalue lvalue — «жилец»: есть имя или адрес, переживёт текущую строку, к нему можно вернуться (x, s[0], *ptr; можно взять &amp;x). rvalue — «временный»: безымянный, умирает в конце полного выражения (42, x &#43; 1, makeString(); &amp;(x &#43; 1) не скомпилируется).">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/22-move-semantika/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 22. Move-семантика :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Копии дороги, а временные объекты умирают богатыми: в конце выражения их ресурсы всё равно пропадут — значит, у умирающего можно честно забрать, а не копировать. Мы этим уже пользовались вслепую, передавая unique_ptr через std::move (занятие 14). Эта лекция — механика: как язык отличает умирающих от живых, что происходит при «краже» и где выигрыш возникает сам собой. Все счётчики и замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Заглавный замер:
+# 10^6 строк по 100 символов копия вектора: 25.96 мс # миллион аллокаций &#43; мегабайты memcpy move вектора: 0.0000 мс # переписали три указателя (занятие 16) lvalue и rvalue lvalue — «жилец»: есть имя или адрес, переживёт текущую строку, к нему можно вернуться (x, s[0], *ptr; можно взять &amp;x). rvalue — «временный»: безымянный, умирает в конце полного выражения (42, x &#43; 1, makeString(); &amp;(x &#43; 1) не скомпилируется).">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-24T20:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-24T20:00:00+03:00">
+    <meta itemprop="name" content="Занятие 22. Move-семантика :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Копии дороги, а временные объекты умирают богатыми: в конце выражения их ресурсы всё равно пропадут — значит, у умирающего можно честно забрать, а не копировать. Мы этим уже пользовались вслепую, передавая unique_ptr через std::move (занятие 14). Эта лекция — механика: как язык отличает умирающих от живых, что происходит при «краже» и где выигрыш возникает сам собой. Все счётчики и замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Заглавный замер:
+# 10^6 строк по 100 символов копия вектора: 25.96 мс # миллион аллокаций &#43; мегабайты memcpy move вектора: 0.0000 мс # переписали три указателя (занятие 16) lvalue и rvalue lvalue — «жилец»: есть имя или адрес, переживёт текущую строку, к нему можно вернуться (x, s[0], *ptr; можно взять &amp;x). rvalue — «временный»: безымянный, умирает в конце полного выражения (42, x &#43; 1, makeString(); &amp;(x &#43; 1) не скомпилируется).">
+    <meta itemprop="datePublished" content="2026-08-24T20:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-24T20:00:00+03:00">
+    <meta itemprop="wordCount" content="1271">
+    <title>Занятие 22. Move-семантика :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/22-move-semantika\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/22-move-semantika/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#lvalue-и-rvalue">lvalue и rvalue</a>
+      <ul>
+        <li><a href="#три-ссылки--три-клиента">Три ссылки — три клиента</a></li>
+      </ul>
+    </li>
+    <li><a href="#move-конструктор-кража-ресурсов">Move-конструктор: кража ресурсов</a>
+      <ul>
+        <li><a href="#контракт-что-остаётся-от-обворованного">Контракт: что остаётся от обворованного</a></li>
+      </ul>
+    </li>
+    <li><a href="#stdmove-ничего-не-двигает">std::move ничего не двигает</a>
+      <ul>
+        <li><a href="#правило-трёх-дозрело-до-пяти">Правило трёх дозрело до пяти</a></li>
+      </ul>
+    </li>
+    <li><a href="#где-выигрыш-шпион-считает">Где выигрыш: шпион считает</a>
+      <ul>
+        <li><a href="#сюрприз--1-return-бесплатен-rvo">Сюрприз № 1: return бесплатен (RVO)</a></li>
+        <li><a href="#сюрприз--2-слово-noexcept-ценой-в-131-071-копию">Сюрприз № 2: слово noexcept ценой в 131 071 копию</a></li>
+        <li><a href="#кто-живёт-перемещениями">Кто живёт перемещениями</a></li>
+      </ul>
+    </li>
+    <li><a href="#проверьте-себя">Проверьте себя</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 22. Move-семантика</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/22-move-semantika/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/21-sortirovki-nlogn/index.html" title="Занятие 21. Сортировки за n log n (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/23-bez-sravneniy/index.html" title="Занятие 23. k-я статистика и сортировки без сравнений (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-22-move-семантика">Занятие 22. Move-семантика</h1>
+
+<p>Копии дороги, а временные объекты умирают богатыми: в конце выражения их ресурсы всё равно пропадут — значит, у умирающего можно честно <strong>забрать</strong>, а не копировать. Мы этим уже пользовались вслепую, передавая <code>unique_ptr</code> через <code>std::move</code> (занятие 14). Эта лекция — механика: как язык отличает умирающих от живых, что происходит при «краже» и где выигрыш возникает сам собой. Все счётчики и замеры реальные (Apple M-серия, <code>clang++ -O2</code>).</p>
+<p>Заглавный замер:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># 10^6 строк по 100 символов
+копия вектора:   25.96 мс    # миллион аллокаций + мегабайты memcpy
+move вектора:   0.0000 мс    # переписали три указателя (занятие 16)</code></pre></div>
+<h2 id="lvalue-и-rvalue">lvalue и rvalue<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p><strong>lvalue</strong> — «жилец»: есть имя или адрес, переживёт текущую строку, к нему можно вернуться (<code>x</code>, <code>s[0]</code>, <code>*ptr</code>; можно взять <code>&amp;x</code>). <strong>rvalue</strong> — «временный»: безымянный, умирает в конце полного выражения (<code>42</code>, <code>x + 1</code>, <code>makeString()</code>; <code>&amp;(x + 1)</code> не скомпилируется).</p>
+<p>Этимология «слева/справа от <code>=</code>» — историческая и давно врёт: <code>const int c</code> — lvalue, которому нельзя присваивать. Рабочий критерий — <strong>время жизни и адрес</strong>.</p>
+<h3 id="три-ссылки--три-клиента">Три ссылки — три клиента<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>ссылка</th>
+					<th>lvalue</th>
+					<th>rvalue</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>T&amp;</code></td>
+					<td>да</td>
+					<td>нет</td>
+			</tr>
+			<tr>
+					<td><code>const T&amp;</code></td>
+					<td>да</td>
+					<td>да (и продлевает жизнь временному)</td>
+			</tr>
+			<tr>
+					<td><code>T&amp;&amp;</code></td>
+					<td>нет</td>
+					<td><strong>да</strong></td>
+			</tr>
+	</tbody>
+</table>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>string s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hi&#34;</span>;
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> a <span style="color:#f92672">=</span> s;             <span style="color:#75715e">// ок: жилец
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// std::string&amp; b = s + &#34;!&#34;;    // нельзя: временный
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> c <span style="color:#f92672">=</span> s <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;!&#34;</span>; <span style="color:#75715e">// ок — вот почему параметры занятия 5 берут всё
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;&amp;</span> d <span style="color:#f92672">=</span> s <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;!&#34;</span>;      <span style="color:#75715e">// rvalue-ссылка: ловит ТОЛЬКО умирающих
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// std::string&amp;&amp; e = s;         // нельзя: s жив
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Зачем языку различать клиентов? Чтобы перегрузка ответила по-разному: живого — копировать, умирающего — <strong>обокрасть</strong>.</p>
+<h2 id="move-конструктор-кража-ресурсов">Move-конструктор: кража ресурсов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Наш <code>DynArray</code> из занятия 7 учится перемещаться:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DynArray</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// копия: новый буфер + перенос (занятие 7)
+</span></span></span><span style="display:flex;"><span>    DynArray(<span style="color:#66d9ef">const</span> DynArray<span style="color:#f92672">&amp;</span> o)
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">:</span> size_(o.size_), data_(<span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[o.size_]) {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>copy(o.data_, o.data_ <span style="color:#f92672">+</span> size_, data_);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// перемещение: украсть и обнулить
+</span></span></span><span style="display:flex;"><span>    DynArray(DynArray<span style="color:#f92672">&amp;&amp;</span> o) <span style="color:#66d9ef">noexcept</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">:</span> size_(o.size_), data_(o.data_) {
+</span></span><span style="display:flex;"><span>        o.data_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;    <span style="color:#75715e">// источник обезврежен: его деструктор
+</span></span></span><span style="display:flex;"><span>        o.size_ <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;          <span style="color:#75715e">// удалит nullptr — это безопасно
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> data_;
+</span></span><span style="display:flex;"><span>    size_t size_;
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img alt="Копия строит второй буфер; move переписывает указатель" class="lazy figure-image" loading="lazy" src="/winter2026/22-move-semantika/copy-vs-move.svg" style="height: auto;width: auto;"></p>
+<p>Move-конструктор ловит rvalue сигнатурой <code>T&amp;&amp;</code> — перегрузка выбирается <strong>по категории аргумента</strong>. Обнуление источника обязательно: иначе два деструктора удалят один буфер — та самая катастрофа занятия 7.</p>
+<h3 id="контракт-что-остаётся-от-обворованного">Контракт: что остаётся от обворованного<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>после move: v1.size() = 0   (валиден, но пуст)
+            v3.size() = 1000000</code></pre></div>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Контракт стандарта
+  </summary>
+  <div class="box-content">
+<p>Объект после move — «валидное, но неопределённое состояние». Деструктор отработает; присвоить новое значение можно; <strong>полагаться на содержимое нельзя</strong>. Интуиция: осталась пустая коробка — целая, но без вещей.</p>
+  </div>
+</details>
+<p>Использование после move — новый пункт в списке «висячих» ошибок курса (занятия 9, 11, 16). Санитайзеры его почти не ловят — здесь работает только дисциплина: после <code>std::move(s)</code> объект <code>s</code> не читаем.</p>
+<h2 id="stdmove-ничего-не-двигает">std::move ничего не двигает<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>string s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;большая строка ...&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sink(s);              <span style="color:#75715e">// lvalue → выбрана копирующая перегрузка
+</span></span></span><span style="display:flex;"><span>sink(std<span style="color:#f92672">::</span>move(s));   <span style="color:#75715e">// каст к rvalue → выбран move
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// дальше s не читаем!
+</span></span></span><span style="display:flex;"><span>s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;новая&#34;</span>;          <span style="color:#75715e">// а присвоить заново — можно
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>std::move</code> — это <strong>каст</strong> lvalue → rvalue-ссылка. Он не переносит ни байта, а лишь меняет категорию выражения, чтобы перегрузка выбрала move-версию. Честное имя было бы <code>std::allow_steal</code>: вы подписываете согласие — кражу совершает конструктор.</p>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    move от const
+  </summary>
+  <div class="box-content">
+<p><code>std::move</code> от const-объекта молча выберет… копирующую перегрузку: красть у const нельзя. Ошибки компиляции не будет — будет тихая потеря выигрыша. Проверяйте const-ность того, что «мувается».</p>
+  </div>
+</details>
+<h3 id="правило-трёх-дозрело-до-пяти">Правило трёх дозрело до пяти<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>операция</th>
+					<th>сигнатура</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>деструктор</td>
+					<td><code>~T()</code></td>
+			</tr>
+			<tr>
+					<td>копирующий конструктор</td>
+					<td><code>T(const T&amp;)</code></td>
+			</tr>
+			<tr>
+					<td>копирующее присваивание</td>
+					<td><code>T&amp; operator=(const T&amp;)</code></td>
+			</tr>
+			<tr>
+					<td><strong>move-конструктор</strong></td>
+					<td><code>T(T&amp;&amp;) noexcept</code></td>
+			</tr>
+			<tr>
+					<td><strong>move-присваивание</strong></td>
+					<td><code>T&amp; operator=(T&amp;&amp;) noexcept</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>Занятие 7 обещало «правило пяти» — вот недостающая пара. Важно: написали свои копирующие операции — компилятор <strong>не сгенерирует</strong> move, и тип будет молча копироваться. А <strong>правило нуля</strong> теперь раскрывается полностью: храните ресурсы в <code>vector</code>/<code>string</code>/<code>unique_ptr</code> — все пять операций, включая правильный move, приедут бесплатно.</p>
+<h2 id="где-выигрыш-шпион-считает">Где выигрыш: шпион считает<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Шпион-класс инкрементирует статические счётчики в копирующих и перемещающих операциях — и показывает, что происходит на самом деле.</p>
+<h3 id="сюрприз--1-return-бесплатен-rvo">Сюрприз № 1: return бесплатен (RVO)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>Spy <span style="color:#a6e22e">makeSpy</span>() {
+</span></span><span style="display:flex;"><span>    Spy s(std<span style="color:#f92672">::</span>string(<span style="color:#ae81ff">50</span>, <span style="color:#e6db74">&#39;a&#39;</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> s;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>Spy r <span style="color:#f92672">=</span> makeSpy();</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>return из функции:  копий 0, мувов 0    # RVO</code></pre></div>
+<p><strong>RVO</strong> (return value optimization): компилятор строит локальный объект сразу в памяти получателя — переносить нечего. Иерархия стоимости: <strong>RVO (0) &lt; move (указатели) &lt; copy (буферы)</strong>, и компилятор сам выбирает лучшее.</p>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Антипаттерн
+  </summary>
+  <div class="box-content">
+<p><code>return std::move(local);</code> — «помощь», которая <strong>ломает RVO</strong>: вместо нуля операций получаете move. Локальные объекты возвращайте по имени. Возвращать тяжёлые объекты по значению — нормальный современный стиль.</p>
+  </div>
+</details>
+<h3 id="сюрприз--2-слово-noexcept-ценой-в-131-071-копию">Сюрприз № 2: слово noexcept ценой в 131 071 копию<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># 100 000 push_back с реаллокациями
+move с noexcept:      копий      0,  мувов 231 071
+move БЕЗ noexcept:    копий 131 071, мувов 100 000</code></pre></div>
+<p>231 071 = 100 000 вставок + 131 071 переезд, а 131 071 = $2^{17} - 1$ — реаллокации по степеням двойки, амортизация занятия 10 прямо в счётчиках.</p>
+<p>Почему так: при переезде буфера vector обязан пережить исключение посреди переноса. Копирование безопасно (старый буфер цел), а «половина мувов» невосстановима — поэтому vector перемещает <strong>только если</strong> move-конструктор обещал <code>noexcept</code>, иначе молча копирует каждый переезд.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Правило курса
+  </summary>
+  <div class="box-content">
+<p>Move-операции — всегда <code>noexcept</code>: кража указателей и не может бросить. Одно слово — и 131 071 копия превращается в дешёвые мувы.</p>
+  </div>
+</details>
+<h3 id="кто-живёт-перемещениями">Кто живёт перемещениями<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>sort 100k строк-шпионов:  копий 0, мувов 346 799</code></pre></div>
+<p><code>std::sort</code> занятия 21 весь построен на перемещениях — вот почему сортировка векторов строк не разоряет. Всё это работает само: контейнеры и алгоритмы STL написаны в терминах move, ваша задача — не мешать (и не забывать noexcept в своих типах).</p>
+<p>Отрезвление: move «ускоряет» только владельцев ресурсов. Для <code>int</code>, POD-структур и массивов на стеке перемещение — та же копия: красть нечего.</p>
+<h2 id="проверьте-себя">Проверьте себя<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>
+<p><strong>Считаем операции.</strong> Сколько копий и мувов?</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>Spy <span style="color:#a6e22e">a</span>(...);
+</span></span><span style="display:flex;"><span>Spy b <span style="color:#f92672">=</span> a;
+</span></span><span style="display:flex;"><span>Spy c <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>move(a);
+</span></span><span style="display:flex;"><span>b <span style="color:#f92672">=</span> makeSpy();</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+<code>b = a</code> — копия (a — lvalue). <code>c = std::move(a)</code> — мув (каст сработал; после этого a не читаем). <code>b = makeSpy()</code> — временный строится через RVO без операций, затем <strong>move-присваивание</strong> в b. Итого: 1 копия, 2 мува. Проверяется шпионом за минуту.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Найдите три ошибки:</strong></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>string s <span style="color:#f92672">=</span> load();
+</span></span><span style="display:flex;"><span>use(std<span style="color:#f92672">::</span>move(s));
+</span></span><span style="display:flex;"><span>log(s);                    <span style="color:#75715e">// (1)
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> Big cfg <span style="color:#f92672">=</span> ...;
+</span></span><span style="display:flex;"><span>send(std<span style="color:#f92672">::</span>move(cfg));      <span style="color:#75715e">// (2)
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Big <span style="color:#a6e22e">make</span>() { Big b; ...; <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>move(b); }   <span style="color:#75715e">// (3)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+(1) чтение после move — содержимое s не специфицировано; (2) move от const — тихо выберется копия, выигрыша нет; (3) <code>return std::move(local)</code> ломает RVO: вместо нуля операций — мув. Ни одна из трёх не является ошибкой компиляции — все три ловятся только глазами и ревью.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Допишите move-конструктор</strong> классу <code>Buffer { char* data_; size_t n_; }</code>. Почему noexcept честен? Что случится без обнуления источника?</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>Buffer(Buffer<span style="color:#f92672">&amp;&amp;</span> o) <span style="color:#66d9ef">noexcept</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">:</span> data_(o.data_), n_(o.n_) {
+</span></span><span style="display:flex;"><span>    o.data_ <span style="color:#f92672">=</span> <span style="color:#66d9ef">nullptr</span>;
+</span></span><span style="display:flex;"><span>    o.n_ <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>noexcept честен: тело — присваивания указателей и целых, бросить некому. Без обнуления деструкторы источника и приёмника оба вызовут <code>delete[]</code> на одном адресе — double free, катастрофа № 3 занятия 11.</p>
+  </div>
+</details>
+</li>
+</ol>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>BigInt переезжает:</strong> допишите move-пару (noexcept!) классу из занятия 7; шпион-счётчики должны показать исчезновение копий в <code>vector&lt;BigInt&gt;</code> с реаллокациями.</li>
+<li><strong>Свой шпион:</strong> воспроизведите все три таблицы лекции (RVO, push_back с/без noexcept, sort) на своей машине.</li>
+<li><strong>Аудит старого кода:</strong> найдите в прошлых ДЗ три места лишних копий (возврат больших объектов, вставка в контейнеры), почините через move/RVO; замеры до/после по методике занятия 16.</li>
+<li><strong>Ловушки:</strong> оформите три ошибки из задачи 2 в компилируемые мини-примеры с комментариями.</li>
+<li>* <strong>swap за три мува:</strong> реализуйте обмен через move-операции, сравните со <code>std::swap</code>; объясните, почему до C++11 swap был дорогим.</li>
+</ol>
+<p>Следующее занятие — семинар <strong>«жизнь без сравнений»</strong>: k-я порядковая статистика и quickselect, строгая нижняя оценка Ω(n log n) для сортировок сравнениями — и counting с radix, которые её обходят, не сравнивая вовсе.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 24 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="active " data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

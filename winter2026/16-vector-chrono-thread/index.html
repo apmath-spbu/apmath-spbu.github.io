@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Эта лекция — легализация подполья. std::vector мы «писали сами» в занятии 8, все замеры курса пятнадцать занятий делались через std::chrono, операторы перегружал ещё BigInt из занятия 7, а std:: стоит в каждой программе с первого дня. Сегодня раскладываем всё это по полкам — и добавляем действительно новое: std::thread. Замеры реальные (Apple M-серия, 12 ядер, clang&#43;&#43; -O2; демо гонки — -O0, иначе оптимизатор схлопывает цикл).
+std::vector под микроскопом Три указателя std::vector — это наш DynArray из занятия 8, доведённый до ума: непрерывный буфер в куче и три указателя.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 16. std::vector, std::chrono, std::thread :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Эта лекция — легализация подполья. std::vector мы «писали сами» в занятии 8, все замеры курса пятнадцать занятий делались через std::chrono, операторы перегружал ещё BigInt из занятия 7, а std:: стоит в каждой программе с первого дня. Сегодня раскладываем всё это по полкам — и добавляем действительно новое: std::thread. Замеры реальные (Apple M-серия, 12 ядер, clang&#43;&#43; -O2; демо гонки — -O0, иначе оптимизатор схлопывает цикл).
+std::vector под микроскопом Три указателя std::vector — это наш DynArray из занятия 8, доведённый до ума: непрерывный буфер в куче и три указателя.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/16-vector-chrono-thread/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 16. std::vector, std::chrono, std::thread :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Эта лекция — легализация подполья. std::vector мы «писали сами» в занятии 8, все замеры курса пятнадцать занятий делались через std::chrono, операторы перегружал ещё BigInt из занятия 7, а std:: стоит в каждой программе с первого дня. Сегодня раскладываем всё это по полкам — и добавляем действительно новое: std::thread. Замеры реальные (Apple M-серия, 12 ядер, clang&#43;&#43; -O2; демо гонки — -O0, иначе оптимизатор схлопывает цикл).
+std::vector под микроскопом Три указателя std::vector — это наш DynArray из занятия 8, доведённый до ума: непрерывный буфер в куче и три указателя.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-11T13:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-11T13:00:00+03:00">
+    <meta itemprop="name" content="Занятие 16. std::vector, std::chrono, std::thread :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Эта лекция — легализация подполья. std::vector мы «писали сами» в занятии 8, все замеры курса пятнадцать занятий делались через std::chrono, операторы перегружал ещё BigInt из занятия 7, а std:: стоит в каждой программе с первого дня. Сегодня раскладываем всё это по полкам — и добавляем действительно новое: std::thread. Замеры реальные (Apple M-серия, 12 ядер, clang&#43;&#43; -O2; демо гонки — -O0, иначе оптимизатор схлопывает цикл).
+std::vector под микроскопом Три указателя std::vector — это наш DynArray из занятия 8, доведённый до ума: непрерывный буфер в куче и три указателя.">
+    <meta itemprop="datePublished" content="2026-08-11T13:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-11T13:00:00+03:00">
+    <meta itemprop="wordCount" content="2089">
+    <title>Занятие 16. std::vector, std::chrono, std::thread :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/16-vector-chrono-thread\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/16-vector-chrono-thread/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#stdvector-под-микроскопом">std::vector под микроскопом</a>
+      <ul>
+        <li><a href="#три-указателя">Три указателя</a></li>
+        <li><a href="#цена-переездов-замер">Цена переездов: замер</a></li>
+        <li><a href="#инвалидация-контракт-который-нарушают-молча">Инвалидация: контракт, который нарушают молча</a></li>
+        <li><a href="#четыре-факта-экономящие-часы-отладки">Четыре факта, экономящие часы отладки</a></li>
+      </ul>
+    </li>
+    <li><a href="#stdchrono-время-в-типах">std::chrono: время в типах</a>
+      <ul>
+        <li><a href="#которые-часы">Которые часы?</a></li>
+        <li><a href="#duration-единица-измерения-живёт-в-типе">duration: единица измерения живёт в типе</a></li>
+        <li><a href="#методика-замеров-курса--официально">Методика замеров курса — официально</a></li>
+      </ul>
+    </li>
+    <li><a href="#stdthread-первый-взгляд">std::thread: первый взгляд</a>
+      <ul>
+        <li><a href="#поток--ещё-один-исполнитель-в-той-же-памяти">Поток — ещё один исполнитель в той же памяти</a></li>
+        <li><a href="#параллельная-сумма-ускорение-и-его-потолок">Параллельная сумма: ускорение и его потолок</a></li>
+        <li><a href="#гонка-данных-куда-пропала-половина">Гонка данных: куда пропала половина</a></li>
+      </ul>
+    </li>
+    <li><a href="#правила-дома">Правила дома</a>
+      <ul>
+        <li><a href="#пространства-имён-фамилии-для-кода">Пространства имён: фамилии для кода</a></li>
+        <li><a href="#перегрузка-операторов-правила-игры">Перегрузка операторов: правила игры</a></li>
+        <li><a href="#два-оператора-которые-вы-уже-используете">Два оператора, которые вы уже используете</a></li>
+      </ul>
+    </li>
+    <li><a href="#проверьте-себя">Проверьте себя</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 16. std::vector, std::chrono, std::thread</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/16-vector-chrono-thread/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/15-prefiksy-rmq/index.html" title="Занятие 15. Префиксные суммы и RMQ (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/17-stl/index.html" title="Занятие 17. Контейнеры и алгоритмы STL (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-16-stdvector-stdchrono-stdthread">Занятие 16. std::vector, std::chrono, std::thread</h1>
+
+<p>Эта лекция — легализация подполья. <code>std::vector</code> мы «писали сами» в занятии 8, все замеры курса пятнадцать занятий делались через <code>std::chrono</code>, операторы перегружал ещё BigInt из занятия 7, а <code>std::</code> стоит в каждой программе с первого дня. Сегодня раскладываем всё это по полкам — и добавляем действительно новое: <code>std::thread</code>. Замеры реальные (Apple M-серия, 12 ядер, <code>clang++ -O2</code>; демо гонки — <code>-O0</code>, иначе оптимизатор схлопывает цикл).</p>
+<h2 id="stdvector-под-микроскопом">std::vector под микроскопом<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="три-указателя">Три указателя<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><code>std::vector</code> — это наш <code>DynArray</code> из занятия 8, доведённый до ума: непрерывный буфер в куче и три указателя.</p>
+<p><img alt="Анатомия vector: begin_, end_, cap_; size = end_ − begin_, capacity = cap_ − begin_" class="lazy figure-image" loading="lazy" src="/winter2026/16-vector-chrono-thread/vector-anatomy.svg" style="height: auto;width: auto;"></p>
+<ul>
+<li><code>size()</code> — сколько элементов живёт; <code>capacity()</code> — на сколько выкуплено место; хвост между ними — оплаченный запас под рост.</li>
+<li>Рост при переполнении — ×2; «<code>push_back</code> за $O(1)$ амортизированно» — требование стандарта, а доказательство мы сдавали на РК1 (занятие 10).</li>
+<li><code>reserve(n)</code> выкупает ёмкость заранее; <code>shrink_to_fit()</code> просит вернуть излишки (совет компилятору, не приказ).</li>
+<li>Непрерывность буфера — то самое преимущество из занятия 8: кэш и предвыборка работают на полную.</li>
+</ul>
+<h3 id="цена-переездов-замер">Цена переездов: замер<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>$10^8$ вызовов <code>push_back</code>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>без reserve:  233 мс, реаллокаций: 28, итоговая capacity: 134 217 728
+с reserve:     47 мс, реаллокаций: 1</code></pre></div>
+<p>28 переездов на сто миллионов вставок — логарифм в действии (занятие 8 насчитало 21 на миллион). Итоговая ёмкость $134\,217\,728 = 2^{27}$ — рост ×2 виден невооружённым глазом. Одна строчка <code>reserve</code> убирает все переезды: <strong>×5 быстрее</strong>. Заодно она лечит пики латентности из занятия 10 — тот самый push_back за 4.7 мс на фоне медианы 0 нс.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Правило курса
+  </summary>
+  <div class="box-content">
+<p>Знаешь итоговый размер — пиши <code>reserve</code> сразу.</p>
+  </div>
+</details>
+<h3 id="инвалидация-контракт-который-нарушают-молча">Инвалидация: контракт, который нарушают молча<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>v[<span style="color:#ae81ff">0</span>];        <span style="color:#75715e">// указатель внутрь вектора
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">100</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    v.push_back(i);    <span style="color:#75715e">// рост =&gt; переезд буфера
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p;       <span style="color:#75715e">// p смотрит в СТАРЫЙ буфер
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>==88877==ERROR: AddressSanitizer: heap-use-after-free ...
+READ of size 4 at 0x6020000000b0 thread T0</code></pre></div>
+<p>Переезд — это <code>new</code> + копирование + освобождение старого буфера: все указатели, ссылки и итераторы внутрь становятся <strong>висячими</strong>. Катастрофа № 2 из занятия 11 — только устраивает её сам контейнер, и никакого «golden rule» компилятор здесь не проверит. Это не баг, а задокументированный контракт: <code>push_back</code> с переездом инвалидирует всё; без переезда — ничего. Той же болезнью болел <code>string_view</code>, глядящий в растущую строку (занятие 9).</p>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Правило
+  </summary>
+  <div class="box-content">
+<p>Не храните указатели и итераторы внутрь растущего вектора. Нужны стабильные адреса — <code>reserve</code> до заполнения или индексы вместо указателей.</p>
+  </div>
+</details>
+<h3 id="четыре-факта-экономящие-часы-отладки">Четыре факта, экономящие часы отладки<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ul>
+<li><strong><code>emplace_back(&quot;42&quot;)</code></strong> — конструирует объект прямо в буфере, без промежуточного временного (сравните с <code>push_back(BigInt(&quot;42&quot;))</code>).</li>
+<li><strong><code>data()</code></strong> — указатель на непрерывный буфер: vector дружит с любым C-интерфейсом, как <code>c_str()</code> у строк (занятие 9).</li>
+<li><strong><code>vector&lt;bool&gt;</code></strong> — упакован по битам, <code>b[0]</code> возвращает <em>прокси-объект</em>, а не <code>bool</code> — ловушка для <code>auto</code> из занятия 11. Нужны честные байты — берите <code>vector&lt;char&gt;</code>.</li>
+<li><strong><code>at(i)</code></strong> — доступ с проверкой границ: пара наносекунд против часа с санитайзером; <code>v[i]</code> мимо массива — молчаливое UB.</li>
+</ul>
+<h2 id="stdchrono-время-в-типах">std::chrono: время в типах<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="которые-часы">Которые часы?<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th><code>system_clock</code></th>
+					<th><code>steady_clock</code></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>что это</td>
+					<td>настенные часы</td>
+					<td>секундомер</td>
+			</tr>
+			<tr>
+					<td>привязка</td>
+					<td>календарь, UTC</td>
+					<td>только «вперёд»</td>
+			</tr>
+			<tr>
+					<td>может прыгнуть</td>
+					<td>да: NTP, перевод времени</td>
+					<td>никогда</td>
+			</tr>
+			<tr>
+					<td>годится для</td>
+					<td>меток «когда случилось»</td>
+					<td>замеров «сколько заняло»</td>
+			</tr>
+	</tbody>
+</table>
+<p>Замер на <code>system_clock</code> — мина: NTP подвёл часы на секунду назад, и бенчмарк «занял −0.3 с». Поэтому все замеры курса сделаны на <code>steady_clock</code> — его монотонность гарантирует стандарт. Обратно: метка времени в логе или дата файла — только <code>system_clock</code>, секундомер не знает, который час. <code>high_resolution_clock</code> — псевдоним одного из этих двух (какого — зависит от реализации), в новом коде его не используют.</p>
+<p>Мнемоника: <strong>интервалы — steady, календарь — system</strong>.</p>
+<h3 id="duration-единица-измерения-живёт-в-типе">duration: единица измерения живёт в типе<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std<span style="color:#f92672">::</span>chrono_literals;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> a <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>ms;             <span style="color:#75715e">// milliseconds
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> b <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>s;              <span style="color:#75715e">// seconds
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> c <span style="color:#f92672">=</span> a <span style="color:#f92672">+</span> b;           <span style="color:#75715e">// 2005ms — конвертацию сделал компилятор
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> d <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>duration_cast<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>seconds<span style="color:#f92672">&gt;</span>(c);
+</span></span><span style="display:flex;"><span>                          <span style="color:#75715e">// 2s: терять точность — только явно
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Классический баг индустрии: <code>void connect(int timeout)</code> — секунды? миллисекунды? Ответа нет в типе — значит, он появится в багтрекере. <code>duration</code> хранит число <strong>плюс единицу в типе</strong>: складывать разные единицы можно (компилятор приведёт без потерь), а сужающая конвертация мс → с требует явного <code>duration_cast</code>. Это та же идея, что <code>enum class</code> в занятии 11 и сильные типы вообще: смысл — в тип, проверку — компилятору.</p>
+<p>Сигнатура в духе курса: <code>void connect(std::chrono::milliseconds timeout)</code> — неправильно вызвать не получится.</p>
+<h3 id="методика-замеров-курса--официально">Методика замеров курса — официально<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> t0 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>steady_clock<span style="color:#f92672">::</span>now();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> checksum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#75715e">/* работа */</span>) checksum <span style="color:#f92672">+=</span> ...;   <span style="color:#75715e">// результат НАБЛЮДАЕМ
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> t1 <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>steady_clock<span style="color:#f92672">::</span>now();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">double</span> ms <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>chrono<span style="color:#f92672">::</span>duration<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, std<span style="color:#f92672">::</span>milli<span style="color:#f92672">&gt;</span>(t1 <span style="color:#f92672">-</span> t0).count();
+</span></span><span style="display:flex;"><span>printf(<span style="color:#e6db74">&#34;%lld за %.1f мс</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, checksum, ms);</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Три врага честного бенчмарка:</p>
+<ol>
+<li><strong>Оптимизатор.</strong> Результат, который никто не читает, <code>-O2</code> выкидывает вместе с циклом — на подготовке занятия 12 первый замер бинпоиска показал «0.0 мс». Лекарство: checksum, выведенный наружу.</li>
+<li><strong>Холодный старт.</strong> Первый прогон греет кэши (занятие 8) — перед замером нужен прогрев.</li>
+<li><strong>Разброс.</strong> Система живёт своей жизнью — повторы и медиана вместо единственного запуска (занятие 10 объясняло разницу медианы и пика).</li>
+</ol>
+<p>Каждая цифра на слайдах курса прошла через этот шаблон.</p>
+<h2 id="stdthread-первый-взгляд">std::thread: первый взгляд<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="поток--ещё-один-исполнитель-в-той-же-памяти">Поток — ещё один исполнитель в той же памяти<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">work</span>(<span style="color:#66d9ef">int</span> id) { <span style="color:#75715e">/* ... */</span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span><span style="color:#f92672">::</span>hardware_concurrency();   <span style="color:#75715e">// на этой машине: 12
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t(work, <span style="color:#ae81ff">7</span>);   <span style="color:#75715e">// исполнитель запущен
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ... main работает параллельно с t ...
+</span></span></span><span style="display:flex;"><span>    t.join();                 <span style="color:#75715e">// дождаться. ОБЯЗАТЕЛЬНО
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Карта памяти из занятия 3 дополняется: у каждого потока — <strong>свой стек</strong> (занятие 5), а куча, глобальные данные и код — <strong>общие</strong>. Общая память — одновременно суперсила (ничего не нужно пересылать) и главный источник бед. Потоку можно отдать функцию, указатель на функцию или лямбду — занятие 14 здесь расцветает. Забытый <code>join</code> — аварийное завершение всей программы.</p>
+<h3 id="параллельная-сумма-ускорение-и-его-потолок">Параллельная сумма: ускорение и его потолок<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Массив $10^8$ int режем на $T$ кусков; каждый поток суммирует свой кусок и пишет результат <strong>только в свою ячейку</strong> <code>part[t]</code>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span><span style="color:#f92672">&gt;</span> part(T, <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span><span style="color:#f92672">&gt;</span> ts;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> t <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; t <span style="color:#f92672">&lt;</span> T; t<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    ts.emplace_back([<span style="color:#f92672">&amp;</span>, t] {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> lo(t); i <span style="color:#f92672">&lt;</span> hi(t); i<span style="color:#f92672">++</span>) s <span style="color:#f92672">+=</span> a[i];
+</span></span><span style="display:flex;"><span>        part[t] <span style="color:#f92672">=</span> s;                  <span style="color:#75715e">// у каждого — своя ячейка
+</span></span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> th : ts) th.join();</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>потоков 1:   5.7 мс
+потоков 2:   3.3 мс
+потоков 4:   2.4 мс
+потоков 8:   1.8 мс    # ×3.2, не ×8</code></pre></div>
+<p>Почему потолок ×3.2 на 12 ядрах? Ядер много, а <strong>шина памяти одна</strong>: сумма упирается в подачу данных, не в арифметику. Занятия 8 и 12 предупреждали: память — такой же ресурс, как процессор, и здесь он кончается первым.</p>
+<h3 id="гонка-данных-куда-пропала-половина">Гонка данных: куда пропала половина<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">inc</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10&#39;000&#39;000</span>; i<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>        counter<span style="color:#f92672">++</span>;        <span style="color:#75715e">// два потока, ОДНА ячейка
+</span></span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span><span style="color:#66d9ef">thread</span> t1(inc), t2(inc);
+</span></span><span style="display:flex;"><span>t1.join(); t2.join();</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>$ ./race16     # три запуска подряд
+ожидали 20 000 000, получили: 10074087
+ожидали 20 000 000, получили:  9996053
+ожидали 20 000 000, получили: 10004715</code></pre></div>
+<p><code>counter++</code> — не один шаг, а три: <strong>прочитать → прибавить → записать</strong> (машинные шаги из занятия 5). Когда два потока читают одно и то же старое значение, две единицы схлопываются в одну — потеряна почти половина, и каждый запуск даёт новое число. По стандарту одновременная запись без синхронизации — <strong>data race, неопределённое поведение</strong>: не «иногда неточно», а «программа некорректна». Ловится инструментом: <code>-fsanitize=thread</code> покажет оба стека, наступившие на одну ячейку, — как ASan ловил утечки.</p>
+<p>Заметьте: в параллельной сумме гонки не было — <code>part[t]</code> у каждого свой. Это не везение, это дизайн.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Правило курса — сегодня
+  </summary>
+  <div class="box-content">
+<p>Потоки не делят изменяемые данные: каждый пишет только в своё, читать общее можно, пока никто не пишет, итоги складывает главный поток после <code>join</code>. Замки (<code>std::mutex</code>), неделимые операции (<code>std::atomic</code>) и цена синхронизации — во втором семестре.</p>
+  </div>
+</details>
+<p>И мораль замеров: сначала алгоритм (занятия 2–15), потом ядра. Плохой алгоритм на 12 ядрах — всё ещё плохой алгоритм.</p>
+<h2 id="правила-дома">Правила дома<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="пространства-имён-фамилии-для-кода">Пространства имён: фамилии для кода<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> geometry {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Point</span> { <span style="color:#66d9ef">double</span> x, y; };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">distance</span>(Point a, Point b);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">namespace</span> audio {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">distance</span>(<span style="color:#66d9ef">double</span> db1, <span style="color:#66d9ef">double</span> db2);
+</span></span><span style="display:flex;"><span>}   <span style="color:#75715e">// конфликта нет: фамилии разные
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>geometry<span style="color:#f92672">::</span>distance(p, q);        <span style="color:#75715e">// полное имя
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> geometry<span style="color:#f92672">::</span>Point;           <span style="color:#75715e">// точечный импорт — ок
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Болезнь та же, что у старого <code>enum</code> из занятия 11: без фамилий имена сыплются в общую кучу и сталкиваются. <code>std::</code> — просто фамилия стандартной библиотеки.</p>
+<ul>
+<li><code>using geometry::Point;</code> — точечный импорт одного имени: нормальная практика в .cpp.</li>
+<li><code>using namespace std;</code> — высыпать в свой код <strong>тысячи</strong> имён (<code>count</code>, <code>size</code>, <code>distance</code>, <code>sort</code>…): коллизии гарантированы. В заголовочном файле — преступление против всех, кто его включит; в этом курсе не пишем нигде.</li>
+<li>Анонимный <code>namespace { ... }</code> — современная внутренняя линковка: static № 2 из занятия 11.</li>
+</ul>
+<h3 id="перегрузка-операторов-правила-игры">Перегрузка операторов: правила игры<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Money</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">friend</span> Money <span style="color:#66d9ef">operator</span><span style="color:#f92672">+</span>(Money a, Money b);          <span style="color:#75715e">// симметрия — свободной функцией
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">==</span>(<span style="color:#66d9ef">const</span> Money<span style="color:#f92672">&amp;</span>) <span style="color:#66d9ef">const</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;     <span style="color:#75715e">// C++20:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;=&gt;</span>(<span style="color:#66d9ef">const</span> Money<span style="color:#f92672">&amp;</span>) <span style="color:#66d9ef">const</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;    <span style="color:#75715e">// сравнения пишет компилятор
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> cents_;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Money total <span style="color:#f92672">=</span> price <span style="color:#f92672">+</span> tax;     <span style="color:#75715e">// читается как формула
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Занятие 7 уже перегружало <code>+=</code> у BigInt — теперь свод правил:</p>
+<ul>
+<li>Перегружается почти всё; <strong>нельзя</strong>: <code>::</code>, <code>.</code>, <code>?:</code>, <code>sizeof</code>. Новых операторов не изобрести, приоритеты не изменить.</li>
+<li>Симметричные операторы — <strong>свободными функциями</strong>: метод не позволит <code>2 + x</code> (слева литерал, у него методов нет), свободная функция — позволит.</li>
+<li>C++20: <code>operator&lt;=&gt;</code> («spaceship») со <code>= default</code> — одна строка, и все шесть сравнений корректны, лексикографически по полям в порядке объявления.</li>
+<li><strong>Принцип наименьшего удивления:</strong> <code>+</code> складывает, <code>==</code> сравнивает. Перегрузка — про читаемость, не про остроумие.</li>
+</ul>
+<h3 id="два-оператора-которые-вы-уже-используете">Два оператора, которые вы уже используете<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// 1. operator() — «объект, притворяющийся функцией»
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">ByLength</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">operator</span>()(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> a, <span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> b) <span style="color:#66d9ef">const</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> a.size() <span style="color:#f92672">&lt;</span> b.size();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>sort(v.begin(), v.end(), ByLength{});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 2. operator&lt;&lt; — научить cout своему типу
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;&lt;</span>(std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span> os, Point p) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> os <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;(&#39;</span> <span style="color:#f92672">&lt;&lt;</span> p.x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;, &#34;</span> <span style="color:#f92672">&lt;&lt;</span> p.y <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;)&#39;</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>Функтор</strong> — класс с <code>operator()</code>. Лямбда из занятия 14 — ровно это: компилятор сам генерирует такой класс, а захваты становятся полями (мы даже мерили их <code>sizeof</code>). Круг замкнулся.</p>
+<p><code>operator&lt;&lt;</code> возвращает <code>ostream&amp;</code> — потому и работают цепочки <code>cout &lt;&lt; a &lt;&lt; b</code>: тот же <code>*this</code>-приём, что в занятиях 5 и 11. И он обязан быть свободной функцией: слева стоит чужой класс <code>ostream</code>, метод в него не добавить.</p>
+<h2 id="проверьте-себя">Проверьте себя<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>
+<p><strong>Что напечатает?</strong></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v;
+</span></span><span style="display:flex;"><span>v.reserve(<span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">5</span>; i<span style="color:#f92672">++</span>) v.push_back(i);
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> v.size() <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span> <span style="color:#f92672">&lt;&lt;</span> v.capacity();</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+<strong>5 8.</strong> <code>reserve(4)</code> дал ёмкость 4; пятый <code>push_back</code> вызвал переезд ×2 — capacity стала 8. Все указатели и итераторы внутрь вектора после пятой вставки — висячие.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Про гонку.</strong> Запуски дают 10 074 087, 9 996 053, 10 004 715… Почему все результаты ≈ $10^7$, а не $2 \cdot 10^7$ и не случайные числа около нуля? И почему это UB, даже если «числа похожи на правду»?</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+Потоки исполняются на разных ядрах одновременно и почти каждую итерацию читают одно и то же старое значение: пара одновременных инкрементов схлопывается в один — теряется примерно каждый второй, отсюда ≈ половина. Точное число зависит от планировщика и кэшей — потому каждый запуск новый. А UB это потому, что стандарт объявляет несинхронизированную одновременную запись data race&rsquo;ом: компилятор и процессор вправе предполагать её отсутствие, и «похожие на правду» числа ничем не гарантированы — с другим компилятором/флагами результат может быть любым.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Оператор.</strong> Отсортировать <code>Student {name, height}</code> по имени, при равенстве — по росту. Два решения?</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+Если такой порядок — «естественный» для типа: <code>auto operator&lt;=&gt;(const Student&amp;) const = default;</code> — поля уже объявлены в нужном порядке, и <code>std::sort(v.begin(), v.end())</code> работает без компаратора. Если порядок ситуативный (в другом месте сортируем по росту) — лямбда-компаратор из занятия 14 прямо в вызове sort. Правило: default-spaceship для канонического порядка, лямбда — для локального.
+  </div>
+</details>
+</li>
+</ol>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>Бенчмарк-обвязка:</strong> функция <code>measure(f)</code> по методике курса (steady_clock, checksum, прогрев, медиана из 5 запусков). Перемерьте ею свой <code>lowerBound</code> из ДЗ-12 против <code>std::lower_bound</code>.</li>
+<li><strong>Параллельный минимум:</strong> минимум массива в T потоков без общих изменяемых данных; таблица времени для T = 1, 2, 4, 8 со своей машины и объяснение потолка.</li>
+<li><strong>Свой тип — полноправный:</strong> класс <code>Fraction</code> (дробь) с <code>operator+</code>, <code>operator==</code>, <code>operator&lt;=&gt;</code>, <code>operator&lt;&lt;</code>; вектор дробей сортируется без компаратора.</li>
+<li><strong>Охота на инвалидацию:</strong> в выданном фрагменте три обращения к элементам vector после модификаций — какие валидны, какие UB и почему.</li>
+<li>* <strong>Гонка под микроскопом:</strong> цикл инкрементов — один поток vs два с гонкой vs <code>std::atomic&lt;int&gt;</code> в два. Три числа и объяснение каждого.</li>
+</ol>
+<p>Следующее занятие — <strong>STL целиком</strong>: контейнеры от <code>deque</code> до <code>unordered_map</code>, итераторы и их категории, алгоритмы и компараторы. Весь зоопарк на одной карте — с ценами операций.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 11 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="active " data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

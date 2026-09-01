@@ -67,7 +67,7 @@
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
       window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
       // variant stuff
-      window.relearn.themevariants = [ 'green' ];
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -95,19 +95,9 @@
       window.relearn.initVariant();
       window.relearn.markVariant();
     </script> <link href="/css/custom_links.css" rel="stylesheet" />
-  
- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script> 
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
 
   </head>
   <body class="mobile-support html" data-origin="/basics/greedy/minimum_spanning_tree/index.html">
@@ -272,29 +262,29 @@
 $$
 d_{u}=\min \left\{w_f : f = (a, u),\; a \in A\right\}.
 $$<p>Тогда на очередном шаге $v$ — это вершина из $V \backslash A$ с минимальным $d_{v}$. Для перехода к следующему шагу обновляем $d_{u}$ весами рёбер, исходящих из $v$. Алгоритм практически идентичен <a href="/basics/graphs/graph_shortest_path_algos/index.html">алгоритму Дейкстры</a>; соответственно, оценки времени работы аналогичны: $O\left(V^{2}+E\right)$ или $O((V+E) \log V)$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-76560c6a799807ee4cd58f54176b0f0a">
+<div class="tab-panel" data-tab-group="R-tabs-afd66fbc0f857ff2af6ba33c102cd749">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-b706f99f3bd9739572a02b24ae3c6446" aria-expanded="true"
+      aria-controls="R-tab-id-2264a156220eaac4a589f0379d6cde10" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-76560c6a799807ee4cd58f54176b0f0a','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-afd66fbc0f857ff2af6ba33c102cd749','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-8a8eb4827caf1857b46db0c84151808c" aria-expanded="false"
+      aria-controls="R-tab-id-17ae9ae3613d973380452178027d216b" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-76560c6a799807ee4cd58f54176b0f0a','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-afd66fbc0f857ff2af6ba33c102cd749','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-b706f99f3bd9739572a02b24ae3c6446"
+      id="R-tab-id-2264a156220eaac4a589f0379d6cde10"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -357,7 +347,7 @@ $$<p>Тогда на очередном шаге $v$ — это вершина �
       </div>
     </div>
     <div
-      id="R-tab-id-8a8eb4827caf1857b46db0c84151808c"
+      id="R-tab-id-17ae9ae3613d973380452178027d216b"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -465,29 +455,29 @@ $$<p>Тогда на очередном шаге $v$ — это вершина �
 <p>Будем считать, что элементы пронумерованы числами от $0$ до $n-1$. После инициализации каждое множество состоит из одного элемента и <code>get(i) = i</code>.</p>
 <h3 id="реализация-связными-списками">Реализация связными списками<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Будем поддерживать $\mathit{id}[i]$ — номер множества, содержащего элемент $i$, а для множества с номером $i$ — список его элементов $\mathit{elems}[i]$. При объединении сохраняем идентификатор большего множества: тогда нужно менять $\mathit{id}$ лишь у элементов меньшего множества. Объединение списков осуществляется за $O(1)$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-0034faf6891a1cdcd184ea01abf11be4">
+<div class="tab-panel" data-tab-group="R-tabs-769d488fe4742aa8dc03eba71ac1f539">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-9f1770e0a653119b9686b1b9551b13c0" aria-expanded="true"
+      aria-controls="R-tab-id-0e70da644e67f0b00aaa9454af8baf7b" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-0034faf6891a1cdcd184ea01abf11be4','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-769d488fe4742aa8dc03eba71ac1f539','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-c8e861e8a5f3831841641f9a0ffc00f0" aria-expanded="false"
+      aria-controls="R-tab-id-5c94b7c51956ef9f4b3859fcefa6bcb9" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-0034faf6891a1cdcd184ea01abf11be4','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-769d488fe4742aa8dc03eba71ac1f539','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-9f1770e0a653119b9686b1b9551b13c0"
+      id="R-tab-id-0e70da644e67f0b00aaa9454af8baf7b"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -542,7 +532,7 @@ $$<p>Тогда на очередном шаге $v$ — это вершина �
       </div>
     </div>
     <div
-      id="R-tab-id-c8e861e8a5f3831841641f9a0ffc00f0"
+      id="R-tab-id-5c94b7c51956ef9f4b3859fcefa6bcb9"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -643,29 +633,29 @@ $$<p>Тогда на очередном шаге $v$ — это вершина �
 <h3 id="реализация-деревьями">Реализация деревьями<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Каждое множество будем хранить в виде подвешенного дерева. Для каждого элемента $v$ хранится ссылка $p[v]$ на родителя; для корня $p[v]=v$. Идентификатор множества — корень дерева.</p>
 <p>Функция <code>get(v)</code> — подъём в корень; <code>join(a, b)</code> — подвешивание корня одного дерева к корню другого.</p>
-<div class="tab-panel" data-tab-group="R-tabs-c14e346de08314935224c50e83ea4cff">
+<div class="tab-panel" data-tab-group="R-tabs-ce5b1e45043d791dd12172e95496a6ab">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-5f65aaa969756cc87f7fd7a00a3ed493" aria-expanded="true"
+      aria-controls="R-tab-id-6c06e298f66a5eccd87804318b9b2bb2" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-c14e346de08314935224c50e83ea4cff','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-ce5b1e45043d791dd12172e95496a6ab','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-63b6e77681a6674724de6d44f1c6a698" aria-expanded="false"
+      aria-controls="R-tab-id-31e5a922fff563df104b7c36788c6d52" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-c14e346de08314935224c50e83ea4cff','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-ce5b1e45043d791dd12172e95496a6ab','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-5f65aaa969756cc87f7fd7a00a3ed493"
+      id="R-tab-id-6c06e298f66a5eccd87804318b9b2bb2"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -710,7 +700,7 @@ $$<p>Тогда на очередном шаге $v$ — это вершина �
       </div>
     </div>
     <div
-      id="R-tab-id-63b6e77681a6674724de6d44f1c6a698"
+      id="R-tab-id-31e5a922fff563df104b7c36788c6d52"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -769,29 +759,29 @@ $$<p>Тогда на очередном шаге $v$ — это вершина �
 <p>Время работы <code>join</code> — это $O(1)$ плюс время работы двух запусков <code>get</code>. В худшем случае высота дерева равна его размеру, и <code>get</code> работает за $\Theta(n)$. Для улучшения применяются две эвристики.</p>
 <h3 id="ранговая-эвристика">Ранговая эвристика<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>При объединении деревьев логично подвешивать более низкое дерево к более высокому. Для каждой вершины $v$ хранится ранг $\mathit{rk}[v]$ — высота поддерева вершины $v$. При равенстве рангов ранг корня нового дерева увеличивается на единицу.</p>
-<div class="tab-panel" data-tab-group="R-tabs-1d8c3429cc1ef604afc260baa0b1a5f4">
+<div class="tab-panel" data-tab-group="R-tabs-ddc114bb33d750c918b49aed6724608a">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-dfc0f496324eee8e2676ccea967633ae" aria-expanded="true"
+      aria-controls="R-tab-id-8d5ad3eda10321b3534c1fa6be28ac4a" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-1d8c3429cc1ef604afc260baa0b1a5f4','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-ddc114bb33d750c918b49aed6724608a','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-f66456653b9240b5b767fa5ed79842b0" aria-expanded="false"
+      aria-controls="R-tab-id-19719c4c86ffa7bb73d6a6b58730a5d6" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-1d8c3429cc1ef604afc260baa0b1a5f4','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-ddc114bb33d750c918b49aed6724608a','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-dfc0f496324eee8e2676ccea967633ae"
+      id="R-tab-id-8d5ad3eda10321b3534c1fa6be28ac4a"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -842,7 +832,7 @@ $$<p>Тогда на очередном шаге $v$ — это вершина �
       </div>
     </div>
     <div
-      id="R-tab-id-f66456653b9240b5b767fa5ed79842b0"
+      id="R-tab-id-19719c4c86ffa7bb73d6a6b58730a5d6"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -919,29 +909,29 @@ $$<p>Тогда на очередном шаге $v$ — это вершина �
 <p>Из третьего свойства следует, что ранг любой вершины не превосходит $\log_2 n$. Значит, высота любого дерева не превосходит $\log_2 n$, и <code>get</code> работает за $O(\log n)$.</p>
 <h3 id="эвристика-сжатия-путей">Эвристика сжатия путей<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Когда <code>get(v)</code> находит корень, можно переподвесить $v$ напрямую к корню — при следующем запросе путь будет короче.</p>
-<div class="tab-panel" data-tab-group="R-tabs-c331f4419ada147920d748a41a07dc97">
+<div class="tab-panel" data-tab-group="R-tabs-ca29be0abb80f9578abdb9894d8a63f0">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-b7f404d78828ca6070ed19cff9f1d715" aria-expanded="true"
+      aria-controls="R-tab-id-6f4f2f0b821748de3cac17b099c3ba8e" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-c331f4419ada147920d748a41a07dc97','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-ca29be0abb80f9578abdb9894d8a63f0','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-48675ec0b07e424028bea5b8963e07d0" aria-expanded="false"
+      aria-controls="R-tab-id-22dca28a548bbd534253c7d5cc97c530" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-c331f4419ada147920d748a41a07dc97','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-ca29be0abb80f9578abdb9894d8a63f0','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-b7f404d78828ca6070ed19cff9f1d715"
+      id="R-tab-id-6f4f2f0b821748de3cac17b099c3ba8e"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -964,7 +954,7 @@ $$<p>Тогда на очередном шаге $v$ — это вершина �
       </div>
     </div>
     <div
-      id="R-tab-id-48675ec0b07e424028bea5b8963e07d0"
+      id="R-tab-id-22dca28a548bbd534253c7d5cc97c530"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1089,29 +1079,29 @@ $$\{0\},\{1\},\{2\},\{3,4\},\{5,\ldots,16\},\{17,\ldots,65536\},\ldots$$<p>
   </div>
 </details>
 <h3 id="возвращаясь-к-алгоритму-краскала">Возвращаясь к алгоритму Краскала<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<div class="tab-panel" data-tab-group="R-tabs-7e0e6404e67f6e7d0ae6f5be538f5530">
+<div class="tab-panel" data-tab-group="R-tabs-08101c522488ca03fc693a7dca3f93fa">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-fd1be39e8785b14ac8d879b840c95d8a" aria-expanded="true"
+      aria-controls="R-tab-id-a8a73e53397b354988fb02ba4f6fb0d8" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-7e0e6404e67f6e7d0ae6f5be538f5530','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-08101c522488ca03fc693a7dca3f93fa','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-c74c78f85518c6434cb2f347095a2d79" aria-expanded="false"
+      aria-controls="R-tab-id-2e7e3f1eb4800947d322f11b10510c3f" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-7e0e6404e67f6e7d0ae6f5be538f5530','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-08101c522488ca03fc693a7dca3f93fa','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-fd1be39e8785b14ac8d879b840c95d8a"
+      id="R-tab-id-a8a73e53397b354988fb02ba4f6fb0d8"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1152,7 +1142,7 @@ $$\{0\},\{1\},\{2\},\{3,4\},\{5,\ldots,16\},\{17,\ldots,65536\},\ldots$$<p>
       </div>
     </div>
     <div
-      id="R-tab-id-c74c78f85518c6434cb2f347095a2d79"
+      id="R-tab-id-2e7e3f1eb4800947d322f11b10510c3f"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1279,6 +1269,7 @@ $$\{0\},\{1\},\{2\},\{3,4\},\{5,\ldots,16\},\{17,\ldots,65536\},\ldots$$<p>
             <li class="" data-nav-id="/basics/greedy/huffman_caching/index.html"><a class="padding" href="/basics/greedy/huffman_caching/index.html">14.1. Алгоритм Хаффмана и оптимальное кэширование</a></li>
             <li class="active " data-nav-id="/basics/greedy/minimum_spanning_tree/index.html"><a class="padding" href="/basics/greedy/minimum_spanning_tree/index.html">14.2. Минимальное остовное дерево</a></li></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
@@ -1291,6 +1282,22 @@ $$\{0\},\{1\},\{2\},\{3,4\},\{5,\ldots,16\},\{17,\ldots,65536\},\ldots$$<p>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>

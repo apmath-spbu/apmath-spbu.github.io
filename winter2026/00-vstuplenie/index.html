@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Вступительная лекция — про контекст: откуда взялись инструменты, которыми мы будем пользоваться два семестра, по какому ритму живёт C&#43;&#43; и как меняется профессия прямо сейчас. Курс ведёт Александр Уланов (СПбГУ, факультет прикладной математики — процессов управления); вопросы по курсу, ДЗ и апелляциям — a.ulanov@spbu.ru или Telegram @aulanov.
+Сквозной принцип лекции, который объяснит всё остальное: каждый язык — ответ на боль своего времени.
+До высоких уровней: 1940-е — 1960-е Первые ЭВМ программировали переключателями и перфокартами: программа — колода карт, ошибка — рассыпанная колода. Ассемблер (1950-е) дал числам имена, но остался один-к-одному с железом: новая машина — переписывай всё.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 0. Вступление: от перфокарт до LLM :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Вступительная лекция — про контекст: откуда взялись инструменты, которыми мы будем пользоваться два семестра, по какому ритму живёт C&#43;&#43; и как меняется профессия прямо сейчас. Курс ведёт Александр Уланов (СПбГУ, факультет прикладной математики — процессов управления); вопросы по курсу, ДЗ и апелляциям — a.ulanov@spbu.ru или Telegram @aulanov.
+Сквозной принцип лекции, который объяснит всё остальное: каждый язык — ответ на боль своего времени.
+До высоких уровней: 1940-е — 1960-е Первые ЭВМ программировали переключателями и перфокартами: программа — колода карт, ошибка — рассыпанная колода. Ассемблер (1950-е) дал числам имена, но остался один-к-одному с железом: новая машина — переписывай всё.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/00-vstuplenie/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 0. Вступление: от перфокарт до LLM :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Вступительная лекция — про контекст: откуда взялись инструменты, которыми мы будем пользоваться два семестра, по какому ритму живёт C&#43;&#43; и как меняется профессия прямо сейчас. Курс ведёт Александр Уланов (СПбГУ, факультет прикладной математики — процессов управления); вопросы по курсу, ДЗ и апелляциям — a.ulanov@spbu.ru или Telegram @aulanov.
+Сквозной принцип лекции, который объяснит всё остальное: каждый язык — ответ на боль своего времени.
+До высоких уровней: 1940-е — 1960-е Первые ЭВМ программировали переключателями и перфокартами: программа — колода карт, ошибка — рассыпанная колода. Ассемблер (1950-е) дал числам имена, но остался один-к-одному с железом: новая машина — переписывай всё.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-25T15:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-25T15:00:00+03:00">
+    <meta itemprop="name" content="Занятие 0. Вступление: от перфокарт до LLM :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Вступительная лекция — про контекст: откуда взялись инструменты, которыми мы будем пользоваться два семестра, по какому ритму живёт C&#43;&#43; и как меняется профессия прямо сейчас. Курс ведёт Александр Уланов (СПбГУ, факультет прикладной математики — процессов управления); вопросы по курсу, ДЗ и апелляциям — a.ulanov@spbu.ru или Telegram @aulanov.
+Сквозной принцип лекции, который объяснит всё остальное: каждый язык — ответ на боль своего времени.
+До высоких уровней: 1940-е — 1960-е Первые ЭВМ программировали переключателями и перфокартами: программа — колода карт, ошибка — рассыпанная колода. Ассемблер (1950-е) дал числам имена, но остался один-к-одному с железом: новая машина — переписывай всё.">
+    <meta itemprop="datePublished" content="2026-08-25T15:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-25T15:00:00+03:00">
+    <meta itemprop="wordCount" content="842">
+    <title>Занятие 0. Вступление: от перфокарт до LLM :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/00-vstuplenie\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/00-vstuplenie/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#до-высоких-уровней-1940-е--1960-е">До высоких уровней: 1940-е — 1960-е</a></li>
+    <li><a href="#c-и-рождение-c">C и рождение C++</a></li>
+    <li><a href="#хронология-стандартов">Хронология стандартов</a></li>
+    <li><a href="#наши-дни-llm">Наши дни: LLM</a>
+      <ul>
+        <li><a href="#зачем-учить-основы-если-пишет-ии">«Зачем учить основы, если пишет ИИ?»</a></li>
+      </ul>
+    </li>
+    <li><a href="#как-устроен-наш-семестр">Как устроен наш семестр</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 0. Вступление: от перфокарт до LLM</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/00-vstuplenie/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/index.html" title="Основы программирования — зимний семестр 2026/27 (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/01-sborka-cpp/index.html" title="Занятие 1. Сборка C++: от кода до .exe (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-0-вступление-от-перфокарт-до-llm">Занятие 0. Вступление: от перфокарт до LLM</h1>
+
+<p>Вступительная лекция — про контекст: откуда взялись инструменты, которыми мы будем пользоваться два семестра, по какому ритму живёт C++ и как меняется профессия прямо сейчас. Курс ведёт <strong>Александр Уланов</strong> (СПбГУ, факультет прикладной математики — процессов управления); вопросы по курсу, ДЗ и апелляциям — <a href="mailto:a.ulanov@spbu.ru" rel="external">a.ulanov@spbu.ru</a> или Telegram @aulanov.</p>
+<p>Сквозной принцип лекции, который объяснит всё остальное: <strong>каждый язык — ответ на боль своего времени</strong>.</p>
+<h2 id="до-высоких-уровней-1940-е--1960-е">До высоких уровней: 1940-е — 1960-е<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Первые ЭВМ программировали переключателями и перфокартами: программа — колода карт, ошибка — рассыпанная колода. Ассемблер (1950-е) дал числам имена, но остался один-к-одному с железом: новая машина — переписывай всё.</p>
+<p>Прорыв — идея <strong>компилятора</strong>: Fortran (1957) доказал, что машина может переводить «формулы» в код не хуже человека. Затем ALGOL принёс структурность, Lisp — функции как данные, COBOL — язык для бизнеса.</p>
+<h2 id="c-и-рождение-c">C и рождение C++<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p><strong>1972, Bell Labs, Деннис Ритчи.</strong> Задача: переписать UNIX так, чтобы ОС переезжала на новые машины без переписывания с нуля. C — компромисс, попавший в вечность: близко к железу (указатели, байты — занятия 3 и 18), но переносимо. В 1973-м UNIX переписан на C; с тех пор C — лингва франка систем: ядра Linux и Windows, embedded, рантаймы других языков. Половина нашего курса — прямое наследие C: конвейер сборки (занятие 1), типы и память (3), C-строки (9), UB как контракт (18).</p>
+<p><strong>1979, снова Bell Labs.</strong> Бьярне Страуструп хочет писать распределённые системы: нужны классы как в Simula, но скорость как у C. 1979 — «C with Classes», 1983 — имя <strong>C++</strong>, 1985 — компилятор CFront и первая книга. Главный принцип на 45 лет вперёд — <strong>zero-overhead</strong>: «не платишь за то, чем не пользуешься; а тем, чем пользуешься, вручную лучше не сделаешь». Наши занятия 7 (RAII) и 22 (move) — этот принцип в действии.</p>
+<p>Второе судьбоносное решение — <strong>совместимость</strong> с C и со старым собой: код 1985 года компилируется до сих пор, поэтому на C++ написаны системы, живущие десятилетиями.</p>
+<h2 id="хронология-стандартов">Хронология стандартов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<table>
+	<thead>
+			<tr>
+					<th>стандарт</th>
+					<th>главное</th>
+					<th>в нашем курсе</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>C++98/03</td>
+					<td>первый ISO; STL Степанова: контейнеры + итераторы + алгоритмы</td>
+					<td>vector, sort — занятия 16–17</td>
+			</tr>
+			<tr>
+					<td><strong>C++11</strong></td>
+					<td><strong>перезапуск языка:</strong> auto, лямбды, move, умные указатели, threads</td>
+					<td>половина курса: занятия 11, 14, 16, 22</td>
+			</tr>
+			<tr>
+					<td>C++14/17</td>
+					<td>полировка + string_view, optional, variant, structured bindings</td>
+					<td>занятия 9, 20</td>
+			</tr>
+			<tr>
+					<td><strong>C++20</strong></td>
+					<td>концепты, ranges, корутины, модули, spaceship <code>&lt;=&gt;</code></td>
+					<td>занятия 16, 24 — <strong>база курса</strong></td>
+			</tr>
+			<tr>
+					<td>C++23</td>
+					<td>std::print, expected, mdspan</td>
+					<td>заходами</td>
+			</tr>
+			<tr>
+					<td>C++26</td>
+					<td>в драфте: <strong>рефлексия</strong>, контракты, std::execution — состав финализируется</td>
+					<td>тизеры</td>
+			</tr>
+	</tbody>
+</table>
+<p>Тринадцать лет тишины между 98-м и 11-м чуть не стоили языку жизни — Java (1995) и C# (2000) забирали разработчиков. Ответ комитета — трёхлетняя каденция: с 2011 года новый стандарт выходит каждые три года. C++11 «ощущается как новый язык» — слова самого Страуструпа.</p>
+<p><strong>Почему C++ жив в 2026-м.</strong> Совместимость держит триллионы строк работающего кода; zero-overhead незаменим там, где считают наносекунды — игры, HFT, браузеры, БД, ML-рантаймы (внутри PyTorch и TensorFlow — C++), embedded. Соседи отвечали на свои боли: Java — переносимость через VM, Go (2009) — простота для серверов, Rust (2015) — безопасность памяти без сборщика мусора. Давление Rust и регуляторов (государственные рекомендации memory-safe языков) двигает и сам C++: профили безопасности — большая тема комитета прямо сейчас.</p>
+<h2 id="наши-дни-llm">Наши дни: LLM<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Пять лет, изменившие ремесло: GitHub Copilot (2021) — автодополнение целыми функциями; ChatGPT (2022) — диалог с моделью становится массовым; 2023–24 — ассистенты во всех крупных IDE; 2025–26 — агентные инструменты, которые сами компилируют, тестируют и правят.</p>
+<p>По публичным заявлениям компаний, в Google ИИ генерирует более четверти нового кода (окт. 2024), в Microsoft — «20–30%» (апр. 2025). Цифры их собственные, но тренд очевиден: профессия смещается от набора текста к <strong>постановке задач и проверке результата</strong>.</p>
+<h3 id="зачем-учить-основы-если-пишет-ии">«Зачем учить основы, если пишет ИИ?»<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ul>
+<li>Главный навык эпохи ИИ — <strong>ревью чужого кода</strong>: сгенерированный код — это чужой код в промышленных объёмах. Чтобы принять или отвергнуть его, нужно видеть инварианты, память и худшие случаи.</li>
+<li>ИИ ускоряет того, кто понимает, — и умножает ошибки того, кто не понимает: уверенный тон модели не заменяет доказательства.</li>
+<li>Всё, чему учит курс — инварианты, UB, замеры, нижние оценки, — ровно то, что в сгенерированном коде надо <strong>проверять</strong>.</li>
+</ul>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Политика курса по ИИ
+  </summary>
+  <div class="box-content">
+<p>Пользоваться ассистентами при ДЗ <strong>можно</strong> — понимать каждую сданную строку <strong>обязательно</strong>: на защите ДЗ спросим любую.</p>
+  </div>
+</details>
+<p>Что впереди у языка: рефлексия (программа изучает собственные типы — сериализация без макросов), контракты (пред- и постусловия в синтаксисе — наши инварианты станут частью языка), профили безопасности. Языку 45 лет — и он снова на фронтире.</p>
+<h2 id="как-устроен-наш-семестр">Как устроен наш семестр<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li><strong>Две линии</strong> вперемежку: язык (C/C++ от сборки до шаблонов) и алгоритмы (от O-символики до кучи) — они постоянно ссылаются друг на друга.</li>
+<li><strong>Контроль:</strong> домашние задания после семинаров, два рубежных контроля, зачёт с оценкой. Сдача ДЗ — через Git; задачи также выкладываются в контест на <a href="https://www.hackerrank.com" rel="external">HackerRank</a> (HR) — ссылка на контест будет дана позже.</li>
+<li><strong>Инструменты:</strong> компилятор + редактор, санитайзеры, <a href="https://godbolt.org" rel="external">Compiler Explorer</a> — настроим на занятии 1.</li>
+<li><strong>Стиль курса:</strong> каждое утверждение о скорости — с настоящим замером; каждый цикл — с инвариантом; каждая «магия» — с разбором до байтов.</li>
+</ul>
+<p>Что почитать вокруг лекции: <a href="https://en.cppreference.com" rel="external">cppreference.com</a> — настольный справочник курса; <a href="https://isocpp.org" rel="external">isocpp.org</a> — новости комитета и стандартов; история языка от первого лица — Б. Страуструп, «Дизайн и эволюция C++».</p>
+<p>Следующее занятие — <a href="/winter2026/01-sborka-cpp/index.html"><strong>сборка C++</strong></a>: путь от исходника до исполняемого файла и ваш первый собранный руками бинарник.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 25 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="active " data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

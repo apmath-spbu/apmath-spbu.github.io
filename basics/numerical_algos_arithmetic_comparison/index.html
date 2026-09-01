@@ -67,7 +67,7 @@
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
       window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
       // variant stuff
-      window.relearn.themevariants = [ 'green' ];
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -95,19 +95,9 @@
       window.relearn.initVariant();
       window.relearn.markVariant();
     </script> <link href="/css/custom_links.css" rel="stylesheet" />
-  
- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script> 
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
 
   </head>
   <body class="mobile-support html" data-origin="/basics/numerical_algos_arithmetic_comparison/index.html">
@@ -188,29 +178,29 @@
 <p>Воспользуемся той же идеей, что и в рекурсивном алгоритме умножения:</p>
 $$
 a^{b}= \begin{cases}\left(a^{\left\lfloor\frac{b}{2}\right\rfloor}\right)^{2}, & \text { если } b \text { чётно, } \\ a \cdot\left(a^{\left\lfloor\frac{b}{2}\right\rfloor}\right)^{2}, & \text { иначе. }\end{cases}
-$$<div class="tab-panel" data-tab-group="R-tabs-a6e8f8c3eab29b716eda860dd03d94f3">
+$$<div class="tab-panel" data-tab-group="R-tabs-6720fb4a0d663f6a4b188bae650a49f0">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-94e241bc0ef41776ff872f74ff6bc5c7" aria-expanded="true"
+      aria-controls="R-tab-id-45cc5550adaae8b920dbcda24e821863" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-a6e8f8c3eab29b716eda860dd03d94f3','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-6720fb4a0d663f6a4b188bae650a49f0','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-d3afd3da9ec1614f83170344081b499e" aria-expanded="false"
+      aria-controls="R-tab-id-46e229d9754457db3bc4eb6a6a5ed48e" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-a6e8f8c3eab29b716eda860dd03d94f3','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-6720fb4a0d663f6a4b188bae650a49f0','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-94e241bc0ef41776ff872f74ff6bc5c7"
+      id="R-tab-id-45cc5550adaae8b920dbcda24e821863"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -241,7 +231,7 @@ $$<div class="tab-panel" data-tab-group="R-tabs-a6e8f8c3eab29b716eda860dd03d94f3
       </div>
     </div>
     <div
-      id="R-tab-id-d3afd3da9ec1614f83170344081b499e"
+      id="R-tab-id-46e229d9754457db3bc4eb6a6a5ed48e"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -302,29 +292,29 @@ $$<div class="tab-panel" data-tab-group="R-tabs-a6e8f8c3eab29b716eda860dd03d94f3
   </div>
 </details>
 <p>Алгоритм Евклида пользуется вышеописанным правилом, пока не окажется, что $b=0$. Ясно, что $\operatorname{gcd}(a, 0)=a$ для любого $a$.
-<div class="tab-panel" data-tab-group="R-tabs-6ee95cfa6d4012fcaaf0725dc60a112b">
+<div class="tab-panel" data-tab-group="R-tabs-818a8db7ed6619d0af727ae441831fa2">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-d14202895816472a5c3e75f4b54d9493" aria-expanded="true"
+      aria-controls="R-tab-id-1535990854f5377c7c000e6aa98eaff4" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-6ee95cfa6d4012fcaaf0725dc60a112b','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-818a8db7ed6619d0af727ae441831fa2','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-9baca3ed8e0d1af1e5d34446b31ad38c" aria-expanded="false"
+      aria-controls="R-tab-id-6b61d584d12a0787f19e89a3c3c2f24f" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-6ee95cfa6d4012fcaaf0725dc60a112b','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-818a8db7ed6619d0af727ae441831fa2','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-d14202895816472a5c3e75f4b54d9493"
+      id="R-tab-id-1535990854f5377c7c000e6aa98eaff4"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -359,7 +349,7 @@ $$<div class="tab-panel" data-tab-group="R-tabs-a6e8f8c3eab29b716eda860dd03d94f3
       </div>
     </div>
     <div
-      id="R-tab-id-9baca3ed8e0d1af1e5d34446b31ad38c"
+      id="R-tab-id-6b61d584d12a0787f19e89a3c3c2f24f"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -501,29 +491,29 @@ $$
   </div>
 </details>
 <p>Такие $x$ и $y$ всегда можно найти следующим алгоритмом:
-<div class="tab-panel" data-tab-group="R-tabs-b1707795482424975f39b7da3731c904">
+<div class="tab-panel" data-tab-group="R-tabs-12763247f2cf9a2692b835846cc1c285">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-3510624d7e25049e245913458aba0a90" aria-expanded="true"
+      aria-controls="R-tab-id-76431feee015875ea880a3953e4a7b40" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-b1707795482424975f39b7da3731c904','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-12763247f2cf9a2692b835846cc1c285','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-bff0cdccb72dd1eeaba1d3858493f009" aria-expanded="false"
+      aria-controls="R-tab-id-e4d2b28e6a394482d2a81f19f00cbd54" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-b1707795482424975f39b7da3731c904','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-12763247f2cf9a2692b835846cc1c285','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-3510624d7e25049e245913458aba0a90"
+      id="R-tab-id-76431feee015875ea880a3953e4a7b40"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -546,7 +536,7 @@ $$
       </div>
     </div>
     <div
-      id="R-tab-id-bff0cdccb72dd1eeaba1d3858493f009"
+      id="R-tab-id-e4d2b28e6a394482d2a81f19f00cbd54"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -720,6 +710,7 @@ $$
             <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
@@ -732,6 +723,22 @@ $$
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>

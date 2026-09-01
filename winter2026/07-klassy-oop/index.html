@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Двойная лекция о главном строительном материале C&#43;&#43;. Сквозной пример — BigInt из занятия 4: там мы написали функции над vector&lt;int&gt;, сегодня соберём из них настоящий тип. Часть I — классы и жизненный цикл объекта; часть II — наследование и полиморфизм. Все замеры и выводы программ в тексте — реальные (Apple clang, эта машина).
+Часть I. Классы и жизненный цикл От мешка функций — к типу с поведением В занятии 4 наша «длинная арифметика» выглядела так: using Big = std::vector&lt;int&gt; плюс свободные функции add, mul, print. Работает — но ничто не мешает создать Big broken = {13, -7, 100} и передать его в add: «цифры» вне 0..9, и никакой защиты.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 7. Классы и ООП: основа основ :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Двойная лекция о главном строительном материале C&#43;&#43;. Сквозной пример — BigInt из занятия 4: там мы написали функции над vector&lt;int&gt;, сегодня соберём из них настоящий тип. Часть I — классы и жизненный цикл объекта; часть II — наследование и полиморфизм. Все замеры и выводы программ в тексте — реальные (Apple clang, эта машина).
+Часть I. Классы и жизненный цикл От мешка функций — к типу с поведением В занятии 4 наша «длинная арифметика» выглядела так: using Big = std::vector&lt;int&gt; плюс свободные функции add, mul, print. Работает — но ничто не мешает создать Big broken = {13, -7, 100} и передать его в add: «цифры» вне 0..9, и никакой защиты.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/07-klassy-oop/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 7. Классы и ООП: основа основ :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Двойная лекция о главном строительном материале C&#43;&#43;. Сквозной пример — BigInt из занятия 4: там мы написали функции над vector&lt;int&gt;, сегодня соберём из них настоящий тип. Часть I — классы и жизненный цикл объекта; часть II — наследование и полиморфизм. Все замеры и выводы программ в тексте — реальные (Apple clang, эта машина).
+Часть I. Классы и жизненный цикл От мешка функций — к типу с поведением В занятии 4 наша «длинная арифметика» выглядела так: using Big = std::vector&lt;int&gt; плюс свободные функции add, mul, print. Работает — но ничто не мешает создать Big broken = {13, -7, 100} и передать его в add: «цифры» вне 0..9, и никакой защиты.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-06T12:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-06T12:00:00+03:00">
+    <meta itemprop="name" content="Занятие 7. Классы и ООП: основа основ :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Двойная лекция о главном строительном материале C&#43;&#43;. Сквозной пример — BigInt из занятия 4: там мы написали функции над vector&lt;int&gt;, сегодня соберём из них настоящий тип. Часть I — классы и жизненный цикл объекта; часть II — наследование и полиморфизм. Все замеры и выводы программ в тексте — реальные (Apple clang, эта машина).
+Часть I. Классы и жизненный цикл От мешка функций — к типу с поведением В занятии 4 наша «длинная арифметика» выглядела так: using Big = std::vector&lt;int&gt; плюс свободные функции add, mul, print. Работает — но ничто не мешает создать Big broken = {13, -7, 100} и передать его в add: «цифры» вне 0..9, и никакой защиты.">
+    <meta itemprop="datePublished" content="2026-08-06T12:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-06T12:00:00+03:00">
+    <meta itemprop="wordCount" content="1919">
+    <title>Занятие 7. Классы и ООП: основа основ :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/07-klassy-oop\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/07-klassy-oop/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#часть-i-классы-и-жизненный-цикл">Часть I. Классы и жизненный цикл</a>
+      <ul>
+        <li><a href="#от-мешка-функций--к-типу-с-поведением">От мешка функций — к типу с поведением</a></li>
+        <li><a href="#class-и-struct">class и struct</a></li>
+        <li><a href="#инкапсуляция-private--это-контроль-а-не-секретность">Инкапсуляция: private — это контроль, а не секретность</a></li>
+        <li><a href="#конструкторы">Конструкторы</a></li>
+        <li><a href="#деструктор-и-raii">Деструктор и RAII</a></li>
+        <li><a href="#копирование-и-правило-трёх">Копирование и правило трёх</a></li>
+        <li><a href="#операторы-const-static">Операторы, const, static</a></li>
+      </ul>
+    </li>
+    <li><a href="#часть-ii-наследование-и-полиморфизм">Часть II. Наследование и полиморфизм</a>
+      <ul>
+        <li><a href="#наследование--отношение-является">Наследование — отношение «является»</a></li>
+        <li><a href="#виртуальные-функции">Виртуальные функции</a></li>
+        <li><a href="#виртуальный-деструктор--обязателен-для-полиморфной-базы">Виртуальный деструктор — обязателен для полиморфной базы</a></li>
+        <li><a href="#абстрактные-классы-срезка-override">Абстрактные классы, срезка, override</a></li>
+        <li><a href="#сквозной-пример">Сквозной пример</a></li>
+        <li><a href="#когда-ооп-не-нужно">Когда ООП не нужно</a></li>
+      </ul>
+    </li>
+    <li><a href="#самопроверка">Самопроверка</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 7. Классы и ООП: основа основ</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/07-klassy-oop/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/06-rekurrenty/index.html" title="Занятие 6. Рекуррентные соотношения (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/08-struktury-dannyh/index.html" title="Занятие 8. Базовые структуры данных (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-7-классы-и-ооп-основа-основ">Занятие 7. Классы и ООП: основа основ</h1>
+
+<p>Двойная лекция о главном строительном материале C++. Сквозной пример — <code>BigInt</code> из занятия 4: там мы написали функции над <code>vector&lt;int&gt;</code>, сегодня соберём из них настоящий тип. Часть I — классы и жизненный цикл объекта; часть II — наследование и полиморфизм. Все замеры и выводы программ в тексте — реальные (Apple clang, эта машина).</p>
+<h2 id="часть-i-классы-и-жизненный-цикл">Часть I. Классы и жизненный цикл<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="от-мешка-функций--к-типу-с-поведением">От мешка функций — к типу с поведением<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>В занятии 4 наша «длинная арифметика» выглядела так: <code>using Big = std::vector&lt;int&gt;</code> плюс свободные функции <code>add</code>, <code>mul</code>, <code>print</code>. Работает — но ничто не мешает создать <code>Big broken = {13, -7, 100}</code> и передать его в <code>add</code>: «цифры» вне 0..9, и никакой защиты.</p>
+<p>Суть ООП в C++: <strong>тип = данные + инварианты + операции</strong>. Компилятор следит, чтобы к данным прикасались только операции, сохраняющие инварианты. Большая программа — это набор маленьких типов, каждому из которых можно доверять.</p>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Инвариант класса
+  </summary>
+  <div class="box-content">
+<p>Утверждение о внутренних данных, истинное между вызовами методов. У <code>BigInt</code>: вектор непуст, каждая цифра в 0..9, нет ведущих нулей. Сравните с инвариантом цикла из занятия 5 — идея та же, масштаб другой.</p>
+  </div>
+</details>
+<h3 id="class-и-struct">class и struct<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BigInt</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>                        <span style="color:#75715e">// интерфейс — всем
+</span></span></span><span style="display:flex;"><span>    BigInt(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>string<span style="color:#f92672">&amp;</span> s);
+</span></span><span style="display:flex;"><span>    BigInt <span style="color:#66d9ef">operator</span><span style="color:#f92672">+</span>(<span style="color:#66d9ef">const</span> BigInt<span style="color:#f92672">&amp;</span> o) <span style="color:#66d9ef">const</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>                       <span style="color:#75715e">// кухня — никому
+</span></span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> digits_;  <span style="color:#75715e">// little-endian, 0..9, без ведущих нулей
+</span></span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>class</code> и <code>struct</code> различаются <strong>только</strong> доступом по умолчанию (private против public). Соглашение курса: <code>struct</code> — для пассивных наборов данных без инвариантов (<code>Point</code>, <code>Options</code>), <code>class</code> — для всего, у чего есть что охранять. Суффикс <code>_</code> у полей — распространённый способ отличать члены от локальных переменных.</p>
+<p>Методы объявляются в классе (в <code>.h</code>), определяются в <code>.cpp</code> через <code>Класс::метод</code> — это то же разделение интерфейса и реализации, что и в занятии 1. Методы, определённые прямо в теле класса, неявно <code>inline</code> (вспомните ODR).</p>
+<h3 id="инкапсуляция-private--это-контроль-а-не-секретность">Инкапсуляция: private — это контроль, а не секретность<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Любой код, который видит данные, может сломать инвариант; сузили доступ — сузили круг подозреваемых при отладке. Интерфейс — это <strong>операции</strong>, а не поля: <code>account.deposit(100)</code>, а не <code>set_balance(get_balance() + 100)</code>. Рефлекторные get/set на каждое поле — антипаттерн: это public-поля с лишними буквами.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Тест на хороший интерфейс
+  </summary>
+  <div class="box-content">
+<p>Можно ли поменять внутреннее представление, не трогая вызывающий код? Наш <code>BigInt</code> сможет перейти с базы 10 на базу $10^9$ (занятие 4) — снаружи никто не заметит. С public-полем <code>digits_</code> эта дверь закрыта навсегда.</p>
+  </div>
+</details>
+<h3 id="конструкторы">Конструкторы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rational</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    Rational() <span style="color:#f92672">:</span> num_(<span style="color:#ae81ff">0</span>), den_(<span style="color:#ae81ff">1</span>) {}          <span style="color:#75715e">// список инициализации
+</span></span></span><span style="display:flex;"><span>    Rational(<span style="color:#66d9ef">int</span> n, <span style="color:#66d9ef">int</span> d) <span style="color:#f92672">:</span> num_(n), den_(d) { normalize(); }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> num_, den_;
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Конструктор устанавливает инвариант <strong>с рождения</strong> — не бывает «полусозданного» объекта. Список инициализации — не присваивание: поля создаются сразу с нужными значениями (для полей-классов это прямой вызов их конструкторов, без лишней работы). Подводный камень: инициализация идёт в порядке <strong>объявления полей</strong>, а не в порядке списка — <code>-Wreorder</code> из состава <code>-Wall</code> предупредит.</p>
+<p>Если не написать ни одного конструктора, компилятор сгенерирует пустой default-конструктор; как только появится свой — default исчезает (вернуть: <code>Rational() = default;</code>).</p>
+<p><strong>explicit.</strong> Конструктор от одного аргумента — это неявное преобразование: с <code>BigInt(int)</code> вызов <code>process(42)</code> тихо создаст временный <code>BigInt</code>. Иногда это удобно, чаще — источник загадочных компиляций «не того» (вспомните ловушки преобразований из занятия 3 — теперь вы создаёте их сами). Правило курса: одноаргументные конструкторы помечаем <code>explicit</code> по умолчанию, снимаем пометку осознанно.</p>
+<h3 id="деструктор-и-raii">Деструктор и RAII<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">f</span>() {
+</span></span><span style="display:flex;"><span>    Logger log;          <span style="color:#75715e">// конструктор: открыл файл
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (error) <span style="color:#66d9ef">return</span>;   <span style="color:#75715e">// деструктор: закрыл — и здесь тоже!
+</span></span></span><span style="display:flex;"><span>    work();
+</span></span><span style="display:flex;"><span>}                        <span style="color:#75715e">// и здесь
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>~Class()</code> вызывается <strong>автоматически и детерминированно</strong>: при выходе из области видимости любым путём — <code>return</code>, исключение, конец блока. Порядок разрушения обратен порядку создания. Сравните с Python/Java: там объект умирает «когда-нибудь» (сборщик мусора), и <code>__del__</code>/финализаторы ненадёжны; в C++ момент смерти — часть контракта.</p>
+<p>Отсюда главная идиома языка:</p>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    RAII — Resource Acquisition Is Initialization
+  </summary>
+  <div class="box-content">
+<p>Захват ресурса — в конструкторе, освобождение — в деструкторе. Ресурс живёт ровно столько, сколько объект-владелец.</p>
+  </div>
+</details>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">File</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">explicit</span> File(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> path) <span style="color:#f92672">:</span> f_(std<span style="color:#f92672">::</span>fopen(path, <span style="color:#e6db74">&#34;r&#34;</span>)) {}
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>File() { <span style="color:#66d9ef">if</span> (f_) std<span style="color:#f92672">::</span>fclose(f_); }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>FILE<span style="color:#f92672">*</span> f_;
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Ресурс — что угодно конечное: файл, память, мьютекс, сокет. В C++ нет <code>finally</code> — он не нужен: деструктор нельзя «забыть вызвать». Вся стандартная библиотека построена на RAII: <code>vector</code> владеет памятью, <code>lock_guard</code> — мьютексом, <code>unique_ptr</code> — объектом (занятие 14).</p>
+<h3 id="копирование-и-правило-трёх">Копирование и правило трёх<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Компилятор бесплатно генерирует default-конструктор, копирующий конструктор, копирующее присваивание и деструктор (и move-пару — занятие 22). Сгенерированное копирование — <strong>почленное</strong>: поля-классы копируются своим копированием (глубоко), а указатели копируются… как указатели. Для <code>BigInt</code> с <code>vector</code> внутри этого достаточно. А вот для владельца сырого ресурса:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Buffer</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> data;
+</span></span><span style="display:flex;"><span>    Buffer()  { data <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">8</span>]; }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>Buffer() { <span style="color:#66d9ef">delete</span>[] data; }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// копирование не написали…
+</span></span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>Buffer a;
+</span></span><span style="display:flex;"><span>Buffer b <span style="color:#f92672">=</span> a;    <span style="color:#75715e">// скопировался УКАЗАТЕЛЬ: оба смотрят на один блок
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>$ clang++ -fsanitize=address rule3.cpp &amp;&amp; ./a.out
+==80685==ERROR: AddressSanitizer: attempting double-free … in Buffer::~Buffer()</code></pre></div>
+<p>Два деструктора освободили один буфер — реальный вывод ASan.</p>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Правило трёх
+  </summary>
+  <div class="box-content">
+<p>Если классу нужен хотя бы один из: деструктор, копирующий конструктор, копирующее присваивание — почти наверняка нужны все три. (Написали деструктор → вы владеете ресурсом → сгенерированное копирование вас предаст.)</p>
+  </div>
+</details>
+<p>Варианты: написать честное глубокое копирование — или запретить его: <code>Buffer(const Buffer&amp;) = delete;</code>. Заметьте: наш <code>File</code> выше тоже нарушает правило трёх — копия приведёт к двойному <code>fclose</code>; правильный ход — <code>= delete</code>.</p>
+<p><strong>Правило пяти и правило нуля.</strong> В C++11 к тройке добавились move-конструктор и move-присваивание («переезд» ресурса вместо копии — подробности на занятии 22): владеешь ресурсом — определи или явно запрети все пять. Но лучшее правило — <strong>нуля</strong>: не владейте сырыми ресурсами; храните поля-«владельцы» (<code>vector</code>, <code>string</code>, <code>unique_ptr</code>) и не пишите ничего из пяти — сгенерированное поведение корректно само. <code>BigInt</code> живёт по правилу нуля.</p>
+<h3 id="операторы-const-static">Операторы, const, static<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BigInt</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    BigInt <span style="color:#66d9ef">operator</span><span style="color:#f92672">+</span>(<span style="color:#66d9ef">const</span> BigInt<span style="color:#f92672">&amp;</span> o) <span style="color:#66d9ef">const</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">==</span>(<span style="color:#66d9ef">const</span> BigInt<span style="color:#f92672">&amp;</span> o) <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> digits_ <span style="color:#f92672">==</span> o.digits_; }
+</span></span><span style="display:flex;"><span>    size_t <span style="color:#a6e22e">digit_count</span>() <span style="color:#66d9ef">const</span>;              <span style="color:#75715e">// const-метод: не меняет объект
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> BigInt <span style="color:#a6e22e">zero</span>() { <span style="color:#66d9ef">return</span> BigInt(<span style="color:#ae81ff">0</span>); }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> digits_;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">friend</span> std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span> <span style="color:#66d9ef">operator</span><span style="color:#f92672">&lt;&lt;</span>(std<span style="color:#f92672">::</span>ostream<span style="color:#f92672">&amp;</span>, <span style="color:#66d9ef">const</span> BigInt<span style="color:#f92672">&amp;</span>);
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<ul>
+<li><code>a + b</code> — это вызов <code>a.operator+(b)</code>; оператор — обычная функция, перегрузка по типам как в занятии 5. Этика: оператор должен значить то, что значит для чисел.</li>
+<li><code>operator&lt;&lt;</code> — всегда свободная функция (левый операнд — поток); доступ к private ей даёт <code>friend</code>.</li>
+<li><strong>const-методы</strong>: <code>const</code> после параметров — обещание не менять поля; через <code>const BigInt&amp;</code> (наш способ передачи из занятия 3) можно звать только их. Помечайте const всё, что можно, — это документация, проверяемая компилятором.</li>
+<li><strong>static-члены</strong> принадлежат классу, не объекту: константы (<code>static constexpr int kBase = 10;</code>), фабрики (<code>BigInt::zero()</code>), счётчики.</li>
+</ul>
+<h2 id="часть-ii-наследование-и-полиморфизм">Часть II. Наследование и полиморфизм<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="наследование--отношение-является">Наследование — отношение «является»<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Shape { ... };   <span style="color:#75715e">// каждый Circle ЯВЛЯЕТСЯ Shape
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Наследник получает поля и методы базы и добавляет свои; <code>Circle*</code> неявно преобразуется в <code>Shape*</code> (и ссылки тоже). Уровень <code>protected</code> — виден наследникам, но не всем.</p>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Тест is-a
+  </summary>
+  <div class="box-content">
+<p>«X является Y» должно звучать естественно. «Круг является фигурой» — да. «Стек является вектором» — нет: стек <em>использует</em> вектор.</p>
+  </div>
+</details>
+<p><strong>Композиция прежде наследования.</strong> <code>class Stack : public std::vector&lt;int&gt;</code> «бесплатно» даёт всё — включая <code>s[0] = 42</code> и <code>erase</code>, ломающие LIFO. Правильно — композиция: поле <code>std::vector&lt;int&gt; data_</code> и наружу только <code>push/pop/empty</code>. Наследование публикует всё; композиция — ровно то, что вы решили. Наследуйтесь ради <strong>полиморфизма</strong>, переиспользуйте код через композицию.</p>
+<h3 id="виртуальные-функции">Виртуальные функции<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">double</span> area() <span style="color:#66d9ef">const</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;   <span style="color:#75715e">// чисто виртуальная
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>Shape() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">total</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Shape<span style="color:#f92672">*&gt;&amp;</span> v) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> Shape<span style="color:#f92672">*</span> p : v) s <span style="color:#f92672">+=</span> p<span style="color:#f92672">-&gt;</span>area();   <span style="color:#75715e">// Circle? Rect? — решается в рантайме
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> s;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Без <code>virtual</code> вызов через <code>Shape*</code> выбрал бы <code>Shape::area</code> по типу указателя ещё на компиляции (статическая диспетчеризация). С <code>virtual</code> решает <strong>реальный тип объекта</strong> в момент вызова. Это полиморфизм: <code>total()</code> написан один раз и работает с фигурами, которых ещё не существует.</p>
+<p>Как это устроено: у каждого класса с виртуальными функциями есть таблица указателей на функции (<strong>vtable</strong>), а у каждого объекта — скрытый указатель на неё (<strong>vptr</strong>).</p>
+<p><img alt="Объект → vptr → vtable → нужная функция" class="lazy figure-image" loading="lazy" src="/winter2026/07-klassy-oop/vtable.svg" style="height: auto;width: auto;"></p>
+<p>Цена измерима: <code>sizeof</code> структуры с двумя long — 16 байт, добавили виртуальную функцию — 24 (vptr = 8 байт); плюс косвенный вызов. Поэтому в C++ виртуальность — по требованию, а не по умолчанию, в отличие от Java/Python, где виртуально всё.</p>
+<h3 id="виртуальный-деструктор--обязателен-для-полиморфной-базы">Виртуальный деструктор — обязателен для полиморфной базы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Base</span>    { <span style="color:#f92672">~</span>Base() { puts(<span style="color:#e6db74">&#34;~Base&#34;</span>); } };        <span style="color:#75715e">// НЕ virtual
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Derived</span> <span style="color:#f92672">:</span> Base { <span style="color:#f92672">~</span>Derived() { puts(<span style="color:#e6db74">&#34;~Derived&#34;</span>); } };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Base<span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Derived;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">delete</span> p;</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Реальный вывод: печатается только <code>~Base</code> — деструктор наследника <strong>не вызван</strong>, его ресурсы утекли; формально это UB. С <code>virtual ~Base()</code> вывод правильный: <code>~Derived</code>, затем <code>~Base</code>.</p>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Правило
+  </summary>
+  <div class="box-content">
+<p>Класс с виртуальными функциями обязан иметь виртуальный деструктор: <code>virtual ~Shape() = default;</code> — пишется не думая.</p>
+  </div>
+</details>
+<h3 id="абстрактные-классы-срезка-override">Абстрактные классы, срезка, override<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ul>
+<li><code>= 0</code> делает функцию <strong>чисто виртуальной</strong>, а класс — абстрактным: объекты не создаются, наследник обязан переопределить. Класс из одних чисто виртуальных функций — <strong>интерфейс</strong> (то, что в Java <code>interface</code>): контракт без реализации, главный инструмент развязки модулей и тестируемости.</li>
+<li><strong>Срезка (slicing):</strong> <code>Shape s = circle;</code> копирует только Shape-часть — поля наследника и «виртуальность» отрезаны. Симптом «виртуальная функция зовёт базовую версию» — почти всегда полиморфный объект передали по значению. Мнемоника: <strong>полиморфизм живёт за <code>&amp;</code> и <code>*</code></strong>. Контейнер полиморфных объектов — контейнер (умных) указателей.</li>
+<li><strong>override</strong> просит компилятор проверить, что вы действительно переопределяете: без него <code>double area()</code> вместо <code>double area() const</code> тихо создаёт <em>новую</em> функцию, и полиморфизм ломается. В курсе <code>override</code> обязателен. <code>final</code> запрещает дальнейшее наследование/переопределение — осознанная точка в иерархии.</li>
+</ul>
+<h3 id="сквозной-пример">Сквозной пример<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">virtual</span> <span style="color:#66d9ef">double</span> area() <span style="color:#66d9ef">const</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">virtual</span> <span style="color:#f92672">~</span>Shape() <span style="color:#f92672">=</span> <span style="color:#66d9ef">default</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span> <span style="color:#66d9ef">final</span> <span style="color:#f92672">:</span> <span style="color:#66d9ef">public</span> Shape {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> r_;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">explicit</span> Circle(<span style="color:#66d9ef">double</span> r) <span style="color:#f92672">:</span> r_(r) {}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">area</span>() <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">override</span> { <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">3.14159</span> <span style="color:#f92672">*</span> r_ <span style="color:#f92672">*</span> r_; }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span>unique_ptr<span style="color:#f92672">&lt;</span>Shape<span style="color:#f92672">&gt;&gt;</span> shapes;
+</span></span><span style="display:flex;"><span>shapes.push_back(std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>Circle<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">2</span>));
+</span></span><span style="display:flex;"><span>shapes.push_back(std<span style="color:#f92672">::</span>make_unique<span style="color:#f92672">&lt;</span>Rect<span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">double</span> total <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> p : shapes)
+</span></span><span style="display:flex;"><span>    total <span style="color:#f92672">+=</span> p<span style="color:#f92672">-&gt;</span>area();          <span style="color:#75715e">// 12.57 + 12
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Здесь всё занятие в одном месте: интерфейс, виртуальный деструктор, <code>explicit</code>/<code>override</code>/<code>final</code>, инкапсуляция и вектор указателей без срезки. <code>unique_ptr</code> — умный указатель (RAII для <code>new</code>): полный разбор на занятии 14, сегодня используйте как «указатель, который не течёт».</p>
+<h3 id="когда-ооп-не-нужно">Когда ООП не нужно<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Не всё — класс: <code>gcd(a, b)</code> прекрасна свободной функцией. Не каждая иерархия оправдана: единственный наследник — сигнал «придумано на вырост». Для «разного поведения разных типов, известных на компиляции» есть статический полиморфизм — шаблоны (занятие 24), на них построена вся STL. C++ мультипарадигмен: ООП — инструмент, а не религия.</p>
+<h2 id="самопроверка">Самопроверка<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>Почему список инициализации предпочтительнее присваивания в теле конструктора?</li>
+<li>Класс с полем <code>std::string</code> и без ресурсов: что из «пятёрки» нужно написать?</li>
+<li><code>Base* p = new Derived; delete p;</code> — при каком условии это корректно и что происходит без него?</li>
+<li>Почему <code>std::vector&lt;Shape&gt;</code> — почти всегда ошибка, а <code>std::vector&lt;std::unique_ptr&lt;Shape&gt;&gt;</code> — норма?</li>
+</ol>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответы-ориентиры
+  </summary>
+  <div class="box-content">
+<ol>
+<li>Поля создаются сразу нужными значениями (для полей-классов — один вызов конструктора вместо default-конструктора + присваивания); для const-полей и ссылок список — единственный способ.</li>
+<li>Ничего — правило нуля: <code>string</code> сам корректно копируется, перемещается и разрушается.</li>
+<li>Корректно при виртуальном деструкторе базы; без него вызывается только <code>~Base</code> — UB, ресурсы наследника утекают (реальный вывод: печатается только «~Base»).</li>
+<li>Вектор значений срезает каждый объект до Shape (и в абстрактном случае вообще не скомпилируется); указатели сохраняют реальный тип и виртуальную диспетчеризацию.</li>
+</ol>
+  </div>
+</details>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>Доделать <code>BigInt</code>-класс: конструкторы, <code>+</code>, <code>−</code>, <code>*</code>, сравнения, <code>&lt;&lt;</code> — перенос кода занятия 4 внутрь класса; приватные поля и <code>strip_zeros()</code> во всех конструкторах.</li>
+<li>Класс <code>Timer</code> (RAII: старт в конструкторе, печать прошедшего времени в деструкторе) — замерить своё умножение.</li>
+<li>* Иерархия <code>Shape</code> с <code>area</code>/<code>perimeter</code>: чтение фигур из файла в <code>vector&lt;unique_ptr&lt;Shape&gt;&gt;</code>, суммарная площадь.</li>
+</ol>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 6 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="active " data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

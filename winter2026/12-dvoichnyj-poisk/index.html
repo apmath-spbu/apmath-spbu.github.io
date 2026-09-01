@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Семинар закрывает обещание занятия 2: объяснить, за что мы платим сортировкой. Ответ — за структуру, которая превращает поиск из $\Theta(n)$ в $O(\log n)$: один взгляд в середину отбрасывает половину кандидатов. Половина от половины от половины — знакомая геометрическая прогрессия: шагов $\lceil \log_2 n \rceil$. Тот же ответ даёт мастер-теорема занятия 6: $T(n) = T(n/2) &#43; \Theta(1)$ — случай $c = \log_b a$, итого $\Theta(\log n)$.
+$n$ шагов $10^3$ 10 $10^6$ 20 $10^9$ 30 $10^{18}$ 60 Удвоение показателя степени лишь удваивает число шагов. Игра «угадай число до миллиарда за 30 вопросов „больше или меньше?&#34;» — это и есть двоичный поиск. Замеры в тексте реальные (Apple M-серия, clang&#43;&#43; -O2).">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 12. Двоичный поиск :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Семинар закрывает обещание занятия 2: объяснить, за что мы платим сортировкой. Ответ — за структуру, которая превращает поиск из $\Theta(n)$ в $O(\log n)$: один взгляд в середину отбрасывает половину кандидатов. Половина от половины от половины — знакомая геометрическая прогрессия: шагов $\lceil \log_2 n \rceil$. Тот же ответ даёт мастер-теорема занятия 6: $T(n) = T(n/2) &#43; \Theta(1)$ — случай $c = \log_b a$, итого $\Theta(\log n)$.
+$n$ шагов $10^3$ 10 $10^6$ 20 $10^9$ 30 $10^{18}$ 60 Удвоение показателя степени лишь удваивает число шагов. Игра «угадай число до миллиарда за 30 вопросов „больше или меньше?&#34;» — это и есть двоичный поиск. Замеры в тексте реальные (Apple M-серия, clang&#43;&#43; -O2).">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/12-dvoichnyj-poisk/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 12. Двоичный поиск :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Семинар закрывает обещание занятия 2: объяснить, за что мы платим сортировкой. Ответ — за структуру, которая превращает поиск из $\Theta(n)$ в $O(\log n)$: один взгляд в середину отбрасывает половину кандидатов. Половина от половины от половины — знакомая геометрическая прогрессия: шагов $\lceil \log_2 n \rceil$. Тот же ответ даёт мастер-теорема занятия 6: $T(n) = T(n/2) &#43; \Theta(1)$ — случай $c = \log_b a$, итого $\Theta(\log n)$.
+$n$ шагов $10^3$ 10 $10^6$ 20 $10^9$ 30 $10^{18}$ 60 Удвоение показателя степени лишь удваивает число шагов. Игра «угадай число до миллиарда за 30 вопросов „больше или меньше?&#34;» — это и есть двоичный поиск. Замеры в тексте реальные (Apple M-серия, clang&#43;&#43; -O2).">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-10T13:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-10T13:00:00+03:00">
+    <meta itemprop="name" content="Занятие 12. Двоичный поиск :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Семинар закрывает обещание занятия 2: объяснить, за что мы платим сортировкой. Ответ — за структуру, которая превращает поиск из $\Theta(n)$ в $O(\log n)$: один взгляд в середину отбрасывает половину кандидатов. Половина от половины от половины — знакомая геометрическая прогрессия: шагов $\lceil \log_2 n \rceil$. Тот же ответ даёт мастер-теорема занятия 6: $T(n) = T(n/2) &#43; \Theta(1)$ — случай $c = \log_b a$, итого $\Theta(\log n)$.
+$n$ шагов $10^3$ 10 $10^6$ 20 $10^9$ 30 $10^{18}$ 60 Удвоение показателя степени лишь удваивает число шагов. Игра «угадай число до миллиарда за 30 вопросов „больше или меньше?&#34;» — это и есть двоичный поиск. Замеры в тексте реальные (Apple M-серия, clang&#43;&#43; -O2).">
+    <meta itemprop="datePublished" content="2026-08-10T13:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-10T13:00:00+03:00">
+    <meta itemprop="wordCount" content="2001">
+    <title>Занятие 12. Двоичный поиск :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/12-dvoichnyj-poisk\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/12-dvoichnyj-poisk/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#классический-двоичный-поиск">Классический двоичный поиск</a>
+      <ul>
+        <li><a href="#три-способа-сломать-пять-строчек">Три способа сломать пять строчек</a></li>
+        <li><a href="#инструмент-инвариант-цикла">Инструмент: инвариант цикла</a></li>
+        <li><a href="#замер-логарифм-против-прохода">Замер: логарифм против прохода</a></li>
+      </ul>
+    </li>
+    <li><a href="#левое-и-правое-вхождение">Левое и правое вхождение</a>
+      <ul>
+        <li><a href="#стандартная-библиотека-уже-умеет">Стандартная библиотека уже умеет</a></li>
+      </ul>
+    </li>
+    <li><a href="#двоичный-поиск-по-функции">Двоичный поиск по функции</a>
+      <ul>
+        <li><a href="#бинпоиск-по-ответу">Бинпоиск по ответу</a></li>
+        <li><a href="#вещественный-аргумент">Вещественный аргумент</a></li>
+        <li><a href="#чек-лист-любого-бинпоиска">Чек-лист любого бинпоиска</a></li>
+      </ul>
+    </li>
+    <li><a href="#метод-двух-указателей">Метод двух указателей</a></li>
+    <li><a href="#задачи-семинара">Задачи семинара</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 12. Двоичный поиск</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/12-dvoichnyj-poisk/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/11-klyuchevye-slova/index.html" title="Занятие 11. Ключевые слова: волшебные слова C++ (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/13-rk1/index.html" title="Занятие 13. Рубежный контроль № 1 (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-12-двоичный-поиск">Занятие 12. Двоичный поиск</h1>
+
+<p>Семинар закрывает обещание занятия 2: объяснить, за что мы платим сортировкой. Ответ — за структуру, которая превращает поиск из $\Theta(n)$ в $O(\log n)$: один взгляд в середину отбрасывает половину кандидатов. Половина от половины от половины — знакомая геометрическая прогрессия: шагов $\lceil \log_2 n \rceil$. Тот же ответ даёт мастер-теорема занятия 6: $T(n) = T(n/2) + \Theta(1)$ — случай $c = \log_b a$, итого $\Theta(\log n)$.</p>
+<table>
+	<thead>
+			<tr>
+					<th>$n$</th>
+					<th>шагов</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>$10^3$</td>
+					<td>10</td>
+			</tr>
+			<tr>
+					<td>$10^6$</td>
+					<td>20</td>
+			</tr>
+			<tr>
+					<td>$10^9$</td>
+					<td>30</td>
+			</tr>
+			<tr>
+					<td>$10^{18}$</td>
+					<td>60</td>
+			</tr>
+	</tbody>
+</table>
+<p>Удвоение <em>показателя степени</em> лишь удваивает число шагов. Игра «угадай число до миллиарда за 30 вопросов „больше или меньше?&quot;» — это и есть двоичный поиск. Замеры в тексте реальные (Apple M-серия, <code>clang++ -O2</code>).</p>
+<h2 id="классический-двоичный-поиск">Классический двоичный поиск<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Ищем $x$ в отсортированном массиве; возвращаем индекс или −1:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">binarySearch</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, <span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>)a.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (l <span style="color:#f92672">&lt;=</span> r) {              <span style="color:#75715e">// пока отрезок непуст
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (a[m] <span style="color:#f92672">==</span> x) <span style="color:#66d9ef">return</span> m;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (a[m] <span style="color:#f92672">&lt;</span> x)  l <span style="color:#f92672">=</span> m <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// x правее середины
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>           r <span style="color:#f92672">=</span> m <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// x левее середины
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img alt="Отрезок поиска сжимается вдвое за шаг" class="lazy figure-image" loading="lazy" src="/winter2026/12-dvoichnyj-poisk/trace.svg" style="height: auto;width: auto;"></p>
+<p>Выглядит на пять минут — но именно здесь ошибаются чаще всего.</p>
+<h3 id="три-способа-сломать-пять-строчек">Три способа сломать пять строчек<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ol>
+<li><strong>Переполнение середины.</strong> <code>int m = (l + r) / 2</code> при $l, r \sim 2$ млрд переполняет int (занятие 3 предупреждало). Этот баг девять лет жил в <code>java.util.Arrays</code> и в учебнике «Programming Pearls». Лечение: <code>m = l + (r - l) / 2</code>.</li>
+<li><strong>Зацикливание.</strong> При <code>r == l + 1</code> середина <code>m == l</code>; если сдвиг границы нестрогий (<code>l = m</code> в замкнутом отрезке), отрезок не сжался — цикл вечный. Каждый шаг обязан <strong>строго</strong> уменьшать отрезок.</li>
+<li><strong>Ошибка на единицу.</strong> Замкнутый отрезок $[l, r]$, полуинтервал $[l, r)$ и «границы снаружи» — три разные системы координат. Смешать две — получить выход за массив или пропущенный элемент.</li>
+</ol>
+<p>Дональд Кнут отмечает: первый двоичный поиск опубликован в 1946 году, а первый корректный во всех случаях — только в 1962-м. Шестнадцать лет на пять строчек. Значит, нужен инструмент надёжнее интуиции.</p>
+<h3 id="инструмент-инвариант-цикла">Инструмент: инвариант цикла<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Инвариант бинпоиска
+  </summary>
+  <div class="box-content">
+<p>Если $x$ есть в массиве, то он — внутри текущего отрезка $[l, r]$. Снаружи отрезка $x$ нет.</p>
+  </div>
+</details>
+<p>Доказательство корректности по схеме занятия 5:</p>
+<ul>
+<li><strong>Инициализация:</strong> $[0, n-1]$ — весь массив, инвариант верен тривиально.</li>
+<li><strong>Сохранение:</strong> отбрасываем половину, только если там $x$ заведомо нет — сравнение с $a[m]$ гарантирует это именно потому, что массив отсортирован.</li>
+<li><strong>Завершаемость:</strong> каждый шаг строго сжимает отрезок — дойдём либо до $x$, либо до пустого отрезка.</li>
+<li><strong>Вывод:</strong> пустой отрезок + инвариант ⇒ $x$ в массиве нет.</li>
+</ul>
+<p>Все три классических бага — это <strong>нарушения инварианта</strong>: переполненная середина выпрыгивает из отрезка, нестрогий сдвиг не сжимает, путаница границ ломает «снаружи $x$ нет». Рецепт семинара: сначала выписать инвариант, потом писать цикл под него — а не наоборот.</p>
+<h3 id="замер-логарифм-против-прохода">Замер: логарифм против прохода<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Массив $10^8$ отсортированных int, $10^6$ случайных запросов:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>10^6 бинпоисков:      455.7 мс   # 456 нс на запрос
+1 линейный проход:      5.6 мс</code></pre></div>
+<p>Один запрос — 456 нс против 5.6 мс сканом: в ~12 000 раз быстрее. Но откуда 456 нс, если 27 сравнений должны стоить наносекунды? Это скрытая цена памяти: 27 прыжков бинпоиска — 27 <strong>случайных</strong> обращений к 400 МБ данных, почти каждое — кэш-промах по ~17 нс (занятие 8: считаем не только сравнения, но и обращения к памяти). Линейный проход дружит с кэшем и предвыборкой — потому весь массив за 5.6 мс. Мораль: бинпоиск выигрывает на запросах; если нужно тронуть всё — честный проход быстрее.</p>
+<h2 id="левое-и-правое-вхождение">Левое и правое вхождение<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Если $x$ встречается несколько раз, вхождения образуют блок (массив отсортирован). Ищем левый край блока — минимальное $i$ с $a[i] \ge x$. Меняем стиль границ: теперь $l$ и $r$ живут <strong>снаружи</strong> отрезка поиска, с фиктивными элементами $a[-1] = -\infty$ и $a[n] = +\infty$.</p>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Инвариант границ
+  </summary>
+  <div class="box-content">
+<p>$a[l] < x \le a[r]$: слева от $l$ (включительно) все элементы меньше $x$, справа от $r$ (включительно) — не меньше.</p>
+  </div>
+</details>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// минимальное i такое, что a[i] &gt;= x
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">lowerBound</span>(<span style="color:#66d9ef">const</span> std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, <span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> l <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, r <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>)a.size();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (r <span style="color:#f92672">-</span> l <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (a[m] <span style="color:#f92672">&lt;</span> x) l <span style="color:#f92672">=</span> m;   <span style="color:#75715e">// a[l] &lt; x  — инвариант цел
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>          r <span style="color:#f92672">=</span> m;   <span style="color:#75715e">// a[r] &gt;= x — инвариант цел
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> r;   <span style="color:#75715e">// первый элемент &gt;= x
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img alt="Инвариант на границах: l в зоне «меньше x», r в зоне «не меньше x»" class="lazy figure-image" loading="lazy" src="/winter2026/12-dvoichnyj-poisk/lower-bound.svg" style="height: auto;width: auto;"></p>
+<p>Здесь сдвиги <code>l = m</code> и <code>r = m</code> <strong>не</strong> зацикливаются: условие <code>r - l &gt; 1</code> гарантирует, что середина строго между границами. Фиктивные бесконечности убирают крайние случаи — в коде нет ни одного if про «не нашли»: если $x$ отсутствует, <code>r</code> укажет на первый больший элемент (или на $n$).</p>
+<p><strong>Правое вхождение</strong> — зеркально: инвариант $a[l] \le x < a[r]$, в коде меняется одно сравнение (<code>&lt;</code> → <code>&lt;=</code>), а ответом становится <code>l</code> — последний элемент $\le x$. Число вхождений: <code>upperEntry − lowerBound + 1</code>, если $x$ есть (без $x$ разность даёт −1 — удобная проверка); а у std-пары ниже — «первый $> x$» минус «первый $\ge x$» — ровно <code>upper − lower</code>.</p>
+<p>Проверка на семинаре: массив из одних $x$ — обе границы должны «обнять» весь массив.</p>
+<h3 id="стандартная-библиотека-уже-умеет">Стандартная библиотека уже умеет<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> a <span style="color:#f92672">=</span> {<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">7</span>, <span style="color:#ae81ff">9</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> lo <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>lower_bound(a.begin(), a.end(), <span style="color:#ae81ff">7</span>);  <span style="color:#75715e">// первый элемент &gt;= 7
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> hi <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>upper_bound(a.begin(), a.end(), <span style="color:#ae81ff">7</span>);  <span style="color:#75715e">// первый элемент  &gt; 7
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>lo <span style="color:#f92672">-</span> a.begin();   <span style="color:#75715e">// 2 — индекс левого вхождения
+</span></span></span><span style="display:flex;"><span>hi <span style="color:#f92672">-</span> lo;          <span style="color:#75715e">// 2 — сколько раз встретилась семёрка
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>binary_search(a.begin(), a.end(), <span style="color:#ae81ff">7</span>);  <span style="color:#75715e">// true — только «есть/нет»
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Требование — отсортированность: на неотсортированном массиве ответ бессмысленный, и никаких проверок нет. $O(\log n)$ — только на random-access контейнерах: у списка «середины» нет (занятие 8). На семинаре пишем свои версии, дальше в курсе — можно std.</p>
+<h2 id="двоичный-поиск-по-функции">Двоичный поиск по функции<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Массив не нужен вообще. Достаточно монотонного предиката: $f(i) = 0$ для всех $i$ ниже порога и $f(i) = 1$ начиная с порога.</p>
+<p><img alt="Монотонный предикат: зона «нет», зона «да» и искомая граница" class="lazy figure-image" loading="lazy" src="/winter2026/12-dvoichnyj-poisk/predicate.svg" style="height: auto;width: auto;"></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// f: 000...0111...1; ищем первый i с f(i) = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// инвариант: f(l) = 0, f(r) = 1
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (r <span style="color:#f92672">-</span> l <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> m <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (f(m) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>) l <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>           r <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> r;</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Левое вхождение — частный случай с $f(i) = [a[i] \ge x]$. Цена — $O(\log(R - L))$ <strong>вызовов</strong> $f$: шаблон выгоден, даже когда каждый вызов дорог.</p>
+<h3 id="бинпоиск-по-ответу">Бинпоиск по ответу<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Переворот мышления: спрашиваем не «где ответ?», а «<strong>подходит ли кандидат?</strong>». Если проверка монотонна («раз $k$ подошло — подойдёт и всё меньшее»), граница ищется бинпоиском. Пример — целочисленный корень без float:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// наибольшее k такое, что k*k &lt;= n
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">isqrt</span>(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> n <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// инвариант: l*l &lt;= n &lt; r*r
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (r <span style="color:#f92672">-</span> l <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> m <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (m <span style="color:#f92672">&lt;=</span> n <span style="color:#f92672">/</span> m) l <span style="color:#f92672">=</span> m;  <span style="color:#75715e">// это m*m &lt;= n, но без переполнения
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>            r <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> l;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>isqrt(10^18)</code> — за 60 итераций, и никакой сетки double (занятие 3). Сравнение делением вместо <code>m * m &lt;= n</code> не случайно: при $n \sim 10^{18}$ квадрат середины достигал бы $10^{35}$ — переполнение long long и UB. Типовые задачи «по ответу»: минимальная скорость, чтобы успеть; максимальная длина, чтобы влезло; минимальное время, за которое $k$ станков сделают $n$ деталей. Рецепт: придумать проверку дешевле полного решения → доказать монотонность → приложить шаблон.</p>
+<h3 id="вещественный-аргумент">Вещественный аргумент<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Монотонная непрерывная $f$, $f(L) < 0 \le f(R)$: ищем корень с точностью $\varepsilon$. Инвариант тот же ($f(l) < 0 \le f(r)$), по непрерывности корень внутри $[l, r]$, каждая итерация делит отрезок пополам.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">double</span> <span style="color:#a6e22e">findRoot</span>(<span style="color:#66d9ef">double</span> L, <span style="color:#66d9ef">double</span> R, <span style="color:#66d9ef">double</span> eps) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> l <span style="color:#f92672">=</span> L, r <span style="color:#f92672">=</span> R;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> k <span style="color:#f92672">=</span> (<span style="color:#66d9ef">int</span>)std<span style="color:#f92672">::</span>log2((r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> eps) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> k; i<span style="color:#f92672">++</span>) {   <span style="color:#75715e">// не while!
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> m <span style="color:#f92672">=</span> (l <span style="color:#f92672">+</span> r) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (f(m) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>) l <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>          r <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> r;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Почему не <!-- raw HTML omitted -->while (r - l &gt; eps)<!-- raw HTML omitted -->
+  </summary>
+  <div class="box-content">
+<p>Сетка double неравномерна (занятие 3): у больших чисел соседние представимые значения отстоят дальше, чем $\varepsilon$, — условие может не выполниться никогда, и цикл зависнет. Фиксированное число итераций гарантирует завершение; «100 итераций» покрывают любой разумный запрос — это $2^{-100}$ от исходного отрезка.</p>
+  </div>
+</details>
+<p>Если границы $L, R$ не даны — экспоненциальный поиск: удваивать $R$, пока $f(R) < 0$ (и симметрично для $L$).</p>
+<h3 id="чек-лист-любого-бинпоиска">Чек-лист любого бинпоиска<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ol>
+<li><strong>Инвариант выписан?</strong> Что верно про $l$ и что про $r$ — до написания цикла.</li>
+<li><strong>Монотонность есть?</strong> Предикат обязан переключиться с 0 на 1 один раз и не дёргаться. Нет монотонности — нет бинпоиска (частая ошибка на контрольных).</li>
+<li><strong>Каждый шаг сжимает?</strong> Сдвиги <code>l = m</code> / <code>r = m</code> корректны только при <code>while (r - l &gt; 1)</code>, где середина строго внутри.</li>
+<li><strong>Края и переполнение?</strong> Середина — только <code>l + (r - l) / 2</code>; фиктивные ±∞ вместо специальных случаев; в «по ответу» ответом может оказаться граница диапазона.</li>
+</ol>
+<p>Проверка на честность: мысленно прогоните массив из двух элементов и массив из одинаковых значений — на них ломается большинство неверных бинпоисков.</p>
+<h2 id="метод-двух-указателей">Метод двух указателей<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Задача: дан массив из <strong>неотрицательных</strong> чисел и лимит $M$; найти максимальный по длине подотрезок с суммой $\le M$. Работаем с полуинтервалами $[l, r)$ — меньше ±1 в индексах (занятие 8).</p>
+<p>Наивный перебор пар границ — $\Theta(n^2)$. Шаг умнее: при фиксированном $l$ сумма растёт по $r$ (числа неотрицательны!), значит «подходит» — монотонный предикат, и максимальное $r$ ищется бинпоиском по префиксным суммам: $\Theta(n \log n)$. Но можно вообще без логарифма:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> best <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; r <span style="color:#f92672">&lt;</span> n; r<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    sum <span style="color:#f92672">+=</span> a[r];              <span style="color:#75715e">// расширили окно вправо
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (sum <span style="color:#f92672">&gt;</span> M) {         <span style="color:#75715e">// чиним инвариант:
+</span></span></span><span style="display:flex;"><span>        sum <span style="color:#f92672">-=</span> a[l];          <span style="color:#75715e">// сжимаем слева,
+</span></span></span><span style="display:flex;"><span>        l<span style="color:#f92672">++</span>;                  <span style="color:#75715e">// пока сумма велика
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    best <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>max(best, r <span style="color:#f92672">-</span> l <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img alt="Окно с двумя указателями движется только вперёд" class="lazy figure-image" loading="lazy" src="/winter2026/12-dvoichnyj-poisk/window.svg" style="height: auto;width: auto;"></p>
+<p><strong>Инвариант окна:</strong> после ремонта сумма на $[l, r]$ не превосходит $M$, и $l$ — минимально возможный для данного $r$.</p>
+
+<details open class="box cstyle notices theorem">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-shapes"></i> 
+    Почему O(n), хотя внутри for сидит while
+  </summary>
+  <div class="box-content">
+<p>Амортизация из занятия 10: указатель $l$ только растёт, поэтому суммарно за всю программу внутренний while сделает не больше $n$ шагов. Банковский метод: монетка кладётся на элемент при входе в окно и тратится при выходе.</p>
+  </div>
+</details>
+<p>Требование то же, что и в варианте с бинпоиском: <strong>неотрицательность</strong> элементов даёт монотонность суммы. С отрицательными числами окно ломается — сжатие слева может и уменьшить, и «починить» сумму непредсказуемо; там нужны другие методы.</p>
+<h2 id="задачи-семинара">Задачи семинара<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>Границы руками:</strong> реализуйте <code>lowerBound</code> и <code>upperEntry</code>, прогоните стресс-тест против <code>std::lower_bound</code> / <code>upper_bound</code> на $10^5$ случайных массивов — включая пустой и массив из одинаковых элементов.</li>
+<li><strong>Корень по ответу:</strong> целочисленный кубический корень — наибольшее $k$ с $k^3 \le n$ для $n \le 10^{18}$. Аккуратно с переполнением в проверке: $m^3$ может не влезть в long long.</li>
+<li><strong>Окно наоборот:</strong> кратчайший подотрезок с суммой $\ge S$ (числа положительные). Каркас тот же — но какой теперь инвариант окна? Выпишите его до кода.</li>
+</ol>
+<p>Каждую задачу начинаем с инварианта на доске — код после. Стресс-тест ловит то, что глаз пропустил: генератор + наивное решение + сравнение в цикле.</p>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>Границы + стресс</strong> — задача A семинара, с крайними случаями в тестах.</li>
+<li><strong>Кубический корень</strong> для $n \le 10^{18}$ — бинпоиск по ответу без переполнений.</li>
+<li><strong>Вещественный поиск:</strong> решите $x^3 + x = C$ с точностью $10^{-9}$; в комментарии объясните, почему итераций фиксированное число.</li>
+<li><strong>Два указателя:</strong> кратчайший подотрезок с суммой $\ge S$; инвариант окна — в комментарии перед циклом.</li>
+<li>* <strong>Число подотрезков</strong> с суммой $\le M$ за $O(n)$: что добавить в окно, чтобы посчитать их все?</li>
+</ol>
+<p>В решениях с бинпоиском инвариант в комментарии — обязательная часть задания.</p>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Следующее занятие — рубежный контроль № 1
+  </summary>
+  <div class="box-content">
+<p>Занятие 13 — РК1 по материалу занятий 1–12. Ядро: сложность и O-символика, рекурренты и мастер-теорема, структуры данных, амортизация, двоичный поиск — плюс базовый C++ (типы, функции, классы, ключевые слова). Инварианты выписывать: их спросят.</p>
+  </div>
+</details>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 10 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="active " data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

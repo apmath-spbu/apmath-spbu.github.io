@@ -79,7 +79,7 @@ $$ 1,1,2,3,5,8,13,21,34,55,89, \ldots $$определяется следующ�
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
       window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
       // variant stuff
-      window.relearn.themevariants = [ 'green' ];
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -107,19 +107,9 @@ $$ 1,1,2,3,5,8,13,21,34,55,89, \ldots $$определяется следующ�
       window.relearn.initVariant();
       window.relearn.markVariant();
     </script> <link href="/css/custom_links.css" rel="stylesheet" />
-  
- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script> 
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
 
   </head>
   <body class="mobile-support html" data-origin="/basics/complexity/index.html">
@@ -226,29 +216,29 @@ $$<p>определяется следующим образом:</p>
 </details>
 <h4 id="экспоненциальный-алгоритм">Экспоненциальный алгоритм<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>Следующий рекурсивный алгоритм вычисляет $n$-ое число Фибоначчи, точно следуя определению:
-<div class="tab-panel" data-tab-group="R-tabs-90506d3047bb70f0a0e20d5280b122d7">
+<div class="tab-panel" data-tab-group="R-tabs-ecd7383e1ab431f06ffe5fa07e06dc2d">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-92e1f73d7ddb6e700a7e56f90105c12f" aria-expanded="true"
+      aria-controls="R-tab-id-c120908b1b83e1c9431867fd24b52b1c" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-90506d3047bb70f0a0e20d5280b122d7','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-ecd7383e1ab431f06ffe5fa07e06dc2d','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-3facd3da29d44cb4b59ca4c647362e7e" aria-expanded="false"
+      aria-controls="R-tab-id-1c023c6ca7e91e0bf1392d59899b22da" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-90506d3047bb70f0a0e20d5280b122d7','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-ecd7383e1ab431f06ffe5fa07e06dc2d','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-92e1f73d7ddb6e700a7e56f90105c12f"
+      id="R-tab-id-c120908b1b83e1c9431867fd24b52b1c"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -269,7 +259,7 @@ $$<p>определяется следующим образом:</p>
       </div>
     </div>
     <div
-      id="R-tab-id-3facd3da29d44cb4b59ca4c647362e7e"
+      id="R-tab-id-1c023c6ca7e91e0bf1392d59899b22da"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -301,29 +291,29 @@ $$<p>Несложно доказать по индукции, что $F_{n} \leq
 <h4 id="полиномиальный-алгоритм">Полиномиальный алгоритм<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>Посмотрим на дерево рекурсивных вызовов алгоритма fib. Видно, что алгоритм много раз вычисляет одно и то же. Давайте сохранять результаты промежуточных вычислений в массив:
 <img class="lazy figure-image" loading="lazy" src="/static/images/basics/complexity/recursion_call_tree.jpg" style="height: auto;width: auto;"></p>
-<div class="tab-panel" data-tab-group="R-tabs-e0b5fad36f8b26a44d4e419587826326">
+<div class="tab-panel" data-tab-group="R-tabs-3576b8e783986c7537bf3cb90a532c8c">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-a1e2d21bdce3acceac6fcc42a9b98c6c" aria-expanded="true"
+      aria-controls="R-tab-id-818e09d45ec513d9393b7d41e78dd8cd" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-e0b5fad36f8b26a44d4e419587826326','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-3576b8e783986c7537bf3cb90a532c8c','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-ec158ffcd4ba1ecc9b7c77e7338b4390" aria-expanded="false"
+      aria-controls="R-tab-id-9e8f6aef78e23be6d6e254832d7b9937" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-e0b5fad36f8b26a44d4e419587826326','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-3576b8e783986c7537bf3cb90a532c8c','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-a1e2d21bdce3acceac6fcc42a9b98c6c"
+      id="R-tab-id-818e09d45ec513d9393b7d41e78dd8cd"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -378,7 +368,7 @@ $$<p>Несложно доказать по индукции, что $F_{n} \leq
       </div>
     </div>
     <div
-      id="R-tab-id-ec158ffcd4ba1ecc9b7c77e7338b4390"
+      id="R-tab-id-9e8f6aef78e23be6d6e254832d7b9937"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -750,6 +740,7 @@ $$
             <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
@@ -762,6 +753,22 @@ $$
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>

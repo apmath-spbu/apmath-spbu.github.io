@@ -67,7 +67,7 @@
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
       window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
       // variant stuff
-      window.relearn.themevariants = [ 'green' ];
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -95,19 +95,9 @@
       window.relearn.initVariant();
       window.relearn.markVariant();
     </script> <link href="/css/custom_links.css" rel="stylesheet" />
-  
- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script> 
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
 
   </head>
   <body class="mobile-support html" data-origin="/basics/dynamic_programming/longest_common_subsequence/index.html">
@@ -184,29 +174,29 @@
 <p>Пусть даны две последовательности чисел $a_{1}, \ldots, a_{n}$ и $b_{1}, \ldots, b_{m}$. Требуется найти последовательность $c$ как можно большей длины, которая была бы подпоследовательностью и $a$, и $b$. Например, для последовательностей $2,1,2,3,1,2$ и $2,3,2,2,1$ возможные ответы — $2,2,2$; $2,3,2$; $2,3,1$ и $2,2,1$.</p>
 <p>Пусть $l[i, j]$ — длина НОП последовательностей $a_{1}, \ldots, a_{i}$ и $b_{1}, \ldots, b_{j}$. Начальные значения: $l[i, 0] = l[0, j] = 0$. Нас интересует $l[n, m]$.</p>
 <p>Как вычислить $l[i, j]$? Посмотрим на $a_{i}$ и $b_{j}$: либо один из них не входит в ответ (то есть $l[i, j]=l[i-1, j]$ или $l[i, j]=l[i, j-1]$), либо они оба совпадают с последним элементом ответа, тогда $l[i, j]=l[i-1, j-1]+1$. Последний случай возможен лишь при $a_{i}=b_{j}$. Поскольку нас интересует наибольшая общая подпоследовательность, нужно взять максимум по всем возможным переходам. Если перебирать состояния в порядке увеличения $i$, а потом $j$, то к моменту рассмотрения состояния $(i, j)$ состояния $(i-1, j)$, $(i, j-1)$ и $(i-1, j-1)$ уже будут рассмотрены. Получаем решение за $O(nm)$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-95bfddc0cd35897281d507fd6d08312e">
+<div class="tab-panel" data-tab-group="R-tabs-81bb22ce505abc9ac4674943f63601d2">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-9396a5c28f5222edc77a94e90b40a013" aria-expanded="true"
+      aria-controls="R-tab-id-e255ae32fdbc3f772e007697dc89db59" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-95bfddc0cd35897281d507fd6d08312e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-81bb22ce505abc9ac4674943f63601d2','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-cb1558e755f77f2f01049eeec5b5419e" aria-expanded="false"
+      aria-controls="R-tab-id-2f6b0b363cd1c7936eb6fe6e9c3dd12c" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-95bfddc0cd35897281d507fd6d08312e','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-81bb22ce505abc9ac4674943f63601d2','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-9396a5c28f5222edc77a94e90b40a013"
+      id="R-tab-id-e255ae32fdbc3f772e007697dc89db59"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -239,7 +229,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-cb1558e755f77f2f01049eeec5b5419e"
+      id="R-tab-id-2f6b0b363cd1c7936eb6fe6e9c3dd12c"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -301,29 +291,29 @@ $$
 \end{array}
 $$<h3 id="восстановление-ответа">Восстановление ответа<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Пусть требуется узнать не только длину НОП, но и найти саму подпоследовательность. Откатываемся из конечного состояния $(n, m)$, переходя по оптимальным переходам и добавляя символ в ответ, когда переход идёт «по диагонали».</p>
-<div class="tab-panel" data-tab-group="R-tabs-f31790ca6c5aadb57c1189bb51df742e">
+<div class="tab-panel" data-tab-group="R-tabs-9d8cd4a12176c29072adf42ba03d6be3">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-205becf80a7269dc0b28ebbf35ffa773" aria-expanded="true"
+      aria-controls="R-tab-id-cbf2d229e6a5896afcebd7c1411bee12" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-f31790ca6c5aadb57c1189bb51df742e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-9d8cd4a12176c29072adf42ba03d6be3','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-defbf2cf682c14b70499c48db30646fe" aria-expanded="false"
+      aria-controls="R-tab-id-bb198714cbb1aee2865d8a6e03e59156" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-f31790ca6c5aadb57c1189bb51df742e','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-9d8cd4a12176c29072adf42ba03d6be3','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-205becf80a7269dc0b28ebbf35ffa773"
+      id="R-tab-id-cbf2d229e6a5896afcebd7c1411bee12"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -362,7 +352,7 @@ $$<h3 id="восстановление-ответа">Восстановлени�
       </div>
     </div>
     <div
-      id="R-tab-id-defbf2cf682c14b70499c48db30646fe"
+      id="R-tab-id-bb198714cbb1aee2865d8a6e03e59156"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -412,29 +402,29 @@ $$<h3 id="восстановление-ответа">Восстановлени�
 </div>
 <h3 id="оптимизация-памяти">Оптимизация памяти<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Пусть нас интересует только длина НОП, тогда можно обойтись $O(\min(m, n))$ дополнительной памяти. При вычислении $i$-й строки таблицы мы используем только $i$-ю и $(i-1)$-ю строки, поэтому все предыдущие строки можно не хранить.</p>
-<div class="tab-panel" data-tab-group="R-tabs-123470b1e3f3656996741c3c1ab04439">
+<div class="tab-panel" data-tab-group="R-tabs-0f2f24071ebb2ad894a2c70e3bda3648">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-6fef97ccc618fa18ecd017072ce22a62" aria-expanded="true"
+      aria-controls="R-tab-id-3491e6141110f908327b359cbbd84263" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-123470b1e3f3656996741c3c1ab04439','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-0f2f24071ebb2ad894a2c70e3bda3648','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-01490209dec5018e64dcc12f33d2bd1a" aria-expanded="false"
+      aria-controls="R-tab-id-3ab2e2a9abb38378bb903b9efaef1cd2" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-123470b1e3f3656996741c3c1ab04439','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-0f2f24071ebb2ad894a2c70e3bda3648','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-6fef97ccc618fa18ecd017072ce22a62"
+      id="R-tab-id-3491e6141110f908327b359cbbd84263"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -475,7 +465,7 @@ $$<h3 id="восстановление-ответа">Восстановлени�
       </div>
     </div>
     <div
-      id="R-tab-id-01490209dec5018e64dcc12f33d2bd1a"
+      id="R-tab-id-3ab2e2a9abb38378bb903b9efaef1cd2"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -601,6 +591,7 @@ $$<h3 id="восстановление-ответа">Восстановлени�
             <li class="" data-nav-id="/basics/dynamic_programming/travelling_salesman_problem/index.html"><a class="padding" href="/basics/dynamic_programming/travelling_salesman_problem/index.html">15.8. Задача коммивояжёра</a></li>
             <li class="" data-nav-id="/basics/dynamic_programming/generate_number_by_object/index.html"><a class="padding" href="/basics/dynamic_programming/generate_number_by_object/index.html">15.9. Генерация номера по объекту</a></li>
             <li class="" data-nav-id="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html"><a class="padding" href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">15.10. Рекуррентные соотношения</a></li></ul></li></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
@@ -613,6 +604,22 @@ $$<h3 id="восстановление-ответа">Восстановлени�
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>

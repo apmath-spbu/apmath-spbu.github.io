@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Семнадцать занятий мы строили дисциплину: типы, const, RAII, инварианты. Эта лекция — экскурсия за стену, которую та дисциплина возводит: что происходит, когда программа обращается с памятью «как с байтами», и почему компилятор вправе удалить ваш код целиком. Правила курса не отменяются — в домашних работах этим инструментам делать нечего; но их нужно узнавать в чужом коде (драйверы, протоколы, движки) и понимать контракт с компилятором. Половина сегодняшнего кода — специально сломанная. Все выводы и ассемблер настоящие (Apple M-серия, clang, -O2 там, где не сказано иное).">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 18. Тёмная сторона: reinterpret_cast, union, UB :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Семнадцать занятий мы строили дисциплину: типы, const, RAII, инварианты. Эта лекция — экскурсия за стену, которую та дисциплина возводит: что происходит, когда программа обращается с памятью «как с байтами», и почему компилятор вправе удалить ваш код целиком. Правила курса не отменяются — в домашних работах этим инструментам делать нечего; но их нужно узнавать в чужом коде (драйверы, протоколы, движки) и понимать контракт с компилятором. Половина сегодняшнего кода — специально сломанная. Все выводы и ассемблер настоящие (Apple M-серия, clang, -O2 там, где не сказано иное).">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/18-tyomnaya-storona/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 18. Тёмная сторона: reinterpret_cast, union, UB :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Семнадцать занятий мы строили дисциплину: типы, const, RAII, инварианты. Эта лекция — экскурсия за стену, которую та дисциплина возводит: что происходит, когда программа обращается с памятью «как с байтами», и почему компилятор вправе удалить ваш код целиком. Правила курса не отменяются — в домашних работах этим инструментам делать нечего; но их нужно узнавать в чужом коде (драйверы, протоколы, движки) и понимать контракт с компилятором. Половина сегодняшнего кода — специально сломанная. Все выводы и ассемблер настоящие (Apple M-серия, clang, -O2 там, где не сказано иное).">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-12T15:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-12T15:00:00+03:00">
+    <meta itemprop="name" content="Занятие 18. Тёмная сторона: reinterpret_cast, union, UB :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Семнадцать занятий мы строили дисциплину: типы, const, RAII, инварианты. Эта лекция — экскурсия за стену, которую та дисциплина возводит: что происходит, когда программа обращается с памятью «как с байтами», и почему компилятор вправе удалить ваш код целиком. Правила курса не отменяются — в домашних работах этим инструментам делать нечего; но их нужно узнавать в чужом коде (драйверы, протоколы, движки) и понимать контракт с компилятором. Половина сегодняшнего кода — специально сломанная. Все выводы и ассемблер настоящие (Apple M-серия, clang, -O2 там, где не сказано иное).">
+    <meta itemprop="datePublished" content="2026-08-12T15:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-12T15:00:00+03:00">
+    <meta itemprop="wordCount" content="1618">
+    <title>Занятие 18. Тёмная сторона: reinterpret_cast, union, UB :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/18-tyomnaya-storona\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/18-tyomnaya-storona/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#биты-под-типами">Биты под типами</a>
+      <ul>
+        <li><a href="#четыре-каста--четыре-степени-риска">Четыре каста — четыре степени риска</a></li>
+        <li><a href="#легальный-мост-stdbit_cast">Легальный мост: std::bit_cast</a></li>
+        <li><a href="#0x5f3759df-легенда-1999-года">0x5f3759df: легенда 1999 года</a></li>
+      </ul>
+    </li>
+    <li><a href="#union-память-по-совместительству">union: память по совместительству</a></li>
+    <li><a href="#ub-и-оптимизатор">UB и оптимизатор</a>
+      <ul>
+        <li><a href="#неопределённое-поведение--это-контракт">Неопределённое поведение — это контракт</a></li>
+        <li><a href="#компилятор-вам-верит-буквально">Компилятор вам верит. Буквально</a></li>
+        <li><a href="#одна-программа--два-ответа">Одна программа — два ответа</a></li>
+        <li><a href="#как-жить-санитайзер-и-на-это-есть">Как жить: санитайзер и на это есть</a></li>
+      </ul>
+    </li>
+    <li><a href="#выравнивание">Выравнивание</a>
+      <ul>
+        <li><a href="#у-каждого-типа-есть-любимые-адреса">У каждого типа есть любимые адреса</a></li>
+        <li><a href="#24-байта-против-16-цена-порядка-полей">24 байта против 16: цена порядка полей</a></li>
+      </ul>
+    </li>
+    <li><a href="#проверьте-себя">Проверьте себя</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/18-tyomnaya-storona/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/17-stl/index.html" title="Занятие 17. Контейнеры и алгоритмы STL (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/19-kvadratichnye-sortirovki/index.html" title="Занятие 19. Квадратичные сортировки (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-18-тёмная-сторона-reinterpret_cast-union-ub">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</h1>
+
+<p>Семнадцать занятий мы строили дисциплину: типы, const, RAII, инварианты. Эта лекция — экскурсия за стену, которую та дисциплина возводит: что происходит, когда программа обращается с памятью «как с байтами», и почему компилятор вправе удалить ваш код целиком. Правила курса не отменяются — в домашних работах этим инструментам делать нечего; но их нужно узнавать в чужом коде (драйверы, протоколы, движки) и понимать контракт с компилятором. Половина сегодняшнего кода — специально сломанная. Все выводы и ассемблер настоящие (Apple M-серия, clang, <code>-O2</code> там, где не сказано иное).</p>
+<h2 id="биты-под-типами">Биты под типами<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="четыре-каста--четыре-степени-риска">Четыре каста — четыре степени риска<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>каст</th>
+					<th>что делает</th>
+					<th>риск</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>static_cast&lt;double&gt;(i)</code></td>
+					<td>честное преобразование <strong>значения</strong>: биты меняются по правилам</td>
+					<td>проверен компилятором</td>
+			</tr>
+			<tr>
+					<td><code>const_cast&lt;T&amp;&gt;(x)</code></td>
+					<td>снимает const (занятие 11)</td>
+					<td>менять настоящую константу — UB</td>
+			</tr>
+			<tr>
+					<td><code>dynamic_cast&lt;D*&gt;(b)</code></td>
+					<td>спуск по иерархии с проверкой в рантайме (vtable, занятие 7)</td>
+					<td><code>nullptr</code> при неудаче</td>
+			</tr>
+			<tr>
+					<td><code>reinterpret_cast&lt;T*&gt;(p)</code></td>
+					<td><strong>переинтерпретация</strong>: биты не трогает, меняет только «очки»</td>
+					<td>почти всегда на грани UB</td>
+			</tr>
+	</tbody>
+</table>
+<p>Сравните: <code>static_cast&lt;double&gt;(1)</code> строит новые биты 0x3FF0…, а <code>reinterpret_cast</code> оставил бы битовый узор единицы-int и назвал его double — вышло бы 4.94·10⁻³²⁴. C-каст <code>(T)x</code> перебирает эти касты и молча берёт первый подошедший — поэтому в курсе пишем именованные: намерение видно и ревью, и компилятору.</p>
+<h3 id="легальный-мост-stdbit_cast">Легальный мост: std::bit_cast<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;bit&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>bit_cast<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span><span style="color:#66d9ef">uint32_t</span><span style="color:#f92672">&gt;</span>(<span style="color:#ae81ff">1.0f</span>);   <span style="color:#75715e">// скопировать 4 байта float в uint32
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>1.0f  = 0x3F800000
+2.0f  = 0x40000000    # экспонента +1
+-1.0f = 0xBF800000    # старший бит — знак
+0.1f  = 0x3DCCCCCD    # ...CCCD: 0.1 не точен!</code></pre></div>
+<p>Занятие 3 рисовало IEEE 754 на доске — теперь видны живые биты: знак · 8 бит экспоненты · 23 бита мантиссы. Удвоение числа — это +1 к экспоненте; минус — один старший бит; хвост 0.1f — та самая бесконечная двоичная дробь, обрезанная до …CCCD. <code>bit_cast</code> (C++20) — единственный прямой легальный способ переложить биты между типами (до него — <code>std::memcpy</code>). А классика интернета <code>*(uint32_t*)&amp;f</code> — UB, и ниже станет ясно почему.</p>
+<h3 id="0x5f3759df-легенда-1999-года">0x5f3759df: легенда 1999 года<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">float</span> <span style="color:#a6e22e">q_rsqrt</span>(<span style="color:#66d9ef">float</span> x) {                       <span style="color:#75715e">// Quake III Arena
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> half <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.5f</span> <span style="color:#f92672">*</span> x;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> i <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>bit_cast<span style="color:#f92672">&lt;</span>std<span style="color:#f92672">::</span><span style="color:#66d9ef">uint32_t</span><span style="color:#f92672">&gt;</span>(x);
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0x5f3759df</span> <span style="color:#f92672">-</span> (i <span style="color:#f92672">&gt;&gt;</span> <span style="color:#ae81ff">1</span>);                 <span style="color:#75715e">// магия: логарифм в битах
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span> y <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>bit_cast<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">&gt;</span>(i);
+</span></span><span style="display:flex;"><span>    y <span style="color:#f92672">=</span> y <span style="color:#f92672">*</span> (<span style="color:#ae81ff">1.5f</span> <span style="color:#f92672">-</span> half <span style="color:#f92672">*</span> y <span style="color:#f92672">*</span> y);             <span style="color:#75715e">// шаг Ньютона
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> y;                                  <span style="color:#75715e">// ≈ 1 / sqrt(x)
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Идея: биты float — почти масштабированный <strong>логарифм</strong> числа (экспонента и есть log₂). Сдвиг вправо делит логарифм на два, вычитание из подобранной константы даёт минус — получается грубое $x^{-1/2}$, а шаг Ньютона дошлифовывает. Замеры:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>максимальная относительная ошибка: 0.175%
+q_rsqrt 10^7:    8.3 мс
+1/sqrtf 10^7:    5.7 мс   # аппаратный корень быстрее!</code></pre></div>
+<p>Точности 0.175% хватало освещению в игре 1999 года. Сегодня аппаратный корень быстрее: легенда устарела — а мост «биты ↔ число» вечен. (В оригинале вместо bit_cast — каст указателей и комментарий, который мы не процитируем.)</p>
+<h2 id="union-память-по-совместительству">union: память по совместительству<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">union</span> <span style="color:#a6e22e">Pun</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">float</span>         f;
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span><span style="color:#66d9ef">uint32_t</span> u;   <span style="color:#75715e">// те же 4 байта!
+</span></span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Pun p;
+</span></span><span style="display:flex;"><span>p.f <span style="color:#f92672">=</span> <span style="color:#ae81ff">1.0f</span>;                        <span style="color:#75715e">// активный член — f
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> std<span style="color:#f92672">::</span>hex <span style="color:#f92672">&lt;&lt;</span> p.u;      <span style="color:#75715e">// печатает 3f800000...
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Все члены union делят <strong>один адрес</strong>; sizeof равен максимуму из членов; «активен» тот, куда писали последним. Честные применения: варианты «или-или» в протоколах и форматах, экономия памяти в узлах структур данных.</p>
+<p>Но есть два подвоха. Первый: читать не тот член (type punning) легально в C и <strong>формально UB в C++</strong> — компиляторы поддерживают это как расширение, однако контракт нарушен, и мост всё тот же: <code>bit_cast</code>. Второй: union не помнит, кто активен, — это ваша ручная бухгалтерия с тегом рядом, и она регулярно ломается.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Наследник
+  </summary>
+  <div class="box-content">
+<p>Типобезопасный union — <code>std::variant</code>: хранит тег сам и не даст прочитать не тот член. Встретим через занятие.</p>
+  </div>
+</details>
+<h2 id="ub-и-оптимизатор">UB и оптимизатор<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="неопределённое-поведение--это-контракт">Неопределённое поведение — это контракт<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Стандарт делит мир на определённое поведение (гарантии) и UB: «стандарт <strong>не накладывает никаких требований</strong>». Никаких — значит не «упадёт», а «что угодно». Компилятор оптимизирует, предполагая, что UB не случается: это сделка — вы обещаете играть по правилам, он генерирует быстрый код без страховочных проверок. Поэтому «у меня же работает» ничего не доказывает: с другим флагом, компилятором или в другой день результат другой.</p>
+<p>Знакомые UB, вдоль которых мы шли весь семестр: переполнение signed int (занятия 3, 12), выход за границы массива (3, 16), висячий указатель и double free (11, 16), <code>delete</code> вместо <code>delete[]</code> (11), гонка данных (16), компаратор с «≤» (17).</p>
+<h3 id="компилятор-вам-верит-буквально">Компилятор вам верит. Буквально<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> <span style="color:#a6e22e">wraps</span>(<span style="color:#66d9ef">int</span> x) { <span style="color:#66d9ef">return</span> x <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">&gt;</span> x; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">deref</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v <span style="color:#f92672">=</span> <span style="color:#f92672">*</span>p;          <span style="color:#75715e">// разыменовали...
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>p) <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;   <span style="color:#75715e">// ...потом проверили
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> v;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>$ clang++ -O2 -S             # ассемблер:
+wraps:  mov  w0, #1          # «всегда true»
+        ret
+deref:  ldr  w0, [x0]        # if исчез целиком
+        ret</code></pre></div>
+<p><code>wraps</code>: переполнение signed — UB, значит его «не бывает», значит работает алгебра идеальных чисел: $x + 1 > x$ истинно всегда — одна инструкция. <code>deref</code>: раз <code>*p</code> выполнилось, p не мог быть null — проверка мертва, компилятор её убрал. Ровно такой паттерн (разыменование до проверки) стал знаменитой уязвимостью в ядре Linux в 2009 году: удалённый оптимизатором if открыл дорогу эксплойту. Мораль: UB отменяет не строку — он отменяет <strong>рассуждения</strong> о соседнем коде.</p>
+<h3 id="одна-программа--два-ответа">Одна программа — два ответа<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">foo</span>(<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> i, <span style="color:#66d9ef">float</span><span style="color:#f92672">*</span> f) {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">*</span>f <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.f</span>;     <span style="color:#75715e">// компилятор уверен: float* не задевает int*
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span>i;    <span style="color:#75715e">// ...значит, можно вернуть 1 не перечитывая
+</span></span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, foo(<span style="color:#f92672">&amp;</span>x, <span style="color:#66d9ef">reinterpret_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">float</span><span style="color:#f92672">*&gt;</span>(<span style="color:#f92672">&amp;</span>x)));
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>$ clang++ -O0 ... &amp;&amp; ./a.out
+0
+$ clang++ -O2 ... &amp;&amp; ./a.out
+1</code></pre></div>
+<p>Нарушено правило <strong>strict aliasing</strong>: к памяти можно обращаться только через её настоящий тип (исключение — <code>char*</code>/<code>std::byte*</code>, законные «обходчики байтов»). <code>-O0</code> честно перечитал память и напечатал 0; <code>-O2</code> применил разрешённую сделкой оптимизацию и вернул 1. <strong>Оба ответа «правильны»</strong> — некорректна программа. Вот почему <code>*(uint32_t*)&amp;f</code> — мина замедленного действия, а легальные мосты (<code>bit_cast</code>, <code>memcpy</code>) компилятор превращает в те же быстрые инструкции без всякого UB.</p>
+<h3 id="как-жить-санитайзер-и-на-это-есть">Как жить: санитайзер и на это есть<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> big <span style="color:#f92672">=</span> <span style="color:#ae81ff">2&#39;000&#39;000&#39;000</span>;
+</span></span><span style="display:flex;"><span>printf(<span style="color:#e6db74">&#34;%d</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>, big <span style="color:#f92672">+</span> big);   <span style="color:#75715e">// signed overflow
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>$ clang++ -fsanitize=undefined ... &amp;&amp; ./a.out
+ubsan18.cpp:4:24: runtime error: signed integer overflow:
+  2000000000 + 2000000000 cannot be represented in type &#39;int&#39;
+-294967296</code></pre></div>
+<p><strong>UBSan</strong> (<code>-fsanitize=undefined</code>) вставляет проверки в местах потенциального UB и печатает точную строку с объяснением. Инструментальная триада курса собрана: <strong>ASan</strong> — память (занятия 7, 11, 16), <strong>TSan</strong> — гонки (16), <strong>UBSan</strong> — арифметика и касты. Цена — замедление в разы, поэтому это отладочные флаги, не боевые.</p>
+<p>Диагностический симптом на всю жизнь: программа меняет поведение между <code>-O0</code> и <code>-O2</code> — почти всегда это UB, а не «глюк компилятора». Компилятор почти всегда прав.</p>
+<h2 id="выравнивание">Выравнивание<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="у-каждого-типа-есть-любимые-адреса">У каждого типа есть любимые адреса<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>alignof(char)         = 1
+alignof(int)          = 4
+alignof(double)       = 8
+alignof(max_align_t)  = 8   # на этой машине</code></pre></div>
+<p><strong>Выравнивание</strong> типа — адреса, кратные его <code>alignof</code>: int живёт по адресам, делящимся на 4, double — на 8. Компилятор гарантирует это для переменных, полей и результата new. Зачем: шина читает память выровненными словами — невыровненный доступ превращается в два чтения со склейкой, на части архитектур это аппаратная ошибка, а для атомарных операций (занятие 16) выравнивание — условие корректности.</p>
+<h3 id="24-байта-против-16-цена-порядка-полей">24 байта против 16: цена порядка полей<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Bad</span>  { <span style="color:#66d9ef">char</span> a; <span style="color:#66d9ef">double</span> d; <span style="color:#66d9ef">char</span> b; };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Good</span> { <span style="color:#66d9ef">double</span> d; <span style="color:#66d9ef">char</span> a; <span style="color:#66d9ef">char</span> b; };</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>Bad  {char,double,char}: sizeof 24   (a@0, d@8, b@16)
+Good {double,char,char}: sizeof 16   (d@0, a@8, b@9)</code></pre></div>
+<p><img alt="Укладка полей: дыры в Bad против плотной Good" class="lazy figure-image" loading="lazy" src="/winter2026/18-tyomnaya-storona/padding.svg" style="height: auto;width: auto;"></p>
+<p>double требует адрес ÷ 8 — после одинокого char компилятор вставляет 7 байт дыры; хвост добивается до кратности 8, чтобы <strong>массив</strong> таких структур сохранял выравнивание каждого элемента. Отсюда правило укладки:</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Поля — от больших к малым
+  </summary>
+  <div class="box-content">
+<p>Дыры схлопываются: 24 → 16, минус треть памяти всего массива структур. Проверяется за минуту печатью <code>sizeof</code> и <code>offsetof</code>.</p>
+  </div>
+</details>
+<p><code>#pragma pack(1)</code> убирает дыры принудительно — легально и нужно для бинарных форматов файлов и сети, но поля теряют выравнивание: читать их напрямую нельзя, только <code>memcpy</code> в выровненную переменную (который компилятор сведёт к оптимальным инструкциям).</p>
+<h2 id="проверьте-себя">Проверьте себя<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>
+<p><strong>Прочитайте биты.</strong> Почему <code>bit_cast&lt;uint32_t&gt;(2.0f) == 0x40000000</code>? Что даст 4.0f? 0.5f?</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+2.0 = +1 · 2¹ · 1.0: знак 0, экспонента 127 + 1 = 128 = 0b1000'0000, мантисса нулевая → <code>0100 0000 0…</code> = 0x40000000. Каждое удвоение — +1 к экспоненте: 4.0f = 0x40800000, 0.5f (экспонента 126) = 0x3F000000.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Найдите UB</strong> в трёх фрагментах: <code>int m = (l + r) / 2;</code> · запись <code>p.f = 1;</code> и чтение <code>p.i</code> из union · <code>int* q = new int[4]; delete q;</code></p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+(1) переполнение <code>l + r</code> при больших границах — баг из <code>java.util.Arrays</code>, занятие 12; лечение <code>l + (r - l) / 2</code>. (2) чтение неактивного члена union — UB в C++; мост — <code>bit_cast</code>. (3) несовпадение форм <code>new[]</code>/<code>delete</code> — катастрофа № 4 из занятия 11.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Уложите поля:</strong> <code>struct S { char tag; long id; short port; char flag; };</code> — sizeof? как сжать?</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+Как есть: tag@0 + 7 байт дыры + id@8 (8) + port@16 (2) + flag@18 (1) + 5 байт хвоста = <strong>24</strong>. Порядок {long, short, char, char}: 8 + 2 + 1 + 1 = 12, хвост до кратности 8 → <strong>16</strong>. Минус треть.
+  </div>
+</details>
+</li>
+</ol>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>Инспектор битов:</strong> <code>dumpFloat(float)</code> печатает знак, экспоненту и мантиссу отдельными полями (bit_cast + маски); проверьте на 1.0f, 0.1f, 1e38f и на 0.1f + 0.2f — занятие 3 передаёт привет.</li>
+<li><strong>Суд над хаком:</strong> реализуйте q_rsqrt, измерьте по методике занятия 16 точность и скорость против <code>1/sqrtf</code> на своей машине; вердикт с числами.</li>
+<li><strong>Охота на UB:</strong> в выданном файле шесть фрагментов — найдите UB в каждом, назовите термином, почините; сверьтесь запуском под UBSan.</li>
+<li><strong>Диета для структуры:</strong> дана структура на 48 байт — переставьте поля до минимума; приложите offsetof-карту до и после.</li>
+<li>* <strong>«Глюк компилятора»:</strong> соберите собственный пример (не из лекции), где -O0 и -O2 дают разные ответы; объясните, какое обещание нарушено.</li>
+</ol>
+<p>Следующее занятие — <strong>квадратичные сортировки</strong>: выбором и вставками. Первые честные сортировки курса: инварианты, число сравнений и обменов — и почему «квадратичная» не значит «бесполезная».</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 12 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="active " data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Занятие 13 — первый рубежный контроль: письменная работа по материалу занятий 1–12. Эта страница — всё, что нужно для подготовки: формат, карта тем со ссылками на конспекты, критерии и тренировочный вариант, устроенный ровно как боевой.
+Формат 90 минут, письменно, без электроники и конспектов. 6 заданий, 26 баллов; вес указан у каждого задания, частичные баллы есть везде — пишите рассуждение, даже если ответ не добит. Код — на C&#43;&#43;, не псевдокод. Мелкие синтаксические неточности не штрафуются; логика — да. В задачах на двоичный поиск и два указателя выписанный инвариант обязателен: решение без инварианта оценивается не выше половины баллов задания. Два параллельных варианта, равной сложности. Карта заданий № Тема Готовиться по Баллы 1 Сложность: оценить фрагмент, упорядочить функции роста занятию 2 4 2 Рекурренты: мастер-теорема и случай, где она не работает занятию 6 4 3 Чтение C&#43;&#43;: что напечатает, почему не компилируется, найди ошибку занятиям 3, 7, 9, 11 5 4 Амортизация: доказательство банковским методом занятиям 8, 10 5 5 Двоичный поиск по ответу: предикат &#43; инвариант &#43; код занятию 12 5 6 Два указателя: инвариант и подсчёт за O(n) занятиям 10, 12 3 Как выглядит решение на полный балл В задачах 5–6 проверяется схема рассуждения, а не только код: предикат → довод монотонности одной фразой → инвариант → сдвиги под инвариант → ответ и сложность. Инвариант — это и есть решение; код — его расшифровка.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 13. Рубежный контроль № 1 :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Занятие 13 — первый рубежный контроль: письменная работа по материалу занятий 1–12. Эта страница — всё, что нужно для подготовки: формат, карта тем со ссылками на конспекты, критерии и тренировочный вариант, устроенный ровно как боевой.
+Формат 90 минут, письменно, без электроники и конспектов. 6 заданий, 26 баллов; вес указан у каждого задания, частичные баллы есть везде — пишите рассуждение, даже если ответ не добит. Код — на C&#43;&#43;, не псевдокод. Мелкие синтаксические неточности не штрафуются; логика — да. В задачах на двоичный поиск и два указателя выписанный инвариант обязателен: решение без инварианта оценивается не выше половины баллов задания. Два параллельных варианта, равной сложности. Карта заданий № Тема Готовиться по Баллы 1 Сложность: оценить фрагмент, упорядочить функции роста занятию 2 4 2 Рекурренты: мастер-теорема и случай, где она не работает занятию 6 4 3 Чтение C&#43;&#43;: что напечатает, почему не компилируется, найди ошибку занятиям 3, 7, 9, 11 5 4 Амортизация: доказательство банковским методом занятиям 8, 10 5 5 Двоичный поиск по ответу: предикат &#43; инвариант &#43; код занятию 12 5 6 Два указателя: инвариант и подсчёт за O(n) занятиям 10, 12 3 Как выглядит решение на полный балл В задачах 5–6 проверяется схема рассуждения, а не только код: предикат → довод монотонности одной фразой → инвариант → сдвиги под инвариант → ответ и сложность. Инвариант — это и есть решение; код — его расшифровка.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/13-rk1/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 13. Рубежный контроль № 1 :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Занятие 13 — первый рубежный контроль: письменная работа по материалу занятий 1–12. Эта страница — всё, что нужно для подготовки: формат, карта тем со ссылками на конспекты, критерии и тренировочный вариант, устроенный ровно как боевой.
+Формат 90 минут, письменно, без электроники и конспектов. 6 заданий, 26 баллов; вес указан у каждого задания, частичные баллы есть везде — пишите рассуждение, даже если ответ не добит. Код — на C&#43;&#43;, не псевдокод. Мелкие синтаксические неточности не штрафуются; логика — да. В задачах на двоичный поиск и два указателя выписанный инвариант обязателен: решение без инварианта оценивается не выше половины баллов задания. Два параллельных варианта, равной сложности. Карта заданий № Тема Готовиться по Баллы 1 Сложность: оценить фрагмент, упорядочить функции роста занятию 2 4 2 Рекурренты: мастер-теорема и случай, где она не работает занятию 6 4 3 Чтение C&#43;&#43;: что напечатает, почему не компилируется, найди ошибку занятиям 3, 7, 9, 11 5 4 Амортизация: доказательство банковским методом занятиям 8, 10 5 5 Двоичный поиск по ответу: предикат &#43; инвариант &#43; код занятию 12 5 6 Два указателя: инвариант и подсчёт за O(n) занятиям 10, 12 3 Как выглядит решение на полный балл В задачах 5–6 проверяется схема рассуждения, а не только код: предикат → довод монотонности одной фразой → инвариант → сдвиги под инвариант → ответ и сложность. Инвариант — это и есть решение; код — его расшифровка.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-10T14:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-10T14:00:00+03:00">
+    <meta itemprop="name" content="Занятие 13. Рубежный контроль № 1 :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Занятие 13 — первый рубежный контроль: письменная работа по материалу занятий 1–12. Эта страница — всё, что нужно для подготовки: формат, карта тем со ссылками на конспекты, критерии и тренировочный вариант, устроенный ровно как боевой.
+Формат 90 минут, письменно, без электроники и конспектов. 6 заданий, 26 баллов; вес указан у каждого задания, частичные баллы есть везде — пишите рассуждение, даже если ответ не добит. Код — на C&#43;&#43;, не псевдокод. Мелкие синтаксические неточности не штрафуются; логика — да. В задачах на двоичный поиск и два указателя выписанный инвариант обязателен: решение без инварианта оценивается не выше половины баллов задания. Два параллельных варианта, равной сложности. Карта заданий № Тема Готовиться по Баллы 1 Сложность: оценить фрагмент, упорядочить функции роста занятию 2 4 2 Рекурренты: мастер-теорема и случай, где она не работает занятию 6 4 3 Чтение C&#43;&#43;: что напечатает, почему не компилируется, найди ошибку занятиям 3, 7, 9, 11 5 4 Амортизация: доказательство банковским методом занятиям 8, 10 5 5 Двоичный поиск по ответу: предикат &#43; инвариант &#43; код занятию 12 5 6 Два указателя: инвариант и подсчёт за O(n) занятиям 10, 12 3 Как выглядит решение на полный балл В задачах 5–6 проверяется схема рассуждения, а не только код: предикат → довод монотонности одной фразой → инвариант → сдвиги под инвариант → ответ и сложность. Инвариант — это и есть решение; код — его расшифровка.">
+    <meta itemprop="datePublished" content="2026-08-10T14:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-10T14:00:00+03:00">
+    <meta itemprop="wordCount" content="1618">
+    <title>Занятие 13. Рубежный контроль № 1 :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/13-rk1\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/13-rk1/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#формат">Формат</a></li>
+    <li><a href="#карта-заданий">Карта заданий</a></li>
+    <li><a href="#как-выглядит-решение-на-полный-балл">Как выглядит решение на полный балл</a></li>
+    <li><a href="#топ-граблей-прошлых-лет">Топ граблей прошлых лет</a></li>
+    <li><a href="#тренировочный-вариант">Тренировочный вариант</a>
+      <ul>
+        <li><a href="#задание-1-сложность-4-балла">Задание 1. Сложность (4 балла)</a></li>
+        <li><a href="#задание-2-рекурренты-4-балла">Задание 2. Рекурренты (4 балла)</a></li>
+        <li><a href="#задание-3-чтение-c-5-баллов">Задание 3. Чтение C++ (5 баллов)</a></li>
+        <li><a href="#задание-4-амортизация-5-баллов">Задание 4. Амортизация (5 баллов)</a></li>
+        <li><a href="#задание-5-двоичный-поиск-по-ответу-5-баллов">Задание 5. Двоичный поиск по ответу (5 баллов)</a></li>
+        <li><a href="#задание-6-два-указателя-3-балла">Задание 6. Два указателя (3 балла)</a></li>
+      </ul>
+    </li>
+    <li><a href="#стратегия-на-90-минут">Стратегия на 90 минут</a></li>
+    <li><a href="#после-контрольной">После контрольной</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 13. Рубежный контроль № 1</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/13-rk1/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/12-dvoichnyj-poisk/index.html" title="Занятие 12. Двоичный поиск (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/14-umnye-ukazateli/index.html" title="Занятие 14. Умные указатели, функции и лямбды (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-13-рубежный-контроль--1">Занятие 13. Рубежный контроль № 1</h1>
+
+<p>Занятие 13 — первый рубежный контроль: письменная работа по материалу занятий 1–12. Эта страница — всё, что нужно для подготовки: формат, карта тем со ссылками на конспекты, критерии и тренировочный вариант, устроенный ровно как боевой.</p>
+<h2 id="формат">Формат<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ul>
+<li><strong>90 минут</strong>, письменно, без электроники и конспектов.</li>
+<li><strong>6 заданий, 26 баллов</strong>; вес указан у каждого задания, частичные баллы есть везде — пишите рассуждение, даже если ответ не добит.</li>
+<li>Код — на <strong>C++</strong>, не псевдокод. Мелкие синтаксические неточности не штрафуются; логика — да.</li>
+<li>В задачах на двоичный поиск и два указателя <strong>выписанный инвариант обязателен</strong>: решение без инварианта оценивается не выше половины баллов задания.</li>
+<li>Два параллельных варианта, равной сложности.</li>
+</ul>
+<h2 id="карта-заданий">Карта заданий<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<table>
+	<thead>
+			<tr>
+					<th>№</th>
+					<th>Тема</th>
+					<th>Готовиться по</th>
+					<th>Баллы</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>1</td>
+					<td>Сложность: оценить фрагмент, упорядочить функции роста</td>
+					<td><a href="/winter2026/02-slozhnost/index.html">занятию 2</a></td>
+					<td>4</td>
+			</tr>
+			<tr>
+					<td>2</td>
+					<td>Рекурренты: мастер-теорема и случай, где она не работает</td>
+					<td><a href="/winter2026/06-rekurrenty/index.html">занятию 6</a></td>
+					<td>4</td>
+			</tr>
+			<tr>
+					<td>3</td>
+					<td>Чтение C++: что напечатает, почему не компилируется, найди ошибку</td>
+					<td>занятиям <a href="/winter2026/03-tipy-dannyh/index.html">3</a>, <a href="/winter2026/07-klassy-oop/index.html">7</a>, <a href="/winter2026/09-stroki/index.html">9</a>, <a href="/winter2026/11-klyuchevye-slova/index.html">11</a></td>
+					<td>5</td>
+			</tr>
+			<tr>
+					<td>4</td>
+					<td>Амортизация: доказательство банковским методом</td>
+					<td>занятиям <a href="/winter2026/08-struktury-dannyh/index.html">8</a>, <a href="/winter2026/10-amortizaciya/index.html">10</a></td>
+					<td>5</td>
+			</tr>
+			<tr>
+					<td>5</td>
+					<td>Двоичный поиск по ответу: предикат + инвариант + код</td>
+					<td><a href="/winter2026/12-dvoichnyj-poisk/index.html">занятию 12</a></td>
+					<td>5</td>
+			</tr>
+			<tr>
+					<td>6</td>
+					<td>Два указателя: инвариант и подсчёт за O(n)</td>
+					<td>занятиям <a href="/winter2026/10-amortizaciya/index.html">10</a>, <a href="/winter2026/12-dvoichnyj-poisk/index.html">12</a></td>
+					<td>3</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="как-выглядит-решение-на-полный-балл">Как выглядит решение на полный балл<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>В задачах 5–6 проверяется схема рассуждения, а не только код: <strong>предикат → довод монотонности одной фразой → инвариант → сдвиги под инвариант → ответ и сложность</strong>. Инвариант — это и есть решение; код — его расшифровка.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// Предикат: can(d) = [сумма floor(a_i / d) &gt;= k]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Монотонность: d растёт =&gt; каждое слагаемое не растёт
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//   =&gt; can: true...true false...false
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Инвариант: can(l) = true, can(r) = false
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>, r <span style="color:#f92672">=</span> maxA <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> (r <span style="color:#f92672">-</span> l <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> m <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (can(m)) l <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>        r <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">return</span> l;   <span style="color:#75715e">// последний true
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Сложность: O(n log(max a))
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Тот же код без трёх строк комментария — минус половина баллов задания.</p>
+<h2 id="топ-граблей-прошлых-лет">Топ граблей прошлых лет<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>«Два вложенных цикла ⇒ n log n».</strong> Глубины циклов не перемножаются — считается <em>сумма работы</em>. Внешний цикл с удвоением даёт геометрическую прогрессию $1 + 2 + 4 + \dots < 2n$ — это $\Theta(n)$.</li>
+<li><strong><code>(l + r) / 2</code>.</strong> Переполнение — девятилетний баг <code>java.util.Arrays</code>. Только <code>l + (r - l) / 2</code>; в предикатах проверяйте и <code>m * m</code> — спасает сравнение делением <code>m &lt;= n / m</code>.</li>
+<li><strong><code>for (auto x : v) x *= 2;</code></strong> — удваиваются <em>копии</em>, вектор не тронут. Нужен <code>auto&amp;</code>.</li>
+<li><strong>«Амортизация = всегда O(1)».</strong> Нет: отдельная операция бывает $\Theta(n)$; гарантия — на сумму по <strong>худшей серии</strong> операций, без всяких вероятностей.</li>
+</ol>
+<h2 id="тренировочный-вариант">Тренировочный вариант<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Устроен ровно как боевой: те же темы, тот же вес, другие числа. Сначала решите на время — 90 минут без конспекта, — потом открывайте ответы.</p>
+<h3 id="задание-1-сложность-4-балла">Задание 1. Сложность (4 балла)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><strong>a)</strong> Оцените время работы как $\Theta$ от $n$, обоснуйте:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> s <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; i <span style="color:#f92672">&lt;</span> n; i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> n; j <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>; j <span style="color:#f92672">/=</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>        s <span style="color:#f92672">+=</span> j;</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>b)</strong> Упорядочите по скорости роста, отметьте равные: $2^{2\log_2 n}$, $n \log_2 n$, $\sqrt{n} \cdot \sqrt{n}$, $3^n$.</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответы
+  </summary>
+  <div class="box-content">
+<p><strong>a)</strong> $\Theta(n \log n)$: внешний цикл — $n/2$ итераций, внутренний — $\log_2 n$ на каждой, и внутренняя работа не зависит от $i$, поэтому здесь перемножить глубины <em>можно</em>: итого $\frac{n}{2}\log_2 n$. Сравните с ловушкой из граблей, где внутренняя работа растёт вместе с внешним счётчиком — там спасает только сумма.</p>
+<p><strong>b)</strong> $\sqrt{n}\cdot\sqrt{n} = n$ — медленнее всех; затем $n\log_2 n$; затем $2^{2\log_2 n} = n^2$; быстрее всех $3^n$. Равных классов среди перечисленных нет, но два выражения — «замаскированные» степени: $n$ и $n^2$.</p>
+  </div>
+</details>
+<h3 id="задание-2-рекурренты-4-балла">Задание 2. Рекурренты (4 балла)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><strong>a)</strong> Решите основной теоремой (укажите $a$, $b$, $c$ и случай): $T(n) = 2\,T(n/4) + \Theta(\sqrt{n})$.</p>
+<p><strong>b)</strong> Из двух соотношений одно решается основной теоремой, другое — нет. Решите оба и объясните, какое и почему выпадает из теоремы: $T(n) = T(n/2) + \Theta(1)$ и $T(n) = T(n-2) + \Theta(1)$.</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответы
+  </summary>
+  <div class="box-content">
+<p><strong>a)</strong> $a = 2$, $b = 4$, $c = 1/2$. $\log_4 2 = 1/2 = c$ — случай равенства: $T(n) = \Theta(\sqrt{n}\,\log n)$.</p>
+<p><strong>b)</strong> $T(n) = T(n/2) + \Theta(1)$ — это двоичный поиск: $a = 1$, $b = 2$, $c = 0$, $\log_2 1 = 0 = c$ — снова равенство, $\Theta(\log n)$. А для $T(n) = T(n-2) + \Theta(1)$ теорема неприменима (размер уменьшается вычитанием): цепочка глубины $n/2$, итого $\Theta(n)$.</p>
+  </div>
+</details>
+<h3 id="задание-3-чтение-c-5-баллов">Задание 3. Чтение C++ (5 баллов)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><strong>a)</strong> Что напечатает программа и почему?</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">C</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> v;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span>  <span style="color:#a6e22e">get</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> v; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">set</span>(<span style="color:#66d9ef">int</span> v)  { v <span style="color:#f92672">=</span> v; }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    C c{<span style="color:#ae81ff">10</span>};
+</span></span><span style="display:flex;"><span>    c.set(<span style="color:#ae81ff">42</span>);
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> c.get();
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>b)</strong> Автор положил в заголовок <code>utils.h</code> строку <code>static int counter = 0;</code> и включил его в три .cpp-файла, ожидая общий счётчик. Что получилось на самом деле?</p>
+<p><strong>c)</strong> Для каждой строки: компилируется ли, и если да — какой тип:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Level</span> <span style="color:#f92672">:</span> std<span style="color:#f92672">::</span><span style="color:#66d9ef">uint8_t</span> { Low, High };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> a <span style="color:#f92672">=</span> Level<span style="color:#f92672">::</span>Low;          <span style="color:#75715e">// (1)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span>  b <span style="color:#f92672">=</span> Level<span style="color:#f92672">::</span>High;         <span style="color:#75715e">// (2)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> c <span style="color:#f92672">=</span> <span style="color:#ae81ff">7</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2.0</span>;             <span style="color:#75715e">// (3)
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответы
+  </summary>
+  <div class="box-content">
+<p><strong>a)</strong> <strong>10.</strong> В <code>set</code> параметр <code>v</code> затеняет поле: <code>v = v</code> — самоприсваивание параметра, поле не тронуто (clang предупредит: <code>-Wself-assign</code>). Лечение: <code>this-&gt;v = v</code> или другое имя параметра.</p>
+<p><strong>b)</strong> Три <strong>независимых</strong> счётчика — по одному в каждой единице трансляции: <code>static</code> у переменной уровня файла означает внутреннюю линковку, каждый .cpp получает свою копию. Общий счётчик — это <code>inline int counter = 0;</code> (C++17) или extern-объявление с одним определением.</p>
+<p><strong>c)</strong> (1) компилируется, тип <code>Level</code> — auto выводит тип перечисления. (2) <strong>не компилируется</strong>: у enum class нет неявной конверсии в int, нужен <code>static_cast&lt;int&gt;(Level::High)</code>. (3) компилируется, тип <code>double</code>: деление int на double идёт в double — и это 3.5, а не 3.</p>
+  </div>
+</details>
+<h3 id="задание-4-амортизация-5-баллов">Задание 4. Амортизация (5 баллов)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Двоичный счётчик на $k$ битах поддерживает одну операцию — инкремент: он перещёлкивает младшие единицы в нули и первую попавшуюся ноль в единицу.</p>
+<p><strong>a)</strong> Докажите банковским методом, что инкремент имеет амортизированную стоимость $O(1)$: укажите тариф и объясните, почему баланс не уходит в минус.</p>
+<p><strong>b)</strong> Отдельный инкремент может перещёлкнуть все $k$ бит. Сформулируйте точно, что гарантирует амортизированная оценка — и чего она не гарантирует.</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответы
+  </summary>
+  <div class="box-content">
+<p><strong>a)</strong> Тариф — <strong>2 монеты</strong> на инкремент: одна оплачивает установку единицы (ровно один бит за инкремент переходит 0 → 1), вторая кладётся <em>на этот бит</em> — она оплатит его будущее обнуление. Каждое обнуление бита списывает монетку, лежащую на нём с момента установки, — банк неотрицателен. Серия из $m$ инкрементов стоит ≤ $2m$.</p>
+<p><strong>b)</strong> Гарантия: <strong>любая</strong> последовательность из $m$ инкрементов (со стартового нуля) выполняется за $O(m)$ суммарно. Не гарантируется: стоимость отдельного вызова (бывает $\Theta(k)$) и ничего «в среднем по случайным входам» — усреднение здесь по операциям худшей серии, вероятностей нет.</p>
+  </div>
+</details>
+<h3 id="задание-5-двоичный-поиск-по-ответу-5-баллов">Задание 5. Двоичный поиск по ответу (5 баллов)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Найдите наибольшее целое $k$ такое, что $k^3 \le n$, для $n$ до $10^{18}$.</p>
+<p><strong>a)</strong> Предикат, довод монотонности, <strong>инвариант</strong>.</p>
+<p><strong>b)</strong> Функция <code>long long icbrt(long long n)</code>; сложность. Осторожно: $m^3$ для середины $m$ может не влезать в long long — как проверять без переполнения?</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответы
+  </summary>
+  <div class="box-content">
+<p><strong>a)</strong> Предикат ok(k) = $[k^3 \le n]$; монотонность: $k$ растёт ⇒ $k^3$ растёт ⇒ ok: true…true false…false; ищем последний true. Инвариант: ok(l) = true, ok(r) = false; старт $l = 0$ ($0 \le n$), $r = 10^6 + 1$ (при $n \le 10^{18}$ куб $10^6$ — ровно $10^{18}$, дальше заведомо больше). Ответ — l.</p>
+<p><strong>b)</strong></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">icbrt</span>(<span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, r <span style="color:#f92672">=</span> <span style="color:#ae81ff">1&#39;000&#39;001</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// инвариант: l^3 &lt;= n &lt; r^3
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (r <span style="color:#f92672">-</span> l <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> m <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// m^3 &lt;= n  без переполнения: делим, а не умножаем
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (m <span style="color:#f92672">&lt;=</span> n <span style="color:#f92672">/</span> m <span style="color:#f92672">/</span> m) l <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>                r <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> l;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Сложность $O(\log 10^6) \approx 20$ итераций. Проверка <code>m &lt;= n / m / m</code> эквивалентна $m^3 \le n$ с точностью до целочисленного округления вниз — и не переполняется. (Вариант: ограничить $r$ значением $2 \cdot 10^6$ и считать <code>__int128</code>.) Обратите внимание: границу $r$ мы обосновали — «ответом может быть граница диапазона» из чек-листа занятия 12.</p>
+  </div>
+</details>
+<h3 id="задание-6-два-указателя-3-балла">Задание 6. Два указателя (3 балла)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Массив из $n$ <strong>положительных</strong> чисел. Найдите максимальную длину подотрезка с суммой $\le M$ за $O(n)$. <strong>Инвариант окна обязателен.</strong></p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+<p>Это задача с семинара 12 — окно <code>[l, r]</code>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">long</span> <span style="color:#66d9ef">long</span> sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#66d9ef">int</span> best <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, l <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> r <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; r <span style="color:#f92672">&lt;</span> n; r<span style="color:#f92672">++</span>) {
+</span></span><span style="display:flex;"><span>    sum <span style="color:#f92672">+=</span> a[r];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (sum <span style="color:#f92672">&gt;</span> M) sum <span style="color:#f92672">-=</span> a[l<span style="color:#f92672">++</span>];
+</span></span><span style="display:flex;"><span>    best <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>max(best, r <span style="color:#f92672">-</span> l <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><strong>Инвариант:</strong> после внутреннего while сумма на $[l, r]$ не превосходит $M$, и $l$ — минимально возможное для данного $r$ (сдвигать левее нельзя — сумма была бы больше $M$&hellip; точнее: любое меньшее $l$ давало сумму $> M$, положительность элементов гарантирует, что сумма при расширении влево только растёт). Оба указателя движутся только вправо: $r$ — по циклу, $l$ — только внутрь; суммарно ≤ $2n$ шагов ⇒ $O(n)$ — амортизация из занятия 10.</p>
+  </div>
+</details>
+<h2 id="стратегия-на-90-минут">Стратегия на 90 минут<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<table>
+	<thead>
+			<tr>
+					<th>Время</th>
+					<th>Что делаем</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>0–10</td>
+					<td>прочитать <strong>все</strong> задания, пометить лёгкие</td>
+			</tr>
+			<tr>
+					<td>10–35</td>
+					<td>собрать быстрые баллы: задания 1–3</td>
+			</tr>
+			<tr>
+					<td>35–70</td>
+					<td>тяжёлая тройка 4–6, начиная с самой «своей»</td>
+			</tr>
+			<tr>
+					<td>70–85</td>
+					<td>проверка: краевые случаи, инварианты на месте?</td>
+			</tr>
+			<tr>
+					<td>85–90</td>
+					<td>буфер и чистовик</td>
+			</tr>
+	</tbody>
+</table>
+<p>Застряли на десять минут — переключитесь: балл в соседней задаче дешевле. Проверка краёв — как на семинаре 12: массив из двух элементов, массив из одинаковых, пустая структура.</p>
+<h2 id="после-контрольной">После контрольной<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Разбор обоих вариантов — в начале занятия 14; апелляции — неделя после объявления результатов, приходить с работой и конкретным пунктом критериев. Дальше по курсу — умные указатели: занятие 11 обещало «delete на всех путях сделают за нас», посмотрим, как именно.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 10 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="active " data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

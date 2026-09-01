@@ -67,7 +67,7 @@
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
       window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
       // variant stuff
-      window.relearn.themevariants = [ 'green' ];
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -95,19 +95,9 @@
       window.relearn.initVariant();
       window.relearn.markVariant();
     </script> <link href="/css/custom_links.css" rel="stylesheet" />
-  
- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script> 
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
 
   </head>
   <body class="mobile-support html" data-origin="/basics/dynamic_programming/knapsack_problem/index.html">
@@ -190,29 +180,29 @@ $$
 k[j] = \max_{w_i \leqslant j}\bigl(k[j - w_i] + p_i\bigr).
 $$<p>
 Ответ на задачу: $\max_{0 \leqslant j \leqslant W} k[j]$. Получаем решение за $O(nW)$ с $O(W)$ дополнительной памяти.</p>
-<div class="tab-panel" data-tab-group="R-tabs-8d443bd79ae94006e651adef4af33f0e">
+<div class="tab-panel" data-tab-group="R-tabs-c08247dc192c931476968a554f7df415">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-67843814d1499a4c1b09f4597321c097" aria-expanded="true"
+      aria-controls="R-tab-id-53bf2fcb12255bcad7b83b18420ba4ff" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-8d443bd79ae94006e651adef4af33f0e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-c08247dc192c931476968a554f7df415','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-49901cf06ae1649ab51fa9f2439c8c16" aria-expanded="false"
+      aria-controls="R-tab-id-23b9446cc6ec22c731b7f5f28c51cd75" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-8d443bd79ae94006e651adef4af33f0e','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-c08247dc192c931476968a554f7df415','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-67843814d1499a4c1b09f4597321c097"
+      id="R-tab-id-53bf2fcb12255bcad7b83b18420ba4ff"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -243,7 +233,7 @@ $$<p>
       </div>
     </div>
     <div
-      id="R-tab-id-49901cf06ae1649ab51fa9f2439c8c16"
+      id="R-tab-id-23b9446cc6ec22c731b7f5f28c51cd75"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -287,29 +277,29 @@ $$<p>
 </div>
 <h3 id="версия-без-повторений">Версия «без повторений»<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Для того, чтобы не взять один предмет несколько раз, введём дополнительный параметр. Пусть $k[i, j]$ — максимальная возможная суммарная стоимость, если разрешается брать только предметы с номерами не больше $i$, а рюкзак имеет вместимость $j$. Начальные состояния: $k[0, j] = k[i, 0] = 0$. Переход: либо $i$-й предмет входит в ответ, либо нет.</p>
-<div class="tab-panel" data-tab-group="R-tabs-87b21f332276af56eb01c5c151f43b34">
+<div class="tab-panel" data-tab-group="R-tabs-7f0a01d14cd0e5505af72ed422517768">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-0b1abbc0af0bdb0aab562652a7f154f5" aria-expanded="true"
+      aria-controls="R-tab-id-9781999bb76dce4ab9a123eafe9ff904" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-87b21f332276af56eb01c5c151f43b34','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-7f0a01d14cd0e5505af72ed422517768','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-3ad195cd5ab6b0504b9e25067a791df6" aria-expanded="false"
+      aria-controls="R-tab-id-6d50995e2ef78140b8ee75a79fbc03c4" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-87b21f332276af56eb01c5c151f43b34','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-7f0a01d14cd0e5505af72ed422517768','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-0b1abbc0af0bdb0aab562652a7f154f5"
+      id="R-tab-id-9781999bb76dce4ab9a123eafe9ff904"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -342,7 +332,7 @@ $$<p>
       </div>
     </div>
     <div
-      id="R-tab-id-3ad195cd5ab6b0504b9e25067a791df6"
+      id="R-tab-id-6d50995e2ef78140b8ee75a79fbc03c4"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -380,29 +370,29 @@ $$<p>
 </div>
 <h3 id="оптимизация-памяти">Оптимизация памяти<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>При вычислении $k[i, j]$ нужны только значения $k[i-1, q]$ с $q \leqslant j$. Если перебирать $j$ в порядке <strong>убывания</strong>, можно обойтись одномерным массивом: при обработке состояния $(i, j)$ в $k[0..j]$ хранятся значения $k[i-1, 0], \ldots, k[i-1, j]$, а в $k[j+1..W]$ — значения $k[i, j+1], \ldots, k[i, W]$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-3c154ab4a49ab4c644bdddaaa0370905">
+<div class="tab-panel" data-tab-group="R-tabs-efe4eec722a04d48ca67619347def135">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-0a93ae5808b2a9f18e8b5df672cd40f5" aria-expanded="true"
+      aria-controls="R-tab-id-167538e78aca3227d473d96de1633ec6" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-3c154ab4a49ab4c644bdddaaa0370905','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-efe4eec722a04d48ca67619347def135','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-a194a4a65a3ede638ee77a6639e86379" aria-expanded="false"
+      aria-controls="R-tab-id-4d87e8585028a621d585839e2fb3a113" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-3c154ab4a49ab4c644bdddaaa0370905','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-efe4eec722a04d48ca67619347def135','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-0a93ae5808b2a9f18e8b5df672cd40f5"
+      id="R-tab-id-167538e78aca3227d473d96de1633ec6"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -431,7 +421,7 @@ $$<p>
       </div>
     </div>
     <div
-      id="R-tab-id-a194a4a65a3ede638ee77a6639e86379"
+      id="R-tab-id-4d87e8585028a621d585839e2fb3a113"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -543,6 +533,7 @@ $$<p>
             <li class="" data-nav-id="/basics/dynamic_programming/travelling_salesman_problem/index.html"><a class="padding" href="/basics/dynamic_programming/travelling_salesman_problem/index.html">15.8. Задача коммивояжёра</a></li>
             <li class="" data-nav-id="/basics/dynamic_programming/generate_number_by_object/index.html"><a class="padding" href="/basics/dynamic_programming/generate_number_by_object/index.html">15.9. Генерация номера по объекту</a></li>
             <li class="" data-nav-id="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html"><a class="padding" href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">15.10. Рекуррентные соотношения</a></li></ul></li></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
@@ -555,6 +546,22 @@ $$<p>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>

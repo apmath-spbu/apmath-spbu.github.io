@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Строки — самый используемый и самый недопонятый тип данных: под словом «строка» в C&#43;&#43; живут три разных зверя (const char*, std::string, std::string_view), а под словом «символ» — целых четыре понятия. Разбираем всё по слоям, с реальными замерами (Apple M-серия, clang&#43;&#43; -O2).
+Наследие C Массив байтов с секретом в конце">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 9. Строки: от C-стиля до modern C&#43;&#43; :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Строки — самый используемый и самый недопонятый тип данных: под словом «строка» в C&#43;&#43; живут три разных зверя (const char*, std::string, std::string_view), а под словом «символ» — целых четыре понятия. Разбираем всё по слоям, с реальными замерами (Apple M-серия, clang&#43;&#43; -O2).
+Наследие C Массив байтов с секретом в конце">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/09-stroki/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 9. Строки: от C-стиля до modern C&#43;&#43; :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Строки — самый используемый и самый недопонятый тип данных: под словом «строка» в C&#43;&#43; живут три разных зверя (const char*, std::string, std::string_view), а под словом «символ» — целых четыре понятия. Разбираем всё по слоям, с реальными замерами (Apple M-серия, clang&#43;&#43; -O2).
+Наследие C Массив байтов с секретом в конце">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-06T15:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-06T15:00:00+03:00">
+    <meta itemprop="name" content="Занятие 9. Строки: от C-стиля до modern C&#43;&#43; :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Строки — самый используемый и самый недопонятый тип данных: под словом «строка» в C&#43;&#43; живут три разных зверя (const char*, std::string, std::string_view), а под словом «символ» — целых четыре понятия. Разбираем всё по слоям, с реальными замерами (Apple M-серия, clang&#43;&#43; -O2).
+Наследие C Массив байтов с секретом в конце">
+    <meta itemprop="datePublished" content="2026-08-06T15:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-06T15:00:00+03:00">
+    <meta itemprop="wordCount" content="1054">
+    <title>Занятие 9. Строки: от C-стиля до modern C&#43;&#43; :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/09-stroki\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/09-stroki/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#наследие-c">Наследие C</a>
+      <ul>
+        <li><a href="#массив-байтов-с-секретом-в-конце">Массив байтов с секретом в конце</a></li>
+        <li><a href="#литералы-живут-в-rodata">Литералы живут в .rodata</a></li>
+      </ul>
+    </li>
+    <li><a href="#stdstring">std::string</a>
+      <ul>
+        <li><a href="#это-dynarray-для-символов">Это DynArray для символов</a></li>
+        <li><a href="#sso-короткие-строки-не-трогают-кучу">SSO: короткие строки не трогают кучу</a></li>
+        <li><a href="#-против--квадрат-в-невинной-строчке">+= против +: квадрат в невинной строчке</a></li>
+      </ul>
+    </li>
+    <li><a href="#stdstring_view">std::string_view</a>
+      <ul>
+        <li><a href="#окно-в-чужие-символы">Окно в чужие символы</a></li>
+        <li><a href="#таблица-выбора">Таблица выбора</a></li>
+        <li><a href="#повседневные-операции">Повседневные операции</a></li>
+      </ul>
+    </li>
+    <li><a href="#unicode-и-utf-8">Unicode и UTF-8</a>
+      <ul>
+        <li><a href="#краткая-история-хаоса">Краткая история хаоса</a></li>
+        <li><a href="#utf-8">UTF-8</a></li>
+        <li><a href="#привет-под-микроскопом">«Привет» под микроскопом</a></li>
+      </ul>
+    </li>
+    <li><a href="#самопроверка">Самопроверка</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/09-stroki/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/08-struktury-dannyh/index.html" title="Занятие 8. Базовые структуры данных (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/10-amortizaciya/index.html" title="Занятие 10. Амортизационный анализ и динамические структуры (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-9-строки-от-c-стиля-до-modern-c">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</h1>
+
+<p>Строки — самый используемый и самый недопонятый тип данных: под словом «строка» в C++ живут три разных зверя (<code>const char*</code>, <code>std::string</code>, <code>std::string_view</code>), а под словом «символ» — целых четыре понятия. Разбираем всё по слоям, с реальными замерами (Apple M-серия, <code>clang++ -O2</code>).</p>
+<h2 id="наследие-c">Наследие C<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="массив-байтов-с-секретом-в-конце">Массив байтов с секретом в конце<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><img alt="C-строка: байты до нуль-терминатора" class="lazy figure-image" loading="lazy" src="/winter2026/09-stroki/c-string.svg" style="height: auto;width: auto;"></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> s <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Hello&#34;</span>;
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>strlen(s);   <span style="color:#75715e">// 5 — но как он узнал?
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Тип литерала <code>&quot;Hello&quot;</code> — <code>const char[6]</code>: пять букв плюс невидимый <code>'\0'</code>. Длина нигде не хранится — конец обозначает терминатор, поэтому <strong>каждый</strong> <code>strlen</code> — проход по строке за $O(n)$ (занятие 2 передаёт привет). Переход массив → указатель — это decay из занятия 3.</p>
+<p>Три классические ловушки:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>a <span style="color:#f92672">==</span> b;                  <span style="color:#75715e">// 1: сравнили АДРЕСА, не содержимое (нужен strcmp)
+</span></span></span><span style="display:flex;"><span>strcpy(buf, user_input); <span style="color:#75715e">// 2: переполнение буфера — главная дыра XX века
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span> s[<span style="color:#ae81ff">5</span>] <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;H&#39;</span>,<span style="color:#e6db74">&#39;e&#39;</span>,<span style="color:#e6db74">&#39;l&#39;</span>,<span style="color:#e6db74">&#39;l&#39;</span>,<span style="color:#e6db74">&#39;o&#39;</span>};
+</span></span><span style="display:flex;"><span>strlen(s);               <span style="color:#75715e">// 3: &#39;\0&#39; не влез — strlen гуляет по чужой памяти, UB
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="литералы-живут-в-rodata">Литералы живут в .rodata<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Строковые литералы лежат в секции <code>.rodata</code> исполняемого файла (занятие 1) — память только для чтения, время жизни — вся программа. Возвращать <code>const char*</code> на литерал безопасно (в отличие от локального массива — привет, висячие указатели из занятия 5); менять литерал — честный мгновенный крэш. Компилятор <em>может</em> склеивать одинаковые литералы — поэтому сравнение их адресов иногда «работает», а потом внезапно нет.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Зачем это знать, если есть std::string
+  </summary>
+  <div class="box-content">
+<p><code>main(int argc, char* argv[])</code>, системные вызовы и все C-библиотеки говорят на <code>const char*</code>. C-строки — язык границы; внутри программы — современные типы.</p>
+  </div>
+</details>
+<h2 id="stdstring">std::string<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="это-dynarray-для-символов">Это DynArray для символов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><code>std::string</code> — владеющая строка: внутри указатель, size и capacity — вчерашний <code>DynArray</code> (занятие 8) для <code>char</code>, плюс полторы сотни методов. Следствия: <code>size()</code> за $O(1)$ (длина хранится), глубокое копирование, RAII, рост с запасом ×2, автоматический терминатор в конце — для совместимости с C через <code>c_str()</code>.</p>
+<h3 id="sso-короткие-строки-не-трогают-кучу">SSO: короткие строки не трогают кучу<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>sizeof(std::string) = 24
+capacity() пустой строки: 22    # SSO-буфер
+len=22 -&gt; capacity=22           # без аллокации
+len=23 -&gt; capacity=24           # куча!</code></pre></div>
+<p><strong>Small String Optimization:</strong> в 24 байтах объекта прячется буфер — строки до 22 символов (libc++) живут прямо в объекте, копия — это memcpy 24 байт. Байты объекта переиспользуются: либо (ptr, size, capacity), либо сам текст. Вот чем строка отличается от «вектора символов» — инженерия победила чистоту абстракции.</p>
+<h3 id="-против--квадрат-в-невинной-строчке">+= против +: квадрат в невинной строчке<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (...) s <span style="color:#f92672">+=</span> <span style="color:#e6db74">&#39;x&#39;</span>;      <span style="color:#75715e">// дописали в буфер: O(1) амортизированно
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (...) t <span style="color:#f92672">=</span> t <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39;x&#39;</span>;   <span style="color:#75715e">// построили НОВУЮ строку: копия всех i символов
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>s += &#39;x&#39;  (200 000 раз):    0.54 мс
+t = t + &#39;x&#39; (200 000 раз): 354.05 мс     # ×650</code></pre></div>
+<p><code>t + 'x'</code> создаёт новую строку с копированием накопленного: $1 + 2 + \dots + n = \Theta(n^2)$ — «расти на +1» из занятия 8, вид сбоку. Тот же капкан есть в Python и Java (там ради него придумали StringBuilder). Правило: наращиваете — <code>+=</code>/<code>append</code>; знаете итоговый размер — <code>reserve</code>.</p>
+<h2 id="stdstring_view">std::string_view<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="окно-в-чужие-символы">Окно в чужие символы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><img alt="string_view — указатель и длина поверх чужой строки" class="lazy figure-image" loading="lazy" src="/winter2026/09-stroki/string-view.svg" style="height: auto;width: auto;"></p>
+<p><code>string_view</code> — невладеющее «окно»: указатель + длина, всего 16 байт. Смотрит на что угодно — <code>string</code>, литерал, кусок буфера; <code>substr</code> у view — $O(1)$ без копии (у <code>string</code> — копия!).</p>
+<p>Идеальный <strong>тип параметра для чтения</strong>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">log</span>(std<span style="color:#f92672">::</span>string_view msg);
+</span></span><span style="display:flex;"><span>log(<span style="color:#e6db74">&#34;literal&#34;</span>);   <span style="color:#75715e">// 0 копий (const std::string&amp; здесь построил бы string!)
+</span></span></span><span style="display:flex;"><span>log(name);        <span style="color:#75715e">// 0 копий из string
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>И его тёмная сторона — <strong>висячие view</strong>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>string_view bad() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>string s <span style="color:#f92672">=</span> compute();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> s;                      <span style="color:#75715e">// view на труп
+</span></span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>string_view v <span style="color:#f92672">=</span> get_name() <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;!&#34;</span>;  <span style="color:#75715e">// временная строка умерла — v висит
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Правило времени жизни
+  </summary>
+  <div class="box-content">
+<p>View живёт, пока жив владелец символов. Это ссылка из занятия 3 со всеми болезнями висячих указателей: параметры и локальный разбор — да; поля классов и возвраты — почти всегда нет.</p>
+  </div>
+</details>
+<h3 id="таблица-выбора">Таблица выбора<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>задача</th>
+					<th>тип</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>хранить строку (поле, контейнер)</td>
+					<td><code>std::string</code></td>
+			</tr>
+			<tr>
+					<td>читать в функции</td>
+					<td><code>std::string_view</code></td>
+			</tr>
+			<tr>
+					<td>менять в функции</td>
+					<td><code>std::string&amp;</code></td>
+			</tr>
+			<tr>
+					<td>граница с C API</td>
+					<td><code>const char*</code> через <code>c_str()</code></td>
+			</tr>
+	</tbody>
+</table>
+<p>У <code>string_view</code> нет <code>c_str()</code> — терминатор не гарантирован. Дефолт курса: хранение — <code>string</code>, чтение — <code>string_view</code>.</p>
+<h3 id="повседневные-операции">Повседневные операции<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><code>find</code>/<code>rfind</code> (не найдено — <code>npos</code>; сравнивайте с ним, не с −1 — привет, беззнаковый <code>size_t</code>), <code>substr</code>, C++20-шные <code>starts_with</code>/<code>ends_with</code>. Числа ↔ строки: <code>to_string</code>, <code>stoi</code> (бросает исключения), быстрый <code>from_chars</code> — без локалей и исключений.</p>
+<h2 id="unicode-и-utf-8">Unicode и UTF-8<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="краткая-история-хаоса">Краткая история хаоса<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>ASCII (1963) — 7 бит, 128 символов; коды <code>'0'..'9'</code> подряд — отсюда <code>c - '0'</code>. Потом восьмибитные кодовые страницы (КОИ-8, CP1251…) и «кракозябры». С 1991 — Unicode: единый реестр на ~155 тысяч символов. Термины: <strong>код-поинт</strong> — номер символа (<code>U+041F</code> = «П»); <strong>кодировка</strong> — как номера становятся байтами; <strong>графема</strong> — то, что человек видит как один символ.</p>
+<h3 id="utf-8">UTF-8<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>код-поинты</th>
+					<th>байтов</th>
+					<th>раскладка</th>
+					<th>примеры</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>U+0000…U+007F</td>
+					<td>1</td>
+					<td><code>0xxxxxxx</code></td>
+					<td>весь ASCII</td>
+			</tr>
+			<tr>
+					<td>U+0080…U+07FF</td>
+					<td>2</td>
+					<td><code>110xxxxx 10xxxxxx</code></td>
+					<td>кириллица</td>
+			</tr>
+			<tr>
+					<td>U+0800…U+FFFF</td>
+					<td>3</td>
+					<td><code>1110xxxx 10xxxxxx ×2</code></td>
+					<td>иероглифы, ₽</td>
+			</tr>
+			<tr>
+					<td>U+10000…U+10FFFF</td>
+					<td>4</td>
+					<td><code>11110xxx 10xxxxxx ×3</code></td>
+					<td>эмодзи</td>
+			</tr>
+	</tbody>
+</table>
+<p>Два гениальных свойства: ASCII-текст — уже валидный UTF-8, а байты-продолжения всегда <code>10xxxxxx</code> — с любого места можно найти границу символа (самосинхронизация).</p>
+<h3 id="привет-под-микроскопом">«Привет» под микроскопом<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>&#34;Привет&#34;: size() = 12
+D0 9F  D1 80  D0 B8  D0 B2  D0 B5  D1 82
+ П      р      и      в      е      т</code></pre></div>
+<p>Каждая кириллическая буква — 2 байта; <code>size()</code> честно считает <strong>байты</strong>. <code>p[0]</code> — это байт <code>0xD0</code>, не буква «П». Следствие: обрезка по произвольному индексу разрезает символ пополам и даёт невалидный UTF-8 (тот самый «�») — резать можно только по границам символов.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Практический рецепт курса
+  </summary>
+  <div class="box-content">
+<p>Храните текст в <code>std::string</code> с UTF-8. Работайте с целыми подстроками (поиск/сравнение безопасны). Не индексируйте «буквы». Длина в код-поинтах — счёт байтов, не равных продолжениям: <code>(c &amp; 0xC0) != 0x80</code>. Для серьёзной обработки текста (регистры, нормализация) — библиотека ICU: стандартная библиотека C++ этого не умеет.</p>
+  </div>
+</details>
+<h2 id="самопроверка">Самопроверка<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>Почему <code>strlen</code> — $O(n)$, а <code>s.size()</code> — $O(1)$?</li>
+<li><code>if (cmd == &quot;quit&quot;)</code> для <code>const char* cmd</code> — что сравнивается на самом деле?</li>
+<li>Когда <code>string_view</code>-параметр лучше <code>const std::string&amp;</code> — и когда view опасен?</li>
+<li>Сколько байтов займёт строка <code>&quot;π = Пи&quot;</code> в UTF-8?</li>
+</ol>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответы-ориентиры
+  </summary>
+  <div class="box-content">
+<ol>
+<li>У C-строки длина не хранится (ищем <code>'\0'</code>); у <code>std::string</code> — хранится в поле.</li>
+<li>Адрес буфера с адресом литерала — почти всегда false; нужен <code>strcmp</code> или <code>std::string_view(cmd) == &quot;quit&quot;</code>.</li>
+<li>Лучше как параметр чтения: принимает литералы/подстроки без копий. Опасен при хранении и возврате — когда переживает владельца символов.</li>
+<li>π — 2 байта (U+03C0), пробел/=/пробел — 3, «Пи» — 4: итого 9.</li>
+</ol>
+  </div>
+</details>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><code>split(std::string_view s, char sep)</code> → вектор view — без единой копии символов; тесты на пустые части.</li>
+<li><code>utf8_length(std::string_view)</code> — длина в код-поинтах; проверить на «Привет», «héllo», эмодзи.</li>
+<li>Повторить бенчмарк <code>+=</code> против <code>+</code>; объяснить числа через занятие 8.</li>
+<li>* <code>utf8_valid()</code> — проверка корректности байтов по таблице шаблонов.</li>
+</ol>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 6 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="active " data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

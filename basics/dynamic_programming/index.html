@@ -69,7 +69,7 @@
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
       window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
       // variant stuff
-      window.relearn.themevariants = [ 'green' ];
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -97,19 +97,9 @@
       window.relearn.initVariant();
       window.relearn.markVariant();
     </script> <link href="/css/custom_links.css" rel="stylesheet" />
-  
- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script> 
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
 
   </head>
   <body class="mobile-support html" data-origin="/basics/dynamic_programming/index.html">
@@ -218,29 +208,29 @@
 $$
 \operatorname{dist}[v]=\min \left\{\operatorname{dist}[u]+w_{e}: e=(u, v) \in E\right\}
 $$<p>Будем перебирать вершины в порядке топологической сортировки. Тогда все значения $\operatorname{dist}$, встречающиеся в выражении справа, к моменту рассмотрения вершины $v$ уже будут найдены.</p>
-<div class="tab-panel" data-tab-group="R-tabs-07efd5485669879ac1fd49065dcd0d0b">
+<div class="tab-panel" data-tab-group="R-tabs-80ae71f3cce9e4d771b936eeec13d9fe">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-ee8817a2659cfb6f939ae9264dcdcce4" aria-expanded="true"
+      aria-controls="R-tab-id-dd13efe3030bab392c6111ea438e0baa" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-07efd5485669879ac1fd49065dcd0d0b','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-80ae71f3cce9e4d771b936eeec13d9fe','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-c78abbe1004aff55a2956d6820127bdc" aria-expanded="false"
+      aria-controls="R-tab-id-671319618805eb87cd666c7b1b6e3ac2" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-07efd5485669879ac1fd49065dcd0d0b','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-80ae71f3cce9e4d771b936eeec13d9fe','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-ee8817a2659cfb6f939ae9264dcdcce4"
+      id="R-tab-id-dd13efe3030bab392c6111ea438e0baa"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -285,7 +275,7 @@ $$<p>Будем перебирать вершины в порядке топол
       </div>
     </div>
     <div
-      id="R-tab-id-c78abbe1004aff55a2956d6820127bdc"
+      id="R-tab-id-671319618805eb87cd666c7b1b6e3ac2"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -345,29 +335,29 @@ $$<p>Будем перебирать вершины в порядке топол
 <p>На самом деле мы уже встречались с методом динамического программирования: полиномиальный алгоритм вычисления чисел Фибоначчи, <a href="/basics/graphs/graph_shortest_path_algos/index.html">алгоритмы Флойда и Беллмана-Форда</a>, решето Эратосфена — все эти алгоритмы можно интерпретировать как динамическое программирование.</p>
 <h2 id="способ-вычисления-переходов">Способ вычисления переходов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Во многих задачах переходы можно вычислять двумя способами: «вперёд» и «назад». Так, при поиске кратчайшего пути в ациклическом ориентированном графе вместо того, чтобы смотреть «назад» на входящие в вершину рёбра и пересчитывать текущее состояние через предыдущие, мы могли бы смотреть «вперёд» на исходящие из вершины рёбра и пересчитывать следующие состояния через текущее.</p>
-<div class="tab-panel" data-tab-group="R-tabs-4a0fb051fa2b99c23ddd6de5ea71374c">
+<div class="tab-panel" data-tab-group="R-tabs-f134e85d24cb3c6f2b99f129572899a9">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-e2921f92de36b3fa464a37687dd6d5e5" aria-expanded="true"
+      aria-controls="R-tab-id-9217df15b499da3460017cc1994dbcd5" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-4a0fb051fa2b99c23ddd6de5ea71374c','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-f134e85d24cb3c6f2b99f129572899a9','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-d58c742b1a189af45630cef24458a214" aria-expanded="false"
+      aria-controls="R-tab-id-85bc1a69505a53b3486abc8a02631db1" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-4a0fb051fa2b99c23ddd6de5ea71374c','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-f134e85d24cb3c6f2b99f129572899a9','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-e2921f92de36b3fa464a37687dd6d5e5"
+      id="R-tab-id-9217df15b499da3460017cc1994dbcd5"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -404,7 +394,7 @@ $$<p>Будем перебирать вершины в порядке топол
       </div>
     </div>
     <div
-      id="R-tab-id-d58c742b1a189af45630cef24458a214"
+      id="R-tab-id-85bc1a69505a53b3486abc8a02631db1"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -455,29 +445,29 @@ $$<p>Для того, чтобы считать переходы назад, н�
 <p>Второй: ничего не запоминать, а для нахождения оптимального перехода просто перебрать все переходы заново.</p>
 <h2 id="ленивое-динамическое-программирование">Ленивое динамическое программирование<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Вычисление переходов назад можно делать лениво: напишем рекурсивную функцию, делающую рекурсивные вызовы от состояний, которые нужны для вычисления текущего. При этом будем запоминать уже вычисленные значения. Пример ленивого решения задачи поиска кратчайшего пути в ациклическом ориентированном графе:</p>
-<div class="tab-panel" data-tab-group="R-tabs-8819fedddb5563e67957e420c90cbc39">
+<div class="tab-panel" data-tab-group="R-tabs-a2c4ba1cde2f7cf79caee4f4859b9948">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-7767d41d557de50f7547e722f42c281a" aria-expanded="true"
+      aria-controls="R-tab-id-7f1502b20d6d562ef6e76d84032ccadc" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-8819fedddb5563e67957e420c90cbc39','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-a2c4ba1cde2f7cf79caee4f4859b9948','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-df0451a4c94b959b57867942eb3a3a7c" aria-expanded="false"
+      aria-controls="R-tab-id-aa276a0527b7356bfd7c7c377a68da6a" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-8819fedddb5563e67957e420c90cbc39','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-a2c4ba1cde2f7cf79caee4f4859b9948','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-7767d41d557de50f7547e722f42c281a"
+      id="R-tab-id-7f1502b20d6d562ef6e76d84032ccadc"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -534,7 +524,7 @@ $$<p>Для того, чтобы считать переходы назад, н�
       </div>
     </div>
     <div
-      id="R-tab-id-df0451a4c94b959b57867942eb3a3a7c"
+      id="R-tab-id-aa276a0527b7356bfd7c7c377a68da6a"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -738,6 +728,7 @@ $$<p>Для того, чтобы считать переходы назад, н�
             <li class="" data-nav-id="/basics/dynamic_programming/travelling_salesman_problem/index.html"><a class="padding" href="/basics/dynamic_programming/travelling_salesman_problem/index.html">15.8. Задача коммивояжёра</a></li>
             <li class="" data-nav-id="/basics/dynamic_programming/generate_number_by_object/index.html"><a class="padding" href="/basics/dynamic_programming/generate_number_by_object/index.html">15.9. Генерация номера по объекту</a></li>
             <li class="" data-nav-id="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html"><a class="padding" href="/basics/dynamic_programming/recurrence_relations_solving_by_raising_matrix_to_power/index.html">15.10. Рекуррентные соотношения</a></li></ul></li></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
@@ -750,6 +741,22 @@ $$<p>Для того, чтобы считать переходы назад, н�
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>

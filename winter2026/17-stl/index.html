@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Семинар складывает карту стандартной библиотеки. Полконтейнера мы уже построили руками: динамический массив и дек — занятие 8, vector изнутри — занятие 16; сегодня достраиваем остальное и, главное, вешаем на карту настоящие ценники: О-символика молчит о константах, а константы здесь отличаются в сотни раз. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Контейнеры и их цены Карта контейнер устройство a[i] в конец в середину поиск vector непрерывный буфер (зан. 8, 16) O(1) O(1)* O(n) O(n) / O(log n)† deque цепочка блоков (зан. 8: дек) O(1) O(1)* с двух концов O(n) O(n) list двусвязные узлы (зан. 8) — O(1) O(1)‡ O(n) set / map сбалансированное дерево — O(log n) O(log n) O(log n) unordered_set / map хеш-таблица — O(1) в среднем O(1) в среднем O(1) в среднем * — амортизированно (занятие 10) · † — O(log n) бинпоиском после сортировки (занятие 12) · ‡ — сама вставка O(1), но дойти до места — O(n). Устройство дерева и хеш-таблицы — второй семестр; сегодня это контракты с ценами.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 17. Контейнеры и алгоритмы STL :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Семинар складывает карту стандартной библиотеки. Полконтейнера мы уже построили руками: динамический массив и дек — занятие 8, vector изнутри — занятие 16; сегодня достраиваем остальное и, главное, вешаем на карту настоящие ценники: О-символика молчит о константах, а константы здесь отличаются в сотни раз. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Контейнеры и их цены Карта контейнер устройство a[i] в конец в середину поиск vector непрерывный буфер (зан. 8, 16) O(1) O(1)* O(n) O(n) / O(log n)† deque цепочка блоков (зан. 8: дек) O(1) O(1)* с двух концов O(n) O(n) list двусвязные узлы (зан. 8) — O(1) O(1)‡ O(n) set / map сбалансированное дерево — O(log n) O(log n) O(log n) unordered_set / map хеш-таблица — O(1) в среднем O(1) в среднем O(1) в среднем * — амортизированно (занятие 10) · † — O(log n) бинпоиском после сортировки (занятие 12) · ‡ — сама вставка O(1), но дойти до места — O(n). Устройство дерева и хеш-таблицы — второй семестр; сегодня это контракты с ценами.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/17-stl/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 17. Контейнеры и алгоритмы STL :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Семинар складывает карту стандартной библиотеки. Полконтейнера мы уже построили руками: динамический массив и дек — занятие 8, vector изнутри — занятие 16; сегодня достраиваем остальное и, главное, вешаем на карту настоящие ценники: О-символика молчит о константах, а константы здесь отличаются в сотни раз. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Контейнеры и их цены Карта контейнер устройство a[i] в конец в середину поиск vector непрерывный буфер (зан. 8, 16) O(1) O(1)* O(n) O(n) / O(log n)† deque цепочка блоков (зан. 8: дек) O(1) O(1)* с двух концов O(n) O(n) list двусвязные узлы (зан. 8) — O(1) O(1)‡ O(n) set / map сбалансированное дерево — O(log n) O(log n) O(log n) unordered_set / map хеш-таблица — O(1) в среднем O(1) в среднем O(1) в среднем * — амортизированно (занятие 10) · † — O(log n) бинпоиском после сортировки (занятие 12) · ‡ — сама вставка O(1), но дойти до места — O(n). Устройство дерева и хеш-таблицы — второй семестр; сегодня это контракты с ценами.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-12T12:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-12T12:00:00+03:00">
+    <meta itemprop="name" content="Занятие 17. Контейнеры и алгоритмы STL :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Семинар складывает карту стандартной библиотеки. Полконтейнера мы уже построили руками: динамический массив и дек — занятие 8, vector изнутри — занятие 16; сегодня достраиваем остальное и, главное, вешаем на карту настоящие ценники: О-символика молчит о константах, а константы здесь отличаются в сотни раз. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Контейнеры и их цены Карта контейнер устройство a[i] в конец в середину поиск vector непрерывный буфер (зан. 8, 16) O(1) O(1)* O(n) O(n) / O(log n)† deque цепочка блоков (зан. 8: дек) O(1) O(1)* с двух концов O(n) O(n) list двусвязные узлы (зан. 8) — O(1) O(1)‡ O(n) set / map сбалансированное дерево — O(log n) O(log n) O(log n) unordered_set / map хеш-таблица — O(1) в среднем O(1) в среднем O(1) в среднем * — амортизированно (занятие 10) · † — O(log n) бинпоиском после сортировки (занятие 12) · ‡ — сама вставка O(1), но дойти до места — O(n). Устройство дерева и хеш-таблицы — второй семестр; сегодня это контракты с ценами.">
+    <meta itemprop="datePublished" content="2026-08-12T12:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-12T12:00:00+03:00">
+    <meta itemprop="wordCount" content="1736">
+    <title>Занятие 17. Контейнеры и алгоритмы STL :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/17-stl\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/17-stl/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#контейнеры-и-их-цены">Контейнеры и их цены</a>
+      <ul>
+        <li><a href="#карта">Карта</a></li>
+        <li><a href="#замер-1-миллион-вставок-в-конец">Замер 1: миллион вставок в конец</a></li>
+        <li><a href="#замер-2-миллион-проверок-есть-ли-x">Замер 2: миллион проверок «есть ли x?»</a></li>
+        <li><a href="#кто-держит-порядок">Кто держит порядок</a></li>
+      </ul>
+    </li>
+    <li><a href="#итераторы">Итераторы</a>
+      <ul>
+        <li><a href="#один-интерфейс-для-всех-контейнеров">Один интерфейс для всех контейнеров</a></li>
+        <li><a href="#категории-что-итератор-умеет">Категории: что итератор умеет</a></li>
+        <li><a href="#читаем-отказ-sort-не-берёт-list">Читаем отказ: sort не берёт list</a></li>
+      </ul>
+    </li>
+    <li><a href="#алгоритмы">Алгоритмы</a>
+      <ul>
+        <li><a href="#рабочая-дюжина">Рабочая дюжина</a></li>
+        <li><a href="#ловушка-1-тип-аккумулятора-задаёт-init">Ловушка 1: тип аккумулятора задаёт init</a></li>
+        <li><a href="#ловушка-2-sort-не-обещает-порядок-равных">Ловушка 2: sort не обещает порядок равных</a></li>
+        <li><a href="#ловушка-3-remove-ничего-не-удаляет">Ловушка 3: remove ничего не удаляет</a></li>
+      </ul>
+    </li>
+    <li><a href="#компараторы">Компараторы</a></li>
+    <li><a href="#задачи-семинара">Задачи семинара</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 17. Контейнеры и алгоритмы STL</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/17-stl/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/16-vector-chrono-thread/index.html" title="Занятие 16. std::vector, std::chrono, std::thread (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/18-tyomnaya-storona/index.html" title="Занятие 18. Тёмная сторона: reinterpret_cast, union, UB (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-17-контейнеры-и-алгоритмы-stl">Занятие 17. Контейнеры и алгоритмы STL</h1>
+
+<p>Семинар складывает карту стандартной библиотеки. Полконтейнера мы уже построили руками: динамический массив и дек — занятие 8, <code>vector</code> изнутри — занятие 16; сегодня достраиваем остальное и, главное, вешаем на карту <strong>настоящие ценники</strong>: О-символика молчит о константах, а константы здесь отличаются в сотни раз. Замеры реальные (Apple M-серия, <code>clang++ -O2</code>).</p>
+<h2 id="контейнеры-и-их-цены">Контейнеры и их цены<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="карта">Карта<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>контейнер</th>
+					<th>устройство</th>
+					<th><code>a[i]</code></th>
+					<th>в конец</th>
+					<th>в середину</th>
+					<th>поиск</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>vector</code></td>
+					<td>непрерывный буфер (зан. 8, 16)</td>
+					<td>O(1)</td>
+					<td>O(1)*</td>
+					<td>O(n)</td>
+					<td>O(n) / O(log n)†</td>
+			</tr>
+			<tr>
+					<td><code>deque</code></td>
+					<td>цепочка блоков (зан. 8: дек)</td>
+					<td>O(1)</td>
+					<td>O(1)* с двух концов</td>
+					<td>O(n)</td>
+					<td>O(n)</td>
+			</tr>
+			<tr>
+					<td><code>list</code></td>
+					<td>двусвязные узлы (зан. 8)</td>
+					<td>—</td>
+					<td>O(1)</td>
+					<td>O(1)‡</td>
+					<td>O(n)</td>
+			</tr>
+			<tr>
+					<td><code>set</code> / <code>map</code></td>
+					<td>сбалансированное дерево</td>
+					<td>—</td>
+					<td>O(log n)</td>
+					<td>O(log n)</td>
+					<td>O(log n)</td>
+			</tr>
+			<tr>
+					<td><code>unordered_set</code> / <code>map</code></td>
+					<td>хеш-таблица</td>
+					<td>—</td>
+					<td>O(1) в среднем</td>
+					<td>O(1) в среднем</td>
+					<td>O(1) в среднем</td>
+			</tr>
+	</tbody>
+</table>
+<p>* — амортизированно (занятие 10) · † — O(log n) бинпоиском после сортировки (занятие 12) · ‡ — сама вставка O(1), но дойти до места — O(n). Устройство дерева и хеш-таблицы — второй семестр; сегодня это контракты с ценами.</p>
+<h3 id="замер-1-миллион-вставок-в-конец">Замер 1: миллион вставок в конец<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>insert vector:            1.1 мс
+insert deque:             1.1 мс
+insert list:             15.3 мс   # ×14
+insert set:             291.6 мс   # ×265
+insert unordered_set:   113.2 мс   # ×103</code></pre></div>
+<p><code>vector</code>/<code>deque</code> кладут int в готовый буфер — почти бесплатно (амортизация работает). <code>list</code> платит <strong>аллокацией узла</strong> за каждую вставку — ×14. <code>set</code> — аллокация плюс спуск по дереву, где каждый уровень — кэш-промах (занятие 8), — ×265. <code>unordered_set</code> — хеш, корзина и периодический rehash — ×103. Одинаковые «O(1)» и «O(1)» на практике отличаются в сотню раз.</p>
+<h3 id="замер-2-миллион-проверок-есть-ли-x">Замер 2: миллион проверок «есть ли x?»<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># 10^6 элементов, 10^6 запросов
+sorted vector + binary_search:  41.3 мс
+set:                           449.4 мс   # ×11
+unordered_set:                  30.2 мс   # чемпион</code></pre></div>
+<p>Оба «логарифма», а разница ×11: бинпоиск прыгает по <strong>непрерывной</strong> памяти, дерево — по узлам-указателям (занятия 8 и 12). <code>unordered_set</code> — в среднем один прыжок по хешу: быстрее всех, но без порядка и с худшим случаем O(n). Статичные данные + много запросов — отсортированный вектор бьёт дерево по скорости и памяти: приём «инвестиция» из занятия 15.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Правило выбора
+  </summary>
+  <div class="box-content">
+<p>По умолчанию — <code>vector</code> (+ <code>reserve</code>); словарь/множество — <code>unordered_*</code>; нужен порядок, минимум или диапазоны на живых данных — <code>map</code>/<code>set</code>; очередь с двух концов — <code>deque</code>.</p>
+  </div>
+</details>
+<h3 id="кто-держит-порядок">Кто держит порядок<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>           s <span style="color:#f92672">=</span> {<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">8</span>};
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>unordered_set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> u <span style="color:#f92672">=</span> {<span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">17</span>, <span style="color:#ae81ff">99</span>, <span style="color:#ae81ff">8</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> x : s) std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span>;   <span style="color:#75715e">// 3 8 17 50 99  — всегда отсортировано
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> x : u) std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> x <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39; &#39;</span>;   <span style="color:#75715e">// 99 17 8 3 50  — как легло по корзинам
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>У <code>set</code>/<code>map</code> есть <strong>свои</strong> <code>lower_bound</code>/<code>upper_bound</code> — границы из занятия 12 за O(log n) на живом, меняющемся множестве. Ниша <code>deque</code> — очередь: O(1) с обоих концов без переезда. Ниша <code>list</code> — «почти никогда» (занятие 8: обход ×36 медленнее вектора); оправдан, когда итератор уже стоит на месте вставки и адреса обязаны быть стабильными.</p>
+<h2 id="итераторы">Итераторы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="один-интерфейс-для-всех-контейнеров">Один интерфейс для всех контейнеров<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> s <span style="color:#f92672">=</span> {<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">4</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> s.begin(); it <span style="color:#f92672">!=</span> s.end(); <span style="color:#f92672">++</span>it)
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>it;                     <span style="color:#75715e">// как указатель: *, ++
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> pos <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>find(s.begin(), s.end(), <span style="color:#ae81ff">4</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (pos <span style="color:#f92672">!=</span> s.end()) { <span style="color:#75715e">/* нашли */</span> }</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Итератор — <strong>обобщённый указатель</strong>: у вектора это почти буквально указатель, у списка — обёртка над узлом, у дерева — позиция обхода. Диапазон — всегда полуинтервал [begin, end): конвенция занятий 12 и 15 оказалась конвенцией всей STL. <code>end()</code> — не последний элемент, а <strong>сентинель за краем</strong>: «не нашли» = <code>end()</code>, ровно как ±∞ в бинпоиске. Инвалидация из занятия 16 — общая тема: у вектора при переезде рвётся всё, у list/set/map — только итератор удалённого элемента.</p>
+<h3 id="категории-что-итератор-умеет">Категории: что итератор умеет<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>категория</th>
+					<th>умеет</th>
+					<th>кто выдаёт</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>forward</td>
+					<td><code>++</code>, <code>*</code>, сравнение на ==</td>
+					<td><code>forward_list</code>, <code>unordered_set/map</code></td>
+			</tr>
+			<tr>
+					<td>bidirectional</td>
+					<td>+ <code>--</code></td>
+					<td><code>list</code>, <code>set</code>, <code>map</code></td>
+			</tr>
+			<tr>
+					<td>random access</td>
+					<td>+ <code>it + k</code>, <code>it[k]</code>, <code>it2 - it1</code>, <code>&lt;</code></td>
+					<td><code>vector</code>, <code>deque</code>, <code>string</code>, массив</td>
+			</tr>
+	</tbody>
+</table>
+<p>Категория — это <strong>контракт</strong>: алгоритм объявляет минимальные требования. <code>std::sort</code> требует random access — ему нужны прыжки к середине. Занятие 12 говорило «бинпоиск за O(log n) — только на random access»: категория определяет не только «скомпилируется ли», но и цену.</p>
+<h3 id="читаем-отказ-sort-не-берёт-list">Читаем отказ: sort не берёт list<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>list<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> l <span style="color:#f92672">=</span> {<span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>};
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>sort(l.begin(), l.end());   <span style="color:#75715e">// ошибка!
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>.../make_heap.h:35: error: invalid operands to binary expression
+  (&#39;std::__list_iterator&lt;int, void *&gt;&#39; and &#39;std::__list_iterator&lt;int, void *&gt;&#39;)</code></pre></div>
+<p>Ошибка прилетает <strong>из недр библиотеки</strong> (make_heap.h!), не из вашей строки: sort попытался вычесть list-итераторы, а такой операции нет. Навык чтения простыни ошибок: найти свою строку и первый «invalid operands». Лечение — собственный <code>l.sort()</code>: сортировка слиянием по узлам. Коварнее случаи, которые компилируются: <code>std::distance</code> и <code>std::advance</code> на списке работают — но за O(n). Категория решает цену молча.</p>
+<h2 id="алгоритмы">Алгоритмы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="рабочая-дюжина">Рабочая дюжина<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>вызов</th>
+					<th>что делает</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>std::sort(v.begin(), v.end())</code></td>
+					<td>отсортировать; + компаратор третьим аргументом</td>
+			</tr>
+			<tr>
+					<td><code>std::stable_sort(...)</code></td>
+					<td>то же, равные не переставляются</td>
+			</tr>
+			<tr>
+					<td><code>std::lower_bound / upper_bound</code></td>
+					<td>границы вхождений (занятие 12) — на отсортированном</td>
+			</tr>
+			<tr>
+					<td><code>std::min_element / max_element</code></td>
+					<td>итератор на минимум/максимум</td>
+			</tr>
+			<tr>
+					<td><code>std::count / count_if</code></td>
+					<td>сколько равных x / сколько удовлетворяют предикату</td>
+			</tr>
+			<tr>
+					<td><code>std::find / find_if</code></td>
+					<td>первый равный / первый подходящий (или <code>end</code>)</td>
+			</tr>
+			<tr>
+					<td><code>std::accumulate(..., init)</code></td>
+					<td>сумма (свёртка) — из <code>&lt;numeric&gt;</code></td>
+			</tr>
+			<tr>
+					<td><code>std::reverse / std::unique</code></td>
+					<td>развернуть / сжать подряд идущие дубликаты</td>
+			</tr>
+	</tbody>
+</table>
+<p>Все берут полуинтервал, многие — предикат-лямбду из занятия 14. Сырой цикл, заменимый одной строкой отсюда, почти всегда стоит заменить: меньше мест для ошибки на единицу.</p>
+<h3 id="ловушка-1-тип-аккумулятора-задаёт-init">Ловушка 1: тип аккумулятора задаёт init<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v(<span style="color:#ae81ff">3&#39;000&#39;000</span>, <span style="color:#ae81ff">1000</span>);        <span style="color:#75715e">// честная сумма: 3·10⁹ &gt; INT_MAX
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>accumulate(v.begin(), v.end(), <span style="color:#ae81ff">0</span>);     <span style="color:#75715e">// аккумулятор — int, как у нуля!
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>accumulate(v.begin(), v.end(), <span style="color:#ae81ff">0LL</span>);   <span style="color:#75715e">// аккумулятор — long long
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>accumulate(..., 0):   -1294967296   # переполнение
+accumulate(..., 0LL): 3000000000    # верно</code></pre></div>
+<p>Тип суммы <code>accumulate</code> выводит <strong>из третьего аргумента</strong>, а не из элементов. Одна буква <code>LL</code> отделяет верный ответ от занятия 3 с минусом. Дисциплина та же, что у префиксных сумм занятия 15: суммы живут в long long. Общий урок обобщённого кода: типы выводятся из аргументов — проверяйте, из каких.</p>
+<h3 id="ловушка-2-sort-не-обещает-порядок-равных">Ловушка 2: sort не обещает порядок равных<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Сортируем студентов (оценка, номер в журнале) <strong>только по оценке</strong>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>sort:        порядок равных ПЕРЕМЕШАН   → оценка 3, номера: 39 3 27 9 12 15 ...
+stable_sort: порядок равных сохранён    → оценка 3, номера: 0 3 6 9 12 15 ...
+
+sort 10^7:        177 мс
+stable_sort 10^7: 167 мс</code></pre></div>
+<p><strong>Стабильность</strong> — сохранение исходного порядка элементов с равными ключами. <code>sort</code> её не обещает — и уже на 40 элементах перемешал. Когда важна: каскадная сортировка «по главному ключу, внутри — по второстепенному» (сортируем по второстепенному, затем <strong>stable</strong> по главному). Цена на наших данных около нуля — но stable_sort может требовать O(n) дополнительной памяти. И осторожно: на маленьких массивах sort часто «случайно стабилен» — гарантия есть только у stable_sort.</p>
+<h3 id="ловушка-3-remove-ничего-не-удаляет">Ловушка 3: remove ничего не удаляет<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">3</span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>remove(v.begin(), v.end(), <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// v = {1, 2, 3, ?, ?}  — size() всё ещё 5!
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>v.erase(std<span style="color:#f92672">::</span>remove(v.begin(), v.end(), <span style="color:#ae81ff">0</span>), v.end());   <span style="color:#75715e">// идиома erase–remove
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// v = {1, 2, 3}
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>erase(v, <span style="color:#ae81ff">0</span>);                                       <span style="color:#75715e">// C++20: одной строкой
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>erase_if(v, [](<span style="color:#66d9ef">int</span> x){ <span style="color:#66d9ef">return</span> x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>; });</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Алгоритм видит <strong>только итераторы</strong> — он не знает, в каком контейнере живёт диапазон, и не может менять его размер. Поэтому <code>remove</code> лишь переупаковывает нужное в начало и возвращает границу «нового конца», а отрезает хвост сам контейнер. Забытый <code>erase</code> — прежний размер и мусор в хвосте: классика код-ревью. C++20 закрыл вопрос парой <code>std::erase</code> / <code>std::erase_if</code>.</p>
+<h2 id="компараторы">Компараторы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Student</span> { std<span style="color:#f92672">::</span>string name; <span style="color:#66d9ef">int</span> height; };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// по имени; при равенстве — по росту:
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>sort(v.begin(), v.end(),
+</span></span><span style="display:flex;"><span>    [](<span style="color:#66d9ef">const</span> Student<span style="color:#f92672">&amp;</span> a, <span style="color:#66d9ef">const</span> Student<span style="color:#f92672">&amp;</span> b) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> std<span style="color:#f92672">::</span>tie(a.name, a.height) <span style="color:#f92672">&lt;</span> std<span style="color:#f92672">::</span>tie(b.name, b.height);
+</span></span><span style="display:flex;"><span>    });</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Компаратор — третий аргумент: функтор из занятия 16 или лямбда из занятия 14. <code>std::tie</code> даёт каскад ключей одной строкой — лексикографическое сравнение ссылок на поля. Для «естественного» порядка типа лучше <code>operator&lt;=&gt;</code> со <code>= default</code> (занятие 16); для ситуативного — лямбда на месте.</p>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    Компаратор обязан быть строгим
+  </summary>
+  <div class="box-content">
+<p>«Меньше» — да, «меньше или равно» — <strong>нельзя</strong>: с <code>&lt;=</code> равные элементы отвечают «a&lt;b и b&lt;a — оба истинны», нарушая строгий слабый порядок, и sort вправе выйти за границы массива. Это не вопрос стиля — это UB. Быстрая проверка: <code>cmp(x, x)</code> обязан вернуть <code>false</code>.</p>
+  </div>
+</details>
+<h2 id="задачи-семинара">Задачи семинара<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>
+<p><strong>Топ-3 слова.</strong> Дан текст — найти три самых частых слова. <code>unordered_map&lt;string,int&gt;</code> для счёта → перекладка в вектор пар → <code>sort</code> с компаратором по убыванию счёта. Почему на счёте unordered, а не map?</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Разбор
+  </summary>
+  <div class="box-content">
+Порядок при подсчёте не нужен — нужен только быстрый доступ по ключу, а это средний O(1) хеш-таблицы против O(log n) дерева с кэш-промахами (наш замер: ×11 на поиске). Сортировка нужна лишь в конце и по <em>значению</em>, а не по ключу — её всё равно делать отдельно: <code>std::partial_sort</code> на топ-3 или полный sort вектора пар с лямбдой <code>[](auto&amp; a, auto&amp; b){ return a.second &gt; b.second; }</code>.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Пересечение массивов</strong> по 10⁶ — тремя способами: sort + два указателя (занятие 12), <code>set</code>, <code>unordered_set</code>. До запуска предскажите порядок скоростей по замерам занятия.</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Разбор
+  </summary>
+  <div class="box-content">
+Ожидание из замеров: unordered_set (строим за ~113 мс, 10⁶ count по ~30 нс) ≈ sort+два указателя (две сортировки по ~20 мс на 10⁶ + линейное слияние, всё в непрерывной памяти) — оба сильно впереди set (вставка ×265, поиск ×11). Точный победитель между первыми двумя зависит от данных: сортировка выигрывает на повторных запросах (инвестиция), хеш — на разовой операции. Ключевой навык — предсказать <em>порядок</em> и объяснить его памятью, а не угадать миллисекунды.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Дубликаты, но порядок.</strong> Удалить дубликаты, сохранив порядок первых вхождений: {3, 1, 3, 2, 1} → {3, 1, 2}.</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Разбор
+  </summary>
+  <div class="box-content">
+<p><code>std::unique</code> не подходит: он сжимает только <em>подряд идущие</em> дубликаты, а сортировка убьёт порядок. Решение — множество «уже видел» плюс erase_if:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>unordered_set<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> seen;
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>erase_if(v, [<span style="color:#f92672">&amp;</span>seen](<span style="color:#66d9ef">int</span> x) { <span style="color:#66d9ef">return</span> <span style="color:#f92672">!</span>seen.insert(x).second; });</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>insert</code> возвращает пару (итератор, «вставилось ли»): второе вхождение не вставляется — предикат истинен — элемент удаляется. Порядок остальных сохранён: erase_if стабилен.</p>
+  </div>
+</details>
+</li>
+</ol>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>Частотный анализ:</strong> топ-10 слов текстового файла (unordered_map + sort с компаратором; при равной частоте — алфавитный порядок через <code>std::tie</code>).</li>
+<li><strong>Пересечение и разность</strong> двух массивов тремя способами + таблица замеров своей машины по методике занятия 16.</li>
+<li><strong>Каскадная сортировка:</strong> журнал (фамилия, группа, оценка) — по группе, внутри по убыванию оценки, внутри по фамилии: одним компаратором с <code>tie</code> и последовательностью stable_sort; докажите совпадение результатов.</li>
+<li><strong>Чистка циклов:</strong> найдите в своих прошлых ДЗ три сырых цикла и перепишите на <code>count_if</code> / <code>min_element</code> / <code>accumulate</code>; приложите ссылки на коммиты до/после.</li>
+<li>* <strong>Хеш для пары:</strong> положите <code>pair&lt;int,int&gt;</code> в <code>unordered_set</code> — напишите свою хеш-функцию и объясните, чем плоха <code>h = x ^ y</code> (подсказка: что будет на парах (a, a)?).</li>
+</ol>
+<p>Следующее занятие — <strong>тёмная сторона</strong>: <code>reinterpret_cast</code>, <code>union</code>, неопределённое поведение и выравнивание данных. Посмотрим, что лежит под типами, — и почему компилятор вправе удалить ваш код целиком.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 12 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="active " data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

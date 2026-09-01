@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="В C&#43;&#43;20 — 81 ключевое слово, а смыслов заметно больше: новое слово ломает чей-то старый код (у кого-то это было имя переменной), поэтому комитет предпочитает переиспользовать старые слова в новых позициях. static тянется из C 1972 года и накопил три смысла; auto сорок лет пылился без дела и в C&#43;&#43;11 получил новую работу. Правило лекции: смысл определяет место в объявлении, а не слово само по себе. Хорошая новость — большинство смыслов нам уже встречались, сегодня раскладываем всё по полкам. Замеры в тексте реальные (Apple M-серия, clang&#43;&#43; -O2).">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 11. Ключевые слова: волшебные слова C&#43;&#43; :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="В C&#43;&#43;20 — 81 ключевое слово, а смыслов заметно больше: новое слово ломает чей-то старый код (у кого-то это было имя переменной), поэтому комитет предпочитает переиспользовать старые слова в новых позициях. static тянется из C 1972 года и накопил три смысла; auto сорок лет пылился без дела и в C&#43;&#43;11 получил новую работу. Правило лекции: смысл определяет место в объявлении, а не слово само по себе. Хорошая новость — большинство смыслов нам уже встречались, сегодня раскладываем всё по полкам. Замеры в тексте реальные (Apple M-серия, clang&#43;&#43; -O2).">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/11-klyuchevye-slova/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 11. Ключевые слова: волшебные слова C&#43;&#43; :: Краткий курс по основам программирования">
+    <meta property="og:description" content="В C&#43;&#43;20 — 81 ключевое слово, а смыслов заметно больше: новое слово ломает чей-то старый код (у кого-то это было имя переменной), поэтому комитет предпочитает переиспользовать старые слова в новых позициях. static тянется из C 1972 года и накопил три смысла; auto сорок лет пылился без дела и в C&#43;&#43;11 получил новую работу. Правило лекции: смысл определяет место в объявлении, а не слово само по себе. Хорошая новость — большинство смыслов нам уже встречались, сегодня раскладываем всё по полкам. Замеры в тексте реальные (Apple M-серия, clang&#43;&#43; -O2).">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-10T12:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-10T12:00:00+03:00">
+    <meta itemprop="name" content="Занятие 11. Ключевые слова: волшебные слова C&#43;&#43; :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="В C&#43;&#43;20 — 81 ключевое слово, а смыслов заметно больше: новое слово ломает чей-то старый код (у кого-то это было имя переменной), поэтому комитет предпочитает переиспользовать старые слова в новых позициях. static тянется из C 1972 года и накопил три смысла; auto сорок лет пылился без дела и в C&#43;&#43;11 получил новую работу. Правило лекции: смысл определяет место в объявлении, а не слово само по себе. Хорошая новость — большинство смыслов нам уже встречались, сегодня раскладываем всё по полкам. Замеры в тексте реальные (Apple M-серия, clang&#43;&#43; -O2).">
+    <meta itemprop="datePublished" content="2026-08-10T12:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-10T12:00:00+03:00">
+    <meta itemprop="wordCount" content="2668">
+    <title>Занятие 11. Ключевые слова: волшебные слова C&#43;&#43; :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/11-klyuchevye-slova\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/11-klyuchevye-slova/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#const-и-его-семья">const и его семья</a>
+      <ul>
+        <li><a href="#const-в-объявлениях-читаем-справа-налево">const в объявлениях: читаем справа налево</a></li>
+        <li><a href="#const-методы-и-перегрузка-по-константности">const-методы и перегрузка по константности</a></li>
+        <li><a href="#mutable-лазейка-для-логической-константности">mutable: лазейка для логической константности</a></li>
+        <li><a href="#constexpr-вычислено-до-запуска">constexpr: вычислено до запуска</a></li>
+      </ul>
+    </li>
+    <li><a href="#static-одно-слово-три-смысла">static: одно слово, три смысла</a>
+      <ul>
+        <li><a href="#смысл-1-локальная-static-переменная-жизнь-между-вызовами">Смысл 1. Локальная static-переменная: жизнь между вызовами</a></li>
+        <li><a href="#смысл-2-static-в-файле-внутренняя-линковка">Смысл 2. static в файле: внутренняя линковка</a></li>
+        <li><a href="#смысл-3-static-члены-класса-один-на-класс">Смысл 3. static-члены класса: один на класс</a></li>
+        <li><a href="#сводная-таблица-static">Сводная таблица static</a></li>
+      </ul>
+    </li>
+    <li><a href="#this-скрытый-параметр-каждого-метода">this: скрытый параметр каждого метода</a></li>
+    <li><a href="#new-и-delete-ручное-управление-памятью">new и delete: ручное управление памятью</a>
+      <ul>
+        <li><a href="#механика">Механика</a></li>
+        <li><a href="#четыре-классические-катастрофы">Четыре классические катастрофы</a></li>
+        <li><a href="#почему-просто-не-забывай-delete-не-работает">Почему «просто не забывай delete» не работает</a></li>
+      </ul>
+    </li>
+    <li><a href="#auto-вывод-типа">auto: вывод типа</a>
+      <ul>
+        <li><a href="#auto-молча-копирует">auto молча копирует</a></li>
+        <li><a href="#где-auto-уместен--и-где-подводит">Где auto уместен — и где подводит</a></li>
+      </ul>
+    </li>
+    <li><a href="#enum-и-enum-class">enum и enum class</a>
+      <ul>
+        <li><a href="#старый-enum-два-врождённых-дефекта">Старый enum: два врождённых дефекта</a></li>
+        <li><a href="#enum-class-перечисление-с-манерами">enum class: перечисление с манерами</a></li>
+      </ul>
+    </li>
+    <li><a href="#проверьте-себя">Проверьте себя</a></li>
+    <li><a href="#итоги-инвентаризация">Итоги: инвентаризация</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/11-klyuchevye-slova/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/10-amortizaciya/index.html" title="Занятие 10. Амортизационный анализ и динамические структуры (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/12-dvoichnyj-poisk/index.html" title="Занятие 12. Двоичный поиск (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-11-ключевые-слова-волшебные-слова-c">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</h1>
+
+<p>В C++20 — 81 ключевое слово, а смыслов заметно больше: новое слово ломает чей-то старый код (у кого-то это было имя переменной), поэтому комитет предпочитает переиспользовать старые слова в новых позициях. <code>static</code> тянется из C 1972 года и накопил три смысла; <code>auto</code> сорок лет пылился без дела и в C++11 получил новую работу. Правило лекции: <strong>смысл определяет место в объявлении</strong>, а не слово само по себе. Хорошая новость — большинство смыслов нам уже встречались, сегодня раскладываем всё по полкам. Замеры в тексте реальные (Apple M-серия, <code>clang++ -O2</code>).</p>
+<h2 id="const-и-его-семья">const и его семья<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="const-в-объявлениях-читаем-справа-налево">const в объявлениях: читаем справа налево<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Приём из занятия 3 — объявление читается справа налево:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>x;       <span style="color:#75715e">// указатель на const int: *p менять нельзя, p — можно
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> <span style="color:#66d9ef">const</span> q <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>x;       <span style="color:#75715e">// const-указатель на int:  q менять нельзя, *q — можно
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> <span style="color:#66d9ef">const</span> r <span style="color:#f92672">=</span> <span style="color:#f92672">&amp;</span>x; <span style="color:#75715e">// нельзя ни то, ни другое
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>const</code> слева от <code>*</code> защищает <strong>данные</strong>, справа — сам <strong>указатель</strong>. Параметры-ссылки из занятия 5 — тот же механизм: <code>const BigInt&amp;</code> означает «смотреть можно, трогать нельзя, копии нет».</p>
+<p>Главное: const — это <strong>контракт, который проверяет компилятор</strong>. Нарушение — ошибка компиляции, а не сюрприз в рантайме. Поэтому правило курса: всё, что не должно меняться, помечаем const — компилятор работает бесплатным ревьюером.</p>
+<h3 id="const-методы-и-перегрузка-по-константности">const-методы и перегрузка по константности<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><code>const</code> после скобок метода (занятие 7) обещает: «метод не меняет объект». Через <code>const Account&amp;</code> можно позвать <strong>только</strong> const-методы — константность заразительна, и это хорошо: она распространяет гарантию по всей цепочке вызовов.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Account</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> balance() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> balance_; }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deposit</span>(<span style="color:#66d9ef">long</span> v) { balance_ <span style="color:#f92672">+=</span> v; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// перегрузка ПО КОНСТАНТНОСТИ — так живёт std::string:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">char</span><span style="color:#f92672">&amp;</span> front();               <span style="color:#75715e">// для обычного объекта
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">&amp;</span> front() <span style="color:#66d9ef">const</span>;   <span style="color:#75715e">// для const-объекта
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">long</span> balance_;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">audit</span>(<span style="color:#66d9ef">const</span> Account<span style="color:#f92672">&amp;</span> a) {
+</span></span><span style="display:flex;"><span>    a.balance();   <span style="color:#75715e">// ок
+</span></span></span><span style="display:flex;"><span>    a.deposit(<span style="color:#ae81ff">1</span>);  <span style="color:#75715e">// ошибка компиляции
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Перегрузка по const — обычное дело в стандартной библиотеке: у <code>std::string::front()</code> (занятие 9) две версии, изменяемая и читающая.</p>
+<p>Но «не меняет» — в каком смысле? Не меняется <strong>ни один байт</strong> (физическая константность) или <strong>снаружи изменений не видно</strong> (логическая)? C++ по умолчанию требует физическую — и для честных исключений из правила существует <code>mutable</code>.</p>
+<h3 id="mutable-лазейка-для-логической-константности">mutable: лазейка для логической константности<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Polygon</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">double</span> area() <span style="color:#66d9ef">const</span> {              <span style="color:#75715e">// логически — чтение
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>cached_) {
+</span></span><span style="display:flex;"><span>            area_   <span style="color:#f92672">=</span> heavyCompute();  <span style="color:#75715e">// физически — запись!
+</span></span></span><span style="display:flex;"><span>            cached_ <span style="color:#f92672">=</span> true;            <span style="color:#75715e">// mutable разрешает
+</span></span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> area_;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Point<span style="color:#f92672">&gt;</span> pts_;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">mutable</span> <span style="color:#66d9ef">double</span> area_;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">mutable</span> <span style="color:#66d9ef">bool</span>   cached_ <span style="color:#f92672">=</span> false;
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>mutable</code>-поле можно менять даже в const-методе. Снаружи <code>area()</code> ведёт себя как чистое чтение — результат тот же, объект «не изменился»: логическая константность соблюдена, а тяжёлое вычисление выполняется один раз.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Тест на честность mutable
+  </summary>
+  <div class="box-content">
+<p>Два подряд вызова const-метода обязаны дать одинаковый ответ. Легитимные применения — кэши, счётчики обращений, mutex (встретится в теме параллельности). Если mutable меняет наблюдаемое состояние — это ложь в интерфейсе.</p>
+  </div>
+</details>
+<h3 id="constexpr-вычислено-до-запуска">constexpr: вычислено до запуска<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><code>const</code> обещает «не изменится», <code>constexpr</code> — сильнее: «значение известно на этапе компиляции».</p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th><code>const</code></th>
+					<th><code>constexpr</code></th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>обещание</td>
+					<td>«не изменится»</td>
+					<td>«известно до запуска»</td>
+			</tr>
+			<tr>
+					<td>инициализация</td>
+					<td>хоть в рантайме</td>
+					<td>только компилятайм</td>
+			</tr>
+			<tr>
+					<td>пример</td>
+					<td><code>const int x = rand();</code></td>
+					<td><code>constexpr int x = 60;</code></td>
+			</tr>
+	</tbody>
+</table>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">constexpr</span> <span style="color:#66d9ef">long</span> <span style="color:#a6e22e">fact</span>(<span style="color:#66d9ef">int</span> n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">:</span> n <span style="color:#f92672">*</span> fact(n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static_assert</span>(fact(<span style="color:#ae81ff">10</span>) <span style="color:#f92672">==</span> <span style="color:#ae81ff">3&#39;628&#39;800</span>);  <span style="color:#75715e">// проверил КОМПИЛЯТОР: в бинарнике вычисления нет
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> table[fact(<span style="color:#ae81ff">5</span>)];                    <span style="color:#75715e">// размер массива: 120, известен на компиляции
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> runtime_n; std<span style="color:#f92672">::</span>cin <span style="color:#f92672">&gt;&gt;</span> runtime_n;
+</span></span><span style="display:flex;"><span>fact(runtime_n);                       <span style="color:#75715e">// и в рантайме тоже работает
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>constexpr</code>-функция вычисляется на компиляции, когда аргументы известны, — и остаётся обычной функцией в рантайме. <code>static_assert</code> — юнит-тест, работающий при каждой сборке: ошибка не доживает до запуска. Идея «сдвинуть работу на компиляцию» уже встречалась в занятии 1 — препроцессор; constexpr — её честная, типизированная версия.</p>
+<h2 id="static-одно-слово-три-смысла">static: одно слово, три смысла<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="смысл-1-локальная-static-переменная-жизнь-между-вызовами">Смысл 1. Локальная static-переменная: жизнь между вызовами<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">next_id</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> counter <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;   <span style="color:#75715e">// инициализация — ОДИН раз, при первом вызове
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">++</span>counter;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> next_id() <span style="color:#f92672">&lt;&lt;</span> next_id() <span style="color:#f92672">&lt;&lt;</span> next_id();   <span style="color:#75715e">// 123
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Обычная локальная переменная умирает вместе с кадром стека (занятие 5). <code>static</code>-локальная живёт в сегменте данных программы — как глобальная, но имя видно только внутри функции. Инициализация <strong>ленивая</strong> (при первом проходе через объявление) и с C++11 потокобезопасная — это гарантирует стандарт («magic statics»).</p>
+<p>Честные применения: счётчики, единственный тяжёлый ресурс, мемоизация. Обратная сторона: это <strong>скрытое глобальное состояние</strong> — функция перестаёт быть «чистой», результат зависит от истории вызовов, тесты начинают зависеть от порядка запуска.</p>
+<h3 id="смысл-2-static-в-файле-внутренняя-линковка">Смысл 2. static в файле: внутренняя линковка<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// linkage.cpp
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> hidden <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;      <span style="color:#75715e">// виден только этому файлу
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> visible <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span>;            <span style="color:#75715e">// виден всей программе
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">helper</span>() { <span style="color:#66d9ef">return</span> hidden; }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">api</span>()           { <span style="color:#66d9ef">return</span> helper(); }</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Занятие 1: линкер сшивает объектные файлы по таблицам символов. <code>static</code> у имени уровня файла <strong>прячет символ от линкера</strong> — в <code>nm</code> буква типа становится строчной:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>$ nm linkage.o | c++filt
+0000000000000000 T api()      # T — внешний символ
+0000000000000014 t helper()   # t — внутренний
+0000000000000024 d hidden
+0000000000000020 D _visible</code></pre></div>
+<p>Два разных .cpp со <code>static int counter</code> — две <strong>разные</strong> переменные: конфликта имён при линковке нет, каждая единица трансляции живёт со своей.</p>
+
+<details open class="box cstyle notices warning">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-exclamation-triangle"></i> 
+    static в заголовке
+  </summary>
+  <div class="box-content">
+<p><code>static</code>-переменная, объявленная в .h, — это своя копия в <strong>каждом</strong> .cpp, который его включил. Классическая ошибка: «общий» счётчик, который у каждого файла свой.</p>
+  </div>
+</details>
+<p>Современный синоним внутренней линковки — анонимное пространство имён <code>namespace { ... }</code>: работает не только для переменных и функций, но и для типов.</p>
+<h3 id="смысл-3-static-члены-класса-один-на-класс">Смысл 3. static-члены класса: один на класс<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Widget</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    Widget()  { <span style="color:#f92672">++</span>alive_; }
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">~</span>Widget() { <span style="color:#f92672">--</span>alive_; }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> <span style="color:#a6e22e">alive</span>() { <span style="color:#66d9ef">return</span> alive_; }   <span style="color:#75715e">// зовётся БЕЗ объекта, this не существует
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">private</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">inline</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> alive_ <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;           <span style="color:#75715e">// C++17: определение прямо в классе
+</span></span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Widget a, b;
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> Widget<span style="color:#f92672">::</span>alive();   <span style="color:#75715e">// 2 — обращаемся через имя класса
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Обычное поле — у каждого объекта своё (занятие 7). static-поле — <strong>одно на весь класс</strong>, живёт вне объектов; <code>sizeof(Widget)</code> его не включает. По сути это глобальная переменная с фамилией класса. static-метод — функция в пространстве имён класса: объекта нет, <code>this</code> внутри не существует.</p>
+<p>Применения: счётчик живых объектов (конструкторы увеличивают, деструктор уменьшает — RAII из занятия 7 ведёт учёт сам), фабричные функции <code>Widget::create()</code>, общие константы класса.</p>
+<h3 id="сводная-таблица-static">Сводная таблица static<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<table>
+	<thead>
+			<tr>
+					<th>где стоит</th>
+					<th>что означает</th>
+					<th>зачем</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>static int x;</code> в функции</td>
+					<td>живёт между вызовами, инициализация один раз</td>
+					<td>счётчики, кэш, единственный ресурс</td>
+			</tr>
+			<tr>
+					<td><code>static int x;</code> в файле</td>
+					<td>внутренняя линковка: имя не видно другим .cpp</td>
+					<td>детали реализации; сегодня — анонимный namespace</td>
+			</tr>
+			<tr>
+					<td><code>static int x_;</code> в классе</td>
+					<td>одно поле на класс; static-метод — без this</td>
+					<td>общие данные класса, фабрики, счётчики</td>
+			</tr>
+	</tbody>
+</table>
+<p>Общий знаменатель: <strong>время жизни — вся программа</strong>, память в сегменте данных, а не на стеке и не в куче (карта памяти — занятие 3). Различается только видимость имени.</p>
+<h2 id="this-скрытый-параметр-каждого-метода">this: скрытый параметр каждого метода<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Вызов <code>v.push(5)</code> компилятор превращает примерно в <code>push(&amp;v, 5)</code>: адрес объекта передаётся скрытым параметром <code>this</code>. Его тип в методах класса <code>Vec</code> — <code>Vec* const</code>, а в const-методах — <code>const Vec* const</code>: вот куда физически «прикрепляется» const после скобок.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Vec</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> set(<span style="color:#66d9ef">int</span> size) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">-&gt;</span>size <span style="color:#f92672">=</span> size;   <span style="color:#75715e">// 1) снять неоднозначность: поле vs параметр
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    Vec<span style="color:#f92672">&amp;</span> add(<span style="color:#66d9ef">int</span> v) {
+</span></span><span style="display:flex;"><span>        push(v);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">this</span>;        <span style="color:#75715e">// 2) вернуть себя — цепочка вызовов
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> size;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>v.add(<span style="color:#ae81ff">1</span>).add(<span style="color:#ae81ff">2</span>).add(<span style="color:#ae81ff">3</span>);</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Явный <code>this</code> нужен редко, и почти всегда это одна из двух ситуаций: параметр затенил поле (<code>this-&gt;x = x</code>) или метод возвращает <code>*this</code> для цепочки. Цепочки нам уже встречались дважды: <code>operator+=</code> у BigInt возвращал <code>BigInt&amp;</code> (занятие 7) — это был <code>*this</code>; и <code>std::cout &lt;&lt; a &lt;&lt; b</code> работает (занятие 5), потому что <code>operator&lt;&lt;</code> возвращает ссылку на поток — тот же приём.</p>
+<h2 id="new-и-delete-ручное-управление-памятью">new и delete: ручное управление памятью<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="механика">Механика<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Куча — из занятия 3: память, которую программа просит и возвращает <strong>сама</strong>. <code>new</code>/<code>delete</code> — типизированная надстройка над этим механизмом:</p>
+<p><img alt="new — два шага (память + конструктор), delete — зеркально (деструктор + возврат)" class="lazy figure-image" loading="lazy" src="/winter2026/11-klyuchevye-slova/new-delete.svg" style="height: auto;width: auto;"></p>
+<ul>
+<li><code>p = new Widget(42)</code> — два шага: <strong>взять</strong> <code>sizeof(Widget)</code> байт из кучи (<code>operator new</code> — родня <code>malloc</code>), затем <strong>запустить конструктор</strong> <code>Widget(42)</code> на этой памяти. Результат — адрес.</li>
+<li><code>delete p</code> — зеркально: <strong>запустить деструктор</strong> <code>~Widget()</code>, затем <strong>вернуть байты куче</strong> (<code>operator delete</code> — родня <code>free</code>).</li>
+<li>Для массивов формы парные: <code>new Widget[n]</code> ↔ <code>delete[] p</code> — n деструкторов; размер блока реализация хранит рядом с ним.</li>
+</ul>
+<p>Контракт прост: <strong>каждому new — ровно один delete, той же формы</strong>. Всё дальнейшее — о том, как легко этот контракт нарушить.</p>
+<h3 id="четыре-классические-катастрофы">Четыре классические катастрофы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><strong>1. Утечка — delete не случился.</strong></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">1000</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (oops) <span style="color:#66d9ef">return</span>;        <span style="color:#75715e">// забыли delete[] на этом пути
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Наша демка: цикл на 1000 итераций, где <code>delete[]</code> пропущен на одном-единственном пути. Инструмент <code>leaks</code> находит: <code>1 leak for 4096 total leaked bytes</code>.</p>
+<p><strong>2. Висячий указатель — использование после освобождения.</strong></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>(<span style="color:#ae81ff">42</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">delete</span> p;
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p;         <span style="color:#75715e">// память уже чужая
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>AddressSanitizer ловит с точными стеками: <code>heap-use-after-free ... READ of size 4</code>, «freed by thread T0 here&hellip;», «previously allocated here&hellip;».</p>
+<p><strong>3. Двойное удаление.</strong> Видели в занятии 7: копия класса без правила трёх — два деструктора удаляют один буфер, ASan печатает <code>double-free</code>, куча повреждена.</p>
+<p><strong>4. Перепутанные формы.</strong></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#66d9ef">int</span>[<span style="color:#ae81ff">8</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">delete</span> p;                <span style="color:#75715e">// надо delete[] — неопределённое поведение
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Форма без скобок «не знает», что перед ней массив: скольким элементам звать деструкторы? UB.</p>
+<h3 id="почему-просто-не-забывай-delete-не-работает">Почему «просто не забывай delete» не работает<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>string<span style="color:#f92672">*</span> load(<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">char</span><span style="color:#f92672">*</span> path) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span><span style="color:#f92672">*</span> s <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> std<span style="color:#f92672">::</span>string;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span>readInto(<span style="color:#f92672">*</span>s, path))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nullptr</span>;      <span style="color:#75715e">// утечка на пути ошибки!
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (s<span style="color:#f92672">-&gt;</span>empty())
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nullptr</span>;      <span style="color:#75715e">// и здесь утечка!
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> s;                <span style="color:#75715e">// а кто и когда удалит потом?
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Освободить нужно на <strong>каждом</strong> пути выхода: ранние return, будущие исключения, чужие правки через полгода. Компилятор при этом молчит — контракт new/delete не проверяется; в нашей демке утечку нашёл только внешний инструмент.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Правило курса
+  </summary>
+  <div class="box-content">
+<p>Голые <code>new</code>/<code>delete</code> в коде не пишем. Ответ курса — RAII из занятия 7: ресурсом владеет объект, деструктор срабатывает на любом пути выхода автоматически. Массив — <code>std::vector</code>, строка — <code>std::string</code>. Для остального впереди умные указатели: <code>unique_ptr</code> сделает «delete на всех путях» за нас.</p>
+  </div>
+</details>
+<h2 id="auto-вывод-типа">auto: вывод типа<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="auto-молча-копирует">auto молча копирует<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><code>auto</code> выводит тип из инициализатора — и при этом <strong>отбрасывает ссылку и const</strong>: по умолчанию получается копия. На больших объектах это дорого — замер на векторе из миллиона строк по 100 символов:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">auto</span> s : v)        n <span style="color:#f92672">+=</span> s.size();  <span style="color:#75715e">// копия строки на каждом шаге
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> s : v) n <span style="color:#f92672">+=</span> s.size();  <span style="color:#75715e">// просто взгляд
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>for (auto s : v)          24.2 мс
+for (const auto&amp; s : v)    0.4 мс      # ×60</code></pre></div>
+<p>Тот же цикл, та же работа — разница ×60 из-за одного амперсанда. Ссылочность указываем сами, и это осознанный выбор из занятия 5:</p>
+<table>
+	<thead>
+			<tr>
+					<th>форма</th>
+					<th>смысл</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>auto x = ...</code></td>
+					<td>своя копия</td>
+			</tr>
+			<tr>
+					<td><code>auto&amp; x = ...</code></td>
+					<td>менять оригинал</td>
+			</tr>
+			<tr>
+					<td><code>const auto&amp; x = ...</code></td>
+					<td>читать без копии</td>
+			</tr>
+	</tbody>
+</table>
+<h3 id="где-auto-уместен--и-где-подводит">Где auto уместен — и где подводит<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Уместен там, где тип очевиден из правой части или невыразим:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> it <span style="color:#f92672">=</span> m.begin();     <span style="color:#75715e">// вместо std::map&lt;std::string, std::vector&lt;int&gt;&gt;::iterator
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> cmp <span style="color:#f92672">=</span> [](<span style="color:#66d9ef">int</span> a, <span style="color:#66d9ef">int</span> b) { <span style="color:#66d9ef">return</span> a <span style="color:#f92672">&gt;</span> b; };   <span style="color:#75715e">// тип лямбды не выписать вообще
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Подводит — когда прячет важное:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> v <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>};      <span style="color:#75715e">// не vector и не массив: std::initializer_list&lt;int&gt;!
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> n <span style="color:#f92672">=</span> vec.size();  <span style="color:#75715e">// unsigned: n - 1 при пустом векторе — ~10^19 (занятие 3)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> s <span style="color:#f92672">=</span> obj.name();  <span style="color:#75715e">// копия? ссылка? по коду не видно
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Правило курса
+  </summary>
+  <div class="box-content">
+<p><code>auto</code> — для итераторов, лямбд и мест, где тип очевиден из правой части. <code>const auto&amp;</code> — по умолчанию в range-for. На границах API и в коротких объявлениях — явный тип: читатель важнее пишущего.</p>
+  </div>
+</details>
+<h2 id="enum-и-enum-class">enum и enum class<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="старый-enum-два-врождённых-дефекта">Старый enum: два врождённых дефекта<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Color</span>  { RED, GREEN, BLUE };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Fruit</span>  { APPLE, ORANGE };
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// enum Signal { RED };   // ошибка: имя RED уже занято!
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> x  <span style="color:#f92672">=</span> RED <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>;    <span style="color:#75715e">// 10: enum молча стал int
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> b <span style="color:#f92672">=</span> RED <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">11</span>;    <span style="color:#75715e">// true: сравнили яблоко с числом
+</span></span></span><span style="display:flex;"><span>Color c <span style="color:#f92672">=</span> RED;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (c <span style="color:#f92672">==</span> APPLE) {}    <span style="color:#75715e">// компилируется (с warning)!
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Дефект 1 — <strong>имена наружу</strong>: константы высыпаются в объемлющую область, два enum&rsquo;а с общим именем не уживаются. Дефект 2 — <strong>неявная конверсия в int</strong>: компилятор разрешает арифметику и сравнения, не имеющие смысла. Под капотом обычный <code>int</code>: <code>sizeof(Color) == 4</code>, тип подложки до C++11 выбрать было нельзя. Это наследие C 1989 года: честный набор именованных int-констант, небезопасный по нынешним меркам.</p>
+<h3 id="enum-class-перечисление-с-манерами">enum class: перечисление с манерами<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Level</span> <span style="color:#f92672">:</span> std<span style="color:#f92672">::</span><span style="color:#66d9ef">uint8_t</span> { Low, Mid, High };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Level lv <span style="color:#f92672">=</span> Level<span style="color:#f92672">::</span>Low;           <span style="color:#75715e">// имя — только через Level::
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// int x = Level::Low + 10;      // не скомпилируется:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//   error: invalid operands to binary expression (&#39;Level&#39; and &#39;int&#39;)
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> code <span style="color:#f92672">=</span> <span style="color:#66d9ef">static_cast</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(lv); <span style="color:#75715e">// конверсия — только явная
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">sizeof</span>(Level);                   <span style="color:#75715e">// 1 байт: подложку выбрали сами
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Оба дефекта закрыты: имена живут в своей области, конверсий нет — намерение всегда явное. Подложка на выбор (<code>: uint8_t</code> — и sizeof падает с 4 до 1; наш замер это подтверждает).</p>
+<p>Со <code>switch</code> из занятия 5 — идеальная пара: флаг <code>-Wswitch</code> предупреждает о <strong>непокрытом</strong> варианте. Добавили <code>Level::Critical</code> — компилятор сам найдёт все switch&rsquo;и, которые забыли обновить. В C++20 есть <code>using enum Level;</code> — локально снимает многословность внутри switch.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Правило курса
+  </summary>
+  <div class="box-content">
+<p>Новые перечисления — только <code>enum class</code>.</p>
+  </div>
+</details>
+<h2 id="проверьте-себя">Проверьте себя<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>
+<p><strong>Что напечатает?</strong></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">f</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">++</span>n;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>() { std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> f() <span style="color:#f92672">+</span> f(); }</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+<strong>3.</strong> Порядок вычисления операндов <code>+</code> не определён, но сумма коммутативна: static-счётчик выдаст 1 и 2 в каком-то порядке, 1 + 2 = 2 + 1 = 3.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Что не так?</strong></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">P</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">set</span>(<span style="color:#66d9ef">int</span> x) { x <span style="color:#f92672">=</span> x; }
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+<code>x = x</code> присваивает <strong>параметр самому себе</strong> — поле не тронуто. Лечение: <code>this-&gt;x = x</code> или другое имя параметра. Clang подскажет флагом <code>-Wself-assign</code>.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Скомпилируется ли каждая строка?</strong></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">E</span> { A };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> E<span style="color:#f92672">::</span>A;          <span style="color:#75715e">// ①
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> c <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> d <span style="color:#f92672">=</span> c;            <span style="color:#75715e">// ②
+</span></span></span><span style="display:flex;"><span>d <span style="color:#f92672">=</span> <span style="color:#ae81ff">5</span>;                 <span style="color:#75715e">// ③
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+① — нет: неявных конверсий у enum class не бывает, нужен <code>static_cast&lt;int&gt;(E::A)</code>. ② и ③ — да: auto <strong>отбросил const</strong>, поэтому <code>d</code> — обычная изменяемая int-копия.
+  </div>
+</details>
+</li>
+</ol>
+<h2 id="итоги-инвентаризация">Итоги: инвентаризация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<table>
+	<thead>
+			<tr>
+					<th>слово</th>
+					<th>смысл</th>
+					<th>правило курса</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td><code>const</code></td>
+					<td>«не меняется»: данные, указатель или метод</td>
+					<td>ставим везде, где можно; читаем справа налево</td>
+			</tr>
+			<tr>
+					<td><code>constexpr</code></td>
+					<td>известно на этапе компиляции</td>
+					<td>константы, размеры, static_assert</td>
+			</tr>
+			<tr>
+					<td><code>mutable</code></td>
+					<td>изменяемо даже в const-объекте</td>
+					<td>только кэши и служебные поля</td>
+			</tr>
+			<tr>
+					<td><code>static</code></td>
+					<td>между вызовами · внутри файла · один на класс</td>
+					<td>смысл определяется местом</td>
+			</tr>
+			<tr>
+					<td><code>this</code></td>
+					<td>адрес текущего объекта, скрытый параметр</td>
+					<td><code>*this</code> для цепочек, <code>this-&gt;</code> от теней</td>
+			</tr>
+			<tr>
+					<td><code>new</code>/<code>delete</code></td>
+					<td>куча вручную: память + конструктор</td>
+					<td>в коде курса не пишем — контейнеры и RAII</td>
+			</tr>
+			<tr>
+					<td><code>auto</code></td>
+					<td>вывод типа (ссылки и const отброшены!)</td>
+					<td><code>const auto&amp;</code> в циклах; явный тип на границах</td>
+			</tr>
+			<tr>
+					<td><code>enum class</code></td>
+					<td>перечисление со своей областью имён</td>
+					<td>всегда вместо старого enum</td>
+			</tr>
+	</tbody>
+</table>
+<p>Сквозная мысль лекции: почти каждое из этих слов — <strong>контракт, который проверяет компилятор</strong>. Чем больше обещаний записано в коде, тем меньше сюрпризов в рантайме.</p>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>const-аудит BigInt</strong> из занятия 7: пометьте <code>const</code> все методы и параметры, где это возможно; код должен работать с <code>const BigInt</code>.</li>
+<li><strong>Счётчик живых объектов:</strong> добавьте в свой класс <code>inline static</code> счётчик (плюс в конструкторах — всех! — минус в деструкторе); в конце <code>main</code> убедитесь, что он равен нулю.</li>
+<li><strong>Охота на утечки:</strong> напишите три функции с разными ошибками new/delete из «четырёх катастроф», поймайте каждую через ASan или <code>leaks</code>, приложите отчёты — и почините.</li>
+<li><strong>enum → enum class:</strong> отрефакторите выданный фрагмент; switch должен покрывать все варианты без <code>default</code> (проверьте с <code>-Wswitch</code>).</li>
+<li>* <strong>constexpr-простота:</strong> напишите <code>constexpr bool isPrime(int)</code> и добейтесь <code>static_assert(isPrime(1'000'003))</code>. Засеките, как изменилось время компиляции.</li>
+</ol>
+<p>Следующее занятие — <strong>двоичный поиск</strong>: занятие 2 обещало объяснить, почему отсортированность стоит дорого, а окупается мгновенно. Поищем в миллиарде за 30 шагов и разберём метод двух указателей.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 10 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="active " data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

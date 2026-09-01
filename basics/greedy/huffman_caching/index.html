@@ -67,7 +67,7 @@
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
       window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
       // variant stuff
-      window.relearn.themevariants = [ 'green' ];
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -95,19 +95,9 @@
       window.relearn.initVariant();
       window.relearn.markVariant();
     </script> <link href="/css/custom_links.css" rel="stylesheet" />
-  
- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script> 
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
 
   </head>
   <body class="mobile-support html" data-origin="/basics/greedy/huffman_caching/index.html">
@@ -253,29 +243,29 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
 <p>Будем применять эти рассуждения рекурсивно, и получать тексты, в которых всё меньше и меньше различных символов. В конце концов мы получим текст, в котором встречается всего два различных символа. Оптимальный префиксный код для такого текста кодирует каждый символ одним битом.</p>
 <h3 id="реализация">Реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Будем хранить символы в <a href="/basics/basic_data_structures/index.html">очереди с приоритетами</a>: приоритет символа равен его частоте. Пока в очереди больше одного символа, будем доставать из очереди два символа $a, b$ с минимальными приоритетами $\operatorname{cnt}_{a}, \operatorname{cnt}_{b}$, и складывать в очередь новый символ $c$ с приоритетом $\operatorname{cnt}_{c}=\operatorname{cnt}_{a}+\operatorname{cnt}_{b}$. В этот момент будем подвешивать вершины, соответствующие символам $a$ и $b$, детьми к вершине, соответствующей символу $c$. В конце в очереди останется только один символ; вершина, соответствующая этому символу, будет корнем дерева оптимального префиксного кода. Получаем время работы $O(|\Sigma| \log |\Sigma|)$ (если считать, что частоты символов уже предподсчитаны).</p>
-<div class="tab-panel" data-tab-group="R-tabs-da400a7880c14afdb8d4112acf54b53b">
+<div class="tab-panel" data-tab-group="R-tabs-42c84ec1ae5ec4565541b3b270f1ff68">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-8ea6a83dfb708e37b43c49f0dd6dfc54" aria-expanded="true"
+      aria-controls="R-tab-id-3b8a2e96f5babb74b2c78bcc32e74d3e" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-da400a7880c14afdb8d4112acf54b53b','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-42c84ec1ae5ec4565541b3b270f1ff68','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-30bc173cb410595cadd0e30451b49e34" aria-expanded="false"
+      aria-controls="R-tab-id-a3f15ae405284ab1d261adb0079af78f" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-da400a7880c14afdb8d4112acf54b53b','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-42c84ec1ae5ec4565541b3b270f1ff68','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-8ea6a83dfb708e37b43c49f0dd6dfc54"
+      id="R-tab-id-3b8a2e96f5babb74b2c78bcc32e74d3e"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -342,7 +332,7 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
       </div>
     </div>
     <div
-      id="R-tab-id-30bc173cb410595cadd0e30451b49e34"
+      id="R-tab-id-a3f15ae405284ab1d261adb0079af78f"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -474,29 +464,29 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
 </details>
 <h3 id="реализация-1">Реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Для реализации алгоритма Белади нужно знать будущее: для каждого элемента $d_i$ необходимо заранее предподсчитать следующий индекс его использования. Это делает алгоритм неприменимым на практике, но полезным как теоретический эталон для сравнения.</p>
-<div class="tab-panel" data-tab-group="R-tabs-f3fb7e8004a7ad7a133a586b56d15bc3">
+<div class="tab-panel" data-tab-group="R-tabs-62b0fb759a4665599a700f19333aa746">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-ae674adaab935c52c81175cd88ba8908" aria-expanded="true"
+      aria-controls="R-tab-id-2e3acf6a263134acbe8fc3eaf7de8afa" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-f3fb7e8004a7ad7a133a586b56d15bc3','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-62b0fb759a4665599a700f19333aa746','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-7f85dca9c49395e36c0232deab546879" aria-expanded="false"
+      aria-controls="R-tab-id-9cbfdef9be6a8cb871a00e5fe7842764" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-f3fb7e8004a7ad7a133a586b56d15bc3','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-62b0fb759a4665599a700f19333aa746','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-ae674adaab935c52c81175cd88ba8908"
+      id="R-tab-id-2e3acf6a263134acbe8fc3eaf7de8afa"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -571,7 +561,7 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
       </div>
     </div>
     <div
-      id="R-tab-id-7f85dca9c49395e36c0232deab546879"
+      id="R-tab-id-9cbfdef9be6a8cb871a00e5fe7842764"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -733,6 +723,7 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
             <li class="active " data-nav-id="/basics/greedy/huffman_caching/index.html"><a class="padding" href="/basics/greedy/huffman_caching/index.html">14.1. Алгоритм Хаффмана и оптимальное кэширование</a></li>
             <li class="" data-nav-id="/basics/greedy/minimum_spanning_tree/index.html"><a class="padding" href="/basics/greedy/minimum_spanning_tree/index.html">14.2. Минимальное остовное дерево</a></li></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
@@ -745,6 +736,22 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>

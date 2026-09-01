@@ -71,7 +71,7 @@
       window.T_N_results_found = `{1} результатов найдено для "{0}"`;
       window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
       // variant stuff
-      window.relearn.themevariants = [ 'green' ];
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
       window.relearn.customvariantprefix = "my-custom-";
       window.relearn.changeVariant = function(variant) {
         var oldVariant = document.documentElement.dataset.rThemeVariant;
@@ -99,19 +99,9 @@
       window.relearn.initVariant();
       window.relearn.markVariant();
     </script> <link href="/css/custom_links.css" rel="stylesheet" />
-  
- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<script>
-  MathJax = {
-    tex: {
-      displayMath: [['$$', '$$']],  
-      inlineMath: [['$', '$']]                  
-    },
-    loader:{
-      load: ['ui/safe']
-    },
-  };
-</script> 
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
 
   </head>
   <body class="mobile-support html" data-origin="/basics/binary_trees/tree_traversals/index.html">
@@ -281,29 +271,29 @@
 <h2 id="прямой-обход-preorder">Прямой обход (Preorder)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>При прямом обходе сначала посещается корень, затем рекурсивно обходится левое поддерево, затем правое.</p>
 <h3 id="рекурсивная-реализация">Рекурсивная реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<div class="tab-panel" data-tab-group="R-tabs-d30437ab686e190dc57eae6a03926fb2">
+<div class="tab-panel" data-tab-group="R-tabs-5cd97eacd72132e1ff56e5b24c18a371">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-332aff6447e4995d9aca10f56cbc2db9" aria-expanded="true"
+      aria-controls="R-tab-id-0107ad49d9248ae4ff54f4198853e159" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-d30437ab686e190dc57eae6a03926fb2','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-5cd97eacd72132e1ff56e5b24c18a371','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-77ca0e688b107ae5a79aa674d2208741" aria-expanded="false"
+      aria-controls="R-tab-id-231223ccd58c7c17e788789f026eff97" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-d30437ab686e190dc57eae6a03926fb2','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-5cd97eacd72132e1ff56e5b24c18a371','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-332aff6447e4995d9aca10f56cbc2db9"
+      id="R-tab-id-0107ad49d9248ae4ff54f4198853e159"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -388,7 +378,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-77ca0e688b107ae5a79aa674d2208741"
+      id="R-tab-id-231223ccd58c7c17e788789f026eff97"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -495,29 +485,29 @@
   </div>
 </div>
 <h3 id="итеративная-реализация">Итеративная реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<div class="tab-panel" data-tab-group="R-tabs-2d50e9f6e7d842a78769bf6248a82a0a">
+<div class="tab-panel" data-tab-group="R-tabs-afa6be1b47f6659002b45bb8be667d0e">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-790042ce2fc7929ef20d991eb5933d07" aria-expanded="true"
+      aria-controls="R-tab-id-bc2de6579733cacc981312672d51838e" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-2d50e9f6e7d842a78769bf6248a82a0a','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-afa6be1b47f6659002b45bb8be667d0e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-7c9a746461f84d9f28ab7f955b7134d6" aria-expanded="false"
+      aria-controls="R-tab-id-325a8c8d312e6ae09d46c21e7f3d9194" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-2d50e9f6e7d842a78769bf6248a82a0a','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-afa6be1b47f6659002b45bb8be667d0e','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-790042ce2fc7929ef20d991eb5933d07"
+      id="R-tab-id-bc2de6579733cacc981312672d51838e"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -568,7 +558,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-7c9a746461f84d9f28ab7f955b7134d6"
+      id="R-tab-id-325a8c8d312e6ae09d46c21e7f3d9194"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -629,29 +619,29 @@
 <h2 id="центрированный-обход-inorder">Центрированный обход (Inorder)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>При центрированном обходе сначала рекурсивно обходится левое поддерево, затем посещается корень, затем правое поддерево.</p>
 <h3 id="рекурсивная-реализация-1">Рекурсивная реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<div class="tab-panel" data-tab-group="R-tabs-4029e6b15b6fdc0440a07c32208dbb04">
+<div class="tab-panel" data-tab-group="R-tabs-05e2260a8f3d20f51296ef0b655909f2">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-b0796c4864c82a01b521e008f92b7537" aria-expanded="true"
+      aria-controls="R-tab-id-3a9219971e00226d6333c3ce41cb4853" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-4029e6b15b6fdc0440a07c32208dbb04','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-05e2260a8f3d20f51296ef0b655909f2','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-ab4906ce9f5b9466d7ab54175af977de" aria-expanded="false"
+      aria-controls="R-tab-id-a88bddfdb8321f5e6822bd1b3f88d41d" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-4029e6b15b6fdc0440a07c32208dbb04','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-05e2260a8f3d20f51296ef0b655909f2','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-b0796c4864c82a01b521e008f92b7537"
+      id="R-tab-id-3a9219971e00226d6333c3ce41cb4853"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -698,7 +688,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-ab4906ce9f5b9466d7ab54175af977de"
+      id="R-tab-id-a88bddfdb8321f5e6822bd1b3f88d41d"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -739,29 +729,29 @@
   </div>
 </div>
 <h3 id="итеративная-реализация-1">Итеративная реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<div class="tab-panel" data-tab-group="R-tabs-f3de2d08ce1751b6a0fffd719ad1447d">
+<div class="tab-panel" data-tab-group="R-tabs-59775d23943ca6f2463d16d157c9ac4a">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-0f1bedf734801ce428b588aa4250adf5" aria-expanded="true"
+      aria-controls="R-tab-id-3e782e4bcb7697c1626dddcc2a3937d1" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-f3de2d08ce1751b6a0fffd719ad1447d','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-59775d23943ca6f2463d16d157c9ac4a','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-bf178a141c0f20df6ec61ece76ee650b" aria-expanded="false"
+      aria-controls="R-tab-id-29d1cf0491775e75de68a522c1be35ce" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-f3de2d08ce1751b6a0fffd719ad1447d','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-59775d23943ca6f2463d16d157c9ac4a','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-0f1bedf734801ce428b588aa4250adf5"
+      id="R-tab-id-3e782e4bcb7697c1626dddcc2a3937d1"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -814,7 +804,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-bf178a141c0f20df6ec61ece76ee650b"
+      id="R-tab-id-29d1cf0491775e75de68a522c1be35ce"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -883,29 +873,29 @@
 <h2 id="обратный-обход-postorder">Обратный обход (Postorder)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>При обратном обходе сначала рекурсивно обходится левое поддерево, затем правое, затем посещается корень.</p>
 <h3 id="рекурсивная-реализация-2">Рекурсивная реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<div class="tab-panel" data-tab-group="R-tabs-f115c76f69510cc7bb3f94c548597b23">
+<div class="tab-panel" data-tab-group="R-tabs-94de5f9ed24626f339b6d94600358af4">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-1dc9d7a5277aab94ec870eb610891727" aria-expanded="true"
+      aria-controls="R-tab-id-5ce3e46336af4a9b02c92eb2e86492ac" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-f115c76f69510cc7bb3f94c548597b23','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-94de5f9ed24626f339b6d94600358af4','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-8cad067cfa3870184e98b9fa3611aacf" aria-expanded="false"
+      aria-controls="R-tab-id-1c925da5834e9b12aea08653a35b11ab" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-f115c76f69510cc7bb3f94c548597b23','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-94de5f9ed24626f339b6d94600358af4','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-1dc9d7a5277aab94ec870eb610891727"
+      id="R-tab-id-5ce3e46336af4a9b02c92eb2e86492ac"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -952,7 +942,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-8cad067cfa3870184e98b9fa3611aacf"
+      id="R-tab-id-1c925da5834e9b12aea08653a35b11ab"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -993,29 +983,29 @@
   </div>
 </div>
 <h3 id="итеративная-реализация-2">Итеративная реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<div class="tab-panel" data-tab-group="R-tabs-672c114f2c32d898e6d983b558791b05">
+<div class="tab-panel" data-tab-group="R-tabs-ea5586a4355286808e145623d0918c1d">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-2e7d9879b561ddfee4d68d66e509d3b6" aria-expanded="true"
+      aria-controls="R-tab-id-5419a3fe0bd88645d47f765b1ed6be82" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-672c114f2c32d898e6d983b558791b05','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-ea5586a4355286808e145623d0918c1d','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-9d4b66448f349751c7bad020293a8aab" aria-expanded="false"
+      aria-controls="R-tab-id-33cb98af5178d9f5f812c80b2b4ac137" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-672c114f2c32d898e6d983b558791b05','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-ea5586a4355286808e145623d0918c1d','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-2e7d9879b561ddfee4d68d66e509d3b6"
+      id="R-tab-id-5419a3fe0bd88645d47f765b1ed6be82"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1130,7 +1120,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-9d4b66448f349751c7bad020293a8aab"
+      id="R-tab-id-33cb98af5178d9f5f812c80b2b4ac137"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1194,29 +1184,29 @@
 </div>
 <h2 id="обход-в-ширину-level-order">Обход в ширину (Level-order)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>При обходе в ширину вершины посещаются по уровням: сначала корень, затем все вершины уровня 1, затем уровня 2 и т.д.</p>
-<div class="tab-panel" data-tab-group="R-tabs-1363a2697d75b5a3bb6a1077291f606f">
+<div class="tab-panel" data-tab-group="R-tabs-e3c6d7be85cc0c0873cca27b306bfdba">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-07aa0c2573b97e014aa76e84d84f23c4" aria-expanded="true"
+      aria-controls="R-tab-id-b57e3708acbdd92b20a4b7c744d613ae" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-1363a2697d75b5a3bb6a1077291f606f','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-e3c6d7be85cc0c0873cca27b306bfdba','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-9b1faddbc53d34cefd896fbfad843edb" aria-expanded="false"
+      aria-controls="R-tab-id-f2197d57f6bbab875b15cbf91402c2a5" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-1363a2697d75b5a3bb6a1077291f606f','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-e3c6d7be85cc0c0873cca27b306bfdba','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-07aa0c2573b97e014aa76e84d84f23c4"
+      id="R-tab-id-b57e3708acbdd92b20a4b7c744d613ae"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1331,7 +1321,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-9b1faddbc53d34cefd896fbfad843edb"
+      id="R-tab-id-f2197d57f6bbab875b15cbf91402c2a5"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1470,29 +1460,29 @@
 <li><strong>Inorder</strong> (инфиксная запись): <code>4 + 5 * 2</code> (требует скобок)</li>
 <li><strong>Postorder</strong> (постфиксная запись): <code>4 5 + 2 *</code></li>
 </ul>
-<div class="tab-panel" data-tab-group="R-tabs-31bf115ef871e60514991a9cf9b3d2e4">
+<div class="tab-panel" data-tab-group="R-tabs-aef94b453d6d6c477c8d910a836efc1b">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-097db61fd71dc7d523aaace8cf648933" aria-expanded="true"
+      aria-controls="R-tab-id-cfffa7d852d5cf0903d50cb8d8882c7e" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-31bf115ef871e60514991a9cf9b3d2e4','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-aef94b453d6d6c477c8d910a836efc1b','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-3ef64331fe4101856950ff1ec3fa54c9" aria-expanded="false"
+      aria-controls="R-tab-id-15eb1a376a26e08296e48844a32a784f" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-31bf115ef871e60514991a9cf9b3d2e4','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-aef94b453d6d6c477c8d910a836efc1b','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-097db61fd71dc7d523aaace8cf648933"
+      id="R-tab-id-cfffa7d852d5cf0903d50cb8d8882c7e"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1549,7 +1539,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-3ef64331fe4101856950ff1ec3fa54c9"
+      id="R-tab-id-15eb1a376a26e08296e48844a32a784f"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1630,29 +1620,29 @@
   </div>
 </div>
 <h3 id="сериализация-и-десериализация-дерева">Сериализация и десериализация дерева<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<div class="tab-panel" data-tab-group="R-tabs-368275ea71a9ac416718a6d4fd50193b">
+<div class="tab-panel" data-tab-group="R-tabs-ab47f78a78fbc8a334fceb900e85fb02">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-7695ee146d54792280a9a8b311966ce4" aria-expanded="true"
+      aria-controls="R-tab-id-32cd8f6172b01181443663665d6a477d" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-368275ea71a9ac416718a6d4fd50193b','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-ab47f78a78fbc8a334fceb900e85fb02','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-e193eb3d5cf85ecbcdb707c15bfb99fe" aria-expanded="false"
+      aria-controls="R-tab-id-d21ee745d673e09be7e6596c33501e50" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-368275ea71a9ac416718a6d4fd50193b','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-ab47f78a78fbc8a334fceb900e85fb02','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-7695ee146d54792280a9a8b311966ce4"
+      id="R-tab-id-32cd8f6172b01181443663665d6a477d"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1725,7 +1715,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-e193eb3d5cf85ecbcdb707c15bfb99fe"
+      id="R-tab-id-d21ee745d673e09be7e6596c33501e50"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1795,29 +1785,29 @@
 </div>
 <h3 id="удаление-дерева">Удаление дерева<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Для корректного удаления дерева нужно сначала удалить детей, затем родителя — используется postorder обход.</p>
-<div class="tab-panel" data-tab-group="R-tabs-db8428ef81dc6c748b2dcae0a73cb7cb">
+<div class="tab-panel" data-tab-group="R-tabs-487700313d45b24ed17d8bf881430142">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-38d616251c711a3f276a4faa07a267e3" aria-expanded="true"
+      aria-controls="R-tab-id-8df4e0a9f4d02e7356f14f9636ffee3b" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-db8428ef81dc6c748b2dcae0a73cb7cb','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-487700313d45b24ed17d8bf881430142','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-f7655d17c1d31fb74b6953e030963c63" aria-expanded="false"
+      aria-controls="R-tab-id-63a1695f30a37f19fe69406d26f0ca4b" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-db8428ef81dc6c748b2dcae0a73cb7cb','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-487700313d45b24ed17d8bf881430142','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-38d616251c711a3f276a4faa07a267e3"
+      id="R-tab-id-8df4e0a9f4d02e7356f14f9636ffee3b"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1852,7 +1842,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-f7655d17c1d31fb74b6953e030963c63"
+      id="R-tab-id-63a1695f30a37f19fe69406d26f0ca4b"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1950,6 +1940,7 @@
             <li class="alwaysopen " data-nav-id="/basics/graphs/index.html"><a class="padding default-animation" href="/basics/graphs/index.html">13. Графы</a><ul id="R-subsections-b507c85c932a78ce0fa7b5bc9688d00e" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/greedy/index.html"><a class="padding default-animation" href="/basics/greedy/index.html">14. Жадные алгоритмы</a><ul id="R-subsections-ee9b9e5af6cff5819404d6afa7707d61" class="collapsible-menu"></ul></li>
             <li class="alwaysopen " data-nav-id="/basics/dynamic_programming/index.html"><a class="padding default-animation" href="/basics/dynamic_programming/index.html">15. Динамическое программирование</a><ul id="R-subsections-e410e8e319c8bca77e7f56a71695086a" class="collapsible-menu"></ul></li></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
@@ -1962,6 +1953,22 @@
         </div>
         <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
           <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
           </ul>
         </div>
 <div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>

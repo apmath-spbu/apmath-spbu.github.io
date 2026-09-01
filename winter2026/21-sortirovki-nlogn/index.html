@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Занятие 19 закончилось приговором: алгоритмы, переставляющие только соседей, платят Inv(a), то есть в среднем $\sim n^2/4$. Выход — дальнобойные перестановки: одно перемещение через полмассива гасит тысячи инверсий разом. Сегодня два классических способа делать это за $n \log n$ — фон Нейман (1945) и Хоар (1959), оба на каркасе «разделяй и властвуй» из занятия 6. Обозначения — как в весеннем конспекте сортировок; замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Две симметричные философии: merge sort делит тупо (пополам), а трудится при сборке; quicksort делит умно (по пивоту), и вся работа происходит при делении.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 21. Сортировки за n log n :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Занятие 19 закончилось приговором: алгоритмы, переставляющие только соседей, платят Inv(a), то есть в среднем $\sim n^2/4$. Выход — дальнобойные перестановки: одно перемещение через полмассива гасит тысячи инверсий разом. Сегодня два классических способа делать это за $n \log n$ — фон Нейман (1945) и Хоар (1959), оба на каркасе «разделяй и властвуй» из занятия 6. Обозначения — как в весеннем конспекте сортировок; замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Две симметричные философии: merge sort делит тупо (пополам), а трудится при сборке; quicksort делит умно (по пивоту), и вся работа происходит при делении.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/21-sortirovki-nlogn/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 21. Сортировки за n log n :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Занятие 19 закончилось приговором: алгоритмы, переставляющие только соседей, платят Inv(a), то есть в среднем $\sim n^2/4$. Выход — дальнобойные перестановки: одно перемещение через полмассива гасит тысячи инверсий разом. Сегодня два классических способа делать это за $n \log n$ — фон Нейман (1945) и Хоар (1959), оба на каркасе «разделяй и властвуй» из занятия 6. Обозначения — как в весеннем конспекте сортировок; замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Две симметричные философии: merge sort делит тупо (пополам), а трудится при сборке; quicksort делит умно (по пивоту), и вся работа происходит при делении.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-24T18:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-24T18:00:00+03:00">
+    <meta itemprop="name" content="Занятие 21. Сортировки за n log n :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Занятие 19 закончилось приговором: алгоритмы, переставляющие только соседей, платят Inv(a), то есть в среднем $\sim n^2/4$. Выход — дальнобойные перестановки: одно перемещение через полмассива гасит тысячи инверсий разом. Сегодня два классических способа делать это за $n \log n$ — фон Нейман (1945) и Хоар (1959), оба на каркасе «разделяй и властвуй» из занятия 6. Обозначения — как в весеннем конспекте сортировок; замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Две симметричные философии: merge sort делит тупо (пополам), а трудится при сборке; quicksort делит умно (по пивоту), и вся работа происходит при делении.">
+    <meta itemprop="datePublished" content="2026-08-24T18:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-24T18:00:00+03:00">
+    <meta itemprop="wordCount" content="1571">
+    <title>Занятие 21. Сортировки за n log n :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/21-sortirovki-nlogn\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/21-sortirovki-nlogn/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#сортировка-слиянием">Сортировка слиянием</a>
+      <ul>
+        <li><a href="#merge-два-указателя-из-занятия-12">merge: два указателя из занятия 12</a></li>
+        <li><a href="#замер--и-бонус-закрывающий-звёздочку">Замер — и бонус, закрывающий звёздочку</a></li>
+      </ul>
+    </li>
+    <li><a href="#быстрая-сортировка">Быстрая сортировка</a>
+      <ul>
+        <li><a href="#идея-хоара--и-школьная-версия">Идея Хоара — и школьная версия</a></li>
+        <li><a href="#in-place-партиция-инвариант-трёх-зон">In-place партиция: инвариант трёх зон</a></li>
+        <li><a href="#средний-случай">Средний случай</a></li>
+      </ul>
+    </li>
+    <li><a href="#худший-случай-два-killer-входа">Худший случай: два killer-входа</a>
+      <ul>
+        <li><a href="#killer--1-наивный-пивот--отсортированный-вход">Killer № 1: наивный пивот + отсортированный вход</a></li>
+        <li><a href="#killer--2-все-элементы-равны">Killer № 2: все элементы равны</a></li>
+        <li><a href="#три-лекарства--и-страховка-stdsort">Три лекарства — и страховка std::sort</a></li>
+      </ul>
+    </li>
+    <li><a href="#сводный-замер">Сводный замер</a></li>
+    <li><a href="#задачи-семинара">Задачи семинара</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 21. Сортировки за n log n</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/21-sortirovki-nlogn/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/20-variant-any/index.html" title="Занятие 20. std::variant и std::any (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/22-move-semantika/index.html" title="Занятие 22. Move-семантика (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-21-сортировки-за-n-log-n">Занятие 21. Сортировки за n log n</h1>
+
+<p>Занятие 19 закончилось приговором: алгоритмы, переставляющие только соседей, платят Inv(a), то есть в среднем $\sim n^2/4$. Выход — <strong>дальнобойные перестановки</strong>: одно перемещение через полмассива гасит тысячи инверсий разом. Сегодня два классических способа делать это за $n \log n$ — фон Нейман (1945) и Хоар (1959), оба на каркасе «разделяй и властвуй» из занятия 6. Обозначения — как в весеннем конспекте сортировок; замеры реальные (Apple M-серия, <code>clang++ -O2</code>).</p>
+<p>Две симметричные философии: merge sort делит тупо (пополам), а трудится <strong>при сборке</strong>; quicksort делит умно (по пивоту), и вся работа происходит <strong>при делении</strong>.</p>
+<h2 id="сортировка-слиянием">Сортировка слиянием<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// сортирует полуинтервал a[l, r)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mergeSort</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, <span style="color:#66d9ef">int</span> l, <span style="color:#66d9ef">int</span> r, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> buf) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (r <span style="color:#f92672">-</span> l <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span>;            <span style="color:#75715e">// база: один элемент
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> m <span style="color:#f92672">=</span> l <span style="color:#f92672">+</span> (r <span style="color:#f92672">-</span> l) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;
+</span></span><span style="display:flex;"><span>    mergeSort(a, l, m, buf);
+</span></span><span style="display:flex;"><span>    mergeSort(a, m, r, buf);
+</span></span><span style="display:flex;"><span>    merge(a, l, m, r, buf);            <span style="color:#75715e">// слить два отсортированных
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img alt="Дерево рекурсии: log n уровней по Θ(n) работы" class="lazy figure-image" loading="lazy" src="/winter2026/21-sortirovki-nlogn/merge-tree.svg" style="height: auto;width: auto;"></p>
+<p>Дерево — то самое из занятия 6: $T(n) = 2\,T(n/2) + \Theta(n)$, случай $c = \log_b a$ мастер-теоремы, итого <strong>$\Theta(n \log n)$ на любом входе</strong> — у merge sort нет худшего случая.</p>
+<h3 id="merge-два-указателя-из-занятия-12">merge: два указателя из занятия 12<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// сливает отсортированные a[l, m) и a[m, r)
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">merge</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, <span style="color:#66d9ef">int</span> l, <span style="color:#66d9ef">int</span> m, <span style="color:#66d9ef">int</span> r, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> buf) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> l, j <span style="color:#f92672">=</span> m, k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&lt;</span> m <span style="color:#f92672">||</span> j <span style="color:#f92672">&lt;</span> r) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (i <span style="color:#f92672">==</span> m <span style="color:#f92672">||</span> (j <span style="color:#f92672">&lt;</span> r <span style="color:#f92672">&amp;&amp;</span> a[i] <span style="color:#f92672">&gt;</span> a[j]))
+</span></span><span style="display:flex;"><span>            buf[k<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> a[j<span style="color:#f92672">++</span>];         <span style="color:#75715e">// берём справа
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>
+</span></span><span style="display:flex;"><span>            buf[k<span style="color:#f92672">++</span>] <span style="color:#f92672">=</span> a[i<span style="color:#f92672">++</span>];         <span style="color:#75715e">// берём слева
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> t <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; t <span style="color:#f92672">&lt;</span> r <span style="color:#f92672">-</span> l; t<span style="color:#f92672">++</span>) a[l <span style="color:#f92672">+</span> t] <span style="color:#f92672">=</span> buf[t];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>На каждом шаге забираем меньшую из двух голов — метод двух указателей, Θ(n). <strong>Стабильность спрятана в одном символе:</strong> сравнение <code>a[i] &gt; a[j]</code> строгое, поэтому при равных берём <strong>слева</strong> — порядок равных элементов не рвётся (занятие 19 объясняло, зачем это нужно). Плата — буфер: сливать на месте за Θ(n) нельзя.</p>
+<h3 id="замер--и-бонус-закрывающий-звёздочку">Замер — и бонус, закрывающий звёздочку<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># random, 10^7 элементов
+merge sort:   746 мс   (буфер 40 МБ)</code></pre></div>
+<p>746 мс на $10^7$ — против ~8 часов экстраполяции для вставок: $n \log n$ против $n^2$ в полный рост. И бонус: тот же каркас <strong>считает инверсии</strong> за $n \log n$ — при взятии элемента из правой половины он меньше всех оставшихся слева, значит <code>inv += m - i</code> разом:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>инверсии наивно O(n^2):  249152    # занятие 19, тот же массив
+инверсии через merge:    249152    # сошлось до единицы</code></pre></div>
+<p>Звёздочка из ДЗ занятия 19 закрыта.</p>
+<h2 id="быстрая-сортировка">Быстрая сортировка<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="идея-хоара--и-школьная-версия">Идея Хоара — и школьная версия<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Выбираем <strong>пивот</strong>, раскладываем всё на три части «меньше — равно — больше», рекурсивно сортируем края; середина уже стоит на месте — окончательно, как элемент у сортировки выбором, только сразу вся кучка равных.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// «школьная» версия — как в весеннем конспекте
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> quickSort(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> a) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (a.size() <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">return</span> a;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x <span style="color:#f92672">=</span> a[rand() <span style="color:#f92672">%</span> a.size()];          <span style="color:#75715e">// случайный пивот
+</span></span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> l, m, r;              <span style="color:#75715e">// &lt;x  ==x  &gt;x
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> e : a)
+</span></span><span style="display:flex;"><span>        (e <span style="color:#f92672">&lt;</span> x <span style="color:#f92672">?</span> l : e <span style="color:#f92672">==</span> x <span style="color:#f92672">?</span> m : r).push_back(e);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">auto</span> L <span style="color:#f92672">=</span> quickSort(l), R <span style="color:#f92672">=</span> quickSort(r);
+</span></span><span style="display:flex;"><span>    L.insert(L.end(), m.begin(), m.end());
+</span></span><span style="display:flex;"><span>    L.insert(L.end(), R.begin(), R.end());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> L;                          <span style="color:#75715e">// L + m + R
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Честно и понятно, но три вектора на каждом уровне: замер — 2114 мс на $10^7$.</p>
+<h3 id="in-place-партиция-инвариант-трёх-зон">In-place партиция: инвариант трёх зон<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// пивот p стоит в a[r-1]
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> p <span style="color:#f92672">=</span> a[r <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>], i <span style="color:#f92672">=</span> l;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// инвариант: [l, i) &lt; p   |   [i, j) &gt;= p   |   дальше не просмотрено
+</span></span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> l; j <span style="color:#f92672">&lt;</span> r <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; j<span style="color:#f92672">++</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (a[j] <span style="color:#f92672">&lt;</span> p)
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>swap(a[i<span style="color:#f92672">++</span>], a[j]);           <span style="color:#75715e">// расширить левую зону
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>swap(a[i], a[r <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]);                 <span style="color:#75715e">// пивот на своё место
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// теперь: [l, i) &lt; p, a[i] = p, (i, r) &gt;= p
+</span></span></span><span style="display:flex;"><span>quickSort(a, l, i);
+</span></span><span style="display:flex;"><span>quickSort(a, i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, r);</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><img alt="Инвариант партиции: три зоны и пивот" class="lazy figure-image" loading="lazy" src="/winter2026/21-sortirovki-nlogn/partition-zones.svg" style="height: auto;width: auto;"></p>
+<p>Каждый шаг цикла сохраняет инвариант: если <code>a[j] &lt; p</code> — обмен расширяет зелёную зону, иначе жёлтая растёт сама. Доказательство корректности — привычная схема занятия 12: инициализация, сохранение, завершение.</p>
+<h3 id="средний-случай">Средний случай<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># random, 10^7
+quicksort in-place:   606 мс
+глубина рекурсии:      58      # ~2.5 · log2(10^7)</code></pre></div>
+<p>Случайный пивот в среднем делит массив в пропорции не хуже 1:3 — глубина $O(\log n)$, на каждом уровне суммарно Θ(n) работы. In-place быстрее школьной версии в 3.5 раза: ноль аллокаций, кэш доволен (занятие 8). <strong>Нестабильна</strong>: дальние свопы партиции рвут порядок равных — тот же механизм, что у сортировки выбором.</p>
+<h2 id="худший-случай-два-killer-входа">Худший случай: два killer-входа<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<h3 id="killer--1-наивный-пивот--отсортированный-вход">Killer № 1: наивный пивот + отсортированный вход<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># пивот = последний элемент, вход отсортирован, n = 50 000
+пивот=последний:    347 мс     # квадрат!
+случайный пивот:   0.86 мс     # ×400, глубина 35</code></pre></div>
+<p>Пивот-максимум отрезает по одному элементу: $T(n) = T(n-1) + \Theta(n)$ — знакомый квадрат, плюс глубина рекурсии $n$ с угрозой переполнения стека (занятие 5). Отсортированный вход — не экзотика, а самый частый вход в продакшене; наивный quicksort квадратичен ровно там, где данных больше всего. Случайный пивот делает худший случай астрономически маловероятным — и защищает даже от злонамеренно подобранного входа.</p>
+<h3 id="killer--2-все-элементы-равны">Killer № 2: все элементы равны<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># ВСЕ элементы равны, n = 50 000
+Ломуто + СЛУЧАЙНЫЙ пивот:   317 мс    # снова квадрат!
+школьная версия (&lt;, ==, &gt;):  линейна</code></pre></div>
+<p>Сюрприз: случайность <strong>не спасает</strong> — при равных элементах никто не «меньше p», левая зона не растёт, партиция вновь отрезает по одному. А «наивная» школьная версия здесь линейна: трёхчастное разбиение отправляет всех в кучку «равно», рекурсии достаются пустяки. Мораль: «оптимизированный» и «правильный» — разные оси; взрослое лекарство — трёхчастная in-place партиция (задача голландского флага, звёздочка в ДЗ). Дубликаты — норма жизни: возрасты, оценки, статусы.</p>
+<h3 id="три-лекарства--и-страховка-stdsort">Три лекарства — и страховка std::sort<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ol>
+<li><strong>Случайный пивот</strong> — худший случай становится невоспроизводимым; цена — вызов генератора на партицию.</li>
+<li><strong>Медиана трёх</strong> (первый, средний, последний) — дёшево, детерминированно, убивает «отсортированный» killer; от подобранного входа не защищает.</li>
+<li><strong>Страховка introsort</strong> — считать глубину рекурсии; глубже $2 \log n$ — переключиться на heapsort с гарантией $n \log n$. Так <code>std::sort</code> обещает $n \log n$ <strong>всегда</strong> (занятие 19 упоминало эту конструкцию — теперь видно, зачем она).</li>
+</ol>
+<p>Инженерный паттерн шире сортировок: быстрый в среднем алгоритм + дешёвый детектор беды + медленный, но гарантированный запасной.</p>
+<h2 id="сводный-замер">Сводный замер<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># random, 10^7 элементов, clang++ -O2
+merge sort (наш):        746 мс   + 40 МБ буфер
+quicksort in-place:      606 мс   in-place
+quicksort «школьный»:   2114 мс   аллокации
+std::sort:               166 мс
+std::stable_sort:        166 мс</code></pre></div>
+<p>Наши честные реализации — в 4 раза медленнее <code>std::sort</code>: у него база-вставки на коротких кусках (занятие 19), медиана трёх и отточенные ветвления; асимптотика та же, константа вылизана десятилетиями.</p>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>вставками (з. 19)</th>
+					<th>слиянием</th>
+					<th>быстрая</th>
+					<th>std::sort</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>лучший</td>
+					<td>n</td>
+					<td>n log n</td>
+					<td>n log n</td>
+					<td>n</td>
+			</tr>
+			<tr>
+					<td>средний</td>
+					<td>n + Inv(a)</td>
+					<td>n log n</td>
+					<td>n log n</td>
+					<td>n log n</td>
+			</tr>
+			<tr>
+					<td>худший</td>
+					<td>n²</td>
+					<td><strong>n log n</strong></td>
+					<td>n²</td>
+					<td><strong>n log n</strong></td>
+			</tr>
+			<tr>
+					<td>память</td>
+					<td>O(1)</td>
+					<td>O(n)</td>
+					<td>O(log n) стек</td>
+					<td>O(log n)</td>
+			</tr>
+			<tr>
+					<td>стабильность</td>
+					<td>да</td>
+					<td>да</td>
+					<td>нет</td>
+					<td>нет*</td>
+			</tr>
+			<tr>
+					<td>ниша</td>
+					<td>мало беспорядка, база</td>
+					<td>гарантии, списки, инверсии</td>
+					<td>среднее, in-place</td>
+					<td>по умолчанию</td>
+			</tr>
+	</tbody>
+</table>
+<p>* нужен порядок равных — <code>std::stable_sort</code> (merge-семейство). Сквозная мысль: merge продаёт память за гарантию, quick продаёт гарантию за память — introsort покупает обе, комбинируя три алгоритма.</p>
+<h2 id="задачи-семинара">Задачи семинара<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>
+<p><strong>Дерево слияний.</strong> Прогоните mergeSort на {5, 2, 4, 6, 1, 3}: дерево рекурсии и массив после каждого merge. Сколько всего сравнений? Сравните с $n \log_2 n$.</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Разбор
+  </summary>
+  <div class="box-content">
+Деление: {5,2,4} и {6,1,3} → {5},{2,4} и {6},{1,3}. Слияния снизу вверх: {2,4} (1 сравнение) → {2,4,5} (2) → {1,3} (1) → {1,3,6} (2) → финальное {1,2,3,4,5,6} (5 сравнений: 1&lt;5? 2&lt;3?…). Итого 11 сравнений при $n \log_2 n \approx 15.5$ — реальное число всегда ≤ теоретической оценки, потому что слияния кончаются раньше, когда одна половина исчерпана.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Партиция под микроскопом.</strong> Вход {3, 8, 2, 5, 1, 4}, пивот 4 (уже в конце). Таблица i, j и зон после каждого шага; где окажется пивот?</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Разбор
+  </summary>
+  <div class="box-content">
+Старт i=0. j=0: 3&lt;4 — swap(a0,a0), i=1 → {3|8,2,5,1|4}. j=1: 8≥4 — жёлтая растёт. j=2: 2&lt;4 — swap(a1,a2), i=2 → {3,2|8,5,1|4}. j=3: 5≥4. j=4: 1&lt;4 — swap(a2,a4), i=3 → {3,2,1|5,8|4}. Финальный swap(a3, a5): {3,2,1,<strong>4</strong>,8,5} — пивот на позиции 3, слева всё меньше, справа всё не меньше. Инвариант держался в каждой строке.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Сломайте медиану трёх.</strong> Постройте вход из 7 элементов, где пивот-медиана(первый, средний, последний) делит массив хуже, чем 1:5.</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Разбор
+  </summary>
+  <div class="box-content">
+Нужно, чтобы медиана трёх оказалась почти минимумом или максимумом всего массива. Пример: {2, 7, 6, 3, 5, 4, 1}: тройка (2, 3, 1) → медиана 2 — второй наименьший элемент, партиция 1:5. Конструкция обобщается: ставим три малых значения на позиции «первый, средний, последний», остальное — большое; известная семья «median-of-3 killer» строит такие входы для любого n — поэтому медиана трёх лечит случайные беды, но не противника.
+  </div>
+</details>
+</li>
+</ol>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>Обе сортировки</strong> со счётчиками сравнений; сверьте счётчики с $n \log_2 n$ на $n = 10^3, 10^4, 10^5$.</li>
+<li><strong>Инверсии за n log n</strong> через merge — та самая звёздочка занятия 19; стресс-тест против наивного $O(n^2)$.</li>
+<li><strong>Killer-лаборатория:</strong> таблица времён вашего quicksort на четырёх входах (random / sorted / reversed / все равны) × двух пивотах (последний / случайный); объясните каждую клетку.</li>
+<li><strong>Стабильность:</strong> покажите на парах (ключ, номер), что ваш merge стабилен, а quicksort — нет; укажите строку кода, отвечающую за каждое.</li>
+<li>* <strong>Трёхчастная партиция</strong> (задача голландского флага) in-place: <code>&lt; p | = p | &gt; p</code>; замерьте на массиве из 10 различных значений против обычной партиции.</li>
+</ol>
+<p>Следующее занятие — <strong>move-семантика</strong>: lvalue и rvalue, ссылки со «вторым амперсандом», std::move и куда на самом деле «переезжает» вектор. А сортировки без сравнений — k-я статистика, нижняя оценка Ω(n log n), counting и radix — вернутся на семинаре 23.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 24 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="active " data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

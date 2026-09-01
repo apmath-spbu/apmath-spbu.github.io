@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Финальный семинар и последняя структура данных семестра. Задача, ради которой она существует: многократно доставать самый срочный элемент из меняющегося набора — планировщики, таймеры, Дейкстра второго семестра. Несортированный вектор дёшев на вставке и дорог на минимуме, отсортированный — наоборот, set платит узлами и кэш-промахами (занятие 17: ×11). Куча — золотая середина: логарифм на всё, и притом в непрерывном массиве. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Куча и её инвариант Двоичная куча (min-heap) Массив, читаемый как полное двоичное дерево по уровням: родитель элемента $i$ — элемент $(i-1)/2$, дети — $2i&#43;1$ и $2i&#43;2$. Инвариант: значение каждого элемента не меньше значения родителя ⇒ в корне a[0] — минимум.">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 25. Двоичная куча и heapsort :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Финальный семинар и последняя структура данных семестра. Задача, ради которой она существует: многократно доставать самый срочный элемент из меняющегося набора — планировщики, таймеры, Дейкстра второго семестра. Несортированный вектор дёшев на вставке и дорог на минимуме, отсортированный — наоборот, set платит узлами и кэш-промахами (занятие 17: ×11). Куча — золотая середина: логарифм на всё, и притом в непрерывном массиве. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Куча и её инвариант Двоичная куча (min-heap) Массив, читаемый как полное двоичное дерево по уровням: родитель элемента $i$ — элемент $(i-1)/2$, дети — $2i&#43;1$ и $2i&#43;2$. Инвариант: значение каждого элемента не меньше значения родителя ⇒ в корне a[0] — минимум.">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/25-dvoichnaya-kucha/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 25. Двоичная куча и heapsort :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Финальный семинар и последняя структура данных семестра. Задача, ради которой она существует: многократно доставать самый срочный элемент из меняющегося набора — планировщики, таймеры, Дейкстра второго семестра. Несортированный вектор дёшев на вставке и дорог на минимуме, отсортированный — наоборот, set платит узлами и кэш-промахами (занятие 17: ×11). Куча — золотая середина: логарифм на всё, и притом в непрерывном массиве. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Куча и её инвариант Двоичная куча (min-heap) Массив, читаемый как полное двоичное дерево по уровням: родитель элемента $i$ — элемент $(i-1)/2$, дети — $2i&#43;1$ и $2i&#43;2$. Инвариант: значение каждого элемента не меньше значения родителя ⇒ в корне a[0] — минимум.">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-25T12:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-25T12:00:00+03:00">
+    <meta itemprop="name" content="Занятие 25. Двоичная куча и heapsort :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Финальный семинар и последняя структура данных семестра. Задача, ради которой она существует: многократно доставать самый срочный элемент из меняющегося набора — планировщики, таймеры, Дейкстра второго семестра. Несортированный вектор дёшев на вставке и дорог на минимуме, отсортированный — наоборот, set платит узлами и кэш-промахами (занятие 17: ×11). Куча — золотая середина: логарифм на всё, и притом в непрерывном массиве. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Куча и её инвариант Двоичная куча (min-heap) Массив, читаемый как полное двоичное дерево по уровням: родитель элемента $i$ — элемент $(i-1)/2$, дети — $2i&#43;1$ и $2i&#43;2$. Инвариант: значение каждого элемента не меньше значения родителя ⇒ в корне a[0] — минимум.">
+    <meta itemprop="datePublished" content="2026-08-25T12:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-25T12:00:00+03:00">
+    <meta itemprop="wordCount" content="1454">
+    <title>Занятие 25. Двоичная куча и heapsort :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/25-dvoichnaya-kucha\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/25-dvoichnaya-kucha/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#куча-и-её-инвариант">Куча и её инвариант</a>
+      <ul>
+        <li><a href="#insert-новичок-всплывает">insert: новичок всплывает</a></li>
+        <li><a href="#extractmin-последний-тонет">extractMin: последний тонет</a></li>
+      </ul>
+    </li>
+    <li><a href="#построение-за-on">Построение за O(n)</a>
+      <ul>
+        <li><a href="#замер-три-способа-собрать-кучу-из-10">Замер: три способа собрать кучу из 10⁷</a></li>
+      </ul>
+    </li>
+    <li><a href="#heapsort-гарантия-n-log-n--и-её-цена">Heapsort: гарантия n log n — и её цена</a></li>
+    <li><a href="#очередь-с-приоритетами">Очередь с приоритетами</a>
+      <ul>
+        <li><a href="#топ-k-потока-куча-размера-k">Топ-k потока: куча размера k</a></li>
+        <li><a href="#изменить-произвольный-элемент-два-пути">Изменить произвольный элемент: два пути</a></li>
+      </ul>
+    </li>
+    <li><a href="#задачи-семинара">Задачи семинара</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 25. Двоичная куча и heapsort</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/25-dvoichnaya-kucha/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/24-shablony-isklyucheniya/index.html" title="Занятие 24. Шаблоны и исключения (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/index.html" title="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-25-двоичная-куча-и-heapsort">Занятие 25. Двоичная куча и heapsort</h1>
+
+<p>Финальный семинар и последняя структура данных семестра. Задача, ради которой она существует: <strong>многократно доставать самый срочный элемент из меняющегося набора</strong> — планировщики, таймеры, Дейкстра второго семестра. Несортированный вектор дёшев на вставке и дорог на минимуме, отсортированный — наоборот, <code>set</code> платит узлами и кэш-промахами (занятие 17: ×11). Куча — золотая середина: логарифм на всё, и притом в <strong>непрерывном массиве</strong>. Замеры реальные (Apple M-серия, <code>clang++ -O2</code>).</p>
+<h2 id="куча-и-её-инвариант">Куча и её инвариант<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+
+<details open class="box cstyle notices def">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-rainbow"></i> 
+    Двоичная куча (min-heap)
+  </summary>
+  <div class="box-content">
+<p>Массив, читаемый как полное двоичное дерево по уровням: родитель элемента $i$ — элемент $(i-1)/2$, дети — $2i+1$ и $2i+2$. Инвариант: значение каждого элемента <strong>не меньше</strong> значения родителя ⇒ в корне <code>a[0]</code> — минимум.</p>
+  </div>
+</details>
+<p><img alt="Дерево и его массив: одна и та же куча" class="lazy figure-image" loading="lazy" src="/winter2026/25-dvoichnaya-kucha/heap-array.svg" style="height: auto;width: auto;"></p>
+<p>Никаких указателей — сплошная память (занятие 8). Дерево всегда полное (заполняется по уровням слева направо), поэтому высота $\lfloor \log_2 n \rfloor$: у $10^7$ элементов — всего 23. Весенний конспект нумерует с 1 (родитель $\lfloor i/2 \rfloor$, дети $2i$, $2i+1$) — формулы чуть красивее, суть та же.</p>
+<h3 id="insert-новичок-всплывает">insert: новичок всплывает<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">siftUp</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, size_t i) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// инвариант нарушен разве что в i: a[i] мал для своего места
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (i <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">&amp;&amp;</span> a[i] <span style="color:#f92672">&lt;</span> a[(i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>]) {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>swap(a[i], a[(i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>]);
+</span></span><span style="display:flex;"><span>        i <span style="color:#f92672">=</span> (i <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>;                  <span style="color:#75715e">// всплыли на уровень
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">insert</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, <span style="color:#66d9ef">int</span> x) {
+</span></span><span style="display:flex;"><span>    a.push_back(x);                       <span style="color:#75715e">// в единственное место,
+</span></span></span><span style="display:flex;"><span>    siftUp(a, a.size() <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>);              <span style="color:#75715e">// не ломающее форму дерева
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Новый элемент кладём в конец массива — форма дерева цела, сломаться могло только свойство кучи на пути вверх. <code>siftUp</code> чинит: каждый обмен поднимает на уровень, шагов не больше высоты — <strong>O(log n)</strong>. Доказательство корректности — индукция по пути, как в весеннем конспекте.</p>
+<h3 id="extractmin-последний-тонет">extractMin: последний тонет<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">siftDown</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a, size_t i, size_t n) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (true) {
+</span></span><span style="display:flex;"><span>        size_t l <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, r <span style="color:#f92672">=</span> <span style="color:#ae81ff">2</span><span style="color:#f92672">*</span>i <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>, m <span style="color:#f92672">=</span> i;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (l <span style="color:#f92672">&lt;</span> n <span style="color:#f92672">&amp;&amp;</span> a[l] <span style="color:#f92672">&lt;</span> a[m]) m <span style="color:#f92672">=</span> l;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (r <span style="color:#f92672">&lt;</span> n <span style="color:#f92672">&amp;&amp;</span> a[r] <span style="color:#f92672">&lt;</span> a[m]) m <span style="color:#f92672">=</span> r;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (m <span style="color:#f92672">==</span> i) <span style="color:#66d9ef">return</span>;               <span style="color:#75715e">// оба ребёнка не меньше — куча
+</span></span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>swap(a[i], a[m]);            <span style="color:#75715e">// тонем в сторону МЕНЬШЕГО
+</span></span></span><span style="display:flex;"><span>        i <span style="color:#f92672">=</span> m;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">extractMin</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> mn <span style="color:#f92672">=</span> a[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    a[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">=</span> a.back(); a.pop_back();        <span style="color:#75715e">// последний — в корень
+</span></span></span><span style="display:flex;"><span>    siftDown(a, <span style="color:#ae81ff">0</span>, a.size());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> mn;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Минимум в корне; дырку затыкаем последним элементом (форма цела) и топим его, меняя с <strong>меньшим</strong> из детей — новый родитель обязан быть не больше обоих. Путь вниз ≤ высоты ⇒ O(log n).</p>
+<h2 id="построение-за-on">Построение за O(n)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">buildHeap</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// листья — уже кучи из одного элемента;
+</span></span></span><span style="display:flex;"><span>    <span style="color:#75715e">// идём от последнего РОДИТЕЛЯ к корню:
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (size_t i <span style="color:#f92672">=</span> a.size() <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>; i<span style="color:#f92672">--</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span>; )
+</span></span><span style="display:flex;"><span>        siftDown(a, i, a.size());
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// инвариант цикла: поддеревья всех j &gt; i — корректные кучи
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Половина вершин — листья с высотой 0: им ремонт не нужен. Дорогое просеивание достаётся единицам вершин у корня, и сумма работы сворачивается геометрической серией (занятия 6, 15, 23):</p>
+$$\sum_{h \ge 0} \frac{n}{2^{h+1}} \cdot h \le 2n.$$<p>Живой счётчик подтверждает теорию:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># фактические просеивания, n = 10^6
+build:  743 477 свопов        # &lt; 2n = 2 000 000
+        (n вставок дали бы ~20 000 000)</code></pre></div>
+<h3 id="замер-три-способа-собрать-кучу-из-10">Замер: три способа собрать кучу из 10⁷<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>n вставок с siftUp:    84 мс   # O(n log n)
+buildHeap (siftDown):  34 мс   # O(n)
+std::make_heap:        25 мс   # O(n), STL</code></pre></div>
+<p>Правило: все данные на руках — build; поступают по одному — вставки. Экономика «инвестиции» из занятия 15. У STL кучные примитивы живут прямо поверх вашего вектора: <code>make_heap</code> / <code>push_heap</code> / <code>pop_heap</code>.</p>
+<h2 id="heapsort-гарантия-n-log-n--и-её-цена">Heapsort: гарантия n log n — и её цена<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">heapSort</span>(std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;&amp;</span> a) {
+</span></span><span style="display:flex;"><span>    buildMaxHeap(a);                       <span style="color:#75715e">// O(n); max-куча — максимум в корне
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (size_t n <span style="color:#f92672">=</span> a.size(); n <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>; ) {
+</span></span><span style="display:flex;"><span>        std<span style="color:#f92672">::</span>swap(a[<span style="color:#ae81ff">0</span>], a[n <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>]);         <span style="color:#75715e">// максимум — в конец, навсегда
+</span></span></span><span style="display:flex;"><span>        n<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>        siftDownMax(a, <span style="color:#ae81ff">0</span>, n);              <span style="color:#75715e">// чиним корень укороченной кучи
+</span></span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// инвариант: суффикс a[n..] отсортирован и содержит наибольшие
+</span></span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Инвариант — родня сортировки выбором (занятие 19): готовый суффикс окончателен, но выбор максимума стоит O(log n), а не O(n). Итого <strong>гарантированные $n \log n$ на любом входе</strong>, in-place, без буфера; нестабилен. Killer-входов у heapsort нет — за это его и держат страховкой.</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># random, 10^7
+heapsort:    1140 мс
+std::sort:    162 мс     # ×7</code></pre></div>
+<p>Виновник знакомый — <strong>память</strong>: siftDown прыгает $i \to 2i+1$, с каждым уровнем шаг удваивается, кэш и предвыборка бессильны (та же болезнь, что у дерева и бинпоиска — занятия 8, 12, 17). Поэтому introsort устроен именно так (занятие 21): быстрый quicksort в главной роли, heapsort — запасной парашют: дорог, но раскрывается всегда.</p>
+<h2 id="очередь-с-приоритетами">Очередь с приоритетами<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>priority_queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span> pq;                 <span style="color:#75715e">// ВНИМАНИЕ: MAX-куча!
+</span></span></span><span style="display:flex;"><span>pq.push(<span style="color:#ae81ff">3</span>); pq.push(<span style="color:#ae81ff">7</span>); pq.top();            <span style="color:#75715e">// 7
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>priority_queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>                    std<span style="color:#f92672">::</span>greater<span style="color:#f92672">&lt;&gt;&gt;</span> minq;    <span style="color:#75715e">// min-куча — третий параметр
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">auto</span> byDeadline <span style="color:#f92672">=</span> [](<span style="color:#66d9ef">const</span> Task<span style="color:#f92672">&amp;</span> a, <span style="color:#66d9ef">const</span> Task<span style="color:#f92672">&amp;</span> b)
+</span></span><span style="display:flex;"><span>    { <span style="color:#66d9ef">return</span> a.deadline <span style="color:#f92672">&gt;</span> b.deadline; };     <span style="color:#75715e">// «раньше дедлайн — выше»
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>priority_queue<span style="color:#f92672">&lt;</span>Task, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span>Task<span style="color:#f92672">&gt;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">decltype</span>(byDeadline)<span style="color:#f92672">&gt;</span> tasks(byDeadline);</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Адаптер над вектором с кучей внутри: <code>push</code>/<code>top</code>/<code>pop</code> — и всё, ни обхода, ни итераторов. <strong>Сюрприз № 1:</strong> по умолчанию это max-куча; минимум требует <code>std::greater</code>. Компаратор — знакомый третий параметр (лямбды занятия 14, строгий порядок занятия 17).</p>
+<h3 id="топ-k-потока-куча-размера-k">Топ-k потока: куча размера k<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">// топ-10 НАИБОЛЬШИХ из потока: держим MIN-кучу размера 10
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>priority_queue<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, std<span style="color:#f92672">::</span>vector<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>, std<span style="color:#f92672">::</span>greater<span style="color:#f92672">&lt;&gt;&gt;</span> topk;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> x : stream) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (topk.size() <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span>) topk.push(x);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#a6e22e">if</span> (x <span style="color:#f92672">&gt;</span> topk.top()) {     <span style="color:#75715e">// лучше худшего из топа?
+</span></span></span><span style="display:flex;"><span>        topk.pop();
+</span></span><span style="display:flex;"><span>        topk.push(x);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code># топ-10 из 10^7
+куча размера 10:   5 мс    # и память O(k)!
+nth_element:      36 мс    # весь массив в памяти</code></pre></div>
+<p><strong>Сюрприз № 2:</strong> для топ-k наибольших нужна <strong>min</strong>-куча — её корень является худшим элементом текущего топа, именно его сравниваем с новичком. O(n log k) времени и O(k) памяти: поток можно не хранить вообще, в отличие от <code>nth_element</code> (занятие 23). Здесь куча выиграла и по чистому времени — ×7.</p>
+<h3 id="изменить-произвольный-элемент-два-пути">Изменить произвольный элемент: два пути<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<ol>
+<li><strong>Индексированная куча:</strong> хранить <code>pos[id]</code> — позицию каждого элемента (обновляя в каждом swap); тогда <code>decreaseKey(id, x)</code> — записать значение и один <code>siftUp</code>, O(log n). Так живёт Дейкстра во втором семестре.</li>
+<li><strong>Ленивое удаление:</strong> класть в кучу новую версию элемента, а устаревшие выбрасывать при <code>extractMin</code>. Куча растёт, зато код тривиален — амортизация (занятие 10) всё оплачивает.</li>
+</ol>
+<p><code>std::priority_queue</code> не умеет ни того, ни другого — контракт узкий. Нужен decreaseKey — своя куча (ДЗ) или ленивая схема поверх стандартной.</p>
+<h2 id="задачи-семинара">Задачи семинара<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>
+<p><strong>Build на бумаге.</strong> Постройте min-кучу из [5, 3, 8, 1, 9, 2]: siftDown от i = 2 к корню, массив после каждого шага.</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Разбор
+  </summary>
+  <div class="box-content">
+i = 2 (элемент 8, дети 9 и 2): 8 &gt; 2 → swap → [5, 3, 2, 1, 9, 8]. i = 1 (элемент 3, дети 1 и 9): 3 &gt; 1 → swap → [5, 1, 2, 3, 9, 8]. i = 0 (элемент 5, дети 1 и 2): swap с 1 → [1, 5, 2, 3, 9, 8]; у 5 дети 3 и 9: swap с 3 → [1, 3, 2, 5, 9, 8] — куча. Всего 4 свопа при n = 6: «меньше 2n» с большим запасом.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Куча ли это?</strong> [1, 3, 2, 5, 9, 8] · [2, 1, 3] · [1, 2, 3, 4, 5] · [7].</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Разбор
+  </summary>
+  <div class="box-content">
+Проверяется ровно инвариант: a[i] ≥ a[(i−1)/2] для всех i ≥ 1 — достаточно одного прохода O(n) по всем не-корневым вершинам. [1,3,2,5,9,8] — да (3≥1, 2≥1, 5≥3, 9≥3, 8≥2). [2,1,3] — нет: 1 &lt; 2 у корня. [1,2,3,4,5] — да: отсортированный массив всегда min-куча (родитель левее ⇒ не больше). [7] — да: одинокий корень.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>k-й максимум потока.</strong> После каждого элемента уметь называть k-й по величине. Какая куча?</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Разбор
+  </summary>
+  <div class="box-content">
+Min-куча размера k: в ней живут k наибольших виденных, корень — ровно k-й максимум, ответ за O(1). Поток 3, 1, 4, 1, 5 при k = 2: после 3 → ответа нет (мало данных); после 1 → куча {1,3}, ответ 1; после 4 → {3,4}, ответ 3; после 1 → без изменений, ответ 3; после 5 → {4,5}, ответ 4. Знак кучи противоположен знаку вопроса — тот же сюрприз, что в топ-k.
+  </div>
+</details>
+</li>
+</ol>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>MinHeap:</strong> класс с insert / getMin / extractMin / buildHeap; стресс-тест против <code>std::priority_queue</code> на $10^5$ случайных операций.</li>
+<li><strong>Heapsort</strong> через вашу кучу + строка в таблице замеров занятия 21 (merge / quick / std::sort / heapsort) на своей машине.</li>
+<li><strong>Топ-k потока:</strong> чтение чисел из файла без загрузки целиком, куча размера k; сверка с nth_element.</li>
+<li><strong>isHeap за O(n)</strong> + тесты на граничных случаях (пустой, один элемент, равные).</li>
+<li>* <strong>Поток медиан:</strong> после каждого элемента печатать текущую медиану — max-куча левой половины + min-куча правой с балансировкой размеров.</li>
+</ol>
+<p>Это последнее ДЗ семестра — и лучший тренажёр перед РК2: следующее занятие — <strong>рубежный контроль № 2</strong> по материалу занятий 14–25.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 25 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="active " data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>

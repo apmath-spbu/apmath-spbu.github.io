@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html id="R-html" lang="ru-ru" dir="ltr" itemscope itemtype="http://schema.org/Article" data-r-output-format="html">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="Занятие 18 показало границы union: он не помнит активного члена, а чтение не того — UB. Эта лекция принимает работу у его воспитанного наследника: std::variant — tagged union со встроенными тегом и проверками, std::visit — диспетчеризация без vtable, и std::any — коробка для случаев, когда набор типов принципиально неизвестен. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Долг занятия 18: тег на честном слове Задача «или-или» вечна: токен — число или оператор; результат — значение или ошибка. До C&#43;&#43;17 её решали tagged union’ом вручную:">
+    <meta name="author" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Занятие 20. std::variant и std::any :: Краткий курс по основам программирования">
+    <meta name="twitter:description" content="Занятие 18 показало границы union: он не помнит активного члена, а чтение не того — UB. Эта лекция принимает работу у его воспитанного наследника: std::variant — tagged union со встроенными тегом и проверками, std::visit — диспетчеризация без vtable, и std::any — коробка для случаев, когда набор типов принципиально неизвестен. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Долг занятия 18: тег на честном слове Задача «или-или» вечна: токен — число или оператор; результат — значение или ошибка. До C&#43;&#43;17 её решали tagged union’ом вручную:">
+    <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/20-variant-any/index.html">
+    <meta property="og:site_name" content="Краткий курс по основам программирования">
+    <meta property="og:title" content="Занятие 20. std::variant и std::any :: Краткий курс по основам программирования">
+    <meta property="og:description" content="Занятие 18 показало границы union: он не помнит активного члена, а чтение не того — UB. Эта лекция принимает работу у его воспитанного наследника: std::variant — tagged union со встроенными тегом и проверками, std::visit — диспетчеризация без vtable, и std::any — коробка для случаев, когда набор типов принципиально неизвестен. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Долг занятия 18: тег на честном слове Задача «или-или» вечна: токен — число или оператор; результат — значение или ошибка. До C&#43;&#43;17 её решали tagged union’ом вручную:">
+    <meta property="og:locale" content="ru_ru">
+    <meta property="og:type" content="article">
+    <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
+    <meta property="article:published_time" content="2026-08-13T15:00:00+03:00">
+    <meta property="article:modified_time" content="2026-08-13T15:00:00+03:00">
+    <meta itemprop="name" content="Занятие 20. std::variant и std::any :: Краткий курс по основам программирования">
+    <meta itemprop="description" content="Занятие 18 показало границы union: он не помнит активного члена, а чтение не того — UB. Эта лекция принимает работу у его воспитанного наследника: std::variant — tagged union со встроенными тегом и проверками, std::visit — диспетчеризация без vtable, и std::any — коробка для случаев, когда набор типов принципиально неизвестен. Замеры реальные (Apple M-серия, clang&#43;&#43; -O2).
+Долг занятия 18: тег на честном слове Задача «или-или» вечна: токен — число или оператор; результат — значение или ошибка. До C&#43;&#43;17 её решали tagged union’ом вручную:">
+    <meta itemprop="datePublished" content="2026-08-13T15:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-08-13T15:00:00+03:00">
+    <meta itemprop="wordCount" content="1349">
+    <title>Занятие 20. std::variant и std::any :: Краткий курс по основам программирования</title>
+    <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
+    <script src="/js/auto-complete/auto-complete.min.js" defer></script>
+    <script src="/js/search-lunr.min.js" defer></script>
+    <script src="/js/search.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.index_js_url="/searchindex.ru.js";
+    </script>
+    <script src="/js/lunr/lunr.min.js" defer></script>
+    <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
+    <script src="/js/lunr/lunr.multi.min.js" defer></script>
+    <script src="/js/lunr/lunr.ru.min.js" defer></script>
+    <script>
+      window.relearn = window.relearn || {};
+      window.relearn.contentLangs=['ru'];
+    </script>
+    <link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet" media="print" onload="this.media='all';this.onload=null;"><noscript><link href="/fonts/fontawesome/css/all.min.css" rel="stylesheet"></noscript>
+    <link href="/css/perfect-scrollbar/perfect-scrollbar.min.css" rel="stylesheet">
+    <link href="/css/theme.min.css" rel="stylesheet">
+    <link href="/css/format-html.min.css" rel="stylesheet" id="R-format-style">
+    <script>
+      window.relearn = window.relearn || {};
+      // configuration
+      window.relearn.min = `.min`;
+      window.relearn.path='\/winter2026\/20-variant-any\/index.html';
+      window.relearn.relBasePath='..\/..';
+      window.relearn.relBaseUri='..\/..';
+      window.relearn.absBaseUri='https:\/\/apmath-spbu.github.io';
+      window.relearn.disableInlineCopyToClipboard=false;
+      window.relearn.enableBlockCodeWrap=true;
+      // translations
+      window.T_Copy_to_clipboard = `Копировать текст в буфер обмена`;
+      window.T_Copied_to_clipboard = `Текст скопирован в буфер обмена!`;
+      window.T_Link_copied_to_clipboard = `Ссылка скопирована в буфер обмена!`;
+      window.T_Reset_view = `Вид на сброс`;
+      window.T_View_reset = `Посмотреть сброс!`;
+      window.T_No_results_found = `Ничего не найдено для "{0}"`;
+      window.T_N_results_found = `{1} результатов найдено для "{0}"`;
+      window.T_Browser_unsupported_feature = `Этот браузер не поддерживает эту функцию`;
+      // variant stuff
+      window.relearn.themevariants = [ 'auto', 'zen-light', 'zen-dark' ];
+      window.relearn.customvariantprefix = "my-custom-";
+      window.relearn.changeVariant = function(variant) {
+        var oldVariant = document.documentElement.dataset.rThemeVariant;
+        window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        document.documentElement.dataset.rThemeVariant = variant;
+        if (oldVariant != variant) {
+          document.dispatchEvent( new CustomEvent('themeVariantLoaded', { detail: { variant, oldVariant } }) );
+          window.relearn.markVariant();
+        }
+      }
+      window.relearn.markVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant");
+        document.querySelectorAll(".R-variantswitcher select").forEach((select) => {select.value = variant;});
+      }
+      window.relearn.initVariant = function() {
+        var variant = window.localStorage.getItem(window.relearn.absBaseUri + "/variant") ?? "";
+        if( !variant ||
+            (!variant.startsWith(window.relearn.customvariantprefix) && !window.relearn.themevariants.includes(variant)) ||
+            (variant.startsWith(window.relearn.customvariantprefix) && !window.localStorage.getItem(window.relearn.absBaseUri + "/variantstylesheet-" + variant)) ){
+          variant = window.relearn.themevariants[0];
+          window.localStorage.setItem(window.relearn.absBaseUri + "/variant", variant);
+        }
+        document.documentElement.dataset.rThemeVariant = variant;
+      }
+      window.relearn.initVariant();
+      window.relearn.markVariant();
+    </script> <link href="/css/custom_links.css" rel="stylesheet" />
+ 
+<link href="/css/custom.css" rel="stylesheet" />
+
+
+  </head>
+  <body class="mobile-support html" data-origin="/winter2026/20-variant-any/index.html">
+    <div id="R-body" class="default-animation">
+      <div id="R-body-overlay"></div>
+      <nav id="R-topbar" class="default-animation">
+        <div class="topbar-wrapper default-animation">
+          <div class="topbar-sidebar-divider default-animation"></div>
+          <div class="topbar-area topbar-area-start" data-area="start">
+            <div class="topbar-button topbar-button-sidebar default-animation" data-content-empty="disable" data-width-s="show" data-width-m="hide" data-width-l="hide">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleNav()" type="button" title="Меню (CTRL&#43;ALT&#43;n)"><i class="fa-fw fas fa-bars"></i></button></span>
+            </div>
+            <div class="topbar-button topbar-button-toc default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Оглавление (CTRL&#43;ALT&#43;t)"><i class="fa-fw fas fa-table-list"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+<nav class="TableOfContents">
+  <ul>
+    <li><a href="#долг-занятия-18-тег-на-честном-слове">Долг занятия 18: тег на честном слове</a></li>
+    <li><a href="#stdvariant-union-с-манерами">std::variant: union с манерами</a>
+      <ul>
+        <li><a href="#доступ-с-исключением-или-с-проверкой">Доступ: с исключением или с проверкой</a></li>
+      </ul>
+    </li>
+    <li><a href="#visit-полиморфизм-значений">visit: полиморфизм значений</a>
+      <ul>
+        <li><a href="#замер-10-фигур-сумма-площадей">Замер: 10⁷ фигур, сумма площадей</a></li>
+        <li><a href="#главный-критерий-закрытый-или-открытый-набор">Главный критерий: закрытый или открытый набор</a></li>
+      </ul>
+    </li>
+    <li><a href="#stdany-коробка-для-чего-угодно">std::any: коробка для чего угодно</a></li>
+    <li><a href="#карта-выбора-четыре-инструмента-или-или">Карта выбора: четыре инструмента «или-или»</a></li>
+    <li><a href="#проверьте-себя">Проверьте себя</a></li>
+    <li><a href="#домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)</a></li>
+  </ul>
+</nav>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ol class="topbar-breadcrumbs breadcrumbs highlightable" itemscope itemtype="http://schema.org/BreadcrumbList"><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/index.html"><span itemprop="name">Краткий курс по основам программирования</span></a><meta itemprop="position" content="1">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><a itemprop="item" href="/winter2026/index.html"><span itemprop="name">Основы программирования. Зима 2026.</span></a><meta itemprop="position" content="2">&nbsp;>&nbsp;</li><li itemscope itemtype="https://schema.org/ListItem" itemprop="itemListElement" class=""><span itemprop="name">Занятие 20. std::variant и std::any</span><meta itemprop="position" content="3"></li>
+          </ol>
+          <div class="topbar-area topbar-area-end" data-area="end">
+            <div class="topbar-button topbar-button-edit default-animation" data-content-empty="disable" data-width-s="area-more" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="https://github.com/apmath-spbu/apmath-spbu.hugo/tree/master/content/winter2026/20-variant-any/index.md" rel="external" title="редактировать (CTRL+ALT+w)"><i class="fa-fw fas fa-pen"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-prev default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/19-kvadratichnye-sortirovki/index.html" title="Занятие 19. Квадратичные сортировки (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/21-sortirovki-nlogn/index.html" title="Занятие 21. Сортировки за n log n (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+            </div>
+            <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
+<span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
+              <div class="topbar-content">
+                <div class="topbar-content-wrapper">
+                  <div class="topbar-area topbar-area-more" data-area="more">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div id="R-main-overlay"></div>
+      <main id="R-body-inner" class="highlightable winter2026" tabindex="-1">
+        <div class="flex-block-wrapper">
+<article class="default">
+  <header class="headline">
+  </header>
+
+<h1 id="занятие-20-stdvariant-и-stdany">Занятие 20. std::variant и std::any</h1>
+
+<p>Занятие 18 показало границы <code>union</code>: он не помнит активного члена, а чтение не того — UB. Эта лекция принимает работу у его воспитанного наследника: <code>std::variant</code> — tagged union со встроенными тегом и проверками, <code>std::visit</code> — диспетчеризация без vtable, и <code>std::any</code> — коробка для случаев, когда набор типов принципиально неизвестен. Замеры реальные (Apple M-серия, <code>clang++ -O2</code>).</p>
+<h2 id="долг-занятия-18-тег-на-честном-слове">Долг занятия 18: тег на честном слове<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<p>Задача «или-или» вечна: токен — число <strong>или</strong> оператор; результат — значение <strong>или</strong> ошибка. До C++17 её решали tagged union&rsquo;ом вручную:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Token</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">enum</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Kind</span> { Num, Op } kind;   <span style="color:#75715e">// тег
+</span></span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">union</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">double</span> num;                      <span style="color:#75715e">// активен при Kind::Num
+</span></span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">char</span>   op;                       <span style="color:#75715e">// активен при Kind::Op
+</span></span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Контракт «kind соответствует активному члену union» держится на честном слове: проверок нет, ошибка — UB. Все пишут этот код одинаково и одинаково в нём ошибаются — значит, он обязан жить в стандартной библиотеке. C++17 так и сделал.</p>
+<h2 id="stdvariant-union-с-манерами">std::variant: union с манерами<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span>, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;</span> v;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>v <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;                            <span style="color:#75715e">// активен int
+</span></span></span><span style="display:flex;"><span>v <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.14</span>;                          <span style="color:#75715e">// теперь double
+</span></span></span><span style="display:flex;"><span>v <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;x&#34;</span>);              <span style="color:#75715e">// теперь string
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>v.index();                         <span style="color:#75715e">// 2
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>holds_alternative<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span>(v); <span style="color:#75715e">// false
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Память — как у union (максимум из альтернатив) плюс <strong>тег-индекс</strong>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>union {float, uint32}:           4
+variant&lt;float, uint32_t&gt;:        8    # + тег
+variant&lt;char, double&gt;:          16    # выравнивание (занятие 18)
+variant&lt;monostate,int,string&gt;:  32    # string 24 + тег + выравнивание</code></pre></div>
+<p>variant не аллоцирует: он ровно такого размера, каков худший жилец. И он <strong>никогда не пуст</strong> — по умолчанию строится первая альтернатива; «пока ничего» выражается явной альтернативой <code>std::monostate</code>.</p>
+<h3 id="доступ-с-исключением-или-с-проверкой">Доступ: с исключением или с проверкой<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span> v <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.14</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> a <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>get<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(v);              <span style="color:#75715e">// не тот член — бросает:
+</span></span></span><span style="display:flex;"><span>                                       <span style="color:#75715e">//   bad_variant_access
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>get_if<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span>(<span style="color:#f92672">&amp;</span>v)) <span style="color:#75715e">// вариант без исключений:
+</span></span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p;                   <span style="color:#75715e">//   указатель или nullptr
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Сравните с занятием 18: у union чтение не того члена — молчаливое UB, у variant — <strong>громкое исключение</strong>. Ошибка не исчезла, но стала диагностируемой. Родство с <code>enum class</code> + switch из занятия 11 прямое: variant — это «enum с грузом», где каждая метка несёт своё значение.</p>
+<h2 id="visit-полиморфизм-значений">visit: полиморфизм значений<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Circle</span> { <span style="color:#66d9ef">double</span> r; <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">area</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">3.14159</span> <span style="color:#f92672">*</span> r <span style="color:#f92672">*</span> r; } };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Square</span> { <span style="color:#66d9ef">double</span> s; <span style="color:#66d9ef">double</span> <span style="color:#a6e22e">area</span>() <span style="color:#66d9ef">const</span> { <span style="color:#66d9ef">return</span> s <span style="color:#f92672">*</span> s; } };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Shape <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span>Circle, Square<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Shape sh <span style="color:#f92672">=</span> Circle{<span style="color:#ae81ff">2.0</span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">double</span> a <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>visit([](<span style="color:#66d9ef">const</span> <span style="color:#66d9ef">auto</span><span style="color:#f92672">&amp;</span> s) { <span style="color:#66d9ef">return</span> s.area(); }, sh);</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>visit</code> смотрит на тег и вызывает лямбду с <strong>активной</strong> альтернативой. Generic-лямбда с <code>auto</code> (занятие 14) покрывает все типы одним текстом; нужны разные обработчики — идиома overloaded:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">template</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">class</span><span style="color:#960050;background-color:#1e0010">... </span><span style="color:#a6e22e">Ts</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">overloaded</span> <span style="color:#f92672">:</span> Ts... { <span style="color:#66d9ef">using</span> Ts<span style="color:#f92672">::</span><span style="color:#66d9ef">operator</span>()...; };
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// мы компилируем под C++20; до него нужен ещё deduction guide:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// template&lt;class... Ts&gt; overloaded(Ts...) -&gt; overloaded&lt;Ts...&gt;;
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>visit(overloaded{
+</span></span><span style="display:flex;"><span>    [](<span style="color:#66d9ef">const</span> Circle<span style="color:#f92672">&amp;</span> c) { <span style="color:#75715e">/* круг */</span> },
+</span></span><span style="display:flex;"><span>    [](<span style="color:#66d9ef">const</span> Square<span style="color:#f92672">&amp;</span> s) { <span style="color:#75715e">/* квадрат */</span> },
+</span></span><span style="display:flex;"><span>}, sh);</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<h3 id="замер-10-фигур-сумма-площадей">Замер: 10⁷ фигур, сумма площадей<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p>Вариант А — классика занятия 7/14: <code>vector&lt;unique_ptr&lt;Shape&gt;&gt;</code> и виртуальный <code>area()</code>. Вариант Б — <code>vector&lt;variant&lt;Circle, Square&gt;&gt;</code> и <code>visit</code>:</p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>unique_ptr + virtual:   45.0 мс
+variant + visit:        38.8 мс
+
+память на фигуру:
+  А: указатель 8 Б + объект в куче ~16 Б (+ накладные malloc)
+  Б: 16 Б прямо в векторе, кучи нет</code></pre></div>
+<p>variant не медленнее виртуальных вызовов — здесь даже быстрее: фигуры лежат <strong>подряд</strong> (занятие 8), аллокаций ноль, прыжков по указателям ноль. Но выбирают между ними не по скорости.</p>
+<h3 id="главный-критерий-закрытый-или-открытый-набор">Главный критерий: закрытый или открытый набор<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
+<p><strong>variant — набор закрыт.</strong> Все альтернативы известны в точке объявления. Добавили <code>Triangle</code> — каждый <code>visit</code> с overloaded без ветки Triangle <strong>перестанет компилироваться</strong>: компилятор найдёт все места, которые нужно дописать. Родной брат <code>-Wswitch</code> у enum class (занятие 11). Ниши: токены парсера, состояния автомата, «значение или ошибка», фиксированная геометрия.</p>
+<p><strong>Наследование — набор открыт.</strong> Новые типы добавляются <strong>без перекомпиляции</strong> старого кода: плагин наследует Shape и просто работает. Цена — указатели, куча, vtable и невозможность проверить полноту обработки. Ниши: плагины, библиотеки, расширяемые чужим кодом.</p>
+
+<details open class="box cstyle notices tip">
+  <summary class="box-label" tabindex="-1">
+    <i class="fa-fw fas fa-lightbulb"></i> 
+    Правило курса
+  </summary>
+  <div class="box-content">
+<p>Набор типов фиксирован — variant; набор расширяется чужим кодом — наследование. Вопрос-компас: «кто и когда узнаёт полный список типов — я при компиляции или программа в рантайме?»</p>
+  </div>
+</details>
+<h2 id="stdany-коробка-для-чего-угодно">std::any: коробка для чего угодно<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">9
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>any a <span style="color:#f92672">=</span> <span style="color:#ae81ff">42</span>;                <span style="color:#75715e">// int
+</span></span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>string(<span style="color:#e6db74">&#34;привет&#34;</span>);      <span style="color:#75715e">// теперь string
+</span></span></span><span style="display:flex;"><span>a <span style="color:#f92672">=</span> <span style="color:#ae81ff">3.14</span>;                       <span style="color:#75715e">// теперь double
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>any_cast<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span>(a);       <span style="color:#75715e">// 3.14
+</span></span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>any_cast<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span><span style="color:#f92672">&gt;</span>(a);          <span style="color:#75715e">// не тот тип — бросает: bad any cast
+</span></span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">auto</span><span style="color:#f92672">*</span> p <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>any_cast<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span><span style="color:#f92672">&gt;</span>(<span style="color:#f92672">&amp;</span>a))   <span style="color:#75715e">// вариант с проверкой
+</span></span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#f92672">*</span>p;</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p><code>any</code> хранит значение <strong>любого</strong> копируемого типа — список альтернатив не нужен вообще. Цена всеядности: <code>sizeof(any) = 32</code>, маленькие объекты живут внутри (small buffer), большие — в куче; каждая распаковка — проверка типа в рантайме; <code>any_cast</code> требует <strong>точный</strong> тип, никаких конверсий. Это type erasure: тип стёрт из сигнатуры, но запомнен внутри.</p>
+<p>Честные ниши: конфиги с разнородными настройками, данные, прицепленные к чужому фреймворку, границы модулей с принципиально неизвестными типами. Запах: <code>any</code> там, где набор типов известен, — это variant, у которого отобрали проверку полноты. Лестница строгости: <strong>enum class → variant → any</strong> — чем правее, тем свободнее и тем меньше ловит компилятор; идти вправо стоит, только когда левое честно не выражает задачу.</p>
+<h2 id="карта-выбора-четыре-инструмента-или-или">Карта выбора: четыре инструмента «или-или»<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<table>
+	<thead>
+			<tr>
+					<th></th>
+					<th>union</th>
+					<th>variant</th>
+					<th>any</th>
+					<th>наследование</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>набор типов</td>
+					<td>фиксирован</td>
+					<td>фиксирован</td>
+					<td>любой</td>
+					<td>открытый</td>
+			</tr>
+			<tr>
+					<td>тег/проверки</td>
+					<td>вручную, UB</td>
+					<td>встроены</td>
+					<td>в рантайме</td>
+					<td>vtable</td>
+			</tr>
+			<tr>
+					<td>память</td>
+					<td>max членов</td>
+					<td>max + тег</td>
+					<td>32 Б + куча для больших</td>
+					<td>указатель + объект в куче</td>
+			</tr>
+			<tr>
+					<td>полнота обработки</td>
+					<td>—</td>
+					<td><strong>проверяет компилятор</strong></td>
+					<td>нет</td>
+					<td>нет</td>
+			</tr>
+			<tr>
+					<td>расширение без перекомпиляции</td>
+					<td>нет</td>
+					<td>нет</td>
+					<td>да</td>
+					<td>да</td>
+			</tr>
+			<tr>
+					<td>ниша</td>
+					<td>форматы, протоколы (зан. 18)</td>
+					<td>токены, состояния, «значение или ошибка»</td>
+					<td>конфиги, границы модулей</td>
+					<td>плагины, иерархии</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="проверьте-себя">Проверьте себя<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li>
+<p><strong>Что напечатает?</strong></p>
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">double</span>, std<span style="color:#f92672">::</span>string<span style="color:#f92672">&gt;</span> v;
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> v.index();
+</span></span><span style="display:flex;"><span>v <span style="color:#f92672">=</span> <span style="color:#ae81ff">2.5</span>;
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> v.index();
+</span></span><span style="display:flex;"><span>v <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hi&#34;</span>;
+</span></span><span style="display:flex;"><span>std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> v.index();</span></span></code></pre></td></tr></table>
+</div>
+</div>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+<strong>012.</strong> Пустой variant строит первую альтернативу (int, индекс 0); 2.5 — double (1); <code>&quot;hi&quot;</code> — это <code>const char*</code>, он конвертируется в string (2). Но неявный выбор альтернативы по конверсии — скользкое место: при похожих альтернативах (например, <code>bool</code> и <code>string</code> до C++20) литерал уезжал не туда. Явное <code>std::string(&quot;hi&quot;)</code> надёжнее.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Почините занятие 18.</strong> Перепишите <code>union Pun { float f; uint32_t u; }</code> на variant. Что не получится?</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+variant решает задачу «или-или»: <code>variant&lt;float, uint32_t&gt;</code> хранит либо float, либо uint32 — с тегом и проверками. Но задачу type punning — «посмотреть на <strong>те же</strong> байты как на другой тип» — он не решает принципиально: активная альтернатива одна, чужие байты не прочитать. Для punning легален только <code>std::bit_cast</code> (занятие 18). Из применений union: «или-или» уходит в variant, punning — в bit_cast, бинарные форматы — остаются за union + memcpy.
+  </div>
+</details>
+</li>
+<li>
+<p><strong>Спроектируйте:</strong> токен калькулятора (число | оператор | скобка) и результат вычисления (значение | ошибка); печать результата через visit.</p>
+
+<details class="box cstyle notices transparent expand">
+  <summary class="box-label">
+    <i class="expander-icon fa-fw fas fa-chevron-right"></i> 
+    Ответ
+  </summary>
+  <div class="box-content">
+<div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Op</span>    { <span style="color:#66d9ef">char</span> c; };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Paren</span> { <span style="color:#66d9ef">bool</span> open; };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Token  <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, Op, Paren<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">Error</span> { std<span style="color:#f92672">::</span>string text; };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">using</span> Result <span style="color:#f92672">=</span> std<span style="color:#f92672">::</span>variant<span style="color:#f92672">&lt;</span><span style="color:#66d9ef">double</span>, Error<span style="color:#f92672">&gt;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">print</span>(<span style="color:#66d9ef">const</span> Result<span style="color:#f92672">&amp;</span> r) {
+</span></span><span style="display:flex;"><span>    std<span style="color:#f92672">::</span>visit(overloaded{
+</span></span><span style="display:flex;"><span>        [](<span style="color:#66d9ef">double</span> v)        { std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;= &#34;</span> <span style="color:#f92672">&lt;&lt;</span> v <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>; },
+</span></span><span style="display:flex;"><span>        [](<span style="color:#66d9ef">const</span> Error<span style="color:#f92672">&amp;</span> e)  { std<span style="color:#f92672">::</span>cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;ошибка: &#34;</span> <span style="color:#f92672">&lt;&lt;</span> e.text <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#39;\n&#39;</span>; },
+</span></span><span style="display:flex;"><span>    }, r);
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></td></tr></table>
+</div>
+</div>
+<p>Заметьте: добавите третий исход (например, <code>Pending</code>) — этот <code>print</code> перестанет компилироваться, пока не допишете ветку. Это и есть подарок закрытого набора.</p>
+  </div>
+</details>
+</li>
+</ol>
+<h2 id="домашнее-задание-сдача-через-git">Домашнее задание (сдача через Git)<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
+<ol>
+<li><strong>Токенизатор:</strong> разберите строку арифметического выражения в <code>vector&lt;Token&gt;</code> (Token — из задачи 3); печать списка токенов — visit с overloaded.</li>
+<li><strong>Result-тип:</strong> <code>using Result = std::variant&lt;double, Error&gt;</code> — безопасное деление и цепочка вычислений с прокидыванием ошибки, без исключений.</li>
+<li><strong>Свой бенчмарк:</strong> повторите замер virtual против visit на своей машине (методика занятия 16), добавив третью фигуру; объясните расхождения с числами конспекта.</li>
+<li><strong>Мини-конфиг:</strong> <code>map&lt;string, any&gt;</code> с настройками разных типов + типобезопасная <code>getOr&lt;T&gt;(key, default)</code>; продемонстрируйте bad_any_cast и его обработку.</li>
+<li>* <strong>Полнота на компиляции:</strong> добавьте Triangle в Shape-variant и зафиксируйте все места, которые компилятор заставил дописать; опишите, как ту же правку пережила бы иерархия с virtual — и что бы она <em>не</em> нашла.</li>
+</ol>
+<p>Следующее занятие — <strong>сортировки за n log n</strong>: слиянием и быстрая. Дальнобойные перестановки, «разделяй и властвуй» из занятия 6 в главной роли — и обещанный занятием 19 выход из класса «соседних» алгоритмов.</p>
+
+  <footer class="footline">
+              <i class='fa-fw fas fa-calendar'></i> 13 авг. 2026 г.
+  </footer>
+</article>
+        </div>
+      </main>
+    </div>
+    <aside id="R-sidebar" class="default-animation">
+      <div id="R-header-topbar" class="default-animation"></div>
+      <div id="R-header-wrapper" class="default-animation">
+
+
+
+        <search><form action="/search/index.html" method="get">
+          <div class="searchbox default-animation">
+            <button class="search-detail" type="submit" title="Поиск (CTRL+ALT+f)"><i class="fas fa-fw fa-search"></i></button>
+            <label class="a11y-only" for="R-search-by">Поиск</label>
+            <input data-search-input id="R-search-by" name="search-by" class="search-by" type="search" placeholder="Поиск...">
+            <button class="search-clear" type="button" data-search-clear="" title="Очистить поиск"><i class="fas fa-fw fa-times" title="Очистить поиск"></i></button>
+          </div>
+        </form></search>
+      </div>
+      <div id="R-homelinks" class="default-animation">
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-homelinks default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-headercontrols default-animation">
+          <ul class="">
+          </ul>
+        </div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+      </div>
+      <div id="R-content-wrapper" class="highlightable">
+        <div class="R-sidebarmenu R-shortcutmenu-main default-animation">
+          <ul class="enlarge morespace collapsible-menu">
+            <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
+            <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
+            <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
+            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
+            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
+            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
+            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
+            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
+            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
+            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
+            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
+            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
+            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
+            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
+            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
+            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
+            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
+            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
+            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
+            <li class="active " data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
+            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
+            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
+            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
+            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
+            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
+            <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
+          </ul>
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-shortcuts default-animation">
+          <ul class="space collapsible-menu">
+          </ul>
+        </div>
+        <div id="R-footer-margin" class="default-animation"></div>
+        <div class="R-menu-divider default-animation">
+          <hr class="padding default-animation">
+        </div>
+        <div class="R-sidebarmenu R-shortcutmenu-footercontrols default-animation">
+          <ul class="">
+            <li class="R-variantswitcher">
+              <div class="padding menu-control">
+                <i class="fa-fw fas fa-paint-brush"></i>
+                <span>&nbsp;</span>
+                <div class="control-style">
+                  <label class="a11y-only" for="R-select-variant">Тема</label>
+                  <select id="R-select-variant">
+                    <option id="R-select-variant-auto" value="auto" selected>Auto</option>
+                    <option id="R-select-variant-zen-light" value="zen-light">Zen Light</option>
+                    <option id="R-select-variant-zen-dark" value="zen-dark">Zen Dark</option>
+                  </select>
+                </div>
+                <div class="clear"></div>
+              </div>
+              <script>window.relearn.markVariant();</script>
+            </li>
+          </ul>
+        </div>
+<div id="R-footer" class="default-animation"><p>Built with <a href="https://github.com/McShelby/hugo-theme-relearn" title="love"><i class="fas fa-heart"></i></a> by <a href="https://gohugo.io/">Hugo</a></p></div>
+      </div>
+    </aside>
+    <script>
+      window.MathJax = Object.assign( window.MathJax || {}, {
+        tex: {
+          inlineMath:  [['\\(', '\\)'], ['$',  '$']],  
+          displayMath: [['\\[', '\\]'], ['$$', '$$']], 
+        },
+        options: {
+          enableMenu: false 
+        }
+      }, JSON.parse("{}") );
+    </script>
+    <script id="MathJax-script" async src="/js/mathjax/tex-mml-chtml.js"></script>
+    <script src="/js/perfect-scrollbar/perfect-scrollbar.min.js" defer></script>
+    <script src="/js/theme.min.js" defer></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179019749-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-179019749-1');
+</script>
+    <div id="toast-container" role="status" aria-live="polite" aria-atomic="false"></div>
+  </body>
+</html>
