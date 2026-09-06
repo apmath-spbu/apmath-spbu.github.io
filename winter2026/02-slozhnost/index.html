@@ -3,33 +3,25 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="Обе программы из этого конспекта решают одну и ту же задачу, обе корректны — и отличаются по времени работы на шесть порядков уже при небольших входах. Разница не в железе и не в языке, а в алгоритме. Сегодняшняя цель — научиться предсказывать такие разрывы до запуска, а в идеале — до написания кода.
-Все замеры в тексте — реальные: Apple M-серия, clang&#43;&#43; -O2.
-Задача дня: числа Фибоначчи $$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} &#43; F_{n-2}$$Последовательность 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, … — задача Леонардо Пизанского о кроликах (1202 год), а сегодня — стандартный полигон для разговора о рекурсии и сложности. Числа Фибоначчи всплывают в анализе алгоритма Евклида (его худший случай — соседние $F_n$), в фибоначчиевых кучах, в филлотаксисе — спиралях подсолнуха; отношение соседних членов стремится к золотому сечению $\varphi \approx 1.618$.">
+    <meta name="description" content="Фибоначчи четырьмя способами, O-символика, иерархия скоростей роста.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Занятие 2. Анализ сложности алгоритмов :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="Обе программы из этого конспекта решают одну и ту же задачу, обе корректны — и отличаются по времени работы на шесть порядков уже при небольших входах. Разница не в железе и не в языке, а в алгоритме. Сегодняшняя цель — научиться предсказывать такие разрывы до запуска, а в идеале — до написания кода.
-Все замеры в тексте — реальные: Apple M-серия, clang&#43;&#43; -O2.
-Задача дня: числа Фибоначчи $$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} &#43; F_{n-2}$$Последовательность 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, … — задача Леонардо Пизанского о кроликах (1202 год), а сегодня — стандартный полигон для разговора о рекурсии и сложности. Числа Фибоначчи всплывают в анализе алгоритма Евклида (его худший случай — соседние $F_n$), в фибоначчиевых кучах, в филлотаксисе — спиралях подсолнуха; отношение соседних членов стремится к золотому сечению $\varphi \approx 1.618$.">
+    <meta name="twitter:description" content="Фибоначчи четырьмя способами, O-символика, иерархия скоростей роста.">
     <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/02-slozhnost/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="Занятие 2. Анализ сложности алгоритмов :: Краткий курс по основам программирования">
-    <meta property="og:description" content="Обе программы из этого конспекта решают одну и ту же задачу, обе корректны — и отличаются по времени работы на шесть порядков уже при небольших входах. Разница не в железе и не в языке, а в алгоритме. Сегодняшняя цель — научиться предсказывать такие разрывы до запуска, а в идеале — до написания кода.
-Все замеры в тексте — реальные: Apple M-серия, clang&#43;&#43; -O2.
-Задача дня: числа Фибоначчи $$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} &#43; F_{n-2}$$Последовательность 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, … — задача Леонардо Пизанского о кроликах (1202 год), а сегодня — стандартный полигон для разговора о рекурсии и сложности. Числа Фибоначчи всплывают в анализе алгоритма Евклида (его худший случай — соседние $F_n$), в фибоначчиевых кучах, в филлотаксисе — спиралях подсолнуха; отношение соседних членов стремится к золотому сечению $\varphi \approx 1.618$.">
+    <meta property="og:description" content="Фибоначчи четырьмя способами, O-символика, иерархия скоростей роста.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
-    <meta property="article:published_time" content="2026-08-05T12:00:00+03:00">
+    <meta property="article:published_time" content="2026-09-07T00:00:00+03:00">
     <meta property="article:modified_time" content="2026-08-05T12:00:00+03:00">
     <meta itemprop="name" content="Занятие 2. Анализ сложности алгоритмов :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="Обе программы из этого конспекта решают одну и ту же задачу, обе корректны — и отличаются по времени работы на шесть порядков уже при небольших входах. Разница не в железе и не в языке, а в алгоритме. Сегодняшняя цель — научиться предсказывать такие разрывы до запуска, а в идеале — до написания кода.
-Все замеры в тексте — реальные: Apple M-серия, clang&#43;&#43; -O2.
-Задача дня: числа Фибоначчи $$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} &#43; F_{n-2}$$Последовательность 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, … — задача Леонардо Пизанского о кроликах (1202 год), а сегодня — стандартный полигон для разговора о рекурсии и сложности. Числа Фибоначчи всплывают в анализе алгоритма Евклида (его худший случай — соседние $F_n$), в фибоначчиевых кучах, в филлотаксисе — спиралях подсолнуха; отношение соседних членов стремится к золотому сечению $\varphi \approx 1.618$.">
-    <meta itemprop="datePublished" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="description" content="Фибоначчи четырьмя способами, O-символика, иерархия скоростей роста.">
+    <meta itemprop="datePublished" content="2026-09-07T00:00:00+03:00">
     <meta itemprop="dateModified" content="2026-08-05T12:00:00+03:00">
-    <meta itemprop="wordCount" content="1746">
+    <meta itemprop="wordCount" content="2026">
     <title>Занятие 2. Анализ сложности алгоритмов :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
@@ -168,7 +160,7 @@
 <span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/01-sborka-cpp/index.html" title="Занятие 1. Сборка C++: от кода до .exe (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/03-tipy-dannyh/index.html" title="Занятие 3. Типы данных: во что упаковываем данные? (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/index.html" title="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -267,6 +259,7 @@ $$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} + F_{n-2}$$<p>Последоват
 </table>
 <p>Каждые +5 к $n$ — рост в ~11 раз. Почему именно 11?</p>
 $$\varphi^5 = \left(\frac{1+\sqrt{5}}{2}\right)^{5} \approx 1.618^5 \approx 11.09$$<p>Время растёт как степень золотого сечения — геометрическая прогрессия, то есть <strong>экспоненциальный рост</strong>.</p>
+<p>Откуда «150 лет»: $T(90) \approx T(45) \cdot \varphi^{45}$, а $\varphi^{45} = F_{45}\sqrt{5} \approx 1.13 \cdot 10^9 \cdot 2.236 \approx 2.5 \cdot 10^9$ — сами числа Фибоначчи и подсказывают множитель. Итого $1.89 \text{ с} \times 2.5 \cdot 10^9 \approx 4.8 \cdot 10^9$ с $\approx$ 152 года.</p>
 
 <details open class="box cstyle notices tip">
   <summary class="box-label" tabindex="-1">
@@ -279,7 +272,16 @@ $$\varphi^5 = \left(\frac{1+\sqrt{5}}{2}\right)^{5} \approx 1.618^5 \approx 11.0
 </details>
 <h3 id="почему--считаем-вызовы">Почему $\varphi^n$: считаем вызовы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Пусть $C(n)$ — число вызовов <code>fib(n)</code>. Каждый вызов делает два подвызова и $O(1)$ собственной работы:</p>
-$$C(n) = C(n-1) + C(n-2) + 1, \qquad C(0) = C(1) = 1$$<p>Индукцией проверяется точное решение $C(n) = 2F_{n+1} - 1$ (для $n=5$: $2 \cdot 8 - 1 = 15$ — ровно как на дереве). А сами числа Фибоначчи растут как $F_n = \varphi^n/\sqrt{5}$ с округлением (докажем строго на занятии 6 про рекуррентные соотношения). Итого время наивной рекурсии:</p>
+$$C(n) = C(n-1) + C(n-2) + 1, \qquad C(0) = C(1) = 1$$<p>Точное решение: $C(n) = 2F_{n+1} - 1$. Докажем индукцией по $n$; шаг опирается на два предыдущих значения, поэтому база — двойная.</p>
+<ul>
+<li><strong>База.</strong> $C(0) = 1 = 2F_1 - 1$ и $C(1) = 1 = 2F_2 - 1$ (напомним, $F_1 = F_2 = 1$).</li>
+<li><strong>Переход</strong> ($n \ge 2$). Пусть формула верна для $n-1$ и $n-2$. Тогда
+
+$$C(n) = C(n-1) + C(n-2) + 1 = (2F_n - 1) + (2F_{n-1} - 1) + 1 = 2(F_n + F_{n-1}) - 1 = 2F_{n+1} - 1.$$</li>
+</ul>
+<p>Единицы в переходе схлопнулись ($-1-1+1 = -1$), а рекуррента Фибоначчи доделала остальное. Проверка на дереве: $C(5) = 2F_6 - 1 = 2 \cdot 8 - 1 = 15$ — ровно столько вызовов мы насчитали на картинке. А сами числа Фибоначчи растут как $F_n = \varphi^n/\sqrt{5}$ с округлением.</p>
+<p>Откуда взялась сама $\varphi$ — из рекурренты. Дерево растёт «в геометрической прогрессии», поэтому поищем решение прямо в таком виде: $F_n \approx c \cdot x^n$. Подстановка в $F_n = F_{n-1} + F_{n-2}$ после сокращения на $c \, x^{n-2}$ оставляет квадратное уравнение</p>
+$$x^2 = x + 1 \quad\Longrightarrow\quad x = \frac{1+\sqrt{5}}{2} = \varphi \approx 1.618$$<p>— единственный положительный корень, то самое золотое сечение. Экспоненту никто не приносил снаружи — она живёт внутри самой рекурренты. Строгое доказательство с обоими корнями (формула Бине) — на занятии 6 про рекуррентные соотношения. Итого время наивной рекурсии:</p>
 $$T(n) = \Theta(\varphi^n) \approx \Theta(1.618^n)$$<h2 id="способ-2-итерация">Способ 2: итерация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Идём снизу вверх, храня только два последних числа:</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
@@ -419,13 +421,13 @@ $$f(n) = O(g(n)) \;\Longleftrightarrow\; \exists\, c > 0,\ \exists\, n_0: \quad 
 					<td>$f = O(g)$</td>
 					<td>растёт не быстрее $g$</td>
 					<td>≤</td>
-					<td>$n = O(n^2)$</td>
+					<td>$n = O(n^2)$ и $3n^2 = O(n^2)$</td>
 			</tr>
 			<tr>
 					<td>$f = \Omega(g)$</td>
 					<td>растёт не медленнее $g$</td>
 					<td>≥</td>
-					<td>$n^2 = \Omega(n)$</td>
+					<td>$n^2 = \Omega(n)$ и $n^2/2 = \Omega(n^2)$</td>
 			</tr>
 			<tr>
 					<td>$f = \Theta(g)$</td>
@@ -437,16 +439,17 @@ $$f(n) = O(g(n)) \;\Longleftrightarrow\; \exists\, c > 0,\ \exists\, n_0: \quad 
 					<td>$f = o(g)$</td>
 					<td>строго медленнее: $f/g \to 0$</td>
 					<td>&lt;</td>
-					<td>$n = o(n^2)$</td>
+					<td>$n = o(n^2)$, но $3n^2 \ne o(n^2)$</td>
 			</tr>
 			<tr>
 					<td>$f = \omega(g)$</td>
 					<td>строго быстрее: $f/g \to \infty$</td>
 					<td>&gt;</td>
-					<td>$n^2 = \omega(n)$</td>
+					<td>$n^2 = \omega(n)$, но $n^2 \ne \omega(n^2/2)$</td>
 			</tr>
 	</tbody>
 </table>
+<p>Обратите внимание на вторые примеры в строках: нестрогие $O$ и $\Omega$, как ≤ и ≥, <strong>допускают совпадение порядков</strong> — потому $3n^2 = O(n^2)$ верно; строгие $o$ и $\omega$ его <strong>запрещают</strong>. На паре «$n$ и $n^2$» все четыре знака неразличимы — различие видно только на функциях одного порядка.</p>
 <p>В устной речи «O» часто используют в смысле «Θ» («сортировка за O(n log n)» — имеется в виду точный порядок). На письме и в задачах — различайте. И помните: сказать про итеративный fib «он $O(2^n)$» — корректно (не быстрее экспоненты — чистая правда), но бесполезно; содержательная оценка — $\Theta(n)$.</p>
 <h3 id="правила-арифметики-o">Правила арифметики O<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <ul>
@@ -631,30 +634,7 @@ $$\lim_{n \to \infty} \frac{n^k}{c^n} = 0 \quad (c > 1), \qquad \lim_{n \to \inf
             <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
             <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
             <li class="" data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
-            <li class="active " data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
-            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
-            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
-            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
-            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
-            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
-            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
-            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
-            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
-            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
-            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
-            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
-            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
-            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
-            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
-            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
-            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
-            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
-            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
-            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
-            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
-            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
-            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
-            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="active " data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li></ul></li>
             <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
             <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>

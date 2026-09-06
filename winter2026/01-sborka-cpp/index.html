@@ -3,27 +3,23 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="Курс начинается не с синтаксиса, а с ответа на вопрос, который обычно откладывают «на потом» — и зря: что происходит между текстом программы и её запуском? Это знание превращает загадочные ошибки сборки в понятные сообщения с конкретным виновником и делает осмысленным всё, что мы будем писать дальше.
-Компиляция и интерпретация Процессор исполняет только машинные команды. Все языки программирования отличаются, по большому счёту, тем, в какой момент и кто переводит текст программы в эти команды.">
+    <meta name="description" content="конвейер сборки, заголовочные файлы, include guards, окружение под три ОС.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Занятие 1. Сборка C&#43;&#43;: от кода до .exe :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="Курс начинается не с синтаксиса, а с ответа на вопрос, который обычно откладывают «на потом» — и зря: что происходит между текстом программы и её запуском? Это знание превращает загадочные ошибки сборки в понятные сообщения с конкретным виновником и делает осмысленным всё, что мы будем писать дальше.
-Компиляция и интерпретация Процессор исполняет только машинные команды. Все языки программирования отличаются, по большому счёту, тем, в какой момент и кто переводит текст программы в эти команды.">
+    <meta name="twitter:description" content="конвейер сборки, заголовочные файлы, include guards, окружение под три ОС.">
     <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/01-sborka-cpp/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="Занятие 1. Сборка C&#43;&#43;: от кода до .exe :: Краткий курс по основам программирования">
-    <meta property="og:description" content="Курс начинается не с синтаксиса, а с ответа на вопрос, который обычно откладывают «на потом» — и зря: что происходит между текстом программы и её запуском? Это знание превращает загадочные ошибки сборки в понятные сообщения с конкретным виновником и делает осмысленным всё, что мы будем писать дальше.
-Компиляция и интерпретация Процессор исполняет только машинные команды. Все языки программирования отличаются, по большому счёту, тем, в какой момент и кто переводит текст программы в эти команды.">
+    <meta property="og:description" content="конвейер сборки, заголовочные файлы, include guards, окружение под три ОС.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
-    <meta property="article:published_time" content="2026-08-05T12:00:00+03:00">
+    <meta property="article:published_time" content="2026-09-07T00:00:00+03:00">
     <meta property="article:modified_time" content="2026-08-05T12:00:00+03:00">
     <meta itemprop="name" content="Занятие 1. Сборка C&#43;&#43;: от кода до .exe :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="Курс начинается не с синтаксиса, а с ответа на вопрос, который обычно откладывают «на потом» — и зря: что происходит между текстом программы и её запуском? Это знание превращает загадочные ошибки сборки в понятные сообщения с конкретным виновником и делает осмысленным всё, что мы будем писать дальше.
-Компиляция и интерпретация Процессор исполняет только машинные команды. Все языки программирования отличаются, по большому счёту, тем, в какой момент и кто переводит текст программы в эти команды.">
-    <meta itemprop="datePublished" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="description" content="конвейер сборки, заголовочные файлы, include guards, окружение под три ОС.">
+    <meta itemprop="datePublished" content="2026-09-07T00:00:00+03:00">
     <meta itemprop="dateModified" content="2026-08-05T12:00:00+03:00">
     <meta itemprop="wordCount" content="2072">
     <title>Занятие 1. Сборка C&#43;&#43;: от кода до .exe :: Краткий курс по основам программирования</title>
@@ -863,30 +859,7 @@ duplicate symbol &#39;f()&#39; in: a.o, b.o</code></pre></div>
             <li class="parent " data-nav-id="/winter2026/index.html"><a class="padding default-animation" href="/winter2026/index.html">Основы программирования. Зима 2026.</a><ul id="R-subsections-59d128f9f69f887265f1bc078eced2dd" class="collapsible-menu">
             <li class="" data-nav-id="/winter2026/00-vstuplenie/index.html"><a class="padding" href="/winter2026/00-vstuplenie/index.html">Занятие 0. Вступление: от перфокарт до LLM</a></li>
             <li class="active " data-nav-id="/winter2026/01-sborka-cpp/index.html"><a class="padding" href="/winter2026/01-sborka-cpp/index.html">Занятие 1. Сборка C&#43;&#43;: от кода до .exe</a></li>
-            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li>
-            <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
-            <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
-            <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
-            <li class="" data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
-            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
-            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
-            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
-            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
-            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
-            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
-            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
-            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
-            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
-            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
-            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
-            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
-            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
-            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
-            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
-            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
-            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
-            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
-            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="" data-nav-id="/winter2026/02-slozhnost/index.html"><a class="padding" href="/winter2026/02-slozhnost/index.html">Занятие 2. Анализ сложности алгоритмов</a></li></ul></li>
             <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
             <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>

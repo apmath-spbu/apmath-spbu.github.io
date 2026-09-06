@@ -243,29 +243,29 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
 <p>Будем применять эти рассуждения рекурсивно, и получать тексты, в которых всё меньше и меньше различных символов. В конце концов мы получим текст, в котором встречается всего два различных символа. Оптимальный префиксный код для такого текста кодирует каждый символ одним битом.</p>
 <h3 id="реализация">Реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Будем хранить символы в <a href="/basics/basic_data_structures/index.html">очереди с приоритетами</a>: приоритет символа равен его частоте. Пока в очереди больше одного символа, будем доставать из очереди два символа $a, b$ с минимальными приоритетами $\operatorname{cnt}_{a}, \operatorname{cnt}_{b}$, и складывать в очередь новый символ $c$ с приоритетом $\operatorname{cnt}_{c}=\operatorname{cnt}_{a}+\operatorname{cnt}_{b}$. В этот момент будем подвешивать вершины, соответствующие символам $a$ и $b$, детьми к вершине, соответствующей символу $c$. В конце в очереди останется только один символ; вершина, соответствующая этому символу, будет корнем дерева оптимального префиксного кода. Получаем время работы $O(|\Sigma| \log |\Sigma|)$ (если считать, что частоты символов уже предподсчитаны).</p>
-<div class="tab-panel" data-tab-group="R-tabs-42c84ec1ae5ec4565541b3b270f1ff68">
+<div class="tab-panel" data-tab-group="R-tabs-f19f0da07f5f3e4fcfda183c3409be91">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-3b8a2e96f5babb74b2c78bcc32e74d3e" aria-expanded="true"
+      aria-controls="R-tab-id-da59fc4d0c02b60ace4b7715a2973872" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-42c84ec1ae5ec4565541b3b270f1ff68','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-f19f0da07f5f3e4fcfda183c3409be91','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-a3f15ae405284ab1d261adb0079af78f" aria-expanded="false"
+      aria-controls="R-tab-id-4b903598ffba975e8b7b61088c8be268" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-42c84ec1ae5ec4565541b3b270f1ff68','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-f19f0da07f5f3e4fcfda183c3409be91','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-3b8a2e96f5babb74b2c78bcc32e74d3e"
+      id="R-tab-id-da59fc4d0c02b60ace4b7715a2973872"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -332,7 +332,7 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
       </div>
     </div>
     <div
-      id="R-tab-id-a3f15ae405284ab1d261adb0079af78f"
+      id="R-tab-id-4b903598ffba975e8b7b61088c8be268"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -464,29 +464,29 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
 </details>
 <h3 id="реализация-1">Реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Для реализации алгоритма Белади нужно знать будущее: для каждого элемента $d_i$ необходимо заранее предподсчитать следующий индекс его использования. Это делает алгоритм неприменимым на практике, но полезным как теоретический эталон для сравнения.</p>
-<div class="tab-panel" data-tab-group="R-tabs-62b0fb759a4665599a700f19333aa746">
+<div class="tab-panel" data-tab-group="R-tabs-b8f12d8ef94deacec99ccc642a79bfe1">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-2e3acf6a263134acbe8fc3eaf7de8afa" aria-expanded="true"
+      aria-controls="R-tab-id-bfe26164c7f6cdf808f5fcc7187d56d5" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-62b0fb759a4665599a700f19333aa746','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-b8f12d8ef94deacec99ccc642a79bfe1','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-9cbfdef9be6a8cb871a00e5fe7842764" aria-expanded="false"
+      aria-controls="R-tab-id-16ea8024c907a4de11bdfa36c68db839" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-62b0fb759a4665599a700f19333aa746','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-b8f12d8ef94deacec99ccc642a79bfe1','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-2e3acf6a263134acbe8fc3eaf7de8afa"
+      id="R-tab-id-bfe26164c7f6cdf808f5fcc7187d56d5"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -561,7 +561,7 @@ $$L(D, t)=L\left(D_{1}, t_{1}\right)+\operatorname{cnt}(t, a)+\operatorname{cnt}
       </div>
     </div>
     <div
-      id="R-tab-id-9cbfdef9be6a8cb871a00e5fe7842764"
+      id="R-tab-id-16ea8024c907a4de11bdfa36c68db839"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
