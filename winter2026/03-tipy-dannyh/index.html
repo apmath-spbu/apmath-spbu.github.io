@@ -21,7 +21,7 @@
     <meta itemprop="description" content="биты и байты, IEEE 754, массивы, указатели и ссылки, size_t.">
     <meta itemprop="datePublished" content="2026-09-12T00:00:00+03:00">
     <meta itemprop="dateModified" content="2026-09-14T12:00:00+03:00">
-    <meta itemprop="wordCount" content="2467">
+    <meta itemprop="wordCount" content="2714">
     <title>Занятие 3. Типы данных: во что упаковываем данные? :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
@@ -287,6 +287,10 @@
 <li>с C++20 дополнительный код — единственное разрешённое стандартом представление;</li>
 <li>отсюда битовые трюки вроде <code>x &amp; (-x)</code> — выделить младший единичный бит.</li>
 </ul>
+<blockquote>
+<p><strong>Почему оговорка «с C++20»?</strong> До C++20 стандарт формально разрешал <em>три</em> представления знаковых целых — наследие машин 1950–60-х: прямой код (старший бит — знак, остальное — модуль; IBM 7090), обратный код (минус = инверсия всех битов; UNIVAC, CDC 6600) и дополнительный. У первых двух есть «минус ноль» и симметричный диапазон, а битовый образ, скажем, −1 в трёх кодах разный — поэтому формально он считался «implementation-defined». Машин с прямым и обратным кодом давно не существует, и C++20 (предложение <a href="https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2018/p0907r4.html" rel="external">P0907 «Signed Integers are Two&rsquo;s Complement»</a>) узаконил статус-кво: знаковые целые <em>обязаны</em> быть в дополнительном коде. Всё перечисленное выше с этого момента — гарантия языка, а не свойство конкретного железа; заодно стало полностью определённым преобразование unsigned → signed вне диапазона (взятие по модулю $2^n$) и гарантировано <code>INT_MIN == -INT_MAX - 1</code>. Важно, что́ при этом <strong>не</strong> изменилось: переполнение знаковой арифметики осталось UB — стандарт зафиксировал представление, но не операции (об этом следующий раздел). Язык C принял то же решение только в C23.</p>
+<p>Отсюда полезная лесенка — три статуса одного и того же поведения. <strong>Де-факто:</strong> так делает всё реальное железо (x86, ARM, RISC-V) и все компиляторы — программа 2005 года исполнялась байт в байт так же, как сегодня. <strong>Implementation-defined:</strong> статус до C++20 — компилятор обязан задокументировать своё поведение, но язык его не обещает (это не UB, «смотри документацию платформы»). <strong>Гарантия стандарта:</strong> статус с C++20 — обещание самого языка, на которое можно опираться в переносимом коде. P0907 не изменил поведение ни одной машины — он передвинул его по лесенке с середины на верхнюю ступень.</p>
+</blockquote>
 <h3 id="переполнение-две-очень-разные-истории">Переполнение: две очень разные истории<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p><strong>Знаковое переполнение — undefined behavior:</strong></p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">

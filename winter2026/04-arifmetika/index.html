@@ -21,7 +21,7 @@
     <meta itemprop="description" content="длинные числа, умножение Карацубы, первые шаги в Git.">
     <meta itemprop="datePublished" content="2026-09-12T00:00:00+03:00">
     <meta itemprop="dateModified" content="2026-09-14T12:00:00+03:00">
-    <meta itemprop="wordCount" content="1746">
+    <meta itemprop="wordCount" content="2080">
     <title>Занятие 4. Элементарная арифметика :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
     <script src="/js/auto-complete/auto-complete.min.js" defer></script>
@@ -491,7 +491,9 @@ $$T(n) = \Theta\!\left(n^{\log_2 3}\right) \approx \Theta\!\left(n^{1.585}\right
 </table>
 <p>Библиотека GMP держит все уровни сразу и переключается по длине. Нижняя оценка $\Omega(n \log n)$ до сих пор <strong>не доказана</strong> — вопрос открыт; может быть, среди читателей сидит следующий Карацуба.</p>
 <h2 id="деление">Деление<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p>Деление длинного числа на <strong>короткое</strong> (влезающее в <code>int</code>) — простой проход со старших разрядов с протаскиванием остатка:</p>
+<p>Деление стоит особняком среди четырёх операций. У сложения и умножения каждая цифра результата — локальная формула из цифр аргументов и переноса; цифру частного так вычислить нельзя — её можно только <strong>подобрать</strong>: прикинуть, сколько раз делитель влезает, проверить, поправить. Школьный столбик — это дисциплина такого подбора, то есть полноценный алгоритм, а не ностальгия.</p>
+<p>Зачем он нужен, видно от противного. Наивное деление — вычитать $b$ из $a$, пока вычитается, — корректно, но частное бывает порядка $10^n$, столько будет и итераций: экспонента от числа разрядов. Столбик вычитает не по одному $b$, а сразу $b \cdot d \cdot 10^k$ — целый разряд за шаг: шагов столько, сколько цифр в частном, и каждый дешёвый. Это та же идея, что ускоряет все остальные операции, — позиционная запись, применённая к вычитанию.</p>
+<p>Начнём со случая, где подбор вырождается: деление длинного числа на <strong>короткое</strong> (влезающее в <code>int</code>) — простой проход со старших разрядов с протаскиванием остатка:</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -521,7 +523,45 @@ $$T(n) = \Theta\!\left(n^{\log_2 3}\right) \approx \Theta\!\left(n^{1.585}\right
 </div>
 </div>
 <p>(Заметьте цикл <code>i-- &gt; 0</code> — наш трюк против беззнакового <code>size_t</code> из занятия 3.)</p>
-<p>Деление <strong>длинного на длинное</strong> — школьный столбик с подбором очередной цифры частного (двоичным поиском «влезает ли $b \cdot d$») — $\Theta(n^2)$; быстрые варианты строятся через метод Ньютона и стоят как умножение. Краевые случаи — источник 90% багов: ноль, $b = 1$, ведущие нули результата, остаток. Пишите тесты до кода.</p>
+<p>Строка <code>cur = cur*10 + a[i]</code> — школьное «снести следующую цифру». Трасса 8531 ÷ 7:</p>
+<table>
+	<thead>
+			<tr>
+					<th>снесли</th>
+					<th>cur</th>
+					<th>цифра частного</th>
+					<th>остаток</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>8</td>
+					<td>8</td>
+					<td>1</td>
+					<td>1</td>
+			</tr>
+			<tr>
+					<td>5</td>
+					<td>15</td>
+					<td>2</td>
+					<td>1</td>
+			</tr>
+			<tr>
+					<td>3</td>
+					<td>13</td>
+					<td>1</td>
+					<td>6</td>
+			</tr>
+			<tr>
+					<td>1</td>
+					<td>61</td>
+					<td>8</td>
+					<td>5</td>
+			</tr>
+	</tbody>
+</table>
+<p>Частное 1218, остаток 5; проверка: $7 \cdot 1218 + 5 = 8531$. Инвариант цикла: после обработки старшего префикса <code>cur</code> — остаток этого префикса по модулю $b$; переполнения нет, потому что <code>cur &lt; b ≤ INT_MAX</code> и <code>cur*10 + цифра</code> заведомо влезает в <code>int64_t</code>. Этот $\Theta(n)$-проход закрывает большинство реальных нужд BigInt: поделить на 2, перевести в другую систему счисления, проверить делимость.</p>
+<p>Деление <strong>длинного на длинное</strong> — школьный столбик в полный рост: на каждом шаге подбираем максимальную цифру частного $d$, при которой $b \cdot d$ ещё влезает в текущий остаток. Кандидатов всего десять, а предикат «$b \cdot d \le R$» монотонен по $d$ — подбирать можно перебором или двоичным поиском; запомните приём «подбор по монотонному предикату»: в занятии 12 он вырастет в целый метод «поиск по ответу». Итого $\Theta(n^2)$; быстрые варианты строятся через метод Ньютона (итерации для $1/b$, каждая — пара умножений) и стоят асимптотически как умножение. Краевые случаи — источник 90% багов: ноль, $b = 1$, ведущие нули результата, остаток. Пишите тесты до кода.</p>
 <h2 id="см-также">См. также<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <ul>
 <li><a href="/basics/elementary_arithmetic/index.html">Элементарная арифметика (теория, весенний семестр)</a> — расширенная версия темы: деление длинных чисел столбиком в подробностях, оценки и доказательства корректности.</li>
@@ -581,6 +621,9 @@ $$T(n) = \Theta\!\left(n^{\log_2 3}\right) \approx \Theta\!\left(n^{1.585}\right
 a.out
 .DS_Store</code></pre></div>
 <p>В репозитории живут <strong>исходники</strong>, а не артефакты сборки (бинарники всегда собираются заново из кода). И никогда не коммитьте секреты — пароли, токены: история помнит всё.</p>
+<blockquote>
+<p><strong>Тренажёр:</strong> <a href="https://learngitbranching.js.org/?locale=ru_RU" rel="external">learngitbranching.js.org</a> — интерактивная песочница, которая рисует граф коммитов по мере того, как вы вводите команды. Уровни от первых коммитов до merge и rebase, есть русский язык. Полчаса в ней дают то, чего не даёт ни одна статья, — интуицию, как ветки устроены на самом деле. Пройдите первую главу перед тем, как сдавать ДЗ.</p>
+</blockquote>
 <h2 id="итоги">Итоги<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <ul>
 <li>Длинное число — вектор цифр little-endian; сложение $\Theta(n)$, школьное умножение $\Theta(n^2)$.</li>
