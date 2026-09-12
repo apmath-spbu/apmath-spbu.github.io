@@ -45,7 +45,7 @@ $$ 1,1,2,3,5,8,13,21,34,55,89, \ldots $$определяется следующ�
     <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.ru.js";
+      window.relearn.index_js_url="../../"+"searchindex.ru.min.js";
     </script>
     <script src="/js/lunr/lunr.min.js" defer></script>
     <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
@@ -62,7 +62,6 @@ $$ 1,1,2,3,5,8,13,21,34,55,89, \ldots $$определяется следующ�
     <script>
       window.relearn = window.relearn || {};
       // configuration
-      window.relearn.min = `.min`;
       window.relearn.path='\/basics\/complexity\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
@@ -194,7 +193,7 @@ $$<p>определяется следующим образом:</p>
 <details open class="box cstyle notices lemma">
   <summary class="box-label" tabindex="-1">
     <i class="fa-fw fas fa-horse"></i> 
-    <!-- raw HTML omitted -->Лемма<!-- raw HTML omitted -->
+    Лемма
   </summary>
   <div class="box-content">
 <p>$2^{\lfloor n / 2\rfloor} \leqslant F_{n} \leqslant 2^{n}$.
@@ -216,29 +215,29 @@ $$<p>определяется следующим образом:</p>
 </details>
 <h4 id="экспоненциальный-алгоритм">Экспоненциальный алгоритм<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>Следующий рекурсивный алгоритм вычисляет $n$-ое число Фибоначчи, точно следуя определению:
-<div class="tab-panel" data-tab-group="R-tabs-0cebe5bbbb88144d66fe49e4ee0ffabe">
+<div class="tab-panel" data-tab-group="R-tabs-854f9f2f9048f15f2ce655668d2b851e">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-7c553881b3e46cdd8254a342c6271955" aria-expanded="true"
+      aria-controls="R-tab-id-d61f2f062259d85ac26f8348bf7c7731" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-0cebe5bbbb88144d66fe49e4ee0ffabe','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-854f9f2f9048f15f2ce655668d2b851e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-9f5f959adf8d392456d5511174fadab4" aria-expanded="false"
+      aria-controls="R-tab-id-54e4c8cb8d5eae20283dfd78746adfce" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-0cebe5bbbb88144d66fe49e4ee0ffabe','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-854f9f2f9048f15f2ce655668d2b851e','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-7c553881b3e46cdd8254a342c6271955"
+      id="R-tab-id-d61f2f062259d85ac26f8348bf7c7731"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -259,7 +258,7 @@ $$<p>определяется следующим образом:</p>
       </div>
     </div>
     <div
-      id="R-tab-id-9f5f959adf8d392456d5511174fadab4"
+      id="R-tab-id-54e4c8cb8d5eae20283dfd78746adfce"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -290,30 +289,30 @@ $$<p>Несложно доказать по индукции, что $F_{n} \leq
 <p>Из леммы следует, например, что, $F_{300} \geqslant 2^{150}>10^{45}$. На компьютере, выполняющем $10^{9}$ операций в секунду, fib(300) будет выполняться больше $10^{36}$ секунд.</p>
 <h4 id="полиномиальный-алгоритм">Полиномиальный алгоритм<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h4>
 <p>Посмотрим на дерево рекурсивных вызовов алгоритма fib. Видно, что алгоритм много раз вычисляет одно и то же. Давайте сохранять результаты промежуточных вычислений в массив:
-<img class="lazy figure-image" loading="lazy" src="/static/images/basics/complexity/recursion_call_tree.jpg" style="height: auto;width: auto;"></p>
-<div class="tab-panel" data-tab-group="R-tabs-67d65ca17844595cb8c7bfa4a33a773d">
+<img class="lazy figure-image" loading="lazy" src="/static/images/basics/complexity/recursion_call_tree.jpg" style="height: auto;"></p>
+<div class="tab-panel" data-tab-group="R-tabs-1c71f24264ca5b65c104797702e65825">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-2f0d9cd53414c99ed37e4403fce47056" aria-expanded="true"
+      aria-controls="R-tab-id-f49ed7dbc4c168cc7b0ad44cb38df5c3" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-67d65ca17844595cb8c7bfa4a33a773d','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-1c71f24264ca5b65c104797702e65825','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-ac72e3281e670d840dc5a18d52763d4c" aria-expanded="false"
+      aria-controls="R-tab-id-4f7d533e3a344631d027f46aee01d8bb" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-67d65ca17844595cb8c7bfa4a33a773d','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-1c71f24264ca5b65c104797702e65825','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-2f0d9cd53414c99ed37e4403fce47056"
+      id="R-tab-id-f49ed7dbc4c168cc7b0ad44cb38df5c3"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -368,7 +367,7 @@ $$<p>Несложно доказать по индукции, что $F_{n} \leq
       </div>
     </div>
     <div
-      id="R-tab-id-ac72e3281e670d840dc5a18d52763d4c"
+      id="R-tab-id-4f7d533e3a344631d027f46aee01d8bb"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">

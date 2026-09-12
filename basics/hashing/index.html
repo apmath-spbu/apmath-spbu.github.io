@@ -33,7 +33,7 @@
     <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.ru.js";
+      window.relearn.index_js_url="../../"+"searchindex.ru.min.js";
     </script>
     <script src="/js/lunr/lunr.min.js" defer></script>
     <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
@@ -50,7 +50,6 @@
     <script>
       window.relearn = window.relearn || {};
       // configuration
-      window.relearn.min = `.min`;
       window.relearn.path='\/basics\/hashing\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
@@ -178,29 +177,29 @@
 <p>Может случиться так, что $x \neq y$, но $h(x)=h(y)$. Такую ситуацию мы будем называть коллизией. Хеш-функцию стараются выбрать так, чтобы минимизировать число коллизий. Тем не менее, поскольку $m<|U|$, всегда найдётся пара ключей из $U$ с одинаковым значением хеш-функции, то есть какой бы хорошей ни была хеш-функция, коллизии иногда будут происходить.</p>
 <h3 id="метод-цепочек">Метод цепочек<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Самый простой способ разрешения коллизий - в каждой ячейке массива хранить &ldquo;цепочку&rdquo; - список всех ключей, попавших в эту ячейку. Этот список можно реализовывать как с помощью связного списка, так и с помощью динамического массива, или даже ещё одной внутренней хеш-таблицы (чуть позже мы увидим пример, когда именно такой способ оказывается полезен).
-<div class="tab-panel" data-tab-group="R-tabs-6af5bae37b5d861a730758847baf090f">
+<div class="tab-panel" data-tab-group="R-tabs-24d406b6efa08e1c0ecf5dbc7aaad2b8">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-7f7b71f11d4aa7a347ebb4486f43ffcf" aria-expanded="true"
+      aria-controls="R-tab-id-2ef3ce0ba6ee67586a73a1a6042380bd" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-6af5bae37b5d861a730758847baf090f','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-24d406b6efa08e1c0ecf5dbc7aaad2b8','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-737544d935f6e9754dba07c03d1a6077" aria-expanded="false"
+      aria-controls="R-tab-id-146e924b4ee93f915b2c0085be254beb" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-6af5bae37b5d861a730758847baf090f','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-24d406b6efa08e1c0ecf5dbc7aaad2b8','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-7f7b71f11d4aa7a347ebb4486f43ffcf"
+      id="R-tab-id-2ef3ce0ba6ee67586a73a1a6042380bd"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -297,7 +296,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-737544d935f6e9754dba07c03d1a6077"
+      id="R-tab-id-146e924b4ee93f915b2c0085be254beb"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -443,29 +442,29 @@
 <p>При этом $c$ в первом способе и $h_{2}(x)$ в третьем должны быть взаимно просты с $m$ (чтобы последовательность пробегала все ячейки). Во втором способе по тем же причинам тоже подойдут не все $c_{1}, c_{2}$.</p>
 <p>Линейное пробирование самое простое и имеет наименьшую константу во времени работы, но страдает от кластеризации: блоки из лежащих в таблице подряд ключей со временем становятся всё больше и больше (потому что всё больше и больше становится вероятность попасть в такой блок).</p>
 <p>Двойное хеширование отличается тем, что может дать $\Theta\left(m^{2}\right)$ различных последовательностей (в первых двух способах вся последовательность проб однозначно определяется по $h^{\prime}(x)$, поэтому всего возможно $\Theta(m)$ различных последовательностей), поэтому менее подвержено кластеризации. Квадратичное пробирование - некий компромисс между линейным пробированием и двойным хешированием.</p>
-<div class="tab-panel" data-tab-group="R-tabs-f59f191bb0e8c866a6a85a05cabd7527">
+<div class="tab-panel" data-tab-group="R-tabs-dff5869a4ba3fb814df99a0615501218">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-3074e2175e9438e6b48a0ea99767b28d" aria-expanded="true"
+      aria-controls="R-tab-id-e8eecd90ed1519943acdd3c5bff94242" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-f59f191bb0e8c866a6a85a05cabd7527','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-dff5869a4ba3fb814df99a0615501218','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-e7c3a9ab471881e4d2650f2faf061e58" aria-expanded="false"
+      aria-controls="R-tab-id-5a326c386c3f70c915677689f787c32c" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-f59f191bb0e8c866a6a85a05cabd7527','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-dff5869a4ba3fb814df99a0615501218','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-3074e2175e9438e6b48a0ea99767b28d"
+      id="R-tab-id-e8eecd90ed1519943acdd3c5bff94242"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -524,7 +523,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-e7c3a9ab471881e4d2650f2faf061e58"
+      id="R-tab-id-5a326c386c3f70c915677689f787c32c"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -611,29 +610,29 @@
   </div>
 </div>
 <p>Удалить ключ из хеш-таблицы теперь не так просто. Если просто пометить ячейку, где лежал ключ, как свободную, то поиск других ключей может перестать работать корректно (потому что при вставке другого ключа мы могли проходить через эту ячейку при поиске свободного места). Можно при удалении специальным образом помечать ячейку и пропускать её при дальнейшей работе с таблицей, но такую ячейку никогда нельзя будет переиспользовать.</p>
-<div class="tab-panel" data-tab-group="R-tabs-c91335b697e23a6bbfb00ab5e67cd206">
+<div class="tab-panel" data-tab-group="R-tabs-dbc8326dbd5df482eb25bc905954d6b0">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-1c9028e05a91e59ba15fc4d7f4231c5a" aria-expanded="true"
+      aria-controls="R-tab-id-4e5fc12d1e3e3c6575a32cebcbbc663e" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-c91335b697e23a6bbfb00ab5e67cd206','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-dbc8326dbd5df482eb25bc905954d6b0','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-7fa3ed3b026a4682bb723cd820f9b93b" aria-expanded="false"
+      aria-controls="R-tab-id-45b84ba68d9ef10ea64567bb0c02be9c" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-c91335b697e23a6bbfb00ab5e67cd206','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-dbc8326dbd5df482eb25bc905954d6b0','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-1c9028e05a91e59ba15fc4d7f4231c5a"
+      id="R-tab-id-4e5fc12d1e3e3c6575a32cebcbbc663e"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -654,7 +653,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-7fa3ed3b026a4682bb723cd820f9b93b"
+      id="R-tab-id-45b84ba68d9ef10ea64567bb0c02be9c"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -694,21 +693,21 @@ $$<p>Мы эвристически оценили время работы опе
 <p>С помощью хеш-таблицы можно соптимизировать поразрядную сортировку, улучшив время работы до $O(n \log \log C)$ на массиве из $n$ целых чисел от 0 до $C-1$.</p>
 <p>Алгоритм (Kirkpatrick, Reisch, 1984) выглядит следующим образом: пусть $C=2^{2^{k}}$ (если надо, округлим $C$ вверх до ближайшего числа такого вида, при этом $\log \log C$ увеличится не более, чем на один). Если $C \leqslant n$, просто отсортируем числа подсчётом за $O(n)$, иначе представим каждое число в $\sqrt{C}$-ичной системе счисления; при этом каждое число будет состоять из двух $2^{k-1}$-битных цифр ( $\sqrt{C}=2^{2^{k-1}}$ ). Осталось отсортировать числа по старшей цифре, а при равенстве по младшей рекурсивными вызовами.</p>
 <p>Хеш-таблицы (точнее, ассоциативные массивы) нужны, чтобы сгруппировать числа в блоки с равной старшей цифрой.
-<div class="tab-panel" data-tab-group="R-tabs-426802cef6d02e7d580b98085ebc61d2">
+<div class="tab-panel" data-tab-group="R-tabs-ec8f93c3fd3dcfaa976522f127a7dd54">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-e1413bfdd7f1aa58f358f4d3329ba403" aria-expanded="true"
+      aria-controls="R-tab-id-d9b6067a701ed353f34f9f87081c0c50" aria-expanded="true"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-426802cef6d02e7d580b98085ebc61d2','R-tab-8b5820e171efb7042b7e190c10d26713')"
+      onclick="switchTab('R-tabs-ec8f93c3fd3dcfaa976522f127a7dd54','R-tab-8b5820e171efb7042b7e190c10d26713')"
     >
       <span class="tab-nav-text">псевдокод</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-e1413bfdd7f1aa58f358f4d3329ba403"
+      id="R-tab-id-d9b6067a701ed353f34f9f87081c0c50"
       data-tab-item="R-tab-8b5820e171efb7042b7e190c10d26713"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">

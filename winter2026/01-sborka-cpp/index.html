@@ -29,7 +29,7 @@
     <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.ru.js";
+      window.relearn.index_js_url="../../"+"searchindex.ru.min.js";
     </script>
     <script src="/js/lunr/lunr.min.js" defer></script>
     <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
@@ -46,7 +46,6 @@
     <script>
       window.relearn = window.relearn || {};
       // configuration
-      window.relearn.min = `.min`;
       window.relearn.path='\/winter2026\/01-sborka-cpp\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
@@ -194,7 +193,7 @@
 <p>Курс начинается не с синтаксиса, а с ответа на вопрос, который обычно откладывают «на потом» — и зря: <strong>что происходит между текстом программы и её запуском?</strong> Это знание превращает загадочные ошибки сборки в понятные сообщения с конкретным виновником и делает осмысленным всё, что мы будем писать дальше.</p>
 <h2 id="компиляция-и-интерпретация">Компиляция и интерпретация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Процессор исполняет только машинные команды. Все языки программирования отличаются, по большому счёту, тем, <strong>в какой момент и кто</strong> переводит текст программы в эти команды.</p>
-<p><img alt="Два пути к процессору: компиляция и интерпретация" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/compile-vs-interpret.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Два пути к процессору: компиляция и интерпретация" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/compile-vs-interpret.svg" style="height: auto;"></p>
 <p><strong>C++ — компилируемый язык:</strong> перевод происходит заранее, один раз, и на выходе получается нативный исполняемый файл. Мы платим временем сборки и получаем скорость: между программой и процессором нет посредников.</p>
 <p><strong>Python — интерпретируемый:</strong> исходник на лету транслируется в байткод, который исполняет виртуальная машина. Мгновенный старт разработки, но интерпретатор работает при <em>каждом</em> запуске программы.</p>
 <p>Между этими полюсами — JIT-компиляция (Java, C#, PyPy, JavaScript/V8): байткод докомпилируется в машинный код прямо во время исполнения, на «горячих» участках.</p>
@@ -237,7 +236,7 @@
 </div>
 </div>
 <p>Команда <code>g++</code> выглядит как один шаг, но это <strong>драйвер</strong>, запускающий конвейер из четырёх стадий. Каждую можно остановить флагом и рассмотреть промежуточный результат.</p>
-<p><img alt="Конвейер сборки: препроцессор → компилятор → ассемблер → линковщик" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/pipeline.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Конвейер сборки: препроцессор → компилятор → ассемблер → линковщик" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/pipeline.svg" style="height: auto;"></p>
 <table>
 	<thead>
 			<tr>
@@ -370,7 +369,7 @@
 <p>Макросы <code>_WIN32</code>, <code>__APPLE__</code>, <code>__linux__</code> определяет сам компилятор — код «знает», где его собирают. Вырезанный текст не доходит даже до компилятора: нулевая цена в рантайме. Так устроены все кроссплатформенные библиотеки. (С C++17 часть таких задач решает <code>if constexpr</code> — ветвление на этапе компиляции внутри языка.)</p>
 <h2 id="стадия-2-компилятор">Стадия 2. Компилятор<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Компилятор — самая сложная часть конвейера, три больших блока:</p>
-<p><img alt="Стадии компилятора: фронтенд, оптимизатор, бэкенд" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/compiler-stages.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Стадии компилятора: фронтенд, оптимизатор, бэкенд" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/compiler-stages.svg" style="height: auto;"></p>
 <ol>
 <li><strong>Фронтенд</strong>: лексер и парсер строят синтаксическое дерево (AST), проверяются типы — здесь рождаются сообщения об ошибках компиляции.</li>
 <li><strong>Оптимизатор</strong>: inlining, свёртка констант, удаление мёртвого кода и десятки других преобразований.</li>
@@ -486,7 +485,7 @@
 <p>Расшифровать имя обратно умеет <code>c++filt</code>; <code>extern &quot;C&quot;</code> отключает манглинг (и перегрузку) — так C++ стыкуется с C-библиотеками и FFI других языков. Схемы манглинга у GCC/Clang и MSVC разные — ещё одна причина, почему объектники разных компиляторов несовместимы.</p>
 <h2 id="стадия-4-линковщик">Стадия 4. Линковщик<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Линковщик собирает все <code>.o</code> и библиотеки в исполняемый файл: сшивает секции, разрешает каждый undefined-символ ровно одним определением, расставляет адреса.</p>
-<p><img alt="Статическая и динамическая линковка" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/linking.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Статическая и динамическая линковка" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/linking.svg" style="height: auto;"></p>
 <p><strong>Статическая</strong> линковка (<code>.a</code>/<code>.lib</code>) копирует код библиотеки внутрь программы: один самодостаточный файл, нет проблем с версиями, но больше размер. <strong>Динамическая</strong> (<code>.so</code>/<code>.dylib</code>/<code>.dll</code>) оставляет в программе только ссылку — библиотека загружается при запуске: одна копия на все программы, обновляется отдельно, но появляется зависимость от окружения («dll hell»).</p>
 <h2 id="читаем-ошибки-кто-именно-ругается">Читаем ошибки: кто именно ругается?<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Умение отличить ошибку компиляции от ошибки линковки — половина успеха в диагностике:</p>
@@ -597,7 +596,7 @@ duplicate symbol &#39;f()&#39; in: a.o, b.o</code></pre></div>
 </div>
 <p><code>main.cpp</code> ничего не знает о реализации <code>gcd</code> — только объявление. Обещание «найдётся при линковке» выполняет <code>gcd.o</code>.</p>
 <h3 id="раздельная-компиляция">Раздельная компиляция<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p><img alt="Раздельная компиляция: пересобирается только изменённое" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/separate-compilation.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Раздельная компиляция: пересобирается только изменённое" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/separate-compilation.svg" style="height: auto;"></p>
 <p>Каждый <code>.cpp</code> компилируется независимо (хоть параллельно, <code>make -j</code>). Изменили один файл — пересобрали один <code>.o</code> и перелинковали: на проекте в миллион строк это разница между секундами и часами. Обратная сторона: правка <strong>заголовка</strong> перекомпилирует все включившие его <code>.cpp</code> — поэтому заголовки держат минимальными и стабильными.</p>
 <h3 id="odr--правило-одного-определения">ODR — правило одного определения<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Заголовок вставляется в несколько <code>.cpp</code>, а значит, всё его содержимое «размножается». One Definition Rule: каждая функция и переменная определяется <strong>ровно один раз на программу</strong>.</p>
@@ -638,7 +637,7 @@ duplicate symbol &#39;f()&#39; in: a.o, b.o</code></pre></div>
 </blockquote>
 <h2 id="защита-от-повторного-включения">Защита от повторного включения<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <h3 id="проблема-ромб-включений">Проблема: ромб включений<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p><img alt="Ромб включений: point.h приезжает дважды" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/include-diamond.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Ромб включений: point.h приезжает дважды" class="lazy figure-image" loading="lazy" src="/winter2026/01-sborka-cpp/include-diamond.svg" style="height: auto;"></p>
 <p><code>main.cpp</code> включает <code>matrix.h</code> и <code>vector.h</code>, оба включают <code>point.h</code> — препроцессор честно вставляет его дважды, и компилятор видит два определения <code>struct Point</code> в одной единице трансляции:</p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><pre tabindex="0"><code>point.h:1:8: error: redefinition of &#39;struct Point&#39;</code></pre></div>
 <h3 id="include-guards">Include guards<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>

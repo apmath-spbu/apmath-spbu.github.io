@@ -29,7 +29,7 @@
     <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.ru.js";
+      window.relearn.index_js_url="../../"+"searchindex.ru.min.js";
     </script>
     <script src="/js/lunr/lunr.min.js" defer></script>
     <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
@@ -46,7 +46,6 @@
     <script>
       window.relearn = window.relearn || {};
       // configuration
-      window.relearn.min = `.min`;
       window.relearn.path='\/winter2026\/03-tipy-dannyh\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
@@ -222,7 +221,7 @@
 </table>
 <p>Статическая типизация — это «бесплатные тесты», которые компилятор прогоняет при каждой сборке.</p>
 <h3 id="память--лента-пронумерованных-байтов">Память — лента пронумерованных байтов<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p><img alt="Память: адреса, int из четырёх байтов, char из одного" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/memory.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Память: адреса, int из четырёх байтов, char из одного" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/memory.svg" style="height: auto;"></p>
 <p>Переменная после компиляции — это <strong>адрес + тип</strong>; имена существуют только в исходнике. На x86 и ARM порядок байтов <strong>little-endian</strong>: младший байт числа лежит по младшему адресу (42 = <code>2A 00 00 00</code>) — заметно при работе с байтами напрямую и в сетевых протоколах.</p>
 <h3 id="целые-типы">Целые типы<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <table>
@@ -279,7 +278,7 @@
 </div>
 <p>Практика курса: <code>int</code> для мелочи, <code>int64_t</code> — для всего серьёзного. И помните предел: $F_{93} = 1.2 \cdot 10^{19}$ уже не влезает в <code>uint64_t</code> — граница типов задаёт границу задач (решение — на занятии 4).</p>
 <h3 id="дополнительный-код-как-хранят-минус">Дополнительный код: как хранят минус<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p><img alt="Дополнительный код: 5 и −5 в восьми битах" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/twos-complement.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Дополнительный код: 5 и −5 в восьми битах" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/twos-complement.svg" style="height: auto;"></p>
 <p>В дополнительном коде (two&rsquo;s complement) старший бит имеет вес $-2^{63}$ (для int64), остальные — обычные веса. Получить $-x$: инвертировать все биты и прибавить 1. Следствия:</p>
 <ul>
 <li>сложение <strong>одно для знаковых и беззнаковых</strong> — процессору не нужны разные схемы;</li>
@@ -329,7 +328,7 @@
 <p><code>bool</code> занимает <strong>байт</strong>, не бит (битовую упаковку даёт <code>std::bitset</code>). Указатели и числа неявно преобразуются в <code>bool</code> — отсюда идиома <code>if (ptr)</code>. Классическая ловушка <code>while (x = next())</code> — присваивание вместо сравнения — компилируется; её ловит <code>-Wall</code>.</p>
 <p><code>char</code> — число-код символа: <code>'A'</code> это 65, <code>'9' - '0'</code> это 9 (классика парсинга). Тонкости: знаковость <code>char</code> — implementation-defined (на ARM исторически unsigned!); кириллица в UTF-8 занимает 2 байта, поэтому <code>char r = 'Я'</code> не сделает ничего хорошего — строки и Unicode разберём на занятии 9.</p>
 <h3 id="ieee-754-научная-запись-в-битах">IEEE 754: научная запись в битах<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p><img alt="Устройство double: знак, порядок, мантисса" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/ieee754.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Устройство double: знак, порядок, мантисса" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/ieee754.svg" style="height: auto;"></p>
 <p><code>double</code> — 64 бита: 1 бит знака, 11 бит порядка (со смещением +1023), 52 бита мантиссы:</p>
 $$x = (-1)^s \cdot 1.m_{51}m_{50}\dots m_0 \cdot 2^{\,e-1023}$$<p>52 бита мантиссы ≈ 15–16 десятичных цифр точности. <code>float</code> — 1+8+23, ~7 цифр. Специальные значения: <code>±inf</code> (результат 1/0.0), <code>NaN</code> (0.0/0.0; единственное значение, не равное самому себе), ±0, денормализованные числа около нуля. Ключевое свойство: <strong>шаг сетки растёт с величиной</strong> — около $10^{16}$ соседние double отличаются уже на 2.</p>
 <h3 id="ловушки-плавающей-точки">Ловушки плавающей точки<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
@@ -400,7 +399,7 @@ $$x = (-1)^s \cdot 1.m_{51}m_{50}\dots m_0 \cdot 2^{\,e-1023}$$<p>52 бита м
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p><img alt="Паддинг: Bad тратит 12 байт, Good — 8" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/padding.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Паддинг: Bad тратит 12 байт, Good — 8" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/padding.svg" style="height: auto;"></p>
 <p><code>int</code> хочет лежать по адресу, кратному четырём, — компилятор вставляет <strong>padding</strong>; размер структуры добивается до кратности самого строгого члена (чтобы работали массивы). Порядок полей «от крупных к мелким» экономит память — на миллионе объектов это мегабайты. <code>sizeof</code> — оператор времени компиляции; возвращает он <code>size_t</code>, о котором — часть II.</p>
 <h3 id="мини-практика-i">Мини-практика I<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Что напечатает каждый фрагмент?</p>
@@ -445,7 +444,7 @@ $$x = (-1)^s \cdot 1.m_{51}m_{50}\dots m_0 \cdot 2^{\,e-1023}$$<p>52 бита м
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p><img alt="Массив: непрерывный блок, элементы подряд" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/array.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Массив: непрерывный блок, элементы подряд" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/array.svg" style="height: auto;"></p>
 <p>Массив — непрерывный блок памяти: доступ по индексу за $O(1)$ (адрес = база + i·sizeof(T)), но <strong>границы не проверяются</strong> — выход за них компилируется и молча портит чужую память (или ловится ASan&rsquo;ом). Размер фиксирован на этапе компиляции; <code>int b[n]</code> с переменным <code>n</code> — не стандартный C++ (это VLA из C).</p>
 <h3 id="stdarray--тот-же-массив-с-манерами">std::array — тот же массив с манерами<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
@@ -467,7 +466,7 @@ $$x = (-1)^s \cdot 1.m_{51}m_{50}\dots m_0 \cdot 2^{\,e-1023}$$<p>52 бита м
 </div>
 <p>По памяти и скорости идентичен C-массиву (тот же блок на стеке), но знает свой размер, умеет копироваться и сравниваться и не «распадается» при передаче в функцию. Динамический размер — это уже <code>std::vector</code> (занятие 8).</p>
 <p>Для двумерных массивов помните про <strong>row-major</strong>: <code>m[i][j]</code> лежит по смещению <code>i*COLS + j</code>, строки подряд — обход «по строкам» дружит с кэшем процессора, на больших матрицах разница в разы.</p>
-<p><img alt="Row-major: строки двумерного массива лежат подряд" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/row-major.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Row-major: строки двумерного массива лежат подряд" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/row-major.svg" style="height: auto;"></p>
 <h3 id="указатели">Указатели<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
@@ -486,7 +485,7 @@ $$x = (-1)^s \cdot 1.m_{51}m_{50}\dots m_0 \cdot 2^{\,e-1023}$$<p>52 бита м
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div>
-<p><img alt="Указатель хранит адрес и «смотрит» на ячейку" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/pointer.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Указатель хранит адрес и «смотрит» на ячейку" class="lazy figure-image" loading="lazy" src="/winter2026/03-tipy-dannyh/pointer.svg" style="height: auto;"></p>
 <p>Указатель — переменная, хранящая <strong>адрес</strong>; его тип (<code>int*</code>) говорит, <em>что</em> лежит по адресу. «Пустой» указатель — <code>nullptr</code> (не <code>0</code> и не макрос <code>NULL</code>).</p>
 <p><strong>Арифметика указателей</strong> измеряется элементами, не байтами: <code>p + 1</code> сдвигает адрес на <code>sizeof(T)</code>. Отсюда тождество <code>a[i] == *(a + i)</code> — и то, как массивы попадают в функции: имя массива в выражениях «распадается» (decay) в указатель на первый элемент, а размер передают отдельно: <code>f(int* p, size_t n)</code>. Пара «указатель + длина» — прообраз итераторов STL. Легально двигаться только внутри массива и на позицию «за последним» (one-past-the-end); дальше — UB даже без разыменования.</p>
 <p>Три классических способа прострелить ногу:</p>

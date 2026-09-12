@@ -29,7 +29,7 @@
     <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.ru.js";
+      window.relearn.index_js_url="../../"+"searchindex.ru.min.js";
     </script>
     <script src="/js/lunr/lunr.min.js" defer></script>
     <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
@@ -46,7 +46,6 @@
     <script>
       window.relearn = window.relearn || {};
       // configuration
-      window.relearn.min = `.min`;
       window.relearn.path='\/winter2026\/04-arifmetika\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
@@ -195,7 +194,7 @@
 <p>Порядок <strong>little-endian</strong> (младшие разряды в начале) удобен: сложение и умножение идут от младших разрядов — то есть от начала вектора. Держим инварианты: $0 \le d[i] < 10$ и никаких ведущих нулей (кроме самого числа 0).</p>
 <p>Основание не обязано быть десяткой: продакшен-вариант — база $10^9$, одна «цифра» — целый <code>int</code> (в 9 раз меньше памяти и итераций; печать — по 9 знаков с ведущими нулями). На семинаре пишем базу 10 — её прозрачнее отлаживать.</p>
 <h2 id="сложение-школьный-столбик">Сложение: школьный столбик<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-<p><img alt="Сложение столбиком: 958 + 147 с переносами" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/column-addition.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Сложение столбиком: 958 + 147 с переносами" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/column-addition.svg" style="height: auto;"></p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
@@ -302,7 +301,7 @@ $$x = x_1 B + x_0, \qquad y = y_1 B + y_0$$$$xy = x_1 y_1 B^2 + (x_1 y_0 + x_0 y
 <p>Вычислим всего три произведения половинной длины:</p>
 $$P_1 = x_1 y_1, \qquad P_2 = x_0 y_0, \qquad P_3 = (x_1 + x_0)(y_1 + y_0)$$<p>Средний член достаётся бесплатно — вычитанием:</p>
 $$x_1 y_0 + x_0 y_1 = P_3 - P_1 - P_2$$$$xy = P_1 B^2 + (P_3 - P_1 - P_2)\,B + P_2$$<p>Мы обменяли одно умножение (стоимостью $\Theta(n^2)$) на несколько сложений и вычитаний (стоимостью $\Theta(n)$) — обмен выгодный. Проверьте выкладку сами: раскройте $(x_1+x_0)(y_1+y_0)$ и убедитесь, что лишние члены — ровно $P_1$ и $P_2$.</p>
-<p><img alt="Дерево рекурсии: четыре ветви дают n², три — n в степени log₂3 ≈ 1.585" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/karatsuba-tree.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Дерево рекурсии: четыре ветви дают n², три — n в степени log₂3 ≈ 1.585" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/karatsuba-tree.svg" style="height: auto;"></p>
 <p>Теперь рекуррента $T(n) = 3T(n/2) + \Theta(n)$: на уровне $k$ дерева — $3^k$ задач размера $n/2^k$, листьев $3^{\log_2 n} = n^{\log_2 3}$, и именно листья доминируют:</p>
 $$T(n) = \Theta\!\left(n^{\log_2 3}\right) \approx \Theta\!\left(n^{1.585}\right)$$<table>
 	<thead>
@@ -570,7 +569,7 @@ $$T(n) = \Theta\!\left(n^{\log_2 3}\right) \approx \Theta\!\left(n^{1.585}\right
 <p>Вторая часть семинара — инструмент, которым сдаются все домашние задания курса.</p>
 <p>Git решает три задачи: <strong>история</strong> (каждое состояние проекта сохранено — можно вернуться к «работало вчера»), <strong>эксперименты без страха</strong> (ветка — песочница) и <strong>совместная работа</strong> (двое правят проект, не затирая друг друга). Ключевая идея: Git хранит <strong>снимки</strong> (snapshots) всего проекта. Каждый снимок — коммит: содержимое + автор + время + ссылка на родителя; имя коммита — SHA-хеш содержимого, поэтому историю нельзя незаметно подделать.</p>
 <h3 id="три-зоны">Три зоны<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p><img alt="Три зоны Git: рабочая папка, индекс, репозиторий" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/git-zones.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Три зоны Git: рабочая папка, индекс, репозиторий" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/git-zones.svg" style="height: auto;"></p>
 <ul>
 <li><strong>Рабочая папка</strong> — ваши файлы как есть: правки, черновики, мусор.</li>
 <li><strong>Индекс (staging)</strong> — «корзина» будущего коммита: только то, что вы отобрали командой <code>git add</code>.</li>
@@ -602,7 +601,7 @@ $$T(n) = \Theta\!\left(n^{\log_2 3}\right) \approx \Theta\!\left(n^{1.585}\right
 </div>
 <p>Сообщения коммитов пишем по-человечески: хорошо — «fix: перенос при равных длинах», плохо — «фикс», «работает!!», «final_final2». Правило: сообщение отвечает на вопрос <em>«что изменится, если этот коммит применить»</em>. Коммитьте часто и мелко — каждый логический шаг; «одним коммитом всё ДЗ» — антипаттерн: такую историю нельзя ни читать, ни откатывать.</p>
 <h3 id="ветки-и-gitignore">Ветки и .gitignore<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-<p><img alt="Ветка отходит от main и вливается обратно через merge" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/git-branches.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Ветка отходит от main и вливается обратно через merge" class="lazy figure-image" loading="lazy" src="/winter2026/04-arifmetika/git-branches.svg" style="height: auto;"></p>
 <div class="highlight actionbar-wrapper wrap-code" dir="auto"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;">
 <table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
 <pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1

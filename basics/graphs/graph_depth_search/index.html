@@ -33,7 +33,7 @@
     <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.ru.js";
+      window.relearn.index_js_url="../../../"+"searchindex.ru.min.js";
     </script>
     <script src="/js/lunr/lunr.min.js" defer></script>
     <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
@@ -50,7 +50,6 @@
     <script>
       window.relearn = window.relearn || {};
       // configuration
-      window.relearn.min = `.min`;
       window.relearn.path='\/basics\/graphs\/graph_depth_search\/index.html';
       window.relearn.relBasePath='..\/..\/..';
       window.relearn.relBaseUri='..\/..\/..';
@@ -189,29 +188,29 @@
 <h2 id="обход-вершин-достижимых-из-данной">Обход вершин, достижимых из данной<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Поиск в глубину (depth-first search, DFS) по вершине $w \in V$ находит множество вершин, достижимых из неё, то есть таких, в которые можно попасть, сделав несколько переходов по рёбрам, начиная из вершины $w$.</p>
 <p>Изначально алгоритм запускается от вершины $w$. Он перебирает исходящие из текущей вершины рёбра и смотрит, куда они ведут. Каждый раз, когда алгоритм встречает ещё не посещённую вершину, он запускается от неё рекурсивно, а после возврата из рекурсии продолжает перебирать рёбра, исходящие из текущей вершины.
-<div class="tab-panel" data-tab-group="R-tabs-cf1d0b53efa48ead99198c72c450fb12">
+<div class="tab-panel" data-tab-group="R-tabs-579cee450ad98ab40f20a74ad1a7cc46">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-b8bdf399ad524cd293dd74dd2e3bb353" aria-expanded="true"
+      aria-controls="R-tab-id-e56628a6ddb71c0bbdec2251406d31d7" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-cf1d0b53efa48ead99198c72c450fb12','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-579cee450ad98ab40f20a74ad1a7cc46','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-ef346dbe28f531818339428647581f45" aria-expanded="false"
+      aria-controls="R-tab-id-81b7d3b1bdfceb478ac5a17e84179083" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-cf1d0b53efa48ead99198c72c450fb12','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-579cee450ad98ab40f20a74ad1a7cc46','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-b8bdf399ad524cd293dd74dd2e3bb353"
+      id="R-tab-id-e56628a6ddb71c0bbdec2251406d31d7"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -242,7 +241,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-ef346dbe28f531818339428647581f45"
+      id="R-tab-id-81b7d3b1bdfceb478ac5a17e84179083"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -292,32 +291,32 @@
 <p>На произвольном графе можно ввести отношение достижимости: $a \sim b$, если $b$ достижимо из $a$. Это отношение рефлексивно ( $a \sim a$ ) и транзитивно (если $a \sim b$ и $b \sim c$, то $a \sim c$ ). В неориентированных графах это отношение ещё и симметрично (если $a \sim b$, то $b \sim a$ ), поэтому оно является отношением эквивалентности: все вершины однозначно разбиваются на классы эквивалентности - множества, в каждом из которых любые две вершины достижимы друг из друга; при этом любые две вершины из разных классов эквивалентности не достижимы друг из друга (класс эквивалентности вершины - это просто множество вершин, достижимых из неё; из рефлексивности, транзитивности и симметричности следует, что для разных вершин такие множества либо не пересекаются, либо совпадают).</p>
 <p>Индуцированные подграфы на каждом из этих классов эквивалентности называют компонентами связности (connected components) (иногда компонентами связности будем называть сами классы эквивалентности, то есть множества вершин этих подграфов). Каждая компонента связности является связным подграфом, при этом рёбер между вершинами из разных компонент связности в графе нет. Связный граф состоит из одной компоненты связности, содержащей все вершины.</p>
 <p>В ориентированных графах отношение ~ не симметрично, поэтому понятие &ldquo;компонента связности&rdquo; для них не определено. Есть понятие сильной связности, которое мы обсудим чуть позже.</p>
-<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/connected_components.png" style="height: auto;width: auto;"></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/connected_components.png" style="height: auto;"></p>
 <p>Компоненты связности этого графа - $\{1,2,4,5\}$, $\{3,6,8\}$ и $\{7\}$</p>
 <p>Алгоритм поиска в глубину по вершине находит все достижимые из неё вершины, то есть её компоненту связности. Тогда для того, чтобы найти все компоненты связности, запустим поиск в глубину из каждой вершины по очереди. Для того, чтобы не обрабатывать одну компоненту связности несколько раз, просто не будем обнулять пометки того, была ли вершина посещена, между запусками алгоритма от разных вершин. Если очередная рассматриваемая вершина уже посещена, то она входит в одну из уже найденных компонент связности. Значит, запускать алгоритм от неё не надо.
-<div class="tab-panel" data-tab-group="R-tabs-2edea012c4d357852f2bbaa9cd07b5ec">
+<div class="tab-panel" data-tab-group="R-tabs-284437869569aa49df74195b8cf4597f">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-1f49c9c43a80f3c6cb9a441bf1706628" aria-expanded="true"
+      aria-controls="R-tab-id-0f4fd80c81ac3e7ce8d4e1181bfeaa35" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-2edea012c4d357852f2bbaa9cd07b5ec','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-284437869569aa49df74195b8cf4597f','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-ecc6134404bc8d247a171fa6d220cdfc" aria-expanded="false"
+      aria-controls="R-tab-id-6d8d511a6ea35ef2b9868c4ee8d63657" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-2edea012c4d357852f2bbaa9cd07b5ec','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-284437869569aa49df74195b8cf4597f','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-1f49c9c43a80f3c6cb9a441bf1706628"
+      id="R-tab-id-0f4fd80c81ac3e7ce8d4e1181bfeaa35"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -358,7 +357,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-ecc6134404bc8d247a171fa6d220cdfc"
+      id="R-tab-id-6d8d511a6ea35ef2b9868c4ee8d63657"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -418,7 +417,7 @@
 <p>Цикл - это путь с совпадающими концами и ненулевым числом рёбер, все рёбра в котором различны. Граф $H$ не содержит циклов: ориентируем рёбра $H$ в сторону вершины, которая была непосещённой в момент прохода по ребру алгоритмом; в каждую вершину входит не более одного ребра $H$. Но если бы нашёлся цикл, то в ту вершину цикла, которая была посещена алгоритмом позже всех, вело бы сразу два ребра.</p>
 <p>Итак, $H$ - связный граф без циклов, то есть дерево. Если ориентировать рёбра этого дерева, как сказано выше, получится корневое дерево (корень - вершина $v$ ). Мы снова будем пользоваться терминами, которыми пользовались при изучении <a href="/basics/binary_trees/binary_tree_basics/index.html">двоичных деревьев</a>: ребёнок, родитель, потомок, предок, лист и так далее.</p>
 <p>$H$ называют деревом поиска в глубину графа $G$. Конечно, дерево поиска в глубину не единственно: оно зависит от начальной вершины и порядка рёбер в списках смежности.</p>
-<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_dfs.png" style="height: auto;width: auto;"></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_dfs.png" style="height: auto;"></p>
 <p>Связный граф и дерево поиска в глубину (поиск запущен из вершины 1, в списках смежности вершины упорядочены по возрастанию номеров)</p>
 <p>Ребро графа $G$, не являющееся ребром дерева поиска в глубину (то есть любое ребро из $E \backslash F$ ) будем называть обратным (back edge). Рассмотрим любое обратное ребро $e=(v, u)$. Пусть вершину $v$ алгоритм посетил раньше вершины $u$. Тогда вершина $u$ была посещена после вершины $v$, но до того, как алгоритм рассмотрел ребро $e$, то есть $u$ была посещена в одном из рекурсивных вызовов, произошедших во время обработки $v$. Значит, в дереве поиска в глубину $u$ является потомком $v$.</p>
 <p>Итак, любое обратное ребро соединяет пару &ldquo;предок-потомок&rdquo;. Значит, в графе нет перекрёстных рёбер - рёбер, соединяющих пары вершин, ни одна из которых не является потомком другой в дереве поиска в глубину.</p>
@@ -431,29 +430,29 @@
 <p>Если цикл нужно явно найти и вывести, то, обнаружив обратное ребро $e=(u, v)$, будем переходить, начиная из текущей вершины $u$, по ссылкам на родителя, пока не встретим $v$, и выписывать вершины на пути.</p>
 <h2 id="времена-входа-и-выхода">Времена входа и выхода<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>В процессе работы поиска в глубину для каждой вершины $v$ запомним время входа (время начала обработки вершины) $t_{i n}[v]$ и время выхода (время конца обработки вершины) $t_{\text {out }}[v]$. Для этого заведём специальный счётчик, который будем увеличивать на единицу каждый раз, когда происходит одно из этих событий; текущее значение этого счётчика и будет текущим временем.
-<div class="tab-panel" data-tab-group="R-tabs-00476e2dc4d43f9e0fa946bb6f84d7c4">
+<div class="tab-panel" data-tab-group="R-tabs-1e1cdf4c8269c9663d2c2f6809848bca">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-89f59f5fb5caf248ff822bc85225f976" aria-expanded="true"
+      aria-controls="R-tab-id-718450ba514a36c7276a35b7e7e10922" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-00476e2dc4d43f9e0fa946bb6f84d7c4','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-1e1cdf4c8269c9663d2c2f6809848bca','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-fa47b43075e57af006e754c4360ec184" aria-expanded="false"
+      aria-controls="R-tab-id-1bf9fb4179c0cdb90b1f45a25bd9e086" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-00476e2dc4d43f9e0fa946bb6f84d7c4','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-1e1cdf4c8269c9663d2c2f6809848bca','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-89f59f5fb5caf248ff822bc85225f976"
+      id="R-tab-id-718450ba514a36c7276a35b7e7e10922"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -492,7 +491,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-fa47b43075e57af006e754c4360ec184"
+      id="R-tab-id-1bf9fb4179c0cdb90b1f45a25bd9e086"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -534,14 +533,14 @@
     </div>
   </div>
 </div></p>
-<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_forest_dfs.png" style="height: auto;width: auto;"></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_forest_dfs.png" style="height: auto;"></p>
 <p>Граф и его лес поиска в глубину с отмеченными временами входа и выхода</p>
 <p>Заметим, что если вершина $u$ начала обрабатываться в одном из рекурсивных вызовов, произошедших во время обработки другой вершины $v$, то $u$ закончит обрабатываться раньше, чем $v$. Значит, для любых вершин $v, u \in V$ либо отрезки $\left[t_{\text {in }}(v), t_{\text {out }}(v)\right]$ и $\left[t_{i n}(u), t_{\text {out }}(u)\right]$ не пересекаются, либо один из них содержится в другом. Более того, отрезок $u$ содержится в отрезке $v$ тогда и только тогда, когда $u$ является потомком $v$ в дереве поиска в глубину.</p>
 <p>Времена входа и выхода имеют множество различных применений. Простой пример: пусть $G$ - корневое дерево; запустим поиск в глубину из корня $G$ и вычислим времена входа и выхода каждой вершины. Получившееся дерево поиска в глубину совпадает с графом $G$. Тогда мы можем за $O(1)$ проверить для любой пары вершин, является ли одна из них предком другой в $G$ : достаточно проверить, вложен ли отрезок времени обработки одной из вершин в отрезок другой вершины.</p>
 <h2 id="дереволес-поиска-в-глубину-ориентированного-графа-типы-рёбер">Дерево(лес) поиска в глубину ориентированного графа, типы рёбер<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Дерево(лес) поиска в глубину определяются для ориентированных графов так же, как и для неориентированных: будем перебирать все вершины и запускать поиск в глубину из ещё не посещённых, не обнуляя пометки о посещённости в процессе.</p>
 <p>Времена входа и выхода для ориентированных графов вычисляются так же, как и для неориентированных, при этом по прежнему либо отрезки времён обработки вершин не пересекаются, либо один из них вложен в другой.</p>
-<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_forest_dfs_with_timings.png" style="height: auto;width: auto;"></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_forest_dfs_with_timings.png" style="height: auto;"></p>
 <p>Граф и его лес поиска в глубину с отмеченными временами входа и выхода</p>
 <p>В ориентированных графах рёбра, не вошедшие в лес поиска в глубину, делятся уже на три типа:</p>
 <ul>
@@ -563,29 +562,29 @@
 <p>Топологическая сортировка (topological sort) ориентированного графа - это такой порядок на вершинах, что любое ребро графа ведёт из меньшей вершины в большую. Ясно, что граф, в котором есть цикл, топологически отсортировать невозможно.</p>
 <p>Возникает вопрос: какие ациклические графы можно топологически отсортировать? Оказывается, что все: достаточно расположить вершины в порядке убывания времён выхода. Действительно, если нашлось такое ребро $v \rightarrow u$, что $t_{\text {out }}(v) < t_{\text {out }}(u)$, то это ребро обратное, значит, граф не ациклический.</p>
 <p>Можно не вычислять времена входа и выхода напрямую, а просто добавлять вершину в конец списка в конце её обработки. Тогда вершины в списке окажутся в порядке возрастания времён выхода. Остаётся развернуть список в конце, чтобы получить порядок топологической сортировки.</p>
-<div class="tab-panel" data-tab-group="R-tabs-8af1e7ab47ce6a2fc24c274e8895f929">
+<div class="tab-panel" data-tab-group="R-tabs-c74d265a094a6e8305420d2399090b41">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-88e919cdf1dfee4a971eb078dc7e760f" aria-expanded="true"
+      aria-controls="R-tab-id-11221f6edc0425c6202b7ea8258c9c3f" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-8af1e7ab47ce6a2fc24c274e8895f929','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-c74d265a094a6e8305420d2399090b41','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-8352e912f09b65da14b4789f48466aba" aria-expanded="false"
+      aria-controls="R-tab-id-7ecc77d38235bdc5acc376bbc2a56d00" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-8af1e7ab47ce6a2fc24c274e8895f929','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-c74d265a094a6e8305420d2399090b41','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-88e919cdf1dfee4a971eb078dc7e760f"
+      id="R-tab-id-11221f6edc0425c6202b7ea8258c9c3f"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -626,7 +625,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-8352e912f09b65da14b4789f48466aba"
+      id="R-tab-id-7ecc77d38235bdc5acc376bbc2a56d00"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -679,7 +678,7 @@
 <p>Рассмотрим на произвольном ориентированном графе следующее отношение: $a \sim b$ ( $a$ сильно связно (strongly connected) с $b$ ), если одновременно $a$ достижимо из $b$, и $b$</p>
 <p>достижимо из $a$. Такое отношение рефлексивно, транзитивно и симметрично, поэтому оно однозначно разбивает вершины графа на классы эквивалентности, которые называют компонентами сильной связности (strongly connected components). Граф, состоящий из одной такой компоненты, называют сильно связным (strongly connected graph).</p>
 <p>Пусть $V_{1}, \ldots, V_{k}$ - компоненты сильной связности графа $G$. Построим вспомогательный граф, вершины которого $-V_{1}, \ldots, V_{k}$, а ребро $V_{i} \rightarrow V_{j}$ проведено, только если в $G$ было ребро $v_{i} \rightarrow v_{j}$ для некоторых $v_{i} \in V_{i}, v_{j} \in V_{j}$ (при этом не будем проводить петли и кратные рёбра). Получившийся граф называют метаграфом (meta-graph) или конденсацией графа $G$. Метаграф не содержит циклов, так как все вершины компонент сильной связности, вошедших в цикл, были бы одновременно достижимы друг из друга, то есть должны были бы лежать в одной компоненте.</p>
-<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/oriented_graph_and_metagraph.png" style="height: auto;width: auto;"></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/oriented_graph_and_metagraph.png" style="height: auto;"></p>
 <p>Ориентированный граф и его метаграф</p>
 <p>Наша цель - научиться находить компоненты сильной связности произвольного ориентированного графа $G$ за $O(V+E)$. Первое, что мы сделаем - запустим алгоритм топологической сортировки на графе $G$. Он вернёт список вершин в порядке убывания времён выхода; обозначим этот список за $v_{1}, \ldots, v_{n}$. Этот список в общем случае не является порядком топологической сортировки (так как в $G$ могут быть циклы), но всё равно обладает полезными свойствами.</p>
 
@@ -707,34 +706,34 @@
 <p>Отсюда следует, что метаграф можно топологически упорядочить, если расположить компоненты сильной связности в порядке убывания максимального значения времён выхода их вершин. В частности, $v_{1}$ принадлежит первой в топологическом порядке компоненте, то есть компоненте-истоку. Обозначим эту компоненту за $A_{1}$.</p>
 <p>Как по одной вершине из компоненты-истока найти все вершины, лежащие в этой компоненте? Рассмотрим транспонированный граф (transpose graph) $G^{T}$, полученный из $G$ изменением направления всех рёбер. Заметим, что компоненты сильной связности
 $G^{T}$ совпадают (как множества вершин) с компонентами $G$, а метаграф $G^{T}$ является транспонированным графом метаграфа $G$. В частности, компонента-исток в метаграфе $G$ является компонентой-стоком в метаграфе $G^{T}$.</p>
-<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/transpose_graph_and_metagraph.png" style="height: auto;width: auto;"></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/transpose_graph_and_metagraph.png" style="height: auto;"></p>
 <p>Транспонированный граф и его метаграф</p>
 <p>Множество вершин, достижимых из любой вершины компоненты-стока, совпадает с этой компонентой. Значит, для того, чтобы найти $A_{1}$, можно запустить поиск в глубину в графе $G^{T}$ из $v_{1}$.</p>
 <p>Как найти все остальные компоненты? Удалим из графа $G$ компоненту $A_{1}$ (обозначим полученный граф за $G_{1}$ ) и повторим те же действия: найдём $v_{i}$ - вершину с максимальным временем выхода из ещё не удалённых; $v_{i}$ лежит в компоненте-истоке $A_{2}$ графа $G_{1}$, которую можно найти, запустив поиск в глубину из $v_{i}$ в графе $G_{1}^{T}$. После этого удалим компоненту $A_{2}$ и тем же способом найдём следующую компоненту, и так далее, пока вершины не закончатся.</p>
 <p>Удалять вершины и перестраивать списки смежности не нужно, можно просто считать посещённые вершины удалёнными.</p>
-<div class="tab-panel" data-tab-group="R-tabs-2c81a251e86d17debd9f92e5d8211e16">
+<div class="tab-panel" data-tab-group="R-tabs-d38eec06a7d164368347bdeed0a0f62e">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-d27f8324ca89e2b8b20a11f84d9aa107" aria-expanded="true"
+      aria-controls="R-tab-id-16874c3013f8b603f6b38db83bc1b7f7" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-2c81a251e86d17debd9f92e5d8211e16','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-d38eec06a7d164368347bdeed0a0f62e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-0611a8f6f4ce0ff1179cef6b286c6eec" aria-expanded="false"
+      aria-controls="R-tab-id-d8a6f055392cab949667ae7db0b391bf" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-2c81a251e86d17debd9f92e5d8211e16','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-d38eec06a7d164368347bdeed0a0f62e','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-d27f8324ca89e2b8b20a11f84d9aa107"
+      id="R-tab-id-16874c3013f8b603f6b38db83bc1b7f7"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -781,7 +780,7 @@ $G^{T}$ совпадают (как множества вершин) с комп�
       </div>
     </div>
     <div
-      id="R-tab-id-0611a8f6f4ce0ff1179cef6b286c6eec"
+      id="R-tab-id-d8a6f055392cab949667ae7db0b391bf"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -849,35 +848,35 @@ $G^{T}$ совпадают (как множества вершин) с комп�
 <p>Пусть $\operatorname{low}(u)$ - минимальное время входа среди всех вершин поддерева $u$ и всех концов обратных рёбер, инцидентных вершинам этого поддерева. Тогда $e_{u}$ - мост тогда и только тогда, когда $\operatorname{low}(u)>t_{i n}(v)$. Значение $\operatorname{low}(u)$ можно вычислить во время поиска в глубину:</p>
 $$
 \operatorname{low}(u)=\min \left(t_{i n}(u), \min _{(u, w) \text {-обратное }} t_{\text {in }}(w), \min _{w-\text { ребёнок } u} l o w(w)\right) .
-$$<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_dfs_with_timings.png" style="height: auto;width: auto;"></p>
+$$<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_dfs_with_timings.png" style="height: auto;"></p>
 <p>Граф и его дерево поиска в глубину с отмеченными временами входа и значениями low. Мосты помечены красным цветом. Компоненты рёберной двусвязности: $\{1,2,5,7\},\{3,4,8\},\{6\},\{9\},\{10\},\{11\}$.</p>
 <h3 id="поиск-компонент-рёберной-двусвязности">Поиск компонент рёберной двусвязности<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Зная мосты, несложно найти и компоненты рёберной двусвязности: компонента, содержащая корень дерева, состоит из вершин, на пути в дереве от корня до которых нет мостов; если ребро дерева $e_{u}=(v, u)$ - мост, то компонента, содержащая вершину $u$, состоит из вершин поддерева $u$, на пути от $u$ до которых нет мостов. Значит, компоненты можно найти, запуская поиски в глубину на уже построенном лесе поиска в глубину, в котором помечены мосты.</p>
 <p>Можно найти компоненты и в процессе поиска мостов: будем складывать вершину в стек в начале её обработки. Каждый раз, когда мы находим мост $e_{u}=(v, u)$, будем доставать вершины из стека, пока не достанем $u$. При этом мы достанем вершины, лежащие в поддереве $u$, на пути в дереве от $u$ до которых не было моста (иначе мы достали бы их раньше). Значит, мы достанем ровно компоненту вершины $u$. По тем же причинам в конце в стеке останется ровно компонента корня дерева.</p>
 <p>Получаем алгоритм поиска мостов и компонент рёберной двусвязности за $O(V+E)$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-f5ac3db1799af6ffda770e6b51963fb1">
+<div class="tab-panel" data-tab-group="R-tabs-00dabf0676f6f76c9daf3229305e3aa6">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-b1e0ebbd15d06bee8cc3ced31a8c2e82" aria-expanded="true"
+      aria-controls="R-tab-id-0051ee08f78f2f3ef72c1f513aadc6d8" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-f5ac3db1799af6ffda770e6b51963fb1','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-00dabf0676f6f76c9daf3229305e3aa6','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-e5f44eef433ac0beedc117f246d5addf" aria-expanded="false"
+      aria-controls="R-tab-id-1e8ac0b03047dfa56dd036e588ddecc2" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-f5ac3db1799af6ffda770e6b51963fb1','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-00dabf0676f6f76c9daf3229305e3aa6','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-b1e0ebbd15d06bee8cc3ced31a8c2e82"
+      id="R-tab-id-0051ee08f78f2f3ef72c1f513aadc6d8"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -950,7 +949,7 @@ $$<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/gr
       </div>
     </div>
     <div
-      id="R-tab-id-e5f44eef433ac0beedc117f246d5addf"
+      id="R-tab-id-1e8ac0b03047dfa56dd036e588ddecc2"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1047,7 +1046,7 @@ $$<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/gr
 <p>Любые два блока (как подграфы) либо не пересекаются по вершинам, либо пересекаются ровно по одной вершине: пусть компоненты $H_{1}, H_{2}$ пересеклись по вершинам $a \neq b$; между $a$ и $b$ есть два пути - один в $H_{1}$, другой в $H_{2}$. Объединение этих путей даёт простой цикл, на котором лежат рёбра из разных компонент двусвязности, что невозможно.</p>
 <p>Множество вершин, лежащих в пересечении нескольких компонент двусвязности, совпадает со множеством точек сочленения: это вершины, у которых есть соседи из разных компонент двусвязности.</p>
 <p>Рассмотрим вспомогательный граф, вершины которого - это точки сочленения и блоки, а рёбра соответствуют парам из точки сочленения и блока, в котором эта точка лежит. В этом графе нет циклов (точки сочленения на таком цикле не были бы точками сочленения). При этом если исходный граф связен, то этот граф тоже связен: в этом случае он является деревом, и его называют деревом блоков и точек сочленения (block-cut tree). В случае несвязного графа такое дерево есть у каждой компоненты связности.</p>
-<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_block_tree_and_articulation_points.png" style="height: auto;width: auto;"></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_block_tree_and_articulation_points.png" style="height: auto;"></p>
 <p>Граф и его дерево блоков и точек сочленения. Точки сочленения помечены синим цветом.</p>
 <p>Заметим, что мосты соответствуют компонентам двусвязности, состоящим из одного ребра.</p>
 <h3 id="поиск-точек-сочленения">Поиск точек сочленения<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
@@ -1059,29 +1058,29 @@ $$<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/gr
 <p>Заметим, что если ребро $e_{u}=(v, u)$ - не интересное, то $e_{u}$ и $e_{v}$ лежат в одной компоненте двусвязности. Если же ребро $e_{u}=(v, u)$ - интересное, то все рёбра дерева из той же компоненты двусвязности, что и $e_{u}$, находятся в поддереве вершины $u$.</p>
 <p>Получаем следующий алгоритм: будем обходить рёбра дерева в порядке поиска в глубину, тогда ребро дерева $e_{u}=(v, u)$ либо лежит в той же компоненте, что и $e_{v}$ (если $e_{u}$ не интересное), либо лежит в новой компоненте, рёбра из которой мы до этого не встречали.</p>
 <p>Можно строить компоненты и прямо во время поиска точек сочленения (подробности на следующей странице).</p>
-<div class="tab-panel" data-tab-group="R-tabs-4a417464e5f8974aa76e5dba28ad8cc1">
+<div class="tab-panel" data-tab-group="R-tabs-acf6bd46eab300421426040d34009460">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-2b3c0eec6d7253a737972105dd3e5249" aria-expanded="true"
+      aria-controls="R-tab-id-052b7f78de6056e2fab28cb9cc4c29f8" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-4a417464e5f8974aa76e5dba28ad8cc1','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-acf6bd46eab300421426040d34009460','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-39648930d36764b838f8bf7a5324de55" aria-expanded="false"
+      aria-controls="R-tab-id-070cbd21ca62ab1a944edadab895979e" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-4a417464e5f8974aa76e5dba28ad8cc1','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-acf6bd46eab300421426040d34009460','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-2b3c0eec6d7253a737972105dd3e5249"
+      id="R-tab-id-052b7f78de6056e2fab28cb9cc4c29f8"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1162,7 +1161,7 @@ $$<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/gr
       </div>
     </div>
     <div
-      id="R-tab-id-39648930d36764b838f8bf7a5324de55"
+      id="R-tab-id-070cbd21ca62ab1a944edadab895979e"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1272,7 +1271,7 @@ $$<p>невыполнима.</p>
 <h3 id="решение-задачи-2-sat">Решение задачи 2-SAT<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Пусть дана 2-КНФ $A$ на $n$ переменных $x_{1}, \ldots, x_{n}$, состоящая из $m$ дизъюнктов. Построим по ней граф импликаций $G_{A}$. Вершинами этого графа будут все $2 n$ литералов. Для каждого дизъюнкта ( $a \vee b$ ) ( $a, b$ - литералы) проведём два ребра: $\neg a \rightarrow b$ и $\neg b \rightarrow a$ (если $a=\neg x_{i}$, то $\left.\neg a=\neg\left(\neg x_{i}\right)=x_{i}\right)$.</p>
 <p>Заметим, что дизъюнкт ( $a \vee b$ ) эквивалентен любой из двух импликаций (implications, &ldquo;если&hellip;, то&hellip;&rdquo;) $\neg a \Rightarrow b$ и $\neg b \Rightarrow a$. Таким образом, для любого пути в графе импликаций из $c$ в $d$ и значений $c, d$ из любого выполняющего набора верно, что $c \Rightarrow d$.</p>
-<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/implication_graph.png" style="height: auto;width: auto;"></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/implication_graph.png" style="height: auto;"></p>
 <p>Графы импликаций 2-КНФ из примеров выше</p>
 <p>Если для какой-то переменной $x_{i}$ литералы $x_{i}$ и $\neg x_{i}$ оказались в одной компоненте сильной связности графа импликаций, то $A$ невыполнима. Действительно, если бы нашёлся выполняющий набор, для него было бы верно одновременно $x_{i} \Rightarrow \neg x_{i}$ и $\neg x_{i} \Rightarrow x_{i}$. Но если $x_{i}$ равно true, то неверна первая импликация, а если $x_{i}$ равно false, то вторая.</p>
 <p>Пусть это не так, то есть никакая компонента сильной связности не содержит одновременно литерал и его отрицание. Тогда построим выполняющий набор следующим образом: пронумеруем компоненты сильной связности в порядке топологической сортировки (алгоритм нахождения компонент сильной связности находит их именно в таком порядке); пусть $k[a]$ - номер компоненты литерала $a . k\left[x_{i}\right] \neq k\left[\neg x_{i}\right]$ для любой переменной $x_{i}$; присвоим переменной $x_{i}$ значение true, если $k\left[x_{i}\right]>k\left[\neg x_{i}\right]$, и значение false иначе.</p>

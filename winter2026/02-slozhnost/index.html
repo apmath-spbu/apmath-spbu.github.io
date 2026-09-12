@@ -29,7 +29,7 @@
     <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.ru.js";
+      window.relearn.index_js_url="../../"+"searchindex.ru.min.js";
     </script>
     <script src="/js/lunr/lunr.min.js" defer></script>
     <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
@@ -46,7 +46,6 @@
     <script>
       window.relearn = window.relearn || {};
       // configuration
-      window.relearn.min = `.min`;
       window.relearn.path='\/winter2026\/02-slozhnost\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
@@ -208,7 +207,7 @@ $$F_0 = 0, \quad F_1 = 1, \quad F_n = F_{n-1} + F_{n-2}$$<p>Последоват
 </div>
 </div>
 <p>Красиво: три строки, дословно повторяющие математику. Но каждый вызов порождает <strong>два</strong> подвызова, и одинаковые значения вычисляются заново — никакого запоминания.</p>
-<p><img alt="Дерево вызовов fib(5): повторы растут лавинообразно" class="lazy figure-image" loading="lazy" src="/winter2026/02-slozhnost/fib-tree.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Дерево вызовов fib(5): повторы растут лавинообразно" class="lazy figure-image" loading="lazy" src="/winter2026/02-slozhnost/fib-tree.svg" style="height: auto;"></p>
 <p>Уже для <code>fib(5)</code> дерево содержит 15 вызовов: <code>f(3)</code> вычисляется 2 раза, <code>f(2)</code> — 3 раза, <code>f(1)</code> — 5 раз. Обратите внимание: счётчики повторов — 2, 3, 5 — <strong>сами числа Фибоначчи</strong>. Дерево растёт с той же скоростью, что и значения, которые мы считаем.</p>
 <h3 id="замеры">Замеры<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <table>
@@ -404,7 +403,7 @@ $$F_n = \frac{\varphi^n - \psi^n}{\sqrt{5}}, \qquad \psi = \frac{1-\sqrt{5}}{2} 
 <h2 id="формализуем-o-символика">Формализуем: O-символика<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Секунды зависят от процессора, компилятора и погоды. Чтобы сравнивать <strong>алгоритмы</strong>, а не компьютеры, договариваемся о модели RAM: память с доступом за $O(1)$, элементарные операции (арифметика, сравнение, присваивание) стоят по единице; время алгоритма = число операций как функция размера входа $n$. Константы и младшие члены — свойства машины, а не алгоритма, поэтому смотрим только на <strong>порядок роста</strong>.</p>
 <h3 id="определение">Определение<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
-$$f(n) = O(g(n)) \;\Longleftrightarrow\; \exists\, c > 0,\ \exists\, n_0: \quad \forall n \ge n_0 \quad f(n) \le c \cdot g(n)$$<p><img alt="Определение O: с некоторого n₀ функция f зажата под c·g" class="lazy figure-image" loading="lazy" src="/winter2026/02-slozhnost/big-o.svg" style="height: auto;width: auto;"></p>
+$$f(n) = O(g(n)) \;\Longleftrightarrow\; \exists\, c > 0,\ \exists\, n_0: \quad \forall n \ge n_0 \quad f(n) \le c \cdot g(n)$$<p><img alt="Определение O: с некоторого n₀ функция f зажата под c·g" class="lazy figure-image" loading="lazy" src="/winter2026/02-slozhnost/big-o.svg" style="height: auto;"></p>
 <p>С некоторого места $n_0$ функция $f$ зажата под графиком $c \cdot g$; что происходит до $n_0$ — не важно. Константа $c$ «поглощает» множители: $5n^2 + 3n = O(n^2)$ (возьмите $c = 6$, $n_0 = 3$). Запись $f = O(g)$ — историческая вольность: корректнее $f \in O(g)$, ведь $O(g)$ — множество функций.</p>
 <h3 id="семейство-асимптотик">Семейство асимптотик<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <table>
@@ -461,7 +460,7 @@ $$f(n) = O(g(n)) \;\Longleftrightarrow\; \exists\, c > 0,\ \exists\, n_0: \quad 
 <p>Пример: чтение входа $\Theta(n)$ + сортировка $\Theta(n \log n)$ + вывод $\Theta(n)$ = $\Theta(n \log n)$.</p>
 <p>Типичные ошибки: писать $O(2n)$ или $O(n^2 + n)$ (то же, что $O(n)$ и $O(n^2)$); думать, что «$O(1)$ всегда быстрее $O(n)$» ($10^9$ операций — это тоже $O(1)$); указывать основание логарифма (смена основания — умножение на константу: $\log_a n = \log_b n / \log_b a$).</p>
 <h2 id="иерархия-скоростей-роста">Иерархия скоростей роста<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
-$$1 \prec \log n \prec \sqrt{n} \prec n \prec n \log n \prec n^2 \prec n^3 \prec 2^n \prec n!$$<p><img alt="Лестница сложностей: от константы до факториала" class="lazy figure-image" loading="lazy" src="/winter2026/02-slozhnost/growth.svg" style="height: auto;width: auto;"></p>
+$$1 \prec \log n \prec \sqrt{n} \prec n \prec n \log n \prec n^2 \prec n^3 \prec 2^n \prec n!$$<p><img alt="Лестница сложностей: от константы до факториала" class="lazy figure-image" loading="lazy" src="/winter2026/02-slozhnost/growth.svg" style="height: auto;"></p>
 <p>Интуиция по классам: до $n \log n$ — «быстрые» алгоритмы, миллионы элементов не страшны; полиномы $n^2$, $n^3$ терпимы на тысячах; экспонента и факториал — только крошечные $n$, и обычно это сигнал «ищи другой алгоритм».</p>
 <h3 id="какой-n-потянем-за-секунду">Какой n потянем за секунду?<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Ориентир: современный CPU — порядка $10^8$–$10^9$ простых операций в секунду.</p>

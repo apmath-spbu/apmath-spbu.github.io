@@ -33,7 +33,7 @@
     <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.ru.js";
+      window.relearn.index_js_url="../../"+"searchindex.ru.min.js";
     </script>
     <script src="/js/lunr/lunr.min.js" defer></script>
     <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
@@ -50,7 +50,6 @@
     <script>
       window.relearn = window.relearn || {};
       // configuration
-      window.relearn.min = `.min`;
       window.relearn.path='\/basics\/basic_data_structures\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
@@ -168,29 +167,29 @@
 <p>Массив позволяет за константное $(O(1))$ время получать доступ к элементу по индексу, а также изменять этот элемент. При этом массив имеет фиксированный размер, поэтому не поддерживает операций вставки и удаления элементов. Если хочется вставить или удалить элемент, можно создать новый массив нужного размера и скопировать информацию в него, но это потребует $\Theta(n)$ операций, где $n$ - длина массива.</p>
 <p>Поиск элемента в массиве по значению также имеет сложность $\Theta(n)$, так как нужно проверить все элементы массива. Если массив специально упорядочен (например, элементы массива расположены в возрастающем порядке), то поиск можно делать быстрее (скоро мы изучим алгоритм двоичного поиска).</p>
 <p>Немного напомним о работе с массивом в Python/C++:
-<div class="tab-panel" data-tab-group="R-tabs-43eaa93d1709dda8e22c45ac4e803833">
+<div class="tab-panel" data-tab-group="R-tabs-a15365858b4eb602baf62b12e58463c2">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-b867adae2d74f17e171330abf074e20f" aria-expanded="true"
+      aria-controls="R-tab-id-9046734c348f5c578b3ec1158f04604b" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-43eaa93d1709dda8e22c45ac4e803833','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-a15365858b4eb602baf62b12e58463c2','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-d18196fd5036cedfc741a284136ca1b1" aria-expanded="false"
+      aria-controls="R-tab-id-0e9eb87b9d0ba67d03c2a4306288b9af" aria-expanded="false"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-43eaa93d1709dda8e22c45ac4e803833','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-a15365858b4eb602baf62b12e58463c2','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-b867adae2d74f17e171330abf074e20f"
+      id="R-tab-id-9046734c348f5c578b3ec1158f04604b"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -229,7 +228,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-d18196fd5036cedfc741a284136ca1b1"
+      id="R-tab-id-0e9eb87b9d0ba67d03c2a4306288b9af"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -260,37 +259,37 @@
 </div></p>
 <h3 id="связный-список">Связный список<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Связный список (linked list) состоит из узлов, каждый из которых содержит данные и ссылки на соседние узлы.
-<img class="lazy figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/linkedList.png" style="height: auto;width: auto;">
+<img class="lazy figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/linkedList.png" style="height: auto;">
 В двусвязном списке поддерживаются ссылки на следующий и предыдущий узел, в односвязном списке - только на следующий.
-<img class="lazy figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/doubleLinkedList.png" style="height: auto;width: auto;">
+<img class="lazy figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/doubleLinkedList.png" style="height: auto;">
 Также поддерживаются ссылки на начало и конец списка (их часто называют головой и хвостом). Для того, чтобы посетить все узлы, можно начать с головы и переходить по ссылке на следующий узел, пока он существует.</p>
 <p>Преимущество списка перед массивом - возможность вставлять и удалять элементы за $O(1)$.</p>
 <p>Недостаток списка - невозможность быстрого доступа к произвольному элементу. Так, доступ к $i$-му элементу можно получить, лишь $i$ раз пройдя по ссылке вперёд, начиная из головы списка (то есть за $\Theta(i)$ ).</p>
 <p>Удобно делать голову и хвост фиктивными элементами и не хранить в них никаких данных, тогда функции вставки и удаления элементов пишутся проще.</p>
 <p>Примерная реализация двусвязного списка на Python/C++:
-<div class="tab-panel" data-tab-group="R-tabs-04fb1bd6c7c7d70f1c285cc0e9426e4f">
+<div class="tab-panel" data-tab-group="R-tabs-99bbc789a539b64f4fb4705e5151833a">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-546dee595912508168cb93641d1704a1" aria-expanded="true"
+      aria-controls="R-tab-id-845d72b9234014c4c302aa82ef4693a3" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-04fb1bd6c7c7d70f1c285cc0e9426e4f','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-99bbc789a539b64f4fb4705e5151833a','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-384514e0298fd7110f8b29f5ad2faafa" aria-expanded="false"
+      aria-controls="R-tab-id-72d77daf21013ae26d2aedbd22af3a67" aria-expanded="false"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-04fb1bd6c7c7d70f1c285cc0e9426e4f','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-99bbc789a539b64f4fb4705e5151833a','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-546dee595912508168cb93641d1704a1"
+      id="R-tab-id-845d72b9234014c4c302aa82ef4693a3"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -401,7 +400,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-384514e0298fd7110f8b29f5ad2faafa"
+      id="R-tab-id-72d77daf21013ae26d2aedbd22af3a67"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -495,29 +494,29 @@
 <h3 id="динамический-массив">Динамический массив<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Пусть мы хотим научиться вставлять новые элементы в конец массива. Можно попытаться сразу создать массив достаточно большого размера, и в отдельной переменной поддерживать его реальную длину. Но далеко не всегда максимальное количество элементов известно заранее.</p>
 <p>Поступим следующим образом: если мы хотим вставить новый элемент, а место в массиве закончилось, то создадим новый массив вдвое большего размера, и скопируем данные туда.
-<div class="tab-panel" data-tab-group="R-tabs-cad78f9d5b64d8e7386d3cca8914ee87">
+<div class="tab-panel" data-tab-group="R-tabs-c34f4fd8639691ecf81916bca8d509f0">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-9b7410dd53828414723d27869138b1db" aria-expanded="true"
+      aria-controls="R-tab-id-8bf9627775c1a305c85208736c4c502d" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-cad78f9d5b64d8e7386d3cca8914ee87','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-c34f4fd8639691ecf81916bca8d509f0','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-0509c23ae7421b8043cf124336b05f63" aria-expanded="false"
+      aria-controls="R-tab-id-e11e3f4d8851001c3fe06662f64e6c1f" aria-expanded="false"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-cad78f9d5b64d8e7386d3cca8914ee87','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-c34f4fd8639691ecf81916bca8d509f0','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-9b7410dd53828414723d27869138b1db"
+      id="R-tab-id-8bf9627775c1a305c85208736c4c502d"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -568,7 +567,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-0509c23ae7421b8043cf124336b05f63"
+      id="R-tab-id-e11e3f4d8851001c3fe06662f64e6c1f"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -664,35 +663,35 @@
 </details>
 <h3 id="стек-очередь-дек">Стек, очередь, дек<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Стек (stack) позволяет поддерживать список элементов, вставлять элемент в конец списка, а также удалять элемент из конца списка. Часто также говорят, что он организован по принципу LIFO (last in - first out).</p>
-<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/stack.png" style="height: auto;width: auto;"></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/stack.png" style="height: auto;"></p>
 <p>Очередь (queue) организована по принципу FIFO (first in - first out). Она позволяет вставлять элемент в конец списка, а также удалять элемент из начала списка.</p>
-<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/queue.png" style="height: auto;width: auto;"></p>
+<p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/basic_data_structures/queue.png" style="height: auto;"></p>
 <p>Дек (deque - double ended queue), или двусторонняя очередь, отличается от обычной очереди тем, что позволяет добавлять и удалять элементы как в начало, так и в конец списка.</p>
 <p>Все эти структуры можно реализовать с помощью связного списка. Для стека и очереди хватит односвязного списка: в стеке достаточно поддерживать ссылку на предыдущий элемент, а в очереди - на следующий. Для реализации дека понадобится двусвязный список.</p>
 <p>Также все три структуры можно реализовать с помощью динамического массива. В случае дека нужно научиться добавлять элементы в начало, для чего можно зациклить массив. То же самое можно сделать в реализации очереди, чтобы переиспользовать освободившееся место в начале массива. Приведём примерную реализацию дека на динамическом массиве:
-<div class="tab-panel" data-tab-group="R-tabs-1c96a07902d6d9c3421a00220684ff73">
+<div class="tab-panel" data-tab-group="R-tabs-9f912f8e769f40b34a7d3b192462c918">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-a50dc1a84aacde7700fe076202966c59" aria-expanded="true"
+      aria-controls="R-tab-id-fcf59aa99212290fa98bff7f21ef79f5" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-1c96a07902d6d9c3421a00220684ff73','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-9f912f8e769f40b34a7d3b192462c918','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-3eb9bcca99e11b4387feeece55653175" aria-expanded="false"
+      aria-controls="R-tab-id-18af89da2cd7b3cc239011a085ccefd9" aria-expanded="false"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-1c96a07902d6d9c3421a00220684ff73','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
+      onclick="switchTab('R-tabs-9f912f8e769f40b34a7d3b192462c918','R-tab-2c5f2cba9af7f92986d3de1e753f3faa')"
     >
       <span class="tab-nav-text">cpp</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-a50dc1a84aacde7700fe076202966c59"
+      id="R-tab-id-fcf59aa99212290fa98bff7f21ef79f5"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -811,7 +810,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-3eb9bcca99e11b4387feeece55653175"
+      id="R-tab-id-18af89da2cd7b3cc239011a085ccefd9"
       data-tab-item="R-tab-2c5f2cba9af7f92986d3de1e753f3faa"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
