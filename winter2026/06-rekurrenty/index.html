@@ -3,28 +3,24 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="К шестому занятию у нас накопилось четыре рекуррентности, решённые «на глаз»: число вызовов наивного Фибоначчи, два разбиения из длинной арифметики и быстрое возведение в степень. Сегодня получаем строгий инструментарий: два ручных метода, основную теорему с доказательством — и характеристические уравнения, которые закроют обещание, данное ещё на занятии 2.
-откуда соотношение мы «угадали» наивный fib (зан. 2) $C(n) = C(n-1) &#43; C(n-2) &#43; 1$ $\Theta(\varphi^n)$ — по замерам разбиение пополам (зан. 4) $T(n) = 4T(n/2) &#43; \Theta(n)$ $\Theta(n^2)$ — по дереву Карацуба (зан. 4) $T(n) = 3T(n/2) &#43; \Theta(n)$ $\Theta(n^{1.585})$ — по дереву быстрое возведение (зан. 2) $T(n) = T(n/2) &#43; \Theta(1)$ $\Theta(\log n)$ — интуиция Рекуррентное соотношение — определение функции через её значения на меньших аргументах плюс база (начальные значения). Решить — найти замкнутую форму или хотя бы асимптотику $\Theta$; для анализа алгоритмов асимптотики почти всегда достаточно.">
+    <meta name="description" content="дерево рекурсии, основная теорема с доказательством, формула Бине.">
     <meta name="author" content="">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Занятие 6. Рекуррентные соотношения :: Краткий курс по основам программирования">
-    <meta name="twitter:description" content="К шестому занятию у нас накопилось четыре рекуррентности, решённые «на глаз»: число вызовов наивного Фибоначчи, два разбиения из длинной арифметики и быстрое возведение в степень. Сегодня получаем строгий инструментарий: два ручных метода, основную теорему с доказательством — и характеристические уравнения, которые закроют обещание, данное ещё на занятии 2.
-откуда соотношение мы «угадали» наивный fib (зан. 2) $C(n) = C(n-1) &#43; C(n-2) &#43; 1$ $\Theta(\varphi^n)$ — по замерам разбиение пополам (зан. 4) $T(n) = 4T(n/2) &#43; \Theta(n)$ $\Theta(n^2)$ — по дереву Карацуба (зан. 4) $T(n) = 3T(n/2) &#43; \Theta(n)$ $\Theta(n^{1.585})$ — по дереву быстрое возведение (зан. 2) $T(n) = T(n/2) &#43; \Theta(1)$ $\Theta(\log n)$ — интуиция Рекуррентное соотношение — определение функции через её значения на меньших аргументах плюс база (начальные значения). Решить — найти замкнутую форму или хотя бы асимптотику $\Theta$; для анализа алгоритмов асимптотики почти всегда достаточно.">
+    <meta name="twitter:description" content="дерево рекурсии, основная теорема с доказательством, формула Бине.">
     <meta property="og:url" content="https://apmath-spbu.github.io/winter2026/06-rekurrenty/index.html">
     <meta property="og:site_name" content="Краткий курс по основам программирования">
     <meta property="og:title" content="Занятие 6. Рекуррентные соотношения :: Краткий курс по основам программирования">
-    <meta property="og:description" content="К шестому занятию у нас накопилось четыре рекуррентности, решённые «на глаз»: число вызовов наивного Фибоначчи, два разбиения из длинной арифметики и быстрое возведение в степень. Сегодня получаем строгий инструментарий: два ручных метода, основную теорему с доказательством — и характеристические уравнения, которые закроют обещание, данное ещё на занятии 2.
-откуда соотношение мы «угадали» наивный fib (зан. 2) $C(n) = C(n-1) &#43; C(n-2) &#43; 1$ $\Theta(\varphi^n)$ — по замерам разбиение пополам (зан. 4) $T(n) = 4T(n/2) &#43; \Theta(n)$ $\Theta(n^2)$ — по дереву Карацуба (зан. 4) $T(n) = 3T(n/2) &#43; \Theta(n)$ $\Theta(n^{1.585})$ — по дереву быстрое возведение (зан. 2) $T(n) = T(n/2) &#43; \Theta(1)$ $\Theta(\log n)$ — интуиция Рекуррентное соотношение — определение функции через её значения на меньших аргументах плюс база (начальные значения). Решить — найти замкнутую форму или хотя бы асимптотику $\Theta$; для анализа алгоритмов асимптотики почти всегда достаточно.">
+    <meta property="og:description" content="дерево рекурсии, основная теорема с доказательством, формула Бине.">
     <meta property="og:locale" content="ru_ru">
     <meta property="og:type" content="article">
     <meta property="article:section" content="Основы программирования — зимний семестр 2026/27">
-    <meta property="article:published_time" content="2026-08-05T12:00:00+03:00">
-    <meta property="article:modified_time" content="2026-08-05T12:00:00+03:00">
+    <meta property="article:published_time" content="2026-09-21T00:00:00+03:00">
+    <meta property="article:modified_time" content="2026-09-21T12:00:00+03:00">
     <meta itemprop="name" content="Занятие 6. Рекуррентные соотношения :: Краткий курс по основам программирования">
-    <meta itemprop="description" content="К шестому занятию у нас накопилось четыре рекуррентности, решённые «на глаз»: число вызовов наивного Фибоначчи, два разбиения из длинной арифметики и быстрое возведение в степень. Сегодня получаем строгий инструментарий: два ручных метода, основную теорему с доказательством — и характеристические уравнения, которые закроют обещание, данное ещё на занятии 2.
-откуда соотношение мы «угадали» наивный fib (зан. 2) $C(n) = C(n-1) &#43; C(n-2) &#43; 1$ $\Theta(\varphi^n)$ — по замерам разбиение пополам (зан. 4) $T(n) = 4T(n/2) &#43; \Theta(n)$ $\Theta(n^2)$ — по дереву Карацуба (зан. 4) $T(n) = 3T(n/2) &#43; \Theta(n)$ $\Theta(n^{1.585})$ — по дереву быстрое возведение (зан. 2) $T(n) = T(n/2) &#43; \Theta(1)$ $\Theta(\log n)$ — интуиция Рекуррентное соотношение — определение функции через её значения на меньших аргументах плюс база (начальные значения). Решить — найти замкнутую форму или хотя бы асимптотику $\Theta$; для анализа алгоритмов асимптотики почти всегда достаточно.">
-    <meta itemprop="datePublished" content="2026-08-05T12:00:00+03:00">
-    <meta itemprop="dateModified" content="2026-08-05T12:00:00+03:00">
+    <meta itemprop="description" content="дерево рекурсии, основная теорема с доказательством, формула Бине.">
+    <meta itemprop="datePublished" content="2026-09-21T00:00:00+03:00">
+    <meta itemprop="dateModified" content="2026-09-21T12:00:00+03:00">
     <meta itemprop="wordCount" content="1376">
     <title>Занятие 6. Рекуррентные соотношения :: Краткий курс по основам программирования</title>
     <link href="/css/auto-complete/auto-complete.min.css" rel="stylesheet">
@@ -33,7 +29,7 @@
     <script src="/js/search.min.js" defer></script>
     <script>
       window.relearn = window.relearn || {};
-      window.relearn.index_js_url="/searchindex.ru.js";
+      window.relearn.index_js_url="../../"+"searchindex.ru.min.js";
     </script>
     <script src="/js/lunr/lunr.min.js" defer></script>
     <script src="/js/lunr/lunr.stemmer.support.min.js" defer></script>
@@ -50,7 +46,6 @@
     <script>
       window.relearn = window.relearn || {};
       // configuration
-      window.relearn.min = `.min`;
       window.relearn.path='\/winter2026\/06-rekurrenty\/index.html';
       window.relearn.relBasePath='..\/..';
       window.relearn.relBaseUri='..\/..';
@@ -146,7 +141,7 @@
 <span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/05-funkcii/index.html" title="Занятие 5. Управление программой: функции и потоки выполнения (🡐)"><i class="fa-fw fas fa-chevron-left"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-next default-animation" data-content-empty="disable" data-width-s="show" data-width-m="show" data-width-l="show">
-<span class="btn cstyle button link noborder notitle interactive"><a href="/winter2026/07-klassy-oop/index.html" title="Занятие 7. Классы и ООП: основа основ (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
+<span class="btn cstyle button link noborder notitle interactive"><a href="/basics/index.html" title="Список вопросов к экзамену по курсу основы программирования СПбГУ, весенний семестр, 2025/26 учебный год (🡒)"><i class="fa-fw fas fa-chevron-right"></i></a></span>
             </div>
             <div class="topbar-button topbar-button-more default-animation" data-content-empty="hide" data-width-s="show" data-width-m="show" data-width-l="show">
 <span class="btn cstyle button link noborder notitle interactive"><button onclick="toggleTopbarFlyout(this)" type="button" title="Еще"><i class="fa-fw fas fa-ellipsis-v"></i></button></span>
@@ -207,15 +202,15 @@
 $$T(n) = T(n-1) + n = T(n-2) + (n-1) + n = \dots = T(1) + 2 + \dots + n = \frac{n(n+1)}{2} = \Theta(n^2)$$<p>Раскрутка идеальна для «линейного спуска» ($n-1$, $n-2$), где дерево вырождается в цепочку. Если сумма не узнаётся сразу, раскрутка даёт гипотезу, которую можно закрепить индукцией.</p>
 <h2 id="метод-2-дерево-рекурсии">Метод 2: дерево рекурсии<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Считаем суммарную работу <strong>по уровням</strong>. Классика: $T(n) = 2T(n/2) + n$ — «подели пополам, склей за линию» (так устроена сортировка слиянием, скоро увидим её вживую):</p>
-<p><img alt="Дерево рекурсии для 2T(n/2)+n: каждый уровень даёт ровно n" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/tree-nlogn.svg" style="height: auto;width: auto;"></p>
+<p><img alt="Дерево рекурсии для 2T(n/2)+n: каждый уровень даёт ровно n" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/tree-nlogn.svg" style="height: auto;"></p>
 <p>На уровне $i$ живёт $2^i$ узлов с работой $n/2^i$ каждый — уровень в сумме даёт ровно $n$. Уровней $\Theta(\log n)$, итого $\Theta(n \log n)$.</p>
 <p>Дерево — универсальный метод: оно рисует картину даже там, где теоремы молчат. Обобщим его. Пусть</p>
 $$T(n) = a \cdot T(n/b) + \Theta(n^c).$$<p>Работа уровня $i$:</p>
 $$a^i \cdot \left(\frac{n}{b^i}\right)^{c} = n^c \cdot \left(\frac{a}{b^c}\right)^{i} = n^c \cdot q^i, \qquad q = \frac{a}{b^c}$$<p>— <strong>геометрическая прогрессия</strong> со знаменателем $q$. Число $q$ сравнивает рост количества задач (×$a$ за уровень) с падением работы на задачу (÷$b^c$). Листьев в дереве $a^{\log_b n} = n^{\log_b a}$ — это тождество стоит проверить логарифмированием и запомнить.</p>
 <p>Три режима прогрессии — три исхода:</p>
-<p><img alt="q &lt; 1: работа тает с глубиной, доминирует корень" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/mode-root.svg" style="height: auto;width: auto;"></p>
-<p><img alt="q = 1: все уровни дают поровну" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/mode-balanced.svg" style="height: auto;width: auto;"></p>
-<p><img alt="q &gt; 1: работа нарастает, доминируют листья" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/mode-leaves.svg" style="height: auto;width: auto;"></p>
+<p><img alt="q &lt; 1: работа тает с глубиной, доминирует корень" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/mode-root.svg" style="height: auto;"></p>
+<p><img alt="q = 1: все уровни дают поровну" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/mode-balanced.svg" style="height: auto;"></p>
+<p><img alt="q &gt; 1: работа нарастает, доминируют листья" class="lazy figure-image" loading="lazy" src="/winter2026/06-rekurrenty/mode-leaves.svg" style="height: auto;"></p>
 <h2 id="основная-теорема">Основная теорема<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 
 <details open class="box cstyle notices theorem">
@@ -400,7 +395,7 @@ $$F_n = \frac{\varphi^n - \psi^n}{\sqrt{5}}.$$<p>Так как $|\psi| < 1$, с�
 </ol>
 
   <footer class="footline">
-              <i class='fa-fw fas fa-calendar'></i> 5 авг. 2026 г.
+              <i class='fa-fw fas fa-calendar'></i> 21 сент. 2026 г.
   </footer>
 </article>
         </div>
@@ -450,26 +445,7 @@ $$F_n = \frac{\varphi^n - \psi^n}{\sqrt{5}}.$$<p>Так как $|\psi| < 1$, с�
             <li class="" data-nav-id="/winter2026/03-tipy-dannyh/index.html"><a class="padding" href="/winter2026/03-tipy-dannyh/index.html">Занятие 3. Типы данных: во что упаковываем данные?</a></li>
             <li class="" data-nav-id="/winter2026/04-arifmetika/index.html"><a class="padding" href="/winter2026/04-arifmetika/index.html">Занятие 4. Элементарная арифметика</a></li>
             <li class="" data-nav-id="/winter2026/05-funkcii/index.html"><a class="padding" href="/winter2026/05-funkcii/index.html">Занятие 5. Управление программой: функции и потоки выполнения</a></li>
-            <li class="active " data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li>
-            <li class="" data-nav-id="/winter2026/07-klassy-oop/index.html"><a class="padding" href="/winter2026/07-klassy-oop/index.html">Занятие 7. Классы и ООП: основа основ</a></li>
-            <li class="" data-nav-id="/winter2026/08-struktury-dannyh/index.html"><a class="padding" href="/winter2026/08-struktury-dannyh/index.html">Занятие 8. Базовые структуры данных</a></li>
-            <li class="" data-nav-id="/winter2026/09-stroki/index.html"><a class="padding" href="/winter2026/09-stroki/index.html">Занятие 9. Строки: от C-стиля до modern C&#43;&#43;</a></li>
-            <li class="" data-nav-id="/winter2026/10-amortizaciya/index.html"><a class="padding" href="/winter2026/10-amortizaciya/index.html">Занятие 10. Амортизационный анализ и динамические структуры</a></li>
-            <li class="" data-nav-id="/winter2026/11-klyuchevye-slova/index.html"><a class="padding" href="/winter2026/11-klyuchevye-slova/index.html">Занятие 11. Ключевые слова: волшебные слова C&#43;&#43;</a></li>
-            <li class="" data-nav-id="/winter2026/12-dvoichnyj-poisk/index.html"><a class="padding" href="/winter2026/12-dvoichnyj-poisk/index.html">Занятие 12. Двоичный поиск</a></li>
-            <li class="" data-nav-id="/winter2026/13-rk1/index.html"><a class="padding" href="/winter2026/13-rk1/index.html">Занятие 13. Рубежный контроль № 1</a></li>
-            <li class="" data-nav-id="/winter2026/14-umnye-ukazateli/index.html"><a class="padding" href="/winter2026/14-umnye-ukazateli/index.html">Занятие 14. Умные указатели, функции и лямбды</a></li>
-            <li class="" data-nav-id="/winter2026/15-prefiksy-rmq/index.html"><a class="padding" href="/winter2026/15-prefiksy-rmq/index.html">Занятие 15. Префиксные суммы и RMQ</a></li>
-            <li class="" data-nav-id="/winter2026/16-vector-chrono-thread/index.html"><a class="padding" href="/winter2026/16-vector-chrono-thread/index.html">Занятие 16. std::vector, std::chrono, std::thread</a></li>
-            <li class="" data-nav-id="/winter2026/17-stl/index.html"><a class="padding" href="/winter2026/17-stl/index.html">Занятие 17. Контейнеры и алгоритмы STL</a></li>
-            <li class="" data-nav-id="/winter2026/18-tyomnaya-storona/index.html"><a class="padding" href="/winter2026/18-tyomnaya-storona/index.html">Занятие 18. Тёмная сторона: reinterpret_cast, union, UB</a></li>
-            <li class="" data-nav-id="/winter2026/19-kvadratichnye-sortirovki/index.html"><a class="padding" href="/winter2026/19-kvadratichnye-sortirovki/index.html">Занятие 19. Квадратичные сортировки</a></li>
-            <li class="" data-nav-id="/winter2026/20-variant-any/index.html"><a class="padding" href="/winter2026/20-variant-any/index.html">Занятие 20. std::variant и std::any</a></li>
-            <li class="" data-nav-id="/winter2026/21-sortirovki-nlogn/index.html"><a class="padding" href="/winter2026/21-sortirovki-nlogn/index.html">Занятие 21. Сортировки за n log n</a></li>
-            <li class="" data-nav-id="/winter2026/22-move-semantika/index.html"><a class="padding" href="/winter2026/22-move-semantika/index.html">Занятие 22. Move-семантика</a></li>
-            <li class="" data-nav-id="/winter2026/23-bez-sravneniy/index.html"><a class="padding" href="/winter2026/23-bez-sravneniy/index.html">Занятие 23. k-я статистика и сортировки без сравнений</a></li>
-            <li class="" data-nav-id="/winter2026/24-shablony-isklyucheniya/index.html"><a class="padding" href="/winter2026/24-shablony-isklyucheniya/index.html">Занятие 24. Шаблоны и исключения</a></li>
-            <li class="" data-nav-id="/winter2026/25-dvoichnaya-kucha/index.html"><a class="padding" href="/winter2026/25-dvoichnaya-kucha/index.html">Занятие 25. Двоичная куча и heapsort</a></li></ul></li>
+            <li class="active " data-nav-id="/winter2026/06-rekurrenty/index.html"><a class="padding" href="/winter2026/06-rekurrenty/index.html">Занятие 6. Рекуррентные соотношения</a></li></ul></li>
             <li class="" data-nav-id="/basics/index.html"><a class="padding default-animation" href="/basics/index.html">Основы программирования. Весна 2026.</a><ul id="R-subsections-0b672522ed89c7ef2dda1a5f8d779fdb" class="collapsible-menu"></ul></li>
             <li class="" data-nav-id="/ta2026/index.html"><a class="padding" href="/ta2026/index.html">Теория алгоритмов. Осень 2026.</a></li>
           </ul>
