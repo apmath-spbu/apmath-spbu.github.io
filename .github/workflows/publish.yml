@@ -1,0 +1,114 @@
+# Автоматическая выкладка конспектов курса.
+#
+# Зачем: у каждого конспекта в исходнике проставлен publishDate (день занятия),
+# но Hugo решает, публиковать страницу или нет, в МОМЕНТ СБОРКИ. Пока сборку
+# запускали руками, конспекты занятий 7–8 неделю висели недоступными после своей
+# даты. Этот воркфлоу пересобирает сайт каждое утро, поэтому страница появляется
+# в день, указанный в её publishDate, без участия человека.
+#
+# Токены не нужны: оба репозитория публичные, пуш идёт в этот же репозиторий
+# штатным GITHUB_TOKEN.
+
+name: Публикация конспектов
+
+on:
+  schedule:
+    - cron: '0 4 * * *'        # каждый день в 04:00 UTC = 07:00 по Москве
+  workflow_dispatch:           # и кнопкой «Run workflow» вручную
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+env:
+  HUGO_VERSION: '0.167.0'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Выкладка (этот репозиторий)
+        uses: actions/checkout@v4
+        with:
+          path: site
+
+      - name: Исходник конспектов
+        uses: actions/checkout@v4
+        with:
+          repository: apmath-spbu/apmath-spbu.hugo
+          path: src
+
+      - name: Тема relearn
+        # Инициализируем только тему: submodule `public` указывает на этот же
+        # репозиторий выкладки, тянуть его внутрь исходника незачем.
+        run: git -C src submodule update --init --depth 1 themes/hugo-theme-relearn
+
+      - name: Hugo ${{ env.HUGO_VERSION }} extended
+        run: |
+          curl -sSLo hugo.tar.gz \
+            "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.tar.gz"
+          tar xzf hugo.tar.gz hugo
+          sudo install hugo /usr/local/bin/hugo
+          hugo version
+
+      - name: Сборка
+        # Без --buildFuture: конспекты с publishDate в будущем не попадут в выкладку.
+        run: hugo --source src --destination "$GITHUB_WORKSPACE/out" --cleanDestinationDir --quiet
+
+      - name: Есть ли содержательные изменения
+        id: diff
+        run: |
+          # Тема relearn генерирует случайные id для вкладок {{< tabs >}}, поэтому
+          # побайтово две сборки подряд НИКОГДА не совпадают. Сравниваем отпечаток
+          # с нормализацией этих id — иначе получили бы шумный коммит каждое утро.
+          sig() {
+            (cd "$1" && find . -type f \
+                 ! -path './.git/*' ! -path './.github/*' \
+                 ! -name '.gitignore' ! -name '.DS_Store' \
+               | LC_ALL=C sort | while IFS= read -r f; do
+                 printf '%s\0' "$f"
+                 case "$f" in
+                   *.html|*.xml) sed -E 's/R-tab(s|-id)-[0-9a-f]+/R-X/g' "$f" ;;
+                   *)            cat "$f" ;;
+                 esac
+               done) | sha256sum | cut -d' ' -f1
+          }
+          before=$(sig site)
+          after=$(sig out)
+          echo "было:  $before"
+          echo "стало: $after"
+          if [ "$before" = "$after" ]; then
+            echo "changed=no" >> "$GITHUB_OUTPUT"
+            echo "Содержимое не изменилось — публиковать нечего." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "changed=yes" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Обновить выкладку
+        if: steps.diff.outputs.changed == 'yes'
+        run: |
+          rsync -a --delete \
+            --exclude='.git' --exclude='.github' --exclude='.gitignore' --exclude='.DS_Store' \
+            out/ site/
+          cd site
+          git config user.name  'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m "publish: автоматическая выкладка $(date -u +%Y-%m-%d)"
+          git push
+
+      - name: Что сейчас открыто
+        if: steps.diff.outputs.changed == 'yes'
+        run: |
+          {
+            echo "### Опубликованные конспекты зимнего семестра"
+            echo
+            for d in out/winter2026/[0-9]*/; do
+              n=$(basename "$d")
+              title=$(grep -om1 '<title>[^<]*' "$d/index.html" | sed 's/<title>//;s/ ::.*//')
+              echo "- \`$n\` — ${title:-без заголовка}"
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
