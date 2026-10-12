@@ -197,29 +197,29 @@
 <h2 id="поиск-в-ширину">Поиск в ширину<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h2>
 <p>Поиск в ширину (breadth-first search, BFS) находит расстояния в невзвешенном графе от одной вершины $s$ до всех остальных вершин. Пусть $d_{v}$ - расстояние от $s$ до вершины $v$; $A_{k}$ - множество вершин, расстояние до которых равняется $k: A_{k}=\left\{v \in V: d_{v}=k\right\}$.</p>
 <p>Будем находить множества $A_{k}$ последовательно: $A_{0}=\{s\}$; пусть уже найдены $A_{0}, \ldots, A_{k-1}$, тогда $A_{k}$ - это множество вершин из $V \backslash A_{0} \backslash \cdots \backslash A_{k-1}$, в которые ведут рёбра из $A_{k-1}$. Быстро понимать, лежит ли уже вершина $v$ в одном из множеств, можно с помощью массива расстояний dist: $\operatorname{dist}[v]=k$, если $v \in A_{k} ; \operatorname{dist}[v]=\infty$, если множество, в котором лежит $v$, ещё не найдено (или если $v$ не достижима из $s$ ). Здесь $\infty$ - бесконечность; на практике в качестве $\infty$ можно использовать число, заведомо большее, чем длина любого кратчайшего пути; поскольку мы работаем с невзвешенными графами, подойдёт $\infty=|V|$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-0ebf53426623621e6847e4872a83d463">
+<div class="tab-panel" data-tab-group="R-tabs-c6151150e15d6b8eafdd0665bf7c2ba1">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-e85b6b8e2258d9a0bd4d11d13fcc130b" aria-expanded="true"
+      aria-controls="R-tab-id-7a1ecdd9c701b3e67c57d00882faec3c" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-0ebf53426623621e6847e4872a83d463','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-c6151150e15d6b8eafdd0665bf7c2ba1','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-6052060d9f10384b32c565fae1935ee8" aria-expanded="false"
+      aria-controls="R-tab-id-7436d829d3e33a19e6f3c4ccc1b2ceca" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-0ebf53426623621e6847e4872a83d463','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-c6151150e15d6b8eafdd0665bf7c2ba1','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-e85b6b8e2258d9a0bd4d11d13fcc130b"
+      id="R-tab-id-7a1ecdd9c701b3e67c57d00882faec3c"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -256,7 +256,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-6052060d9f10384b32c565fae1935ee8"
+      id="R-tab-id-7436d829d3e33a19e6f3c4ccc1b2ceca"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -299,29 +299,29 @@
   </div>
 </div>
 <p>Этот алгоритм уже работает за $O(V+E)$, так как он просматривает список смежности каждой вершины не более одного раза. Можно ещё упростить алгоритм: представим, что множества $A_{0}, A_{1}, \ldots$ хранятся подряд в одном массиве: $q=A_{0} A_{1} A_{2} \ldots$ Тогда вышеописанный алгоритм просматривает элементы этого массива по порядку (то есть по очереди достаёт вершины из начала массива), и иногда добавляет новые вершины в конец массива. Значит, $q$ - это просто очередь; можно не хранить множества $A_{k}$ явно, вместо этого поддерживая очередь $q$. Получившийся алгоритм и называют поиском в ширину.</p>
-<div class="tab-panel" data-tab-group="R-tabs-8986f97fe133fbf6ff81cc8dc91ccb13">
+<div class="tab-panel" data-tab-group="R-tabs-ac04ffaa277387240e983e138ce88da7">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-ffce8e898ec58a41fdc6a5fc6eba5148" aria-expanded="true"
+      aria-controls="R-tab-id-bd1d3bd6d9d6e0d42cb583a797ae6e80" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-8986f97fe133fbf6ff81cc8dc91ccb13','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-ac04ffaa277387240e983e138ce88da7','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-e2aaecdeb6a39704a62438b365de4b3b" aria-expanded="false"
+      aria-controls="R-tab-id-22132536b782a7d6e7aac52c5355b462" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-8986f97fe133fbf6ff81cc8dc91ccb13','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-ac04ffaa277387240e983e138ce88da7','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-ffce8e898ec58a41fdc6a5fc6eba5148"
+      id="R-tab-id-bd1d3bd6d9d6e0d42cb583a797ae6e80"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -356,7 +356,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-e2aaecdeb6a39704a62438b365de4b3b"
+      id="R-tab-id-22132536b782a7d6e7aac52c5355b462"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -399,29 +399,29 @@
 <h3 id="дерево-кратчайших-путей">Дерево кратчайших путей<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Пока мы научились только находить расстояния от $s$ до остальных вершин. Что делать, если нужно восстановить сами кратчайшие пути? Аналогично <a href="/basics/graphs/graph_depth_search/index.html">дереву поиска в глубину</a>, можно построить дерево поиска в ширину: в него войдут рёбра, при просмотре которых алгоритм добавлял новые вершины в очередь. В простом графе достаточно для каждой вершины $u$ запомнить её предка в дереве поиска в ширину; в графе с кратными рёбрами нужно запомнить, какое именно из кратных рёбер алгоритм просматривал при добавлении u в очередь.</p>
 <p>Путь в этом дереве из $s$ в любую вершину $u$ - кратчайший; поэтому дерево поиска в ширину называют также деревом кратчайших путей. Для того, чтобы восстановить кратчайший путь из $s$ в $u$, нужно подниматься по рёбрам дерева из $u$, пока не попадём в $s$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-e48f56b9052f25a0a4fdcb94276cba74">
+<div class="tab-panel" data-tab-group="R-tabs-93b14c9836fb15571a319119c753d8c5">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-65fdc2f236ab28576684679deb78269f" aria-expanded="true"
+      aria-controls="R-tab-id-543b2048bb01052321515931cc51b7d3" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-e48f56b9052f25a0a4fdcb94276cba74','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-93b14c9836fb15571a319119c753d8c5','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-b9aee4a9680e0def2b84cb8f0a29e828" aria-expanded="false"
+      aria-controls="R-tab-id-ffe4a0263dc82df88e854d604dbe74c3" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-e48f56b9052f25a0a4fdcb94276cba74','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-93b14c9836fb15571a319119c753d8c5','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-65fdc2f236ab28576684679deb78269f"
+      id="R-tab-id-543b2048bb01052321515931cc51b7d3"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -444,7 +444,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-b9aee4a9680e0def2b84cb8f0a29e828"
+      id="R-tab-id-ffe4a0263dc82df88e854d604dbe74c3"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -472,29 +472,29 @@
 </div>
 <p><img class="lazy figure-image" loading="lazy" src="/static/images/basics/graph/graph_and_shortest_path_tree.png" style="height: auto;"></p>
 <p>Граф и его дерево кратчайших путей</p>
-<div class="tab-panel" data-tab-group="R-tabs-223e2137b313950289e0c029ca297954">
+<div class="tab-panel" data-tab-group="R-tabs-1a78e84541ed94c190c498e2b2a30b84">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-a47198330aac37164fc6177be37ba309" aria-expanded="true"
+      aria-controls="R-tab-id-ad5c213c23a38613d06199f4ffa6419c" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-223e2137b313950289e0c029ca297954','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-1a78e84541ed94c190c498e2b2a30b84','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-a6582891b95a2905bae316f978bb48a7" aria-expanded="false"
+      aria-controls="R-tab-id-a95c0130360651f54480bf08e72cb41c" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-223e2137b313950289e0c029ca297954','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-1a78e84541ed94c190c498e2b2a30b84','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-a47198330aac37164fc6177be37ba309"
+      id="R-tab-id-ad5c213c23a38613d06199f4ffa6419c"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -521,7 +521,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-a6582891b95a2905bae316f978bb48a7"
+      id="R-tab-id-a95c0130360651f54480bf08e72cb41c"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -553,29 +553,29 @@
 </div>
 <h3 id="0-1-bfs">0-1-BFS<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Пусть теперь каждое ребро в графе имеет вес, равный 0 или 1 . Модифицируем алгоритм поиска в ширину следующим образом: вместо очереди будем использовать дек; при просмотре ребра $e$ из $v$ в $u$ будем класть $u$ в дек, если нашёлся более короткий путь до $u$, чем был известен ранее (если $\operatorname{dist}[u]>\operatorname{dist}[v]+w_{e}$ ). При этом положим $u$ в начало дека, если $w_{e}=0$, и в конец дека, если $w_{e}=1$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-6daf249f7bfc9fcba91a6a398b6ccdce">
+<div class="tab-panel" data-tab-group="R-tabs-3d2498a0d40b8656419adbcf7c2be612">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-7b37e2525502735987305584c45907be" aria-expanded="true"
+      aria-controls="R-tab-id-c764dac782878bfad1900de783d6226d" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-6daf249f7bfc9fcba91a6a398b6ccdce','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-3d2498a0d40b8656419adbcf7c2be612','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-eec9b762e7ef3c8a6e99ccb0522bc558" aria-expanded="false"
+      aria-controls="R-tab-id-89c9c98c407777d308a97a789c424c7c" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-6daf249f7bfc9fcba91a6a398b6ccdce','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-3d2498a0d40b8656419adbcf7c2be612','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-7b37e2525502735987305584c45907be"
+      id="R-tab-id-c764dac782878bfad1900de783d6226d"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -616,7 +616,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-eec9b762e7ef3c8a6e99ccb0522bc558"
+      id="R-tab-id-89c9c98c407777d308a97a789c424c7c"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -670,29 +670,29 @@
 <p>Пусть теперь рёбра в графе могут иметь любой целый вес от 1 до $k$. Как найти кратчайшие пути от $s$ до остальных вершин в таком графе?</p>
 <p>Первый способ - заменим каждое ребро длины $l>1$ на $l$ рёбер длины 1 , добавив при этом в граф $l-1$ новую вершину: ребро $e=(u, v), w_{e}=l>1$ заменим на $l$ рёбер $e_{1}=\left(u, a_{1}\right), e_{2}=\left(a_{1}, a_{2}\right), \ldots, e_{l}=\left(a_{l-1}, v\right)$, где $a_{1}, \ldots, a_{l-1}$ - новые вершины (свои для каждого такого ребра). Расстояния между вершинами исходного графа в новом графе не изменились. При этом все рёбра нового графа имеют длину 1 , поэтому расстояния в нём можно найти поиском в ширину. Поскольку в новом графе $O(V+(k-1) E)$ вершин и $O(k E)$ рёбер, получаем время работы $O(V+k E)$.</p>
 <p>Второй способ - будем поддерживать свою очередь $q_{i}$ для каждого расстояния $i$. Вначале $q_{0}=\{s\}$, остальные очереди пустые; $\operatorname{dist}[s]=0, \operatorname{dist}[v]=\infty$ для $v \neq s$. Будем рассматривать очереди $q_{i}$ в порядке возрастания $i$. Для каждой вершины $v$ из $q_{i}$ такой, что $\operatorname{dist}[v]=i$, и каждого ребра $e=(v, u)$ такого, что $\operatorname{dist}[u]>\operatorname{dist}[v]+w_{e}$, обновим $\operatorname{dist}[u]$ и положим $u$ в $q_{d i s t[v]+w_{e}}$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-f323febf8e59cdb1f2788da9a206e511">
+<div class="tab-panel" data-tab-group="R-tabs-157569aa8ef454f2e0ef9aff6d4dd124">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-bfc218727749a10620a8cdfe747ed541" aria-expanded="true"
+      aria-controls="R-tab-id-809ae98419a3f8b80f52d5722d033294" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-f323febf8e59cdb1f2788da9a206e511','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-157569aa8ef454f2e0ef9aff6d4dd124','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-f970d053126873865ed2f5163b704048" aria-expanded="false"
+      aria-controls="R-tab-id-503730aa290001ee80294635bf965548" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-f323febf8e59cdb1f2788da9a206e511','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-157569aa8ef454f2e0ef9aff6d4dd124','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-bfc218727749a10620a8cdfe747ed541"
+      id="R-tab-id-809ae98419a3f8b80f52d5722d033294"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -737,7 +737,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-f970d053126873865ed2f5163b704048"
+      id="R-tab-id-503730aa290001ee80294635bf965548"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -803,29 +803,29 @@ d_{v}=l(P) \geqslant l\left(P_{1}\right)+w_{e} \geqslant d_{x}+w_{e}=\operatorna
 $$<p>С другой стороны, $\operatorname{dist}[v] \geqslant d_{v}$, поскольку $\operatorname{dist}[v]$ равно $\infty$ или соответствует длине какого-то пути из $s$ в $v$.</p>
 <h3 id="реализация">Реализация<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Удобно воспользоваться очередью с приоритетами: будем хранить в очереди ещё не рассмотренные вершины с приоритетами, равными значениям dist. Тогда в ходе алгоритма нужно $O(V)$ раз извлечь из очереди вершину с минимальным приоритетом, и $O(E)$ раз уменьшить приоритет вершины в очереди.</p>
-<div class="tab-panel" data-tab-group="R-tabs-45006b80cecc73cc5662aaaffac5bbea">
+<div class="tab-panel" data-tab-group="R-tabs-d501aec054e8b4f2941245267c2408a3">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-5ee48d3b8aeb2ffefe4fa09c17d7ddcf" aria-expanded="true"
+      aria-controls="R-tab-id-a7c9394c38eb994fab07f03be32160f2" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-45006b80cecc73cc5662aaaffac5bbea','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-d501aec054e8b4f2941245267c2408a3','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-3c77b9c17be2e616e3607a6f58be03a4" aria-expanded="false"
+      aria-controls="R-tab-id-232846a1320d193dfb73af4e349a9617" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-45006b80cecc73cc5662aaaffac5bbea','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-d501aec054e8b4f2941245267c2408a3','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-5ee48d3b8aeb2ffefe4fa09c17d7ddcf"
+      id="R-tab-id-a7c9394c38eb994fab07f03be32160f2"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -870,7 +870,7 @@ $$<p>С другой стороны, $\operatorname{dist}[v] \geqslant d_{v}$, �
       </div>
     </div>
     <div
-      id="R-tab-id-3c77b9c17be2e616e3607a6f58be03a4"
+      id="R-tab-id-232846a1320d193dfb73af4e349a9617"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -931,29 +931,29 @@ $$<p>С другой стороны, $\operatorname{dist}[v] \geqslant d_{v}$, �
 <p>Алгоритм $A^{*}$ (произносится как &ldquo;A-star&rdquo;; Hart, Nilsson, Raphael, 1968) находит расстояния от вершины $s$ до вершины $t$ в графе с неотрицательными весами рёбер. В каком-то смысле он является модификацией алгоритма Дейкстры, более эффективной в случае, когда нужно найти расстояние от $s$ лишь до одной вершины $t$, а не до всех остальных вершин.</p>
 <p>Алгоритм использует вспомогательные значения $f[v]$ для каждой вершины графа $v$. $f$ - какая-то дополнительная информация о графе. Обычно (хотя не всегда) под $f[v]$ имеется в виду какая-то оценка снизу на расстояние от $v$ до $t$ в графе. Например, пусть вершины графа - это точки на плоскости, а вес ребра - расстояние на плоскости между концами этого ребра. Тогда в качестве $f[v]$ логично взять расстояние на плоскости между $v$ и $t$ : для любого пути в графе из $v$ в $t$ длина этого пути будет не меньше $f[v]$.</p>
 <p>Единственное отличие алгоритма $A^{*}$ от алгоритма Дейкстры: в качестве приоритета вершины $v$ используется не $\operatorname{dist}[v]$, а $\operatorname{dist}[v]+f[v]$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-61fd4f3d0f46ffc631642d19fe6fdf92">
+<div class="tab-panel" data-tab-group="R-tabs-461f8a308d6a3a4d3cd23e1e47419a34">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-c9c78910eb47ca4b2efb90811dd3c037" aria-expanded="true"
+      aria-controls="R-tab-id-fcf76843240e0c2f0d0ea0aec4939a0e" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-61fd4f3d0f46ffc631642d19fe6fdf92','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-461f8a308d6a3a4d3cd23e1e47419a34','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-47cf6bed8389191d43191602f4330bc2" aria-expanded="false"
+      aria-controls="R-tab-id-a48b9d38931e4d62974a23fa7ceedab0" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-61fd4f3d0f46ffc631642d19fe6fdf92','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-461f8a308d6a3a4d3cd23e1e47419a34','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-c9c78910eb47ca4b2efb90811dd3c037"
+      id="R-tab-id-fcf76843240e0c2f0d0ea0aec4939a0e"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1002,7 +1002,7 @@ $$<p>С другой стороны, $\operatorname{dist}[v] \geqslant d_{v}$, �
       </div>
     </div>
     <div
-      id="R-tab-id-47cf6bed8389191d43191602f4330bc2"
+      id="R-tab-id-a48b9d38931e4d62974a23fa7ceedab0"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1124,29 +1124,29 @@ $$<p>поскольку $f[t]=0$.</p>
 <p>Если из $s$ достижим отрицательный цикл, то кратчайшего пути до любой вершины на этом цикле (и до любой вершины, достижимой из вершин цикла) не существует: к любому пути можно добавлять проходы по циклу, при этом с каждым таким проходом длина пути будет уменьшаться.</p>
 <p>✍️ Заметим, что в неориентированном графе любое ребро отрицательного веса соответствует отрицательному циклу, который получается при проходе по этому ребру вперёд и назад. Поэтому в неориентированных графах понятие кратчайшего пути имеет смысл, только если веса всех рёбер неотрицательны.</p>
 <p>Пусть в графе нет (достижимых из $s$ ) отрицательных циклов. Тогда для любой достижимой из $s$ вершины $v$ найдётся простой (без повторяющихся вершин) кратчайший путь из $s$ в $v$. Если бы это было не так, то путь содержал бы цикл. Тогда, удалив цикл из пути, мы не увеличим длину пути. Значит, достаточно искать простые кратчайшие пути из $s$ в другие вершины. С этой задачей справляется следующий алгоритм:</p>
-<div class="tab-panel" data-tab-group="R-tabs-979e8e08c1212516e8e341f14893ca2c">
+<div class="tab-panel" data-tab-group="R-tabs-c3cd3ee2dc337c2d44d171c0dfa5175e">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-1776e4cebcd29feb5dd241b7cd7e5def" aria-expanded="true"
+      aria-controls="R-tab-id-04fefb9c526e4ba04a86de8b7d042e24" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-979e8e08c1212516e8e341f14893ca2c','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-c3cd3ee2dc337c2d44d171c0dfa5175e','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-b6f2079a489f91885ee0ce7da53c3ab1" aria-expanded="false"
+      aria-controls="R-tab-id-4a9a4a9221deafdc588d7c02afbbc3d6" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-979e8e08c1212516e8e341f14893ca2c','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-c3cd3ee2dc337c2d44d171c0dfa5175e','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-1776e4cebcd29feb5dd241b7cd7e5def"
+      id="R-tab-id-04fefb9c526e4ba04a86de8b7d042e24"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1171,7 +1171,7 @@ $$<p>поскольку $f[t]=0$.</p>
       </div>
     </div>
     <div
-      id="R-tab-id-b6f2079a489f91885ee0ce7da53c3ab1"
+      id="R-tab-id-4a9a4a9221deafdc588d7c02afbbc3d6"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1255,29 +1255,29 @@ $$<p>откуда $l(C)=w_{e\left[v_{1}\right]}+\cdots+w_{e\left[v_{k}\right]} \
 <h3 id="алгоритм-форда-беллмана-с-очередью">Алгоритм Форда-Беллмана с очередью<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Вернёмся к графам без отрицательных циклов. Алгоритм Форда-Беллмана можно соптимизировать, избавившись от повторного выполнения одних и тех же действий. При этом получается алгоритм, который называют алгоритмом Форда-Беллмана с очередью; также он известен как SPFA (Shortest path faster algorithm; Moore, 1959). Он имеет ту же теоретическую оценку времени, что и алгоритм Форда-Беллмана, но на практике часто работает намного быстрее.</p>
 <p>Первая идея - на $k$-м шаге алгоритма нет смысла проводить релаксацию исходящих из $v$ рёбер, если $\operatorname{dist}[v]$ не поменялось с $(k-1)$-го шага. Обозначим за $B_{k}$ множество таких вершин $v$, что dist $[v]$ уменьшилось в течение ( $k-1$ )-го шага; $B_{0}=\{s\}$. На $k$-м шаге алгоритма достаточно произвести релаксацию рёбер, исходящих из вершин множества $B_{k}$.
-<div class="tab-panel" data-tab-group="R-tabs-a4526821bbaaf8342769686e9aa50feb">
+<div class="tab-panel" data-tab-group="R-tabs-2af951a13cb29ad1758a338c8a8926a1">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-e01ee550aedca0f25ba3c99af64bbbfc" aria-expanded="true"
+      aria-controls="R-tab-id-f4487aea01ef41383558047e552c6f01" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-a4526821bbaaf8342769686e9aa50feb','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-2af951a13cb29ad1758a338c8a8926a1','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-79b8e7bd37c9304ce784d087c2a6eb82" aria-expanded="false"
+      aria-controls="R-tab-id-018fa9face6869cbee24b73dde228628" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-a4526821bbaaf8342769686e9aa50feb','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-2af951a13cb29ad1758a338c8a8926a1','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-e01ee550aedca0f25ba3c99af64bbbfc"
+      id="R-tab-id-f4487aea01ef41383558047e552c6f01"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1310,7 +1310,7 @@ $$<p>откуда $l(C)=w_{e\left[v_{1}\right]}+\cdots+w_{e\left[v_{k}\right]} \
       </div>
     </div>
     <div
-      id="R-tab-id-79b8e7bd37c9304ce784d087c2a6eb82"
+      id="R-tab-id-018fa9face6869cbee24b73dde228628"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1353,29 +1353,29 @@ $$<p>откуда $l(C)=w_{e\left[v_{1}\right]}+\cdots+w_{e\left[v_{k}\right]} \
   </div>
 </div></p>
 <p>Получившийся алгоритм очень похож на версию алгоритма поиска в ширину, в которой множества $A_{k}=\left\{v \in V: d_{v}=k\right\}$ строились явно. Как и в том случае, множества $B_{k}$ можно моделировать с помощью очереди: будем складывать вершину $v$ в очередь, если $d i s t[v]$ уменьшилось, и $v$ в данный момент ещё не лежит в очереди. Такой алгоритм с очередью эквивалентен предыдущему алгоритму, но с ещё одной оптимизацией: теперь мы не будем класть вершину $v$ в $B_{k+1}$, если с момента её обработки в $B_{k}$ до конца обработки вершин из $B_{k} \operatorname{dist}[v]$ не менялось. Эту оптимизацию можно сделать, так как релаксация рёбер, исходящих из такой вершины $v$, на ( $k+1$ )-м шаге бессмысленна, поскольку значение dist $[v]$ не поменялось с предыдущей релаксации тех же рёбер.</p>
-<div class="tab-panel" data-tab-group="R-tabs-ae2f35b789b103874ad3f6ac688f8db5">
+<div class="tab-panel" data-tab-group="R-tabs-7c2d24aa56109192046649ed5cd07387">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-7eb518ca89d39522d87dd0f5bebc6f27" aria-expanded="true"
+      aria-controls="R-tab-id-d041835674b47ba3d00ed0f76b4bbcb4" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-ae2f35b789b103874ad3f6ac688f8db5','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-7c2d24aa56109192046649ed5cd07387','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-99b1087481ec89e4259d8e67651dac1f" aria-expanded="false"
+      aria-controls="R-tab-id-efadf626a3a90cb2d66234695fa5b3fd" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-ae2f35b789b103874ad3f6ac688f8db5','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-7c2d24aa56109192046649ed5cd07387','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-7eb518ca89d39522d87dd0f5bebc6f27"
+      id="R-tab-id-d041835674b47ba3d00ed0f76b4bbcb4"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1420,7 +1420,7 @@ $$<p>откуда $l(C)=w_{e\left[v_{1}\right]}+\cdots+w_{e\left[v_{k}\right]} \
       </div>
     </div>
     <div
-      id="R-tab-id-99b1087481ec89e4259d8e67651dac1f"
+      id="R-tab-id-efadf626a3a90cb2d66234695fa5b3fd"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1481,29 +1481,29 @@ $$<p>откуда $l(C)=w_{e\left[v_{1}\right]}+\cdots+w_{e\left[v_{k}\right]} \
 $$
 \operatorname{dist}[k+1, i, j]=\min (\operatorname{dist}[k, i, j], \operatorname{dist}[k, i, k]+\operatorname{dist}[k, k, j]) .
 $$<p>Получаем алгоритм со временем работы $O\left(V^{3}\right)$, использующий $O\left(V^{3}\right)$ дополнительной памяти. На самом деле можно ограничиться $O\left(V^{2}\right)$ памяти: для любого $k$ будем использовать одно и то же $\operatorname{dist}[i, j]$ вместо $\operatorname{dist}[k, i, j]$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-243d626c37ada96d8696143dfb2c444c">
+<div class="tab-panel" data-tab-group="R-tabs-786b60a6789d7ae5d8c6303cfe1b58ff">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-f8af0945af9b6b7200ec3d0919cdd93a" aria-expanded="true"
+      aria-controls="R-tab-id-a12b3f56e1dfa17179bce97096939a79" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-243d626c37ada96d8696143dfb2c444c','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-786b60a6789d7ae5d8c6303cfe1b58ff','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-81c52f18022d3e07f6714b6245603b01" aria-expanded="false"
+      aria-controls="R-tab-id-fe7fb30f49d7e6791bb0bd299c111b4c" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-243d626c37ada96d8696143dfb2c444c','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-786b60a6789d7ae5d8c6303cfe1b58ff','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-f8af0945af9b6b7200ec3d0919cdd93a"
+      id="R-tab-id-a12b3f56e1dfa17179bce97096939a79"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -1526,7 +1526,7 @@ $$<p>Получаем алгоритм со временем работы $O\lef
       </div>
     </div>
     <div
-      id="R-tab-id-81c52f18022d3e07f6714b6245603b01"
+      id="R-tab-id-fe7fb30f49d7e6791bb0bd299c111b4c"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">

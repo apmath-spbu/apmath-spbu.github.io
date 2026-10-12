@@ -173,29 +173,29 @@
 <p>Пусть даны две последовательности чисел $a_{1}, \ldots, a_{n}$ и $b_{1}, \ldots, b_{m}$. Требуется найти последовательность $c$ как можно большей длины, которая была бы подпоследовательностью и $a$, и $b$. Например, для последовательностей $2,1,2,3,1,2$ и $2,3,2,2,1$ возможные ответы — $2,2,2$; $2,3,2$; $2,3,1$ и $2,2,1$.</p>
 <p>Пусть $l[i, j]$ — длина НОП последовательностей $a_{1}, \ldots, a_{i}$ и $b_{1}, \ldots, b_{j}$. Начальные значения: $l[i, 0] = l[0, j] = 0$. Нас интересует $l[n, m]$.</p>
 <p>Как вычислить $l[i, j]$? Посмотрим на $a_{i}$ и $b_{j}$: либо один из них не входит в ответ (то есть $l[i, j]=l[i-1, j]$ или $l[i, j]=l[i, j-1]$), либо они оба совпадают с последним элементом ответа, тогда $l[i, j]=l[i-1, j-1]+1$. Последний случай возможен лишь при $a_{i}=b_{j}$. Поскольку нас интересует наибольшая общая подпоследовательность, нужно взять максимум по всем возможным переходам. Если перебирать состояния в порядке увеличения $i$, а потом $j$, то к моменту рассмотрения состояния $(i, j)$ состояния $(i-1, j)$, $(i, j-1)$ и $(i-1, j-1)$ уже будут рассмотрены. Получаем решение за $O(nm)$.</p>
-<div class="tab-panel" data-tab-group="R-tabs-574f40991c78bfe0a879253e1beba88a">
+<div class="tab-panel" data-tab-group="R-tabs-7fdf1a4a1c33a3ac69fd86c834788257">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-beefa96d0e4d02e1d104e34fbbb3acea" aria-expanded="true"
+      aria-controls="R-tab-id-20cbb58bf4a8dbb136bb90293246bd47" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-574f40991c78bfe0a879253e1beba88a','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-7fdf1a4a1c33a3ac69fd86c834788257','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-2cde027c793a947e9686c5f2d5603b0b" aria-expanded="false"
+      aria-controls="R-tab-id-f28cba3621cdab06f354db784914abf9" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-574f40991c78bfe0a879253e1beba88a','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-7fdf1a4a1c33a3ac69fd86c834788257','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-beefa96d0e4d02e1d104e34fbbb3acea"
+      id="R-tab-id-20cbb58bf4a8dbb136bb90293246bd47"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -228,7 +228,7 @@
       </div>
     </div>
     <div
-      id="R-tab-id-2cde027c793a947e9686c5f2d5603b0b"
+      id="R-tab-id-f28cba3621cdab06f354db784914abf9"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -290,29 +290,29 @@ $$
 \end{array}
 $$<h3 id="восстановление-ответа">Восстановление ответа<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Пусть требуется узнать не только длину НОП, но и найти саму подпоследовательность. Откатываемся из конечного состояния $(n, m)$, переходя по оптимальным переходам и добавляя символ в ответ, когда переход идёт «по диагонали».</p>
-<div class="tab-panel" data-tab-group="R-tabs-ecd96ea2edc688df49adc40fbd10e25f">
+<div class="tab-panel" data-tab-group="R-tabs-b7a158c278353ed83568f2f4dc9fd8f9">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-6b80fcfb505ff895bcbe9f909504f789" aria-expanded="true"
+      aria-controls="R-tab-id-aa704f8a3b69fbd3b0220b45a2ad97f4" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-ecd96ea2edc688df49adc40fbd10e25f','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-b7a158c278353ed83568f2f4dc9fd8f9','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-f4998aef25c56344bd46c009e30d336b" aria-expanded="false"
+      aria-controls="R-tab-id-be3304e7b7a830bbbe92048faf7c0b88" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-ecd96ea2edc688df49adc40fbd10e25f','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-b7a158c278353ed83568f2f4dc9fd8f9','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-6b80fcfb505ff895bcbe9f909504f789"
+      id="R-tab-id-aa704f8a3b69fbd3b0220b45a2ad97f4"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -351,7 +351,7 @@ $$<h3 id="восстановление-ответа">Восстановлени�
       </div>
     </div>
     <div
-      id="R-tab-id-f4998aef25c56344bd46c009e30d336b"
+      id="R-tab-id-be3304e7b7a830bbbe92048faf7c0b88"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -401,29 +401,29 @@ $$<h3 id="восстановление-ответа">Восстановлени�
 </div>
 <h3 id="оптимизация-памяти">Оптимизация памяти<span class="btn cstyle anchor copyanchor scrollanchor link noborder notitle interactive"><button type="button" title="Копировать ссылку в буфер обмена"><i class="fa-fw fas fa-link fa-lg"></i></button></span></h3>
 <p>Пусть нас интересует только длина НОП, тогда можно обойтись $O(\min(m, n))$ дополнительной памяти. При вычислении $i$-й строки таблицы мы используем только $i$-ю и $(i-1)$-ю строки, поэтому все предыдущие строки можно не хранить.</p>
-<div class="tab-panel" data-tab-group="R-tabs-a1c6929176186b90b0d63498bea45edf">
+<div class="tab-panel" data-tab-group="R-tabs-73891a1804201d5859fd03c30725dcfd">
   <div class="tab-nav">
     <div class="tab-nav-title">&#8203;</div>
     <button
-      aria-controls="R-tab-id-8a2ebca2c527c25e79607d3922559e26" aria-expanded="true"
+      aria-controls="R-tab-id-ba092e367b65f4ab3bbb30eae373b739" aria-expanded="true"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-nav-button tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;" tabindex="-1"
-      onclick="switchTab('R-tabs-a1c6929176186b90b0d63498bea45edf','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
+      onclick="switchTab('R-tabs-73891a1804201d5859fd03c30725dcfd','R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd')"
     >
       <span class="tab-nav-text">python</span>
     </button>
     <button
-      aria-controls="R-tab-id-4a4a7a05e15ce7307302f59f6788450e" aria-expanded="false"
+      aria-controls="R-tab-id-4a9de94315c26ba7974cc95fb8711600" aria-expanded="false"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-nav-button tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;"
-      onclick="switchTab('R-tabs-a1c6929176186b90b0d63498bea45edf','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
+      onclick="switchTab('R-tabs-73891a1804201d5859fd03c30725dcfd','R-tab-6ce809eacf90ba125b40fa4bd903962e')"
     >
       <span class="tab-nav-text">c++</span>
     </button>
   </div>
   <div class="tab-content-container">
     <div
-      id="R-tab-id-8a2ebca2c527c25e79607d3922559e26"
+      id="R-tab-id-ba092e367b65f4ab3bbb30eae373b739"
       data-tab-item="R-tab-23eeeb4347bdd26bfc6b7ee9a3b755dd"
       class="tab-content tab-panel-style cstyle filled active" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
@@ -464,7 +464,7 @@ $$<h3 id="восстановление-ответа">Восстановлени�
       </div>
     </div>
     <div
-      id="R-tab-id-4a4a7a05e15ce7307302f59f6788450e"
+      id="R-tab-id-4a9de94315c26ba7974cc95fb8711600"
       data-tab-item="R-tab-6ce809eacf90ba125b40fa4bd903962e"
       class="tab-content tab-panel-style cstyle filled" style="--VARIABLE-BOX-color: blue;">
       <div class="tab-content-text">
